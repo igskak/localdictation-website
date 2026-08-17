@@ -619,7 +619,7 @@ h1 span { color: #95958e; }
 }
 
 .site-root:has(.theme-checkbox:focus-visible) .theme-switch {
-  outline: 3px solid color-mix(in srgb, var(--accent) 52%, transparent);
+  outline: 3px solid var(--accent);
   outline-offset: 3px;
 }
 
@@ -1036,7 +1036,7 @@ h1 span { color: #95958e; }
 
 .comparison-section { padding-block: 68px; background: var(--surface); }
 .comparison-wrap { margin-top: 42px; overflow-x: auto; border: 1px solid var(--line); border-radius: 18px; background: var(--canvas); }
-.comparison-wrap:focus-visible { outline: 3px solid color-mix(in srgb, var(--accent) 45%, transparent); outline-offset: 3px; }
+.comparison-wrap:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
 .comparison-wrap table { width: 100%; min-width: 1000px; border-collapse: collapse; font-size: 11px; }
 .comparison-wrap th, .comparison-wrap td { min-width: 145px; padding: 13px 15px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); text-align: left; }
 .comparison-wrap th:first-child, .comparison-wrap td:first-child { min-width: 180px; }

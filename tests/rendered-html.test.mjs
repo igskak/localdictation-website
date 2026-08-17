@@ -241,6 +241,16 @@ test("keeps download routing index-safe and fails to an honest localized page", 
   assert.equal(response.headers.get("referrer-policy"), "no-referrer");
   assert.equal(response.headers.get("x-content-type-options"), "nosniff");
   assert.equal(response.headers.get("x-robots-tag"), "noindex, nofollow, noarchive");
+
+  const original = process.env.DOWNLOAD_URL;
+  process.env.DOWNLOAD_URL = "https://downloads.example/LocalDictation.dmg";
+  try {
+    const startedPageHtml = await (await render("/danke?download=auto")).text();
+    assert.match(startedPageHtml, /<iframe[^>]+aria-hidden="true"[^>]+tabindex="-1"/i);
+  } finally {
+    if (original === undefined) delete process.env.DOWNLOAD_URL;
+    else process.env.DOWNLOAD_URL = original;
+  }
 });
 
 test("redirects to a validated HTTPS download when the runtime target is configured", async () => {
