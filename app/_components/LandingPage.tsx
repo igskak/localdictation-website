@@ -398,7 +398,7 @@ export function LandingPage({ locale }: { locale: Locale }) {
                     ["Account required", "no", "yes", "yes", "no", "no"],
                     ["Price", "€99 once / €49 year", "$15 month", "subscription", "$84.99 year + lifetime", "$29–69 once"],
                     ["Signed + support", "yes", "yes", "yes", "yes", "build it yourself"],
-                  ]).map((row) => <tr key={row[0]}>{row.map((cell, index) => index === 0 ? <th key={cell}>{cell}</th> : <td className={index === 1 ? "featured-col" : ""} key={`${row[0]}-${cell}`}>{index === 1 && <b>✓</b>}{cell}</td>)}</tr>)}
+                  ]).map((row) => <tr key={row[0]}>{row.map((cell, index) => index === 0 ? <th key={cell}>{cell}</th> : <td className={index === 1 ? "featured-col" : ""} key={`${row[0]}-${index}`}>{index === 1 && <b>✓</b>}{cell}</td>)}</tr>)}
                 </tbody>
               </table>
             </div>
