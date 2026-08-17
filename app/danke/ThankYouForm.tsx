@@ -1,37 +1,79 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useState, useSyncExternalStore } from "react";
 
-export function ThankYouForm({ locale }: { locale: "de" | "en" }) {
+const subscribeToHydration = () => () => {};
+
+export function ThankYouForm({ locale, leadEndpoint }: { locale: "de" | "en"; leadEndpoint: string | null }) {
   const isDe = locale === "de";
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
-  const [submitted, setSubmitted] = useState(false);
+  const [formError, setFormError] = useState("");
+  const [status, setStatus] = useState<"idle" | "sending" | "success" | "preview">("idle");
+  const hydrated = useSyncExternalStore(subscribeToHydration, () => true, () => false);
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!/^\S+@\S+\.\S+$/.test(email.trim())) {
       setError(isDe ? "Bitte gib eine gültige E-Mail-Adresse ein." : "Enter a valid email address.");
       return;
     }
+
+    const formData = new FormData(event.currentTarget);
+    const role = String(formData.get("role") ?? "");
+    const languages = String(formData.get("languages") ?? "");
+    const usecase = String(formData.get("usecase") ?? "");
+    const honeypot = String(formData.get("company_site") ?? "");
+
+    if (!role || !languages) {
+      setFormError(isDe ? "Bitte beantworte die beiden Pflichtfragen." : "Please answer both required questions.");
+      return;
+    }
+
     setError("");
-    setSubmitted(true);
+    setFormError("");
+
+    if (honeypot) {
+      setStatus("success");
+      return;
+    }
+
+    if (!leadEndpoint) {
+      setStatus("preview");
+      return;
+    }
+
+    setStatus("sending");
+    try {
+      const response = await fetch(leadEndpoint, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        credentials: "omit",
+        referrerPolicy: "no-referrer",
+        body: JSON.stringify({ email: email.trim(), role, languages, ...(usecase ? { usecase } : {}) }),
+      });
+      if (!response.ok) throw new Error(`Lead endpoint returned ${response.status}`);
+      setStatus("success");
+    } catch {
+      setStatus("idle");
+      setFormError(isDe ? "Das hat noch nicht geklappt. Bitte versuche es erneut oder überspringe die Form." : "That did not work yet. Try again or skip the form for now.");
+    }
   }
 
-  if (submitted) {
+  if (status === "success" || status === "preview") {
     return (
       <div className="form-success" role="status" aria-live="polite">
         <span aria-hidden="true">✓</span>
         <div>
-          <h2>{isDe ? "Die Oberfläche ist bereit" : "The flow is ready"}</h2>
-          <p>{isDe ? "In dieser privaten Vorschau wird noch keine E-Mail versendet. Sobald Lizenz-Backend und Absender verbunden sind, steht hier „Schlüssel ist unterwegs“." : "This private preview does not send email yet. Once the licence backend and sender are connected, this state will confirm that your key is on its way."}</p>
+          <h2>{status === "success" ? (isDe ? "Schlüssel ist unterwegs" : "Your key is on its way") : (isDe ? "Die Oberfläche ist bereit" : "The flow is ready")}</h2>
+          <p>{status === "success" ? (isDe ? "Prüfe deinen Posteingang. Wenn nach einigen Minuten nichts angekommen ist, antworte einfach über den Kontaktlink unten." : "Check your inbox. If nothing arrives after a few minutes, use the contact link below.") : (isDe ? "In dieser privaten Vorschau wird noch keine E-Mail versendet. Sobald Lizenz-Backend und Absender verbunden sind, bestätigt dieser Schritt den Versand." : "This private preview does not send email yet. Once the licence backend and sender are connected, this step confirms delivery.")}</p>
         </div>
       </div>
     );
   }
 
   return (
-    <form className="lead-form" onSubmit={handleSubmit} noValidate>
+    <form className="lead-form" action={isDe ? "/danke" : "/danke?lang=en"} method="post" onSubmit={handleSubmit} noValidate aria-busy={status === "sending"}>
       <div className="form-field full-field">
         <label htmlFor="email">{isDe ? "E-Mail für deinen Lizenzschlüssel" : "Email for your licence key"}</label>
         <input id="email" name="email" type="email" autoComplete="email" value={email} onChange={(event) => setEmail(event.target.value)} aria-invalid={Boolean(error)} aria-describedby={error ? "email-error" : "email-help"} placeholder="du@unternehmen.de" />
@@ -46,7 +88,7 @@ export function ThankYouForm({ locale }: { locale: "de" | "en" }) {
 
       <div className="form-field">
         <label htmlFor="role">{isDe ? "Womit arbeitest du?" : "What kind of work do you do?"}</label>
-        <select id="role" name="role" required defaultValue="">
+        <select id="role" name="role" required defaultValue="" aria-invalid={Boolean(formError)} aria-describedby={formError ? "form-error" : undefined}>
           <option value="" disabled>{isDe ? "Bitte auswählen" : "Choose one"}</option>
           {(isDe ? ["Entwicklung", "Recht", "Medizin / Praxis", "Beratung", "Marketing / Vertrieb", "Verwaltung", "Sonstiges"] : ["Software development", "Legal", "Medicine / Practice", "Consulting", "Marketing / Sales", "Administration", "Other"]).map((value) => <option key={value}>{value}</option>)}
         </select>
@@ -54,7 +96,7 @@ export function ThankYouForm({ locale }: { locale: "de" | "en" }) {
 
       <div className="form-field">
         <label htmlFor="languages">{isDe ? "Welche Sprachen mischst du?" : "Which languages do you mix?"}</label>
-        <select id="languages" name="languages" required defaultValue="">
+        <select id="languages" name="languages" required defaultValue="" aria-invalid={Boolean(formError)} aria-describedby={formError ? "form-error" : undefined}>
           <option value="" disabled>{isDe ? "Bitte auswählen" : "Choose one"}</option>
           {["DE + EN", "RU + UK", "RU + EN", "UK + EN", isDe ? "nur eine Sprache" : "one language only"].map((value) => <option key={value}>{value}</option>)}
         </select>
@@ -69,9 +111,11 @@ export function ThankYouForm({ locale }: { locale: "de" | "en" }) {
       </div>
 
       <div className="form-actions full-field">
-        <button className="button button-primary" type="submit">{isDe ? "Schlüssel anfordern" : "Request licence key"}</button>
+        <button className="button button-primary" type="submit" disabled={!hydrated || status === "sending"}>{status === "sending" ? (isDe ? "Wird gesendet …" : "Sending …") : (isDe ? "Schlüssel anfordern" : "Request licence key")}</button>
         <a href="#installation">{isDe ? "Überspringen" : "Skip for now"}</a>
       </div>
+      <noscript><p className="form-privacy full-field">{isDe ? "Die freiwillige Formularvorschau benötigt JavaScript. Der Download und die Installationsanleitung funktionieren ohne Formular weiter." : "The optional form preview needs JavaScript. The download and installation guide continue to work without the form."}</p></noscript>
+      {formError && <p className="field-error full-field" id="form-error" role="alert">{formError}</p>}
       <p className="form-privacy full-field">{isDe ? "Mit dem Absenden stimmst du der Verarbeitung dieser Angaben für Aktivierung und Onboarding zu." : "By submitting, you agree that these details may be used for activation and onboarding."} <a href="/datenschutz">{isDe ? "Datenschutz" : "Privacy"}</a></p>
     </form>
   );

@@ -1,33 +1,46 @@
 import type { Metadata } from "next";
 import { ThankYouForm } from "./ThankYouForm";
+import { getDownloadTarget } from "../_lib/download";
 
-export const metadata: Metadata = {
-  title: "Download · LocalDictation",
-  description: "LocalDictation installieren und den Lizenzschlüssel anfordern.",
-  robots: { index: false, follow: false },
-};
+export async function generateMetadata({ searchParams }: { searchParams: Promise<{ lang?: string }> }): Promise<Metadata> {
+  const params = await searchParams;
+  const english = params.lang === "en";
+  return {
+    title: english ? "Download · LocalDictation" : "Download · LocalDictation",
+    description: english ? "Install LocalDictation and request your licence key." : "LocalDictation installieren und den Lizenzschlüssel anfordern.",
+    robots: { index: false, follow: false },
+  };
+}
 
-export default async function DankePage({ searchParams }: { searchParams: Promise<{ lang?: string; preview?: string }> }) {
+export default async function DankePage({ searchParams }: { searchParams: Promise<{ lang?: string; download?: string }> }) {
   const params = await searchParams;
   const locale = params.lang === "en" ? "en" : "de";
   const isDe = locale === "de";
+  const downloadAvailable = Boolean(getDownloadTarget());
+  const leadEndpointValue = process.env.LEAD_ENDPOINT?.trim() || null;
+  const leadEndpoint = leadEndpointValue && (leadEndpointValue.startsWith("/") || leadEndpointValue.startsWith("https://")) ? leadEndpointValue : null;
+  const downloadStarted = downloadAvailable && params.download === "auto";
+  const previewMode = !downloadAvailable;
+  const downloadPath = `/download${isDe ? "" : "?lang=en"}`;
 
   return (
     <main className="thanks-page" lang={locale}>
       <header className="thanks-header shell">
         <a href={isDe ? "/" : "/en"} className="thanks-brand">LocalDictation</a>
-        <span>{isDe ? "Private Vorschau" : "Private preview"}</span>
+        <span>{previewMode ? (isDe ? "Private Vorschau" : "Private preview") : "Download"}</span>
       </header>
       <section className="thanks-hero shell">
         <div className="download-confirmation">
           <span className="download-check" aria-hidden="true">↓</span>
-          <p>{isDe ? "Download-Platz ist vorbereitet" : "The download slot is ready"}</p>
+          <p>{downloadStarted ? (isDe ? "Download läuft" : "Download started") : previewMode ? (isDe ? "Download-Platz ist vorbereitet" : "The download slot is ready") : (isDe ? "Download ist bereit" : "Download is ready")}</p>
         </div>
         <h1>{isDe ? "Wohin sollen wir deinen Lizenzschlüssel schicken?" : "Where should we send your licence key?"}</h1>
-        <p>{isDe ? "Der signierte Build ist noch nicht an diese Vorschau angeschlossen. Sobald er bereit ist, startet der Download vor dieser Seite automatisch — die Form bleibt freiwillig." : "The signed build is not connected to this preview yet. Once it is ready, the download will start before this page opens — the form will remain optional."}</p>
+        <p>{downloadStarted ? (isDe ? "LocalDictation wird bereits geladen. Die freiwillige Form hält die Datei nicht auf und hilft uns, deinen Lizenzschlüssel und passende Einrichtungshinweise zu senden." : "LocalDictation is already downloading. This optional form never gates the file and helps us send your licence key and relevant setup guidance.") : previewMode ? (isDe ? "Der signierte Build ist noch nicht an diese Vorschau angeschlossen. Sobald er bereit ist, startet der Download vor dieser Seite automatisch — die Form bleibt freiwillig." : "The signed build is not connected to this preview yet. Once it is ready, the download will start before this page opens — the form will remain optional.") : (isDe ? "Wenn du direkt hier gelandet bist, kannst du den signierten Build unten starten. Die Form bleibt freiwillig." : "If you landed here directly, you can start the signed build below. The form remains optional.")}</p>
+        {downloadStarted && <iframe className="download-frame" src={downloadPath} title={isDe ? "LocalDictation Download" : "LocalDictation download"} />}
+        {downloadAvailable && <a className="inline-download" href={downloadPath}>{downloadStarted ? (isDe ? "Download erneut starten" : "Start download again") : (isDe ? "Download jetzt starten" : "Start download now")} ↓</a>}
       </section>
       <section className="thanks-grid shell">
-        <ThankYouForm locale={locale} />
+        <ThankYouForm locale={locale} leadEndpoint={leadEndpoint} />
         <aside className="key-card">
           <span>{isDe ? "Lizenzschlüssel" : "Licence key"}</span>
           <strong>•••• — •••• — ••••</strong>
