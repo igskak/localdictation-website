@@ -10,7 +10,7 @@ const de = {
     ["Preis", "#preis"],
   ],
   hero: {
-    eyebrow: "Private Diktier-App für macOS",
+    eyebrow: "Private Produktvorschau für macOS",
     title: "Diktieren statt tippen.",
     titleMuted: "Alles bleibt auf deinem Mac.",
     lede:
@@ -20,7 +20,7 @@ const de = {
     demo: "Ansehen, wie es funktioniert",
     fine: ["14 Tage voller Funktionsumfang", "E-Mail-Schlüssel nach 5 Diktaten oder 24 h", "Apple Silicon", "macOS 14.4+", "keine Kreditkarte"],
   },
-  trust: ["Sprachverarbeitung lokal", "Kein Benutzerkonto", "Kein AVV nötig", "Einmal zahlen"],
+  trust: ["Sprachverarbeitung lokal", "Kein Benutzerkonto", "Kein AVV für Diktatinhalte", "Einmal zahlen"],
 };
 
 const en = {
@@ -31,7 +31,7 @@ const en = {
     ["Pricing", "#preis"],
   ],
   hero: {
-    eyebrow: "Private dictation for macOS",
+    eyebrow: "Private product preview for macOS",
     title: "Dictate instead of typing.",
     titleMuted: "Everything stays on your Mac.",
     lede:
@@ -41,7 +41,7 @@ const en = {
     demo: "See how it works",
     fine: ["14-day full trial", "email key after 5 dictations or 24 hours", "Apple silicon", "macOS 14.4+", "no credit card"],
   },
-  trust: ["Speech processed locally", "No user account", "No DPA required", "Pay once"],
+  trust: ["Speech processed locally", "No user account", "No DPA for dictation content", "Pay once"],
 };
 
 const waveHeights = [7, 13, 20, 10, 25, 16, 28, 12, 20, 8, 15, 6];
@@ -73,10 +73,11 @@ function Waveform({ compact = false }: { compact?: boolean }) {
 
 function ProductDemo({ locale, expanded = false }: { locale: Locale; expanded?: boolean }) {
   const isDe = locale === "de";
+  const amount = isDe ? "14.000 €" : "€14,000";
   return (
     <figure className={expanded ? "product-stage verification-stage" : "product-stage"}>
       <div className="stage-grid" aria-hidden="true" />
-      <div className="mac-window mail-window">
+      <div className="mac-window mail-window" aria-hidden="true">
         <div className="window-bar">
           <div className="traffic-lights" aria-hidden="true">
             <span />
@@ -92,18 +93,24 @@ function ProductDemo({ locale, expanded = false }: { locale: Locale; expanded?: 
         </div>
         <div className="mail-body">
           <p>{isDe ? "Hallo zusammen," : "Hi everyone,"}</p>
-          <p>
+          <p className="demo-inserted-copy">
             {isDe ? "das Review mit " : "the review with "}
-            <mark className="risk-name">Müller-Lüdenscheidt</mark>
+            <span>Müller-Lüdenscheidt</span>
             {isDe ? " ist für Donnerstag bestätigt. Das Budget liegt bei " : " is confirmed for Thursday. The budget is "}
-            <mark>14.000&nbsp;€</mark>
+            <span>{amount}</span>
             {isDe ? " — bitte noch einmal prüfen." : " — please double-check."}
           </p>
           <span className="text-caret" aria-hidden="true" />
         </div>
       </div>
 
-      <div className="dictation-bar">
+      <div className="dictation-bar" aria-hidden="true">
+        <div className="review-transcript">
+          <small>{isDe ? "Roh-Transkript · vor der Einfügung" : "Raw transcript · before insertion"}</small>
+          <p>
+            {isDe ? "Review mit " : "Review with "}<mark className="risk-name">Müller-Lüdenscheidt</mark>{isDe ? " · Budget " : " · budget "}<mark>{amount}</mark>
+          </p>
+        </div>
         <div className="recording-state">
           <span className="recording-dot" />
           <span>{isDe ? "Diktat prüfen" : "Review dictation"}</span>
@@ -113,16 +120,16 @@ function ProductDemo({ locale, expanded = false }: { locale: Locale; expanded?: 
         <span className="confirm-button" aria-hidden="true">↵</span>
       </div>
 
-      <div className="risk-popover">
+      <div className="risk-popover" aria-hidden="true">
         <div className="risk-label"><span /> {isDe ? "Bitte prüfen" : "Check this"}</div>
-        <strong>14.000 €</strong>
+        <strong>{amount}</strong>
         <span className="listen-control"><span aria-hidden="true">▶</span> {isDe ? "Original anhören" : "Play original"}</span>
       </div>
 
       {!expanded && (
         <figcaption className="stage-note">
           <span className="shortcut">⌥ Space</span>
-          {isDe ? "drücken, sprechen, einsetzen" : "press, speak, insert"}
+          {isDe ? "UI-Prototyp · drücken, sprechen, einsetzen" : "UI prototype · press, speak, insert"}
         </figcaption>
       )}
       {expanded && (
@@ -161,7 +168,7 @@ export function LandingPage({ locale }: { locale: Locale }) {
     ? [
         ["Aa", "Eigenes Wörterbuch", "Pro Sprache. Namen, Abkürzungen, Fachbegriffe."],
         ["↺", "Roh-Transkript", "Ein Klick zurück zum unbearbeiteten Text."],
-        ["⌘", "Funktioniert überall", "Mail, Slack, Jira, Notion, Terminal, KI-Chats."],
+        ["⌘", "Für deine Arbeits-Apps", "Direkte Einfügung — oder Zwischenablage-Fallback, wenn eine App sie blockiert."],
         ["◌", "Ohne Internet", "Im Zug, im Flugzeug, im Keller."],
         ["Ⅱ", "Zwei Macs", "Eine Lizenz für MacBook und iMac."],
         ["∞", "Einmal zahlen", "€99 lebenslang — oder €49 im Jahr."],
@@ -169,7 +176,7 @@ export function LandingPage({ locale }: { locale: Locale }) {
     : [
         ["Aa", "Your vocabulary", "Names, abbreviations, and technical terms per language."],
         ["↺", "Restore raw transcript", "Return to the untouched recognition result in one click."],
-        ["⌘", "Works everywhere", "Mail, Slack, Jira, Notion, Terminal, and AI chats."],
+        ["⌘", "For your work apps", "Direct insertion — or a clipboard fallback when an app blocks it."],
         ["◌", "No internet required", "On a train, on a plane, or in the basement."],
         ["Ⅱ", "Two Macs", "One licence for your MacBook and iMac."],
         ["∞", "Pay once", "€99 lifetime — or €49 for one year."],
@@ -177,8 +184,8 @@ export function LandingPage({ locale }: { locale: Locale }) {
 
   const faqs = isDe
     ? [
-        ["Funktioniert die Spracherkennung wirklich offline?", "Ja. Spracherkennung und Textaufbereitung laufen auf deinem Mac. Aktivierung, Lizenzprüfung, wenige ausdrücklich benannte Produkt- und Marketingereignisse, Checkout und Updates benötigen eine Verbindung; dabei werden weder Audio noch Text, Wörterbuch oder Inhalte anderer Apps übertragen."],
-        ["Brauche ich als Kanzlei oder Praxis einen AVV?", "Nein. Ein Auftragsverarbeitungsvertrag regelt die Verarbeitung durch einen Dienstleister. LocalDictation verarbeitet deine Sprachinhalte nicht für uns — diese Daten bleiben auf deinem Gerät."],
+        ["Funktioniert die Spracherkennung wirklich offline?", "Im vorgesehenen Launch-Umfang: ja. Spracherkennung und Textaufbereitung laufen auf deinem Mac. Aktivierung, Lizenzprüfung, wenige ausdrücklich benannte Produkt- und Marketingereignisse, Checkout und Updates benötigen eine Verbindung; dabei werden weder Audio noch Text, Wörterbuch oder Inhalte anderer Apps übertragen."],
+        ["Brauche ich als Kanzlei oder Praxis einen AVV?", "Für Diktatinhalte nicht: LocalDictation überträgt oder verarbeitet sie nicht für uns. Für Hosting, Lizenzierung, Zahlung und Support gelten eigene Datenschutzpflichten, die vor dem Launch vollständig offengelegt werden."],
         ["Was ist der Unterschied zur Diktierfunktion von macOS?", "Sprachprofile für gemischtes Deutsch-Englisch, ein eigenes Wörterbuch, konservative Textaufbereitung und die Markierung unsicherer Stellen."],
         ["Warum zahlen, wenn es kostenlose Open-Source-Tools gibt?", "Musst du nicht. Wenn du Modelle selbst einrichtest, sind sie eine gute Wahl. Zum öffentlichen Launch ist ein signiertes, notarisiertes Paket mit Sprachprofilen, Verifikation und Support vorgesehen."],
         ["Welche Sprachen werden unterstützt?", "Deutsch, Englisch, Russisch und Ukrainisch — einzeln oder in den vorgesehenen gemischten Profilen."],
@@ -188,8 +195,8 @@ export function LandingPage({ locale }: { locale: Locale }) {
         ["Lifetime oder Jahreslizenz — was ist sinnvoller?", "Wenn du regelmäßig diktierst, ist Lifetime günstiger: €99 einmal statt €49 jedes Jahr. Die Jahreslizenz ist der kleinere Einstieg."],
       ]
     : [
-        ["Does speech recognition really work offline?", "Yes. Speech recognition and text processing run on your Mac. Activation, licence checks, a small disclosed set of non-content events, checkout, and updates need a connection; audio, text, vocabulary, and other app content are never included."],
-        ["Does my company need a data processing agreement?", "No. LocalDictation does not process your speech content on our behalf — it stays on your device."],
+        ["Does speech recognition really work offline?", "In the planned launch scope, yes. Speech recognition and text processing run on your Mac. Activation, licence checks, a small disclosed set of non-content events, checkout, and updates need a connection; audio, text, vocabulary, and other app content are never included."],
+        ["Does my company need a data processing agreement?", "Not for dictation content: LocalDictation does not transmit or process it on our behalf. Hosting, licensing, payment, and support remain separate data-processing activities that will be fully disclosed before launch."],
         ["How is it different from macOS Dictation?", "Mixed English-German profiles, a personal vocabulary, conservative cleanup, and clear highlighting of uncertain passages."],
         ["Why pay when open-source tools are free?", "You do not have to. They are a good choice if you enjoy configuring models yourself. A signed, notarised package with language profiles, verification, and support is planned for public launch."],
         ["Which languages are supported?", "English, German, Russian, and Ukrainian, including the listed mixed-language profiles."],
@@ -222,8 +229,8 @@ export function LandingPage({ locale }: { locale: Locale }) {
 
   return (
     <div className="site-root" lang={locale}>
-      <input className="theme-checkbox" type="checkbox" id={`theme-${locale}`} aria-label={isDe ? "Helles Farbschema" : "Light colour scheme"} />
       <a className="skip-link" href="#main">{isDe ? "Zum Inhalt" : "Skip to content"}</a>
+      <input className="theme-checkbox" type="checkbox" id={`theme-${locale}`} aria-label={isDe ? "Helles Farbschema" : "Light colour scheme"} />
 
       <header className="site-header-wrap">
         <div className="site-header shell">
@@ -244,7 +251,7 @@ export function LandingPage({ locale }: { locale: Locale }) {
       </header>
 
       <main id="main">
-        <section className="hero shell" id="top">
+        <section className="hero shell" id="top" data-section="S1">
           <div className="hero-copy">
             <div className="eyebrow"><span className="status-dot" />{c.hero.eyebrow}</div>
             <h1>{c.hero.title} <span>{c.hero.titleMuted}</span></h1>
@@ -263,13 +270,13 @@ export function LandingPage({ locale }: { locale: Locale }) {
           <ProductDemo locale={locale} />
         </section>
 
-        <aside className="trust-strip" aria-label={isDe ? "Produktversprechen" : "Product promises"}>
+        <aside className="trust-strip" id="vertrauen" data-section="S2" aria-label={isDe ? "Produktversprechen" : "Product promises"}>
           <div className="shell trust-grid">
-            {c.trust.map((item, index) => <span key={item}><b>{index === 0 ? "●" : "✓"}</b>{item}</span>)}
+            {c.trust.map((item, index) => <span key={item}><b aria-hidden="true">{index === 0 ? "●" : "✓"}</b>{item}</span>)}
           </div>
         </aside>
 
-        <section className="section process-section shell" id="funktion">
+        <section className="section process-section shell" id="funktion" data-section="S3">
           <div className="section-intro">
             <p className="section-kicker">01 — {isDe ? "Ablauf" : "Workflow"}</p>
             <h2>{isDe ? "In vier Schritten vom Gedanken zum Text" : "From thought to text in four steps"}</h2>
@@ -288,15 +295,15 @@ export function LandingPage({ locale }: { locale: Locale }) {
           <a className="text-link" href="#verifikation">{isDe ? "Und wenn etwas geraten wurde" : "And when the model had to guess"} <span aria-hidden="true">↘</span></a>
         </section>
 
-        <section className="section verification-section" id="verifikation">
+        <section className="section verification-section" id="verifikation" data-section="S4">
           <div className="shell verification-layout">
             <div className="verification-copy">
               <p className="section-kicker">02 — {isDe ? "Verifikation" : "Verification"}</p>
               <h2>{isDe ? "Du siehst, was du prüfen musst" : "See exactly what needs checking"}</h2>
               <p className="section-lede">
                 {isDe
-                  ? "Andere Diktier-Tools polieren Unsicherheit weg. Aus 14.000 € wird 40.000 € — und du merkst es erst in der gesendeten Mail."
-                  : "Other dictation tools polish uncertainty away. €14,000 becomes €40,000 — and you only notice after sending the email."}
+                  ? "Viele Diktier-Tools zeigen nicht ausdrücklich, wo du prüfen solltest. So kann aus 14.000 € unbemerkt 40.000 € werden."
+                  : "Many dictation tools do not explicitly show where a review is warranted. That can let €14,000 quietly become €40,000."}
               </p>
               <p>
                 {isDe
@@ -313,12 +320,12 @@ export function LandingPage({ locale }: { locale: Locale }) {
           </div>
         </section>
 
-        <section className="section privacy-section shell" id="datenschutz">
+        <section className="section privacy-section shell" id="datenschutz" data-section="S5">
           <div className="privacy-panel">
             <div className="privacy-copy">
               <p className="section-kicker">03 — {isDe ? "Privatsphäre" : "Privacy"}</p>
               <h2>{isDe ? "Offline heißt offline — und du kannst es nachprüfen" : "Offline means offline — and you can verify it"}</h2>
-              <p className="section-lede">{isDe ? "Schalte dein WLAN aus und diktiere weiter. Es funktioniert." : "Turn Wi‑Fi off and keep dictating. It still works."}</p>
+              <p className="section-lede">{isDe ? "Zum Launch: WLAN aus, weiterdiktieren. Die Sprachverarbeitung bleibt verfügbar." : "At launch: turn Wi‑Fi off and keep dictating. Speech processing stays available."}</p>
               <p>{isDe ? "Audio und Text werden auf deinem Mac verarbeitet. Audio bleibt nur während des aktuellen Diktats und einer möglichen Prüfung im Arbeitsspeicher und wird danach verworfen." : "Audio and text are processed on your Mac. Audio stays in memory only for the active dictation and any review, then it is discarded."}</p>
             </div>
             <div className="offline-proof" role="img" aria-label={isDe ? "Schaubild: Sprache wird nur auf dem Mac verarbeitet" : "Diagram: speech is processed only on the Mac"}>
@@ -337,18 +344,18 @@ export function LandingPage({ locale }: { locale: Locale }) {
           </div>
           <div className="privacy-facts">
             <article><span>01</span><h3>{isDe ? "Kein Benutzerkonto" : "No user account"}</h3><p>{isDe ? "E-Mail nur für den Lizenzschlüssel. Kein Profil, kein Passwort." : "Email only for the licence key. No profile or password."}</p></article>
-            <article><span>02</span><h3>{isDe ? "Kein AVV nötig" : "No DPA required"}</h3><p>{isDe ? "Wir verarbeiten deine Sprachinhalte nicht in deinem Auftrag." : "We do not process your speech content on your behalf."}</p></article>
+            <article><span>02</span><h3>{isDe ? "Kein AVV für Diktatinhalte" : "No DPA for dictation content"}</h3><p>{isDe ? "Wir übertragen oder verarbeiten deine Sprachinhalte nicht in deinem Auftrag." : "We neither transmit nor process your speech content on your behalf."}</p></article>
             <article><span>03</span><h3>{isDe ? "Netzwerkzugriffe offengelegt" : "Network access disclosed"}</h3><p>{isDe ? "Nur Aktivierung, Lizenz, Checkout, Updates und klar benannte Nicht-Inhaltsereignisse." : "Only activation, licensing, checkout, updates, and explicitly named non-content events."}</p></article>
           </div>
           <p className="privacy-disclosure">
             {isDe
               ? "Nie übertragen werden Audio, Transkripte, Wörterbuch, Zwischenablage, Inhalte anderer Apps oder markierte Risikofragmente. Netzwerkzugriffe sind auf Aktivierung, Lizenzprüfung, Checkout, Updates sowie ausdrücklich benannte, inhaltsfreie Funnel-Ereignisse mit minimalen technischen Metadaten begrenzt."
               : "Audio, transcripts, vocabulary, clipboard data, other app content, and highlighted risk fragments are never transmitted. Network access is limited to activation, licence checks, checkout, updates, and explicitly disclosed content-free funnel events with minimal technical metadata."}{" "}
-            <a href="/datenschutz">{isDe ? "Felder, Zweck, Empfänger und Speicherdauer ansehen" : "See fields, purpose, recipients, and retention"} ↗</a>
+            <a href="/datenschutz" hrefLang="de">{isDe ? "Aktuellen Entwurf und offene Angaben ansehen" : "View the German draft and missing disclosures"} ↗</a>
           </p>
         </section>
 
-        <section className="section language-section">
+        <section className="section language-section" id="sprachen" data-section="S6">
           <div className="shell language-layout">
             <div className="section-intro">
               <p className="section-kicker">04 — {isDe ? "Sprachen" : "Languages"}</p>
@@ -361,24 +368,24 @@ export function LandingPage({ locale }: { locale: Locale }) {
             <div className="dictionary-window">
               <div className="dictionary-header"><span>{isDe ? "Eigenes Wörterbuch" : "Personal vocabulary"}</span><b>+</b></div>
               {["Müller-Lüdenscheidt", "Auftragsverarbeitungsvertrag", "Kubernetes", "DB Navigator", "Zeiterfassung"].map((word, index) => (
-                <div className="dictionary-row" key={word}><span>{word}</span><small>{index < 2 ? "Deutsch" : index === 2 ? "English" : "Alle Profile"}</small></div>
+                <div className="dictionary-row" key={word}><span>{word}</span><small>{index < 2 ? (isDe ? "Deutsch" : "German") : index === 2 ? "English" : (isDe ? "Alle Profile" : "All profiles")}</small></div>
               ))}
               <p>{isDe ? "Namen, Produktbegriffe und Abkürzungen werden so geschrieben, wie du sie brauchst." : "Names, product terms, and abbreviations are written the way you need them."}</p>
             </div>
           </div>
         </section>
 
-        <section className="section features-section shell">
+        <section className="section features-section shell" id="funktionen" data-section="S7">
           <div className="section-intro section-intro-row">
             <div><p className="section-kicker">05 — {isDe ? "Werkzeuge" : "Tools"}</p><h2>{isDe ? "Klein im Menü. Groß im Alltag." : "Small in your menu bar. Big in your day."}</h2></div>
             <p>{isDe ? "Nur Funktionen, die den Weg von der Sprache zum Text kürzer oder sicherer machen." : "Only the tools that make the path from speech to text shorter or safer."}</p>
           </div>
           <div className="features-grid">
-            {features.map(([symbol, title, body]) => <article key={title}><span className="feature-symbol">{symbol}</span><h3>{title}</h3><p>{body}</p></article>)}
+            {features.map(([symbol, title, body]) => <article key={title}><span className="feature-symbol" aria-hidden="true">{symbol}</span><h3>{title}</h3><p>{body}</p></article>)}
           </div>
         </section>
 
-        <section className="section comparison-section" id="vergleich">
+        <section className="section comparison-section" id="vergleich" data-section="S8">
           <div className="shell">
             <div className="section-intro">
               <p className="section-kicker">06 — {isDe ? "Vergleich" : "Comparison"}</p>
@@ -388,28 +395,29 @@ export function LandingPage({ locale }: { locale: Locale }) {
             {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
             <div className="comparison-wrap" role="region" tabIndex={0} aria-label={isDe ? "Vergleichstabelle, horizontal scrollbar" : "Comparison table, horizontally scrollable"}>
               <table>
-                <thead><tr><th>{isDe ? "Merkmal" : "Feature"}</th><th className="featured-col">LocalDictation</th><th>Wispr Flow</th><th>sprecho.ai</th><th>Superwhisper</th><th>VoiceInk</th></tr></thead>
+                <caption className="sr-only">{isDe ? "LocalDictation im Vergleich mit vier Diktier-Apps" : "LocalDictation compared with four dictation apps"}</caption>
+                <thead><tr><th scope="col">{isDe ? "Merkmal" : "Feature"}</th><th scope="col" className="featured-col">LocalDictation</th><th scope="col">Wispr Flow</th><th scope="col">sprecho.ai</th><th scope="col">Superwhisper</th><th scope="col">VoiceInk</th></tr></thead>
                 <tbody>
                   {(isDe ? [
                     ["Sprachverarbeitung", "lokal", "Cloud", "EU-Cloud", "lokal oder Cloud", "lokal"],
                     ["Unsichere Stellen", "vor Einfügung markiert", "nicht öffentlich dokumentiert", "nicht öffentlich dokumentiert", "nicht öffentlich dokumentiert", "nicht öffentlich dokumentiert"],
                     ["Sprachwahl DE + EN", "festes Mischprofil", "100+ Sprachen", "Auto-Erkennung", "Sprache je Modus", "modellabhängig"],
-                    ["Kostenloser Einstieg", "14 Tage Vollversion", "Basic mit Wochenlimit", "14 Tage Vollversion", "dauerhafter Free-Tarif", "kostenloser Test"],
-                    ["Bezahlpreis", "€99 einmalig / €49 Jahr", "€15 Monat / €144 Jahr", "€10,99 Monat, jährlich", "$84.99 Jahr / $249.99 Lifetime", "$29–69 einmalig"],
+                    ["Kostenloser Einstieg", "14 Tage Vollversion", "Basic mit Wochenlimit", "14 Tage Vollversion", "dauerhafter Free-Tarif", "14 Tage Erstattungsfrist"],
+                    ["Bezahlpreis", "€99 einmalig / €49 Jahr", "$15 Monat / $144 Jahr", "€10,99 Monat, jährlich", "$84.99 Jahr / $249.99 Lifetime", "$25 / $39 / $49 einmalig"],
                     ["Fertiger Mac-Download", "zum Launch vorgesehen", "ja", "ja", "ja", "ja"],
                   ] : [
                     ["Speech processing", "local", "cloud", "EU cloud", "local or cloud", "local"],
                     ["Uncertain passages", "highlighted before insertion", "not publicly documented", "not publicly documented", "not publicly documented", "not publicly documented"],
                     ["English + German choice", "fixed mixed profile", "100+ languages", "auto-detection", "language per mode", "model-dependent"],
-                    ["Free entry", "14-day full trial", "Basic with weekly limit", "14-day full trial", "ongoing free tier", "free trial"],
-                    ["Paid price", "€99 once / €49 year", "€15 month / €144 year", "€10.99 month, billed annually", "$84.99 year / $249.99 lifetime", "$29–69 once"],
+                    ["Free entry", "14-day full trial", "Basic with weekly limit", "14-day full trial", "ongoing free tier", "14-day refund window"],
+                    ["Paid price", "€99 once / €49 year", "$15 month / $144 year", "€10.99 month, billed annually", "$84.99 year / $249.99 lifetime", "$25 / $39 / $49 once"],
                     ["Ready Mac download", "planned for launch", "yes", "yes", "yes", "yes"],
-                  ]).map((row) => <tr key={row[0]}>{row.map((cell, index) => index === 0 ? <th key={cell}>{cell}</th> : <td className={index === 1 ? "featured-col" : ""} key={`${row[0]}-${index}`}>{index === 1 && <b>✓</b>}{cell}</td>)}</tr>)}
+                  ]).map((row) => <tr key={row[0]}>{row.map((cell, index) => index === 0 ? <th scope="row" key={cell}>{cell}</th> : <td className={index === 1 ? "featured-col" : ""} key={`${row[0]}-${index}`}>{index === 1 && <b aria-hidden="true">✓</b>}{cell}</td>)}</tr>)}
                 </tbody>
               </table>
             </div>
             <div className="comparison-note">
-              <p>{isDe ? "Wenn du Whisper selbst einrichten möchtest, sind Open-Source-Tools eine gute Wahl. LocalDictation ist für alle, die stattdessen direkt arbeiten wollen — fertig eingerichtet, mit Sprachprofilen, Verifikation und erreichbarem Support." : "If you enjoy configuring Whisper yourself, open-source tools are a good choice. LocalDictation is for people who would rather get straight to work — configured, verified, and supported."}</p>
+              <p>{isDe ? "Wenn du Whisper selbst einrichten möchtest, sind Open-Source-Tools eine gute Wahl. LocalDictation ist für alle, die stattdessen direkt arbeiten wollen — fertig eingerichtet, mit Sprachprofilen, Verifikation und erreichbarem Support." : "If you enjoy configuring Whisper yourself, open-source tools are a good choice. LocalDictation is for people who would rather get straight to work — configured, with verification and reachable support."}</p>
               <span>
                 {isDe ? "Offizielle Quellen, geprüft am 18.08.2026:" : "Official sources, checked 18 Aug 2026:"}{" "}
                 <a href="https://docs.wisprflow.ai/articles/9559327591-flow-plans-and-what-s-included">Wispr Flow</a>{" · "}
@@ -421,18 +429,18 @@ export function LandingPage({ locale }: { locale: Locale }) {
           </div>
         </section>
 
-        <section className="section pricing-section shell" id="preis">
+        <section className="section pricing-section shell" id="preis" data-section="S9">
           <div className="section-intro pricing-intro">
             <p className="section-kicker">07 — {isDe ? "Preis" : "Pricing"}</p>
             <h2>{isDe ? "Einmal zahlen. Für immer nutzen." : "Pay once. Keep using it."}</h2>
-            <p>{isDe ? "Schneller als Tippen. Nichts verlässt deinen Mac. Und keine monatliche Abbuchung, die du irgendwann zu kündigen vergisst." : "Faster than typing. Nothing leaves your Mac. And no monthly charge you eventually forget to cancel."}</p>
+            <p>{isDe ? "Weniger tippen. Nichts verlässt deinen Mac. Und keine monatliche Abbuchung, die du irgendwann zu kündigen vergisst." : "Type less. Nothing leaves your Mac. And no monthly charge you eventually forget to cancel."}</p>
           </div>
           <div className="pricing-grid">
             <article className="price-card price-primary">
               <div className="price-top"><span>{isDe ? "Lifetime" : "Lifetime"}</span><b>{isDe ? "Empfohlen" : "Recommended"}</b></div>
               <div className="price"><sup>€</sup>99 <small>{isDe ? "inkl. MwSt." : "incl. VAT"}</small></div>
               <p>{isDe ? "Einmal zahlen, dauerhaft nutzen." : "Pay once and keep using it."}</p>
-              <ul><li>{isDe ? "2 Macs" : "2 Macs"}</li><li>{isDe ? "Alle Updates von Version 1" : "All version 1 updates"}</li><li>{isDe ? "30 Tage Geld zurück" : "30-day money-back guarantee"}</li></ul>
+              <ul><li>{isDe ? "2 Macs" : "2 Macs"}</li><li>{isDe ? "Alle Updates von Version 1" : "All version 1 updates"}</li><li>{isDe ? "30 Tage Geld zurück, ohne Begründung" : "30-day money-back guarantee, no reason required"}</li></ul>
             </article>
             <article className="price-card">
               <div className="price-top"><span>{isDe ? "Jahreslizenz" : "Annual licence"}</span></div>
@@ -443,10 +451,10 @@ export function LandingPage({ locale }: { locale: Locale }) {
           </div>
           <a className="button button-primary pricing-download" href={downloadHref}>{isDe ? "Für Mac laden" : "Download for Mac"}</a>
           <p className="pricing-footnote">{isDe ? "Erst testen, dann entscheiden. Gekauft wird in der App nach dem Test. Verfügbare Zahlungsmethoden werden vor dem Checkout bestätigt." : "Try it first, then decide. Purchase happens in the app after your trial. Payment methods will be confirmed before checkout."}</p>
-          <p className="cost-compare"><span>2 Jahre Cloud</span><s>$360</s><i>→</i><span>LocalDictation Lifetime</span><b>€99</b></p>
+          <p className="cost-compare"><span>{isDe ? "2 Jahre Cloud" : "2 years of cloud"}</span><s>$360</s><i>→</i><span>LocalDictation Lifetime</span><b>€99</b><small>{isDe ? "Stand: August 2026" : "As of August 2026"}</small></p>
         </section>
 
-        <section className="section faq-section" id="faq">
+        <section className="section faq-section" id="faq" data-section="S10">
           <div className="shell faq-layout">
             <div className="section-intro faq-intro"><p className="section-kicker">08 — FAQ</p><h2>{isDe ? "Klartext, bevor du installierst" : "Straight answers before you install"}</h2><p>{isDe ? "Keine Fußnoten, die das Produktversprechen zurücknehmen." : "No footnotes that quietly undo the product promise."}</p></div>
             <div className="faq-list">
@@ -455,12 +463,12 @@ export function LandingPage({ locale }: { locale: Locale }) {
           </div>
         </section>
 
-        <section className="final-cta shell">
+        <section className="final-cta shell" id="start" data-section="S11">
           <div className="final-cta-inner">
             <div className="final-wave" aria-hidden="true"><Waveform /><Waveform /><Waveform /></div>
             <p className="section-kicker">09 — {isDe ? "Loslegen" : "Get started"}</p>
             <h2>{isDe ? "Morgen früh schreibst du deine erste Mail, ohne sie zu tippen" : "Tomorrow morning, write your first email without typing it"}</h2>
-            <p>{isDe ? "Lade LocalDictation, drück den Hotkey, sprich. Nach fünf Diktaten oder 24 Stunden schaltest du den 14-Tage-Test mit einem E-Mail-Schlüssel frei — ohne Produktkonto und ohne Kreditkarte. Beim Entfernen bleibt kein Audio- oder Transkriptarchiv zurück." : "Download LocalDictation, press the hotkey, and speak. After five dictations or 24 hours, unlock the 14-day trial with an email key — no product account or credit card. Removing the app leaves no audio or transcript archive behind."}</p>
+            <p>{isDe ? "Lade LocalDictation, drück den Hotkey, sprich. Der 14-Tage-Test beginnt mit deiner ersten erfolgreichen Diktierung. Nach fünf Diktaten oder 24 Stunden brauchst du einen E-Mail-Schlüssel, um weiterzumachen — ohne Produktkonto und ohne Kreditkarte. Beim Entfernen bleibt kein Audio- oder Transkriptarchiv zurück." : "Download LocalDictation, press the hotkey, and speak. The 14-day trial starts with your first successful dictation. After five dictations or 24 hours, you need an email key to continue — with no product account or credit card. Removing the app leaves no audio or transcript archive behind."}</p>
             <a className="button button-primary button-large" href={downloadHref}><span aria-hidden="true">↓</span>{isDe ? "Für Mac laden" : "Download for Mac"}</a>
             <small>{downloadAvailable ? (isDe ? "Apple Silicon · macOS 14.4+" : "Apple silicon · macOS 14.4+") : (isDe ? "Private Vorschau ohne Build · Apple Silicon · macOS 14.4+" : "Private preview without build · Apple silicon · macOS 14.4+")}</small>
           </div>
@@ -471,7 +479,7 @@ export function LandingPage({ locale }: { locale: Locale }) {
         <div className="shell footer-top"><Brand /><p>{isDe ? "Lokale Diktier-Software für Menschen, die Unsicherheit lieber sehen als übersehen." : "Local dictation for people who would rather see uncertainty than miss it."}</p></div>
         <div className="shell footer-bottom">
           <span>© 2026 LocalDictation</span>
-          <nav aria-label={isDe ? "Rechtliche Links" : "Legal links"}><a href="/impressum">Impressum</a><a href="/datenschutz">Datenschutz</a><a href="/widerruf">Widerruf</a><a href="mailto:hallo@localdictation.app">Kontakt</a></nav>
+          <nav aria-label={isDe ? "Rechtliche Links" : "Legal links"}><a href="/impressum" hrefLang="de">{isDe ? "Impressum" : "Legal notice (DE)"}</a><a href="/datenschutz" hrefLang="de">{isDe ? "Datenschutz" : "Privacy (DE)"}</a><a href="/widerruf" hrefLang="de">{isDe ? "Widerruf" : "Cancellation (DE)"}</a><a href="mailto:hallo@localdictation.app">{isDe ? "Kontakt" : "Contact"}</a></nav>
         </div>
       </footer>
 

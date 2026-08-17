@@ -31,6 +31,8 @@ test("renders the complete German landing page in the required order", async () 
 
   assert.equal(response.headers.get("x-content-type-options"), "nosniff");
   assert.equal(response.headers.get("x-frame-options"), "DENY");
+  assert.equal(response.headers.get("content-security-policy"), "base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'");
+  assert.equal(response.headers.get("strict-transport-security"), "max-age=31536000");
   assert.equal(response.headers.get("permissions-policy"), "camera=(), geolocation=(), microphone=()");
   assert.match(html, /Diktieren statt tippen/);
   assert.match(html, /Alles bleibt auf deinem Mac/);
@@ -39,7 +41,13 @@ test("renders the complete German landing page in the required order", async () 
   assert.match(html, /€49/);
   assert.equal((html.match(/<a[^>]+href="\/danke\?download=auto"[^>]*>[\s\S]*?Für Mac laden<\/a>/g) ?? []).length, 3);
   assert.match(html, /nicht öffentlich dokumentiert/);
-  assert.match(html, /Felder, Zweck, Empfänger und Speicherdauer ansehen/);
+  assert.match(html, /Aktuellen Entwurf und offene Angaben ansehen/);
+  assert.match(html, /UI-Prototyp/);
+  assert.match(html, /Roh-Transkript · vor der Einfügung/);
+  assert.match(html, /Der 14-Tage-Test beginnt mit deiner ersten erfolgreichen Diktierung/);
+  assert.match(html, /\$15 Monat \/ \$144 Jahr/);
+  assert.match(html, /\$25 \/ \$39 \/ \$49 einmalig/);
+  assert.doesNotMatch(html, /€15 Monat|\$29–69/);
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape|react-loading-skeleton/);
   assert.doesNotMatch(html, />\s*(?:ohne|kein) Abo\s*</i);
 
@@ -47,18 +55,28 @@ test("renders the complete German landing page in the required order", async () 
   const positions = anchors.map((id) => html.indexOf(`id="${id}"`));
   assert.ok(positions.every((position) => position >= 0));
   assert.deepEqual([...positions].sort((a, b) => a - b), positions);
+  assert.deepEqual(
+    [...html.matchAll(/data-section="(S\d+)"/g)].map((match) => match[1]),
+    Array.from({ length: 11 }, (_, index) => `S${index + 1}`),
+  );
 });
 
 test("renders the English variant and reciprocal language links", async () => {
-  const [deResponse, enResponse] = await Promise.all([render("/"), render("/en")]);
-  const [deHtml, enHtml] = await Promise.all([deResponse.text(), enResponse.text()]);
+  const [deResponse, enResponse, unrelatedResponse] = await Promise.all([render("/"), render("/en"), render("/enough")]);
+  const [deHtml, enHtml, unrelatedHtml] = await Promise.all([deResponse.text(), enResponse.text(), unrelatedResponse.text()]);
   assert.equal(enResponse.status, 200);
   assert.match(enHtml, /<html lang="en">/i);
   assert.match(enHtml, /Dictate instead of typing/);
   assert.match(enHtml, /Everything stays on your Mac/);
+  assert.match(enHtml, /UI prototype/);
+  assert.match(enHtml, /€14,000/);
+  assert.match(enHtml, /German/);
+  assert.match(enHtml, /All profiles/);
+  assert.match(enHtml, /The 14-day trial starts with your first successful dictation/);
   assert.match(enHtml, /href="\/"/i);
   assert.match(enHtml, /hreflang="de"/i);
   assert.match(deHtml, /href="\/en"/i);
+  assert.match(unrelatedHtml, /<html lang="de">/i);
 });
 
 test("keeps the optional thank-you form honest and index-safe", async () => {
@@ -73,6 +91,11 @@ test("keeps the optional thank-you form honest and index-safe", async () => {
   assert.match(html, /noindex/i);
   assert.match(html, /<form[^>]+method="post"/i);
   assert.match(html, /<button[^>]+type="submit"[^>]+disabled/i);
+  assert.match(html, /<option value="development">Entwicklung<\/option>/i);
+  assert.match(html, /<option value="de_en">DE \+ EN<\/option>/i);
+  assert.match(html, /<option value="tickets_docs">Tickets &amp; Doku<\/option>/i);
+  assert.match(html, /href="\/impressum"/i);
+  assert.match(html, /href="\/widerruf"/i);
   assert.doesNotMatch(html, /LEAD_ENDPOINT|DOWNLOAD_URL/);
 });
 
@@ -87,20 +110,28 @@ test("keeps query locale isolated and renders English download metadata", async 
   assert.match(thanksHtml, /<html lang="en">/i);
   assert.match(thanksHtml, /Where should we send your licence key/);
   assert.match(thanksHtml, /Install LocalDictation and request your licence key/);
+  assert.match(thanksHtml, /<option value="development">Software development<\/option>/i);
+  assert.match(thanksHtml, /<option value="single">one language only<\/option>/i);
 });
 
 test("serves privacy, legal drafts, and llms context", async () => {
   for (const route of ["/impressum", "/datenschutz", "/widerruf"]) {
     const response = await render(route);
     assert.equal(response.status, 200, route);
-    assert.match(await response.text(), /Entwurf für die private Produktvorschau/);
+    const html = await response.text();
+    assert.match(html, /Entwurf für die private Produktvorschau/);
+    assert.match(html, /href="\/impressum"/);
+    assert.match(html, /href="\/datenschutz"/);
+    assert.match(html, /href="\/widerruf"/);
+    assert.match(html, /mailto:hallo@localdictation\.app/);
   }
 
   const llmsResponse = await render("/llms.txt");
   assert.equal(llmsResponse.status, 200);
   assert.match(llmsResponse.headers.get("content-type") ?? "", /^text\/plain/i);
   const llms = await llmsResponse.text();
-  assert.match(llms, /Speech recognition and text processing run on the Mac/);
+  assert.match(llms, /private implementation preview/);
+  assert.match(llms, /speech recognition and text processing will run on the Mac/i);
   assert.equal(llms.trim().split(/\n\n+/).length, 3);
 });
 
@@ -178,7 +209,7 @@ test("renders the source-dated comparison hub and every required AEO route", asy
     if (route !== "/vergleich") {
       assert.match(html, /18\. August 2026/, route);
       assert.match(html, /Offizielle Quellen/, route);
-      assert.match(html, /https:\/\/preview\.example\/og\.png/, route);
+      assert.doesNotMatch(html, /(?:og:image|twitter:image|\/og\.png)/i, route);
       assert.match(html, /nicht öffentlich dokumentiert/, route);
     }
   }
@@ -210,6 +241,37 @@ test("keeps download routing index-safe and fails to an honest localized page", 
   assert.equal(response.headers.get("referrer-policy"), "no-referrer");
   assert.equal(response.headers.get("x-content-type-options"), "nosniff");
   assert.equal(response.headers.get("x-robots-tag"), "noindex, nofollow, noarchive");
+});
+
+test("redirects to a validated HTTPS download when the runtime target is configured", async () => {
+  const original = process.env.DOWNLOAD_URL;
+  process.env.DOWNLOAD_URL = "https://downloads.example/LocalDictation.dmg?channel=stable";
+  try {
+    const response = await render("/download");
+    assert.equal(response.status, 307);
+    assert.equal(response.headers.get("location"), "https://downloads.example/LocalDictation.dmg?channel=stable");
+    assert.equal(response.headers.get("cache-control"), "private, no-store");
+    assert.equal(response.headers.get("x-robots-tag"), "noindex, nofollow, noarchive");
+  } finally {
+    if (original === undefined) delete process.env.DOWNLOAD_URL;
+    else process.env.DOWNLOAD_URL = original;
+  }
+});
+
+test("serializes only a policy-compliant lead endpoint into the client form", async () => {
+  const original = process.env.LEAD_ENDPOINT;
+  try {
+    process.env.LEAD_ENDPOINT = "//collector.example/lead";
+    const rejectedHtml = await (await render("/danke")).text();
+    assert.doesNotMatch(rejectedHtml, /collector\.example/);
+
+    process.env.LEAD_ENDPOINT = "/api/leads";
+    const acceptedHtml = await (await render("/danke")).text();
+    assert.match(acceptedHtml, /leadEndpoint.{0,20}\/api\/leads/);
+  } finally {
+    if (original === undefined) delete process.env.LEAD_ENDPOINT;
+    else process.env.LEAD_ENDPOINT = original;
+  }
 });
 
 test("removes all disposable starter-preview code", async () => {

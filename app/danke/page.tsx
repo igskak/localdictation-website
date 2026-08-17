@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { ThankYouForm } from "./ThankYouForm";
 import { getDownloadTarget } from "../_lib/download";
+import { safeLeadEndpoint } from "../_lib/urlPolicy";
+import { RouteFooter } from "../_components/RouteFooter";
 
 export async function generateMetadata({ searchParams }: { searchParams: Promise<{ lang?: string }> }): Promise<Metadata> {
   const params = await searchParams;
@@ -17,19 +19,19 @@ export default async function DankePage({ searchParams }: { searchParams: Promis
   const locale = params.lang === "en" ? "en" : "de";
   const isDe = locale === "de";
   const downloadAvailable = Boolean(getDownloadTarget());
-  const leadEndpointValue = process.env.LEAD_ENDPOINT?.trim() || null;
-  const leadEndpoint = leadEndpointValue && (leadEndpointValue.startsWith("/") || leadEndpointValue.startsWith("https://")) ? leadEndpointValue : null;
+  const leadEndpoint = safeLeadEndpoint(process.env.LEAD_ENDPOINT);
   const downloadStarted = downloadAvailable && params.download === "auto";
   const previewMode = !downloadAvailable;
   const downloadPath = `/download${isDe ? "" : "?lang=en"}`;
 
   return (
-    <main className="thanks-page" lang={locale}>
+    <div className="thanks-page" lang={locale}>
       <header className="thanks-header shell">
         <a href={isDe ? "/" : "/en"} className="thanks-brand">LocalDictation</a>
         <span>{previewMode ? (isDe ? "Private Vorschau" : "Private preview") : "Download"}</span>
       </header>
-      <section className="thanks-hero shell">
+      <main>
+        <section className="thanks-hero shell">
         <div className="download-confirmation">
           <span className="download-check" aria-hidden="true">↓</span>
           <p>{downloadStarted ? (isDe ? "Download läuft" : "Download started") : previewMode ? (isDe ? "Download-Platz ist vorbereitet" : "The download slot is ready") : (isDe ? "Download ist bereit" : "Download is ready")}</p>
@@ -38,16 +40,16 @@ export default async function DankePage({ searchParams }: { searchParams: Promis
         <p>{downloadStarted ? (isDe ? "LocalDictation wird bereits geladen. Die freiwillige Form hält die Datei nicht auf und hilft uns, deinen Lizenzschlüssel und passende Einrichtungshinweise zu senden." : "LocalDictation is already downloading. This optional form never gates the file and helps us send your licence key and relevant setup guidance.") : previewMode ? (isDe ? "Der signierte Build ist noch nicht an diese Vorschau angeschlossen. Sobald er bereit ist, startet der Download vor dieser Seite automatisch — die Form bleibt freiwillig." : "The signed build is not connected to this preview yet. Once it is ready, the download will start before this page opens — the form will remain optional.") : (isDe ? "Wenn du direkt hier gelandet bist, kannst du den signierten Build unten starten. Die Form bleibt freiwillig." : "If you landed here directly, you can start the signed build below. The form remains optional.")}</p>
         {downloadStarted && <iframe className="download-frame" src={downloadPath} title={isDe ? "LocalDictation Download" : "LocalDictation download"} />}
         {downloadAvailable && <a className="inline-download" href={downloadPath}>{downloadStarted ? (isDe ? "Download erneut starten" : "Start download again") : (isDe ? "Download jetzt starten" : "Start download now")} ↓</a>}
-      </section>
-      <section className="thanks-grid shell">
+        </section>
+        <section className="thanks-grid shell">
         <ThankYouForm locale={locale} leadEndpoint={leadEndpoint} />
         <aside className="key-card">
           <span>{isDe ? "Lizenzschlüssel" : "Licence key"}</span>
           <strong>•••• — •••• — ••••</strong>
           <p>{isDe ? "Kein Profil. Kein Passwort. Bis zu zwei Macs." : "No profile. No password. Up to two Macs."}</p>
         </aside>
-      </section>
-      <section className="install-section shell" id="installation">
+        </section>
+        <section className="install-section shell" id="installation">
         <div className="install-intro"><span>01—03</span><h2>{isDe ? "In drei Schritten startklar" : "Ready in three steps"}</h2></div>
         <div className="install-grid">
           <article><b>01</b><h3>{isDe ? "Image öffnen" : "Open the image"}</h3><p>{isDe ? "LocalDictation in den Programme-Ordner ziehen." : "Drag LocalDictation into Applications."}</p></article>
@@ -59,7 +61,9 @@ export default async function DankePage({ searchParams }: { searchParams: Promis
           <div className="permission-content"><small>{isDe ? "Datenschutz & Sicherheit" : "Privacy & Security"}</small><h3>{isDe ? "Bedienungshilfen" : "Accessibility"}</h3><div><span className="mini-app-icon">L</span><b>LocalDictation</b><i className="toggle-on" /></div></div>
         </div>
         <p className="help-line">{isDe ? "Etwas klemmt?" : "Something stuck?"} <a href="mailto:hallo@localdictation.app">{isDe ? "Schreib mir direkt" : "Email me directly"} ↗</a></p>
-      </section>
-    </main>
+        </section>
+      </main>
+      <RouteFooter locale={locale} />
+    </div>
   );
 }
