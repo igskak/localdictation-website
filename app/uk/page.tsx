@@ -3,9 +3,9 @@ import { LandingPage } from "../_components/LandingPage";
 import { landingMetadata } from "../_lib/landingMetadata";
 
 export function generateMetadata(): Promise<Metadata> {
-  return landingMetadata("en");
+  return landingMetadata("uk");
 }
 
-export default function EnglishHome() {
-  return <LandingPage locale="en" />;
+export default function UkrainianHome() {
+  return <LandingPage locale="uk" />;
 }

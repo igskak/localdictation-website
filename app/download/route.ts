@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getDownloadTarget } from "../_lib/download";
+import { parseLocale } from "../_lib/locale";
 
 export const dynamic = "force-dynamic";
 
@@ -13,12 +14,12 @@ function redirectHeaders(response: NextResponse) {
 
 export function GET(request: Request) {
   const requestUrl = new URL(request.url);
-  const locale = requestUrl.searchParams.get("lang") === "en" ? "en" : "de";
+  const locale = parseLocale(requestUrl.searchParams.get("lang"));
   const target = getDownloadTarget();
 
   if (!target) {
     const fallback = new URL("/danke", requestUrl.origin);
-    if (locale === "en") fallback.searchParams.set("lang", "en");
+    if (locale !== "de") fallback.searchParams.set("lang", locale);
     fallback.searchParams.set("download", "unavailable");
     return redirectHeaders(NextResponse.redirect(fallback, 307));
   }

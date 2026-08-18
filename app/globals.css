@@ -86,6 +86,12 @@ button { color: inherit; }
   gap: 12px;
 }
 
+.language-switch-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .language-switch {
   border: 0;
   background: transparent;
@@ -485,7 +491,8 @@ h1 span { color: #95958e; }
 @media (max-width: 700px) {
   .shell { width: min(100% - 32px, 620px); }
   .site-header { grid-template-columns: 1fr auto; }
-  .site-nav, .language-switch { display: none; }
+  .site-nav { display: none; }
+  .language-switch-group { gap: 8px; }
   .hero { gap: 44px; padding-block: 52px 64px; }
   h1 { font-size: clamp(43px, 13vw, 61px); }
   .hero-lede { font-size: 16px; }
@@ -545,6 +552,7 @@ h1 span { color: #95958e; }
 }
 
 .site-root *, .legal-page * { hyphens: auto; }
+.site-root h1, .site-root h2 { hyphens: manual; }
 .site-root p { text-wrap: pretty; }
 .site-root figure { margin: 0; }
 

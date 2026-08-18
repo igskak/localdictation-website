@@ -79,6 +79,51 @@ test("renders the English variant and reciprocal language links", async () => {
   assert.match(unrelatedHtml, /<html lang="de">/i);
 });
 
+test("renders the Russian and Ukrainian variants with their own profiles and reciprocal links", async () => {
+  const [ruResponse, ukResponse] = await Promise.all([render("/ru"), render("/uk")]);
+  const [ruHtml, ukHtml] = await Promise.all([ruResponse.text(), ukResponse.text()]);
+
+  assert.equal(ruResponse.status, 200);
+  assert.match(ruHtml, /<html lang="ru">/i);
+  assert.match(ruHtml, /Диктуй, а не печатай/);
+  assert.match(ruHtml, /Всё остаётся на твоём Mac/);
+  assert.match(ruHtml, /14 000 €/);
+  // The Russian page leads with the profile its reader actually needs.
+  assert.match(ruHtml, /RU \+ EN/);
+  assert.match(ruHtml, /Русский и английский в одном предложении/);
+  assert.match(ruHtml, /href="\/danke\?lang=ru&amp;download=auto"/i);
+
+  assert.equal(ukResponse.status, 200);
+  assert.match(ukHtml, /<html lang="uk">/i);
+  assert.match(ukHtml, /Диктуй, а не друкуй/);
+  assert.match(ukHtml, /Усе лишається на твоєму Mac/);
+  assert.match(ukHtml, /UK \+ EN/);
+  assert.match(ukHtml, /href="\/danke\?lang=uk&amp;download=auto"/i);
+
+  // Every locale offers the other three, and the German legal pages stay marked as German.
+  for (const [html, others] of [[ruHtml, ["de", "en", "uk"]], [ukHtml, ["de", "en", "ru"]]]) {
+    for (const other of others) assert.match(html, new RegExp(`hreflang="${other}"`, "i"), other);
+    assert.match(html, /href="\/impressum" hreflang="de"/i);
+  }
+});
+
+test("serves the thank-you flow in Russian and Ukrainian", async () => {
+  const [ruResponse, ukResponse] = await Promise.all([render("/danke?lang=ru"), render("/danke?lang=uk")]);
+  const [ruHtml, ukHtml] = await Promise.all([ruResponse.text(), ukResponse.text()]);
+
+  assert.match(ruHtml, /<html lang="ru">/i);
+  assert.match(ruHtml, /Куда прислать твой лицензионный ключ/);
+  assert.match(ruHtml, /<option value="development">Разработка<\/option>/i);
+  assert.match(ruHtml, /<option value="single">только один язык<\/option>/i);
+  assert.match(ruHtml, /Универсальный доступ/);
+  assert.match(ruHtml, /noindex/i);
+
+  assert.match(ukHtml, /<html lang="uk">/i);
+  assert.match(ukHtml, /Куди надіслати твій ліцензійний ключ/);
+  assert.match(ukHtml, /<option value="development">Розробка<\/option>/i);
+  assert.match(ukHtml, /Універсальний доступ/);
+});
+
 test("keeps the optional thank-you form honest and index-safe", async () => {
   const response = await render("/danke?preview=1");
   assert.equal(response.status, 200);
@@ -189,6 +234,8 @@ test("serves host-consistent crawl files containing only indexable landing route
   assert.deepEqual([...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]), [
     "https://preview.example",
     "https://preview.example/en",
+    "https://preview.example/ru",
+    "https://preview.example/uk",
     ...comparisonPaths.map((path) => `https://preview.example${path}`),
   ]);
   assert.doesNotMatch(sitemap, /danke|impressum|datenschutz|widerruf|download/);

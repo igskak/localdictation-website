@@ -3,64 +3,66 @@ import { ThankYouForm } from "./ThankYouForm";
 import { getDownloadTarget } from "../_lib/download";
 import { safeLeadEndpoint } from "../_lib/urlPolicy";
 import { RouteFooter } from "../_components/RouteFooter";
+import { thanksCopy } from "../_data/thanksCopy";
+import { localeHome, parseLocale } from "../_lib/locale";
 
 export async function generateMetadata({ searchParams }: { searchParams: Promise<{ lang?: string }> }): Promise<Metadata> {
   const params = await searchParams;
-  const english = params.lang === "en";
+  const { meta } = thanksCopy[parseLocale(params.lang)];
   return {
-    title: english ? "Download · LocalDictation" : "Download · LocalDictation",
-    description: english ? "Install LocalDictation and request your licence key." : "LocalDictation installieren und den Lizenzschlüssel anfordern.",
+    title: meta.title,
+    description: meta.description,
     robots: { index: false, follow: false },
   };
 }
 
 export default async function DankePage({ searchParams }: { searchParams: Promise<{ lang?: string; download?: string }> }) {
   const params = await searchParams;
-  const locale = params.lang === "en" ? "en" : "de";
-  const isDe = locale === "de";
+  const locale = parseLocale(params.lang);
+  const c = thanksCopy[locale];
   const downloadAvailable = Boolean(getDownloadTarget());
   const leadEndpoint = safeLeadEndpoint(process.env.LEAD_ENDPOINT);
   const downloadStarted = downloadAvailable && params.download === "auto";
   const previewMode = !downloadAvailable;
-  const downloadPath = `/download${isDe ? "" : "?lang=en"}`;
+  const downloadPath = locale === "de" ? "/download" : `/download?lang=${locale}`;
 
   return (
     <div className="thanks-page" lang={locale}>
       <header className="thanks-header shell">
-        <a href={isDe ? "/" : "/en"} className="thanks-brand">LocalDictation</a>
-        <span>{previewMode ? (isDe ? "Private Vorschau" : "Private preview") : "Download"}</span>
+        <a href={localeHome(locale)} className="thanks-brand">LocalDictation</a>
+        <span>{previewMode ? c.badge.preview : c.badge.download}</span>
       </header>
       <main>
         <section className="thanks-hero shell">
         <div className="download-confirmation">
           <span className="download-check" aria-hidden="true">↓</span>
-          <p>{downloadStarted ? (isDe ? "Download läuft" : "Download started") : previewMode ? (isDe ? "Download-Platz ist vorbereitet" : "The download slot is ready") : (isDe ? "Download ist bereit" : "Download is ready")}</p>
+          <p>{downloadStarted ? c.state.started : previewMode ? c.state.preview : c.state.ready}</p>
         </div>
-        <h1>{isDe ? "Wohin sollen wir deinen Lizenzschlüssel schicken?" : "Where should we send your licence key?"}</h1>
-        <p>{downloadStarted ? (isDe ? "LocalDictation wird bereits geladen. Die freiwillige Form hält die Datei nicht auf und hilft uns, deinen Lizenzschlüssel und passende Einrichtungshinweise zu senden." : "LocalDictation is already downloading. This optional form never gates the file and helps us send your licence key and relevant setup guidance.") : previewMode ? (isDe ? "Der signierte Build ist noch nicht an diese Vorschau angeschlossen. Sobald er bereit ist, startet der Download vor dieser Seite automatisch — die Form bleibt freiwillig." : "The signed build is not connected to this preview yet. Once it is ready, the download will start before this page opens — the form will remain optional.") : (isDe ? "Wenn du direkt hier gelandet bist, kannst du den signierten Build unten starten. Die Form bleibt freiwillig." : "If you landed here directly, you can start the signed build below. The form remains optional.")}</p>
-        {downloadStarted && <iframe className="download-frame" src={downloadPath} title={isDe ? "LocalDictation Download" : "LocalDictation download"} aria-hidden="true" tabIndex={-1} />}
-        {downloadAvailable && <a className="inline-download" href={downloadPath}>{downloadStarted ? (isDe ? "Download erneut starten" : "Start download again") : (isDe ? "Download jetzt starten" : "Start download now")} ↓</a>}
+        <h1>{c.title}</h1>
+        <p>{downloadStarted ? c.body.started : previewMode ? c.body.preview : c.body.direct}</p>
+        {downloadStarted && <iframe className="download-frame" src={downloadPath} title={c.iframeTitle} aria-hidden="true" tabIndex={-1} />}
+        {downloadAvailable && <a className="inline-download" href={downloadPath}>{downloadStarted ? c.inlineDownload.again : c.inlineDownload.now} ↓</a>}
         </section>
         <section className="thanks-grid shell">
         <ThankYouForm locale={locale} leadEndpoint={leadEndpoint} />
         <aside className="key-card">
-          <span>{isDe ? "Lizenzschlüssel" : "Licence key"}</span>
+          <span>{c.key.label}</span>
           <strong>•••• — •••• — ••••</strong>
-          <p>{isDe ? "Kein Profil. Kein Passwort. Bis zu zwei Macs." : "No profile. No password. Up to two Macs."}</p>
+          <p>{c.key.note}</p>
         </aside>
         </section>
         <section className="install-section shell" id="installation">
-        <div className="install-intro"><span>01—03</span><h2>{isDe ? "In drei Schritten startklar" : "Ready in three steps"}</h2></div>
+        <div className="install-intro"><span>01—03</span><h2>{c.install.title}</h2></div>
         <div className="install-grid">
-          <article><b>01</b><h3>{isDe ? "Image öffnen" : "Open the image"}</h3><p>{isDe ? "LocalDictation in den Programme-Ordner ziehen." : "Drag LocalDictation into Applications."}</p></article>
-          <article><b>02</b><h3>{isDe ? "Mikrofon erlauben" : "Allow microphone"}</h3><p>{isDe ? "macOS fragt beim ersten Diktat einmal nach." : "macOS asks once on your first dictation."}</p></article>
-          <article><b>03</b><h3>{isDe ? "Bedienungshilfe erlauben" : "Allow Accessibility"}</h3><p>{isDe ? "Damit Text genau am Cursor eingesetzt werden kann." : "So text can be inserted exactly at your cursor."}</p></article>
+          {c.install.steps.map((step, index) => (
+            <article key={step.title}><b>{`0${index + 1}`}</b><h3>{step.title}</h3><p>{step.body}</p></article>
+          ))}
         </div>
-        <div className="permission-window" role="img" aria-label={isDe ? "Beispiel der macOS-Bedienungshilfen-Einstellung" : "Example of the macOS Accessibility setting"}>
+        <div className="permission-window" role="img" aria-label={c.install.permissionAlt}>
           <div className="permission-sidebar"><i /><i /><i /><i /></div>
-          <div className="permission-content"><small>{isDe ? "Datenschutz & Sicherheit" : "Privacy & Security"}</small><h3>{isDe ? "Bedienungshilfen" : "Accessibility"}</h3><div><span className="mini-app-icon">L</span><b>LocalDictation</b><i className="toggle-on" /></div></div>
+          <div className="permission-content"><small>{c.install.settingsGroup}</small><h3>{c.install.accessibility}</h3><div><span className="mini-app-icon">L</span><b>LocalDictation</b><i className="toggle-on" /></div></div>
         </div>
-        <p className="help-line">{isDe ? "Etwas klemmt?" : "Something stuck?"} <a href="mailto:hallo@localdictation.app">{isDe ? "Schreib mir direkt" : "Email me directly"} ↗</a></p>
+        <p className="help-line">{c.install.help} <a href="mailto:hallo@localdictation.app">{c.install.helpLink} ↗</a></p>
         </section>
       </main>
       <RouteFooter locale={locale} />

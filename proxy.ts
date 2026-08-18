@@ -1,11 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
+import { locales, parseLocale } from "./app/_lib/locale";
 
 export function proxy(request: NextRequest) {
   const requestHeaders = new Headers(request.headers);
-  const englishPath = request.nextUrl.pathname === "/en" || request.nextUrl.pathname.startsWith("/en/");
-  const english = englishPath || (request.nextUrl.pathname === "/danke" && request.nextUrl.searchParams.get("lang") === "en");
-  const isDownload = request.nextUrl.pathname === "/download";
-  requestHeaders.set("x-page-locale", english ? "en" : "de");
+  const { pathname, searchParams } = request.nextUrl;
+  // German lives at the root, every other locale under its own prefix; /danke and /download carry ?lang=.
+  const prefixed = locales.find((locale) => locale !== "de" && (pathname === `/${locale}` || pathname.startsWith(`/${locale}/`)));
+  const queried = pathname === "/danke" || pathname === "/download" ? parseLocale(searchParams.get("lang")) : "de";
+  const isDownload = pathname === "/download";
+  requestHeaders.set("x-page-locale", prefixed ?? queried);
   const response = NextResponse.next({ request: { headers: requestHeaders } });
   if (!isDownload) response.headers.set("referrer-policy", "strict-origin-when-cross-origin");
   response.headers.set("x-content-type-options", "nosniff");

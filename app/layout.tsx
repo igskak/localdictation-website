@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
+import { parseLocale } from "./_lib/locale";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -17,7 +18,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const incoming = await headers();
-  const locale = incoming.get("x-page-locale") === "en" ? "en" : "de";
+  const locale = parseLocale(incoming.get("x-page-locale"));
   return (
     <html lang={locale}>
       <body>{children}</body>
