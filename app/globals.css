@@ -199,17 +199,6 @@ h1 span { color: #95958e; }
 }
 
 .button-primary:hover { background: #ff7c5f; }
-.button-quiet {
-  padding: 14px 20px;
-  border: 1px solid var(--line-strong);
-  color: #d4d3cc;
-}
-
-.button-quiet:hover {
-  border-color: rgba(255, 255, 255, 0.28);
-  background: rgba(255, 255, 255, 0.035);
-}
-
 .fine-print {
   display: flex;
   align-items: center;
@@ -642,13 +631,6 @@ h1 span { color: #95958e; }
 
 .site-root .button-primary:hover { background: var(--accent-hover); }
 .download-symbol { font-size: 17px; line-height: 0; }
-
-.site-root .button-quiet {
-  border-color: var(--line-strong);
-  color: var(--ink);
-}
-
-.site-root .button-quiet:hover { background: color-mix(in srgb, var(--ink) 5%, transparent); }
 
 .site-root .hero {
   min-height: min(880px, calc(100svh - 76px));

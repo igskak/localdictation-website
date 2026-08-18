@@ -40,6 +40,9 @@ test("renders the complete German landing page in the required order", async () 
   assert.match(html, /€99/);
   assert.match(html, /€49/);
   assert.equal((html.match(/<a[^>]+href="\/danke\?download=auto"[^>]*>[\s\S]*?Für Mac laden<\/a>/g) ?? []).length, 3);
+  // One landing, one call to action: the hero offers the download and nothing competing with it.
+  const hero = html.match(/<section class="hero[\s\S]*?<\/section>/)?.[0] ?? "";
+  assert.equal((hero.match(/class="button/g) ?? []).length, 1, "hero must hold exactly one CTA");
   assert.match(html, /nicht öffentlich dokumentiert/);
   assert.match(html, /Aktuellen Entwurf und offene Angaben ansehen/);
   assert.match(html, /UI-Prototyp/);

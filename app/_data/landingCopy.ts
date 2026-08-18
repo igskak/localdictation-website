@@ -2,7 +2,7 @@ import type { Locale } from "../_lib/locale";
 
 export type LandingCopy = {
   nav: { label: string; href: string }[];
-  hero: { eyebrow: string; title: string; titleMuted: string; lede: string; audience: string; demo: string; download: string; fine: string[] };
+  hero: { eyebrow: string; title: string; titleMuted: string; lede: string; audience: string; download: string; fine: string[] };
   trust: string[];
   demo: {
     windowTitle: string; send: string; to: string; toValue: string; subject: string; subjectValue: string;
@@ -47,7 +47,6 @@ const de: LandingCopy = {
     titleMuted: "Alles bleibt auf deinem Mac.",
     lede: "Drück den Hotkey, sprich — nach einer kurzen Prüfung landet der fertige Text dort, wo dein Cursor steht. Ohne Cloud-Verarbeitung, ohne Benutzerkonto, einmal zahlen statt monatlich.",
     audience: "Für alle, die auf Deutsch und Englisch arbeiten — und beides in einem Satz mischen.",
-    demo: "Ansehen, wie es funktioniert",
     download: "Für Mac laden",
     fine: ["14 Tage voller Funktionsumfang", "E-Mail-Schlüssel nach 5 Diktaten oder 24 h", "Apple Silicon", "macOS 14.4+", "keine Kreditkarte"],
   },
@@ -188,7 +187,6 @@ const en: LandingCopy = {
     titleMuted: "Everything stays on your Mac.",
     lede: "Press the hotkey and speak. After a quick check, finished text appears exactly where your cursor is. No cloud processing, no user account, and a one-time purchase instead of another monthly bill.",
     audience: "For people who work in English and German — and switch between both in the same sentence.",
-    demo: "See how it works",
     download: "Download for Mac",
     fine: ["14-day full trial", "email key after 5 dictations or 24 hours", "Apple silicon", "macOS 14.4+", "no credit card"],
   },
@@ -329,7 +327,6 @@ const ru: LandingCopy = {
     titleMuted: "Всё остаётся на твоём Mac.",
     lede: "Нажми хоткей и говори — после короткой проверки готовый текст появится там, где стоит курсор. Без обработки в облаке, без аккаунта, платишь один раз вместо ежемесячной подписки.",
     audience: "Для тех, кто работает на русском и английском — и мешает их в одном предложении.",
-    demo: "Посмотреть, как это работает",
     download: "Скачать для Mac",
     fine: ["14 дней полной версии", "ключ на почту после 5 диктовок или 24 часов", "Apple Silicon", "macOS 14.4+", "без карты"],
   },
@@ -470,7 +467,6 @@ const uk: LandingCopy = {
     titleMuted: "Усе лишається на твоєму Mac.",
     lede: "Натисни гарячу клавішу й говори — після короткої перевірки готовий текст з'явиться там, де стоїть курсор. Без обробки в хмарі, без облікового запису, платиш один раз замість щомісячної підписки.",
     audience: "Для тих, хто працює українською та англійською — і змішує їх в одному реченні.",
-    demo: "Подивитися, як це працює",
     download: "Завантажити для Mac",
     fine: ["14 днів повної версії", "ключ на пошту після 5 диктувань або 24 годин", "Apple Silicon", "macOS 14.4+", "без картки"],
   },

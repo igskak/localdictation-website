@@ -161,7 +161,6 @@ export function LandingPage({ locale }: { locale: Locale }) {
               <a className="button button-primary" href={downloadHref}>
                 <span className="download-symbol" aria-hidden="true">↓</span>{c.hero.download}
               </a>
-              <a className="button button-quiet" href="#verifikation">{c.hero.demo} <span aria-hidden="true">↓</span></a>
             </div>
             <p className="fine-print">
               {c.hero.fine.map((item, index) => <span key={item}>{index > 0 && <i />} {item}</span>)}
