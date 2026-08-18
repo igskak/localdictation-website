@@ -1,0 +1,19 @@
+# Render Blueprint — preview deployment so reviewers can open the site.
+# The default build target stays Cloudflare Workers (npm run build); this
+# service uses the Node bundle produced by npm run build:node.
+services:
+  - type: web
+    name: localdictation-website
+    runtime: node
+    plan: free
+    region: frankfurt
+    branch: main
+    buildCommand: npm ci && npm run build:node
+    startCommand: npm run start:node
+    envVars:
+      # Set these in the Render dashboard, never in source control.
+      # Without them the site stays in its honest private-preview mode.
+      - key: DOWNLOAD_URL
+        sync: false
+      - key: LEAD_ENDPOINT
+        sync: false

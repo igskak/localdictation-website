@@ -1,7 +1,8 @@
 import type { NextConfig } from "next";
 
-const nextConfig: NextConfig = {
-  /* config options here */
-};
+// VINEXT_PLATFORM=node builds a self-hosting bundle at dist/standalone/server.js
+// (used for the Render Web Service). The default build stays Cloudflare Workers.
+const nextConfig: NextConfig =
+  process.env.VINEXT_PLATFORM === "node" ? { output: "standalone" } : {};
 
 export default nextConfig;

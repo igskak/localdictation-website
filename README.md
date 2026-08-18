@@ -35,6 +35,17 @@ npm test
 npm run lint
 ```
 
+## Deployment
+
+Two build targets share one codebase:
+
+| Target | Build | Start | Notes |
+|---|---|---|---|
+| Cloudflare Workers (default) | `npm run build` | — | What `npm test` exercises; `dist/server/index.js` is the Worker entry |
+| Node (self-hosting, Render) | `npm run build:node` | `npm run start:node` | `VINEXT_PLATFORM=node` switches `next.config.ts` to `output: "standalone"` and drops the Cloudflare Vite plugin |
+
+The standalone server binds `0.0.0.0` and honours `PORT`. `render.yaml` is a ready Render Blueprint for a free web service; free instances sleep when idle, so the first request after a pause takes about a minute — fine for review, not for paid traffic.
+
 ## Launch configuration
 
 Copy `.env.example` to a local `.env` and configure only what is available:
