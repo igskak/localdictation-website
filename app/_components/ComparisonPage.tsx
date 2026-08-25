@@ -7,18 +7,20 @@ import {
   comparisons,
   type CitedCopy,
   type ComparisonPageData,
+  type ComparisonSlug,
   type ComparisonSource,
 } from "../_data/comparisons";
 import { requestOrigin } from "../_lib/requestOrigin";
 import styles from "./ComparisonPage.module.css";
 
-const comparisonLabels = {
+const comparisonLabels: Record<ComparisonSlug, string> = {
   "wispr-flow-alternative": "Wispr Flow",
   "superwhisper-alternative": "Superwhisper",
   "sprecho-alternative": "Sprecho",
   "voiceink-vs-localdictation": "VoiceInk",
+  "macwhisper-alternative": "MacWhisper",
   "diktiersoftware-mac-dsgvo": "Mac & DSGVO",
-} as const;
+};
 
 export async function comparisonMetadata(data: ComparisonPageData): Promise<Metadata> {
   const origin = await requestOrigin();
@@ -114,6 +116,8 @@ function absoluteSourceUrl(source: ComparisonSource, origin: URL) {
 export async function ComparisonPage({ data }: { data: ComparisonPageData }) {
   const origin = await requestOrigin();
   const canonical = new URL(data.path, origin).toString();
+  const updatedIso = data.updatedIso ?? comparisonUpdatedIso;
+  const updatedLabel = data.updatedLabel ?? comparisonUpdatedLabel;
   const citations = data.sources.map((source) => absoluteSourceUrl(source, origin));
   const articleSchema = {
     "@context": "https://schema.org",
@@ -121,7 +125,7 @@ export async function ComparisonPage({ data }: { data: ComparisonPageData }) {
     headline: data.title,
     description: data.description,
     inLanguage: "de-DE",
-    dateModified: comparisonUpdatedIso,
+    dateModified: updatedIso,
     mainEntityOfPage: canonical,
     author: { "@type": "Organization", name: "LocalDictation", url: origin.toString() },
     publisher: { "@type": "Organization", name: "LocalDictation", url: origin.toString() },
@@ -188,7 +192,7 @@ export async function ComparisonPage({ data }: { data: ComparisonPageData }) {
             <div className={styles.freshness}>
               <span className={styles.statusDot} aria-hidden="true" />
               <span>
-                Fakten geprüft am <time dateTime={comparisonUpdatedIso}>{comparisonUpdatedLabel}</time>. Preise in
+                Fakten geprüft am <time dateTime={updatedIso}>{updatedLabel}</time>. Preise in
                 Originalwährung; keine eigenen Genauigkeitsbenchmarks.
               </span>
             </div>
@@ -276,7 +280,7 @@ export async function ComparisonPage({ data }: { data: ComparisonPageData }) {
             <div className={styles.sectionIndex}>Quellennachweis</div>
             <h2 id="quellen">Offizielle Quellen</h2>
             <p className={styles.sourcePolicy}>
-              Ausschließlich offizielle Produkt-, Hilfe-, Preis- und Rechtstexte. Alle Quellen wurden am {comparisonUpdatedLabel} abgerufen.
+              Ausschließlich offizielle Produkt-, Hilfe-, Preis- und Rechtstexte. Alle Quellen wurden am {updatedLabel} abgerufen.
             </p>
             <ol>
               {data.sources.map((source) => (
@@ -328,8 +332,13 @@ export async function ComparisonPage({ data }: { data: ComparisonPageData }) {
 
 export async function ComparisonHub() {
   const origin = await requestOrigin();
+  const newest = comparisonSlugs
+    .map((slug) => comparisons[slug])
+    .reduce((latest, entry) => ((entry.updatedIso ?? comparisonUpdatedIso) > latest.iso
+      ? { iso: entry.updatedIso ?? comparisonUpdatedIso, label: entry.updatedLabel ?? comparisonUpdatedLabel }
+      : latest), { iso: comparisonUpdatedIso, label: comparisonUpdatedLabel });
   const canonical = new URL("/vergleich", origin).toString();
-  const title = "Diktier-Apps für den Mac: fünf nachvollziehbare Vergleiche";
+  const title = "Diktier-Apps für den Mac: sechs nachvollziehbare Vergleiche";
   const description =
     "Offizielle Quellen statt Genauigkeitsversprechen: Vergleiche Datenfluss, Plattformen, Sprachen, Kontrolle und Kosten von LocalDictation und etablierten Diktier-Apps.";
   const schema = JSON.stringify({
@@ -339,7 +348,7 @@ export async function ComparisonHub() {
     description,
     inLanguage: "de-DE",
     url: canonical,
-    dateModified: comparisonUpdatedIso,
+    dateModified: newest.iso,
     mainEntity: {
       "@type": "ItemList",
       numberOfItems: comparisonSlugs.length,
@@ -375,7 +384,7 @@ export async function ComparisonHub() {
             <p className={styles.hubLede}>{description}</p>
             <div className={styles.freshness}>
               <span className={styles.statusDot} aria-hidden="true" />
-              <span>Fakten geprüft am <time dateTime={comparisonUpdatedIso}>{comparisonUpdatedLabel}</time>.</span>
+              <span>Zuletzt geprüft am <time dateTime={newest.iso}>{newest.label}</time>; jeder Vergleich trägt sein eigenes Abrufdatum.</span>
             </div>
           </header>
           <section className={styles.cardGrid} aria-label="Alle Vergleiche">

@@ -3,6 +3,7 @@ export const comparisonSlugs = [
   "superwhisper-alternative",
   "sprecho-alternative",
   "voiceink-vs-localdictation",
+  "macwhisper-alternative",
   "diktiersoftware-mac-dsgvo",
 ] as const;
 
@@ -38,6 +39,9 @@ export type ComparisonPageData = {
   title: string;
   metaTitle: string;
   description: string;
+  /** Set only when this page was verified later than `comparisonUpdatedIso`. */
+  updatedIso?: string;
+  updatedLabel?: string;
   directAnswer: CitedCopy;
   table: {
     caption: string;
@@ -177,6 +181,27 @@ const voiceInkSources: ComparisonSource[] = [
     title: "Terms of Service",
     publisher: "VoiceInk",
     url: "https://tryvoiceink.com/terms",
+  },
+];
+
+const macwhisperSources: ComparisonSource[] = [
+  {
+    id: "macwhisper-product",
+    title: "MacWhisper Produktseite, Funktionen und Preise",
+    publisher: "MacWhisper",
+    url: "https://www.macwhisper.com/",
+  },
+  {
+    id: "macwhisper-licensing",
+    title: "Lizenz auf mehreren Geräten aktivieren",
+    publisher: "MacWhisper Support",
+    url: "https://docs.macwhisper.com/article/39-licensing",
+  },
+  {
+    id: "macwhisper-docs",
+    title: "MacWhisper Support-Dokumentation",
+    publisher: "MacWhisper",
+    url: "https://docs.macwhisper.com/",
   },
 ];
 
@@ -611,6 +636,130 @@ const voiceInk: ComparisonPageData = {
   sources: [localSource, ...voiceInkSources],
 };
 
+const macwhisper: ComparisonPageData = {
+  slug: "macwhisper-alternative",
+  path: "/vergleich/macwhisper-alternative",
+  eyebrow: "MacWhisper-Alternative",
+  title: "MacWhisper-Alternative? Es kommt darauf an, ob du Dateien transkribierst oder diktierst",
+  metaTitle: "MacWhisper Alternative für den Mac | Vergleich 2026",
+  description:
+    "MacWhisper und LocalDictation sachlich verglichen: Dateitranskription gegen Diktat, lokale Modelle, optionale Cloud-Anbieter, Grammatikverbesserung, Sprachen, Geräte und Preise.",
+  updatedIso: "2026-08-25",
+  updatedLabel: "25. August 2026",
+  directAnswer: {
+    text: "Die kurze Antwort: MacWhisper und LocalDictation lösen zwei verschiedene Aufgaben. MacWhisper ist in erster Linie eine Transkriptionsumgebung für Dateien, Meetings und Untertitel und bietet zusätzlich systemweites Diktat; es ist verfügbar, kostet €64 einmalig neben einer kostenlosen Version und erlaubt als persönliche Lizenz als Richtwert drei Geräte. LocalDictation macht ausschließlich Diktat in andere Apps und richtet sich an Menschen, die auf Deutsch und Englisch arbeiten und riskante Zahlen, Namen, Daten oder Verneinungen vor dem Einfügen prüfen wollen. Wer Audiodateien transkribiert, bleibt bei MacWhisper besser aufgehoben.",
+    sources: ["macwhisper-product", "macwhisper-licensing", "local-product"],
+  },
+  table: {
+    caption: "MacWhisper und LocalDictation auf einen Blick",
+    headers: ["Kriterium", "LocalDictation", "MacWhisper"],
+    rows: [
+      ["Schwerpunkt", "Diktat in andere Apps", "Transkription von Dateien, Meetings und Untertiteln; zusätzlich systemweites Diktat"],
+      ["Produktstatus", "Private Vorschau", "Verfügbar"],
+      ["Verarbeitung", "Inhalte lokal; keine Cloud-Option vorgesehen", "Lokale Modelle; optional Cloud-Anbieter wie OpenAI, Anthropic, xAI und Google Gemini"],
+      ["Sprachen", "DE, EN, RU, UK; feste Mischprofile", "100 Sprachen laut Anbieter"],
+      ["Nachbearbeitung", "Bereinigung umkehrbar; Rohtranskript per Hotkey", "Automatische Grammatikverbesserung; Diktat mit KI-Prompts"],
+      ["Prüfung riskanter Stellen", "Vor Einfügung vorgesehen", "Nicht öffentlich dokumentiert"],
+      ["Geräte", "Zwei Macs", "Persönliche Lizenz, Richtwert drei Geräte"],
+      ["Preis", "€99 lebenslang oder €49/Jahr", "Kostenlose Version; Pro €64 einmalig, lebenslange Updates"],
+    ],
+  },
+  sections: [
+    {
+      title: "Zwei Werkzeuge, ein gemeinsames Wort",
+      paragraphs: [
+        {
+          text: "MacWhisper beschreibt als Kern das Transkribieren fertiger Aufnahmen: Dateien per Drag-and-drop, Interviews, Sprachmemos, Vorlesungen und Untertitel, dazu Mitschnitte von Zoom-, Teams-, Webex-, Skype- und Discord-Gesprächen, YouTube- und Podcast-Transkription, Stapelverarbeitung, Sprechererkennung, Entfernen von Füllwörtern, Zusammenfassungen und Export nach .srt, .vtt, .txt, .md, .pdf, .html und .docx. Systemweites Diktat steht daneben als weitere Funktion.",
+          sources: ["macwhisper-product"],
+        },
+        {
+          text: "LocalDictation kann nichts davon und soll es auch nicht können. Es gibt keine Dateitranskription, keine Untertitel, keine Sprechererkennung und keinen Meeting-Mitschnitt. Das Produkt macht eine einzige Sache: Hotkey drücken, sprechen, Text erscheint an der Cursorposition in der App, in der du gerade bist. Wenn dein Alltag aus Aufnahmen besteht, die hinterher zu Text werden sollen, ist dieser Vergleich bereits entschieden — dann ist MacWhisper das richtige Werkzeug.",
+          sources: ["local-product"],
+        },
+      ],
+    },
+    {
+      title: "Automatische Grammatikverbesserung — hier biegen die beiden auseinander",
+      paragraphs: [
+        {
+          text: "MacWhisper nennt für das Diktat unter anderem automatische Grammatikverbesserung und das Diktieren mit KI-Prompts. Für viele Texte ist genau das erwünscht: gesprochene Sätze werden geglättet, bevor sie im Dokument landen.",
+          sources: ["macwhisper-product"],
+        },
+        {
+          text: "LocalDictation setzt an dieser Stelle bewusst anders an. Die Bereinigung bleibt konservativ und umkehrbar: Ein Hotkey zeigt das Rohtranskript, damit nachträglich sichtbar bleibt, was das Programm verändert hat. Zusätzlich sollen Zahlen, Datumsangaben, Eigennamen, Verneinungen und Wörterbuchbegriffe vor der Einfügung markiert werden, sodass Originalton und Rohtext daneben zur Kontrolle stehen. Der Gedanke dahinter: Je glatter ein Text formuliert ist, desto schwerer fällt auf, dass eine Summe oder ein Name unterwegs ein anderer geworden ist.",
+          sources: ["local-product"],
+        },
+        {
+          text: "Eine automatische Confidence- oder Risikomarkierung auf Fragmentebene ist in der geprüften öffentlichen MacWhisper-Produkt- und Support-Dokumentation nicht öffentlich dokumentiert. Das ist keine Aussage darüber, wie gut MacWhisper erkennt, und kein Genauigkeitsvergleich — es bedeutet nur, dass wir diese eine Funktion nicht als belegten Gleichstand eintragen können.",
+          sources: ["macwhisper-product", "macwhisper-docs"],
+        },
+      ],
+    },
+    {
+      title: "Lokal ist bei beiden der Standard — der Unterschied liegt in den Optionen",
+      paragraphs: [
+        {
+          text: "MacWhisper transkribiert nach eigener Angabe mit lokalen Modellen und wirbt damit, dass sensible Inhalte lokal verarbeitet werden, ohne den Mac zu verlassen. Daneben lassen sich Cloud-Anbieter wie OpenAI, Anthropic, xAI und Google Gemini einbinden. Ob im konkreten Betrieb Inhalte das Gerät verlassen, hängt damit an der Konfiguration und nicht am Produkt an sich.",
+          sources: ["macwhisper-product"],
+        },
+        {
+          text: "LocalDictation sieht diesen Schalter gar nicht erst vor: Audio, Transkript, Wörterbuch und Inhalte der Ziel-App sollen lokal bleiben, Audio standardmäßig nur im Arbeitsspeicher. Getrennt davon dürfen Aktivierung, Lizenzprüfung, Checkout und Updates offengelegte Nicht-Inhaltsdaten übertragen. Das ist weniger flexibel, dafür gibt es weniger zu prüfen und weniger falsch einzustellen.",
+          sources: ["local-product"],
+        },
+      ],
+    },
+    {
+      title: "Hundert Sprachen gegen vier",
+      paragraphs: [
+        {
+          text: "MacWhisper nennt Unterstützung für 100 Sprachen. Das ist der größere Sprachraum, und für alles außerhalb von Deutsch, Englisch, Russisch und Ukrainisch ist die Frage damit beantwortet.",
+          sources: ["macwhisper-product"],
+        },
+        {
+          text: "LocalDictation beschränkt den MVP auf vier Sprachen und feste Paare wie DE + EN oder RU + UK, die vor dem Diktat gewählt werden. Ziel ist nicht die größere Zahl, sondern ein vorhersehbarer Raum für Sätze, in denen zwei Sprachen vorkommen, plus ein lokales Wörterbuch für Namen und Fachbegriffe, das jedes Mal dieselbe Schreibweise einsetzt. Einen Genauigkeitsvergleich behaupten wir dabei nicht: Es gibt keinen gemeinsamen offiziellen Benchmark mit identischer Hardware, Aufnahme und Nachbearbeitung, der beide Apps belastbar ordnet.",
+          sources: ["local-product"],
+        },
+      ],
+    },
+    {
+      title: "Preis, Geräte und Hardware",
+      paragraphs: [
+        {
+          text: "MacWhisper nennt eine dauerhaft kostenlose Version und MacWhisper Pro für €64 als Einmalkauf inklusive lebenslanger Updates. Die persönliche Lizenz ist laut Support für die eigenen Geräte gedacht, mit einem Richtwert von drei. LocalDictation plant €99 lebenslang oder €49 jährlich für zwei Macs. MacWhisper ist damit günstiger, deckt mehr Geräte ab und lässt sich vorher kostenlos ausprobieren — beim reinen Preis-Leistungs-Vergleich gewinnt es deutlich.",
+          sources: ["macwhisper-product", "macwhisper-licensing", "local-product"],
+        },
+        {
+          text: "Ein praktischer Hinweis aus der MacWhisper-Dokumentation, der beide Produkte betrifft: Für die Modelle Medium und Large sollte der Mac mehr als 8 GB RAM haben, und auf älteren Intel-Macs kann die Leistung schlecht ausfallen. Lokale Spracherkennung ist rechenintensiv, unabhängig davon, welche App sie ausführt. LocalDictation setzt Apple Silicon voraus.",
+          sources: ["macwhisper-docs", "local-product"],
+        },
+      ],
+    },
+  ],
+  verdict: {
+    text: "Fazit: MacWhisper ist die breitere, günstigere und bereits verfügbare App — für Dateitranskription, Meetings und Untertitel gibt es hier keinen Grund zu wechseln. LocalDictation ist nur dann die passendere Wahl, wenn du den ganzen Tag in andere Apps diktierst, dabei Deutsch und Englisch mischst und willst, dass Zahlen und Namen vor dem Einfügen markiert statt geglättet werden. Bis zum öffentlichen Launch bleibt MacWhisper ohnehin die sofort nutzbare Lösung.",
+    sources: ["macwhisper-product", "local-product"],
+  },
+  faqs: [
+    {
+      question: "Ist MacWhisper kostenlos?",
+      answer: "Es gibt eine dauerhaft kostenlose Version. MacWhisper Pro kostet laut Produktseite €64 als Einmalkauf und schließt lebenslange Updates ein.",
+    },
+    {
+      question: "Transkribiert MacWhisper lokal oder in der Cloud?",
+      answer: "Nach Anbieterangabe wird mit lokalen Modellen auf dem Mac transkribiert. Zusätzlich lassen sich Cloud-Anbieter wie OpenAI, Anthropic, xAI und Google Gemini einbinden; dann gilt ein anderer Datenweg.",
+    },
+    {
+      question: "Auf wie vielen Macs darf ich MacWhisper nutzen?",
+      answer: "Die persönliche Lizenz ist laut Support für die eigenen Geräte gedacht, mit einem Richtwert von drei. LocalDictation plant zwei Macs pro Lizenz.",
+    },
+    {
+      question: "Ist LocalDictation ein vollwertiger MacWhisper-Ersatz?",
+      answer: "Nein. LocalDictation transkribiert keine Dateien, erstellt keine Untertitel, erkennt keine Sprecher und zeichnet keine Meetings auf. Es ersetzt MacWhisper nur für den Teil, der Diktat in andere Apps heißt.",
+    },
+  ],
+  sources: [localSource, ...macwhisperSources],
+};
+
 const dsgvo: ComparisonPageData = {
   slug: "diktiersoftware-mac-dsgvo",
   path: "/vergleich/diktiersoftware-mac-dsgvo",
@@ -734,5 +883,6 @@ export const comparisons: Record<ComparisonSlug, ComparisonPageData> = {
   "superwhisper-alternative": superwhisper,
   "sprecho-alternative": sprecho,
   "voiceink-vs-localdictation": voiceInk,
+  "macwhisper-alternative": macwhisper,
   "diktiersoftware-mac-dsgvo": dsgvo,
 };

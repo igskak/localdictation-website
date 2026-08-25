@@ -9,6 +9,7 @@ const comparisonPaths = [
   "/vergleich/superwhisper-alternative",
   "/vergleich/sprecho-alternative",
   "/vergleich/voiceink-vs-localdictation",
+  "/vergleich/macwhisper-alternative",
   "/vergleich/diktiersoftware-mac-dsgvo",
 ];
 
@@ -257,7 +258,7 @@ test("renders the source-dated comparison hub and every required AEO route", asy
     assert.match(html, new RegExp(`<link rel="canonical" href="https://preview\\.example${route}"`, "i"), route);
     assert.doesNotMatch(html, /<meta name="robots" content="noindex/i, route);
     if (route !== "/vergleich") {
-      assert.match(html, /18\. August 2026/, route);
+      assert.match(html, /\d{1,2}\. August 2026/, route);
       assert.match(html, /Offizielle Quellen/, route);
       assert.doesNotMatch(html, /(?:og:image|twitter:image|\/og\.png)/i, route);
       assert.match(html, /nicht öffentlich dokumentiert/, route);
