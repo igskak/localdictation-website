@@ -189,6 +189,19 @@ export async function ComparisonPage({ data }: { data: ComparisonPageData }) {
               <span className={styles.answerLabel}>Direkte Antwort</span>
               <CitedParagraph copy={data.directAnswer} sources={data.sources} />
             </div>
+            {/* Paid search lands here, not on the home page: the first screen needs its own
+                call to action and its own audience line, so a wrong-fit reader leaves before
+                the click costs anything. The verdict keeps a second one for readers who
+                scroll the whole comparison. */}
+            <div className={styles.heroCta}>
+              <Link className={styles.primaryButton} href="/danke?download=auto">
+                Für Mac laden <span aria-hidden="true">↓</span>
+              </Link>
+              <p className={styles.heroAudience}>
+                Für Mac-Nutzer, die täglich viel Text schreiben und dabei Deutsch und Englisch mischen.
+                Läuft auf Apple Silicon.
+              </p>
+            </div>
             <div className={styles.freshness}>
               <span className={styles.statusDot} aria-hidden="true" />
               <span>

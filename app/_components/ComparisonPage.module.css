@@ -170,6 +170,22 @@
   font-weight: 700;
 }
 
+.heroCta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px 20px;
+  margin-top: 26px;
+}
+
+.heroAudience {
+  max-width: 430px;
+  margin: 0;
+  color: var(--faint);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
 .freshness {
   display: flex;
   align-items: flex-start;
@@ -609,6 +625,15 @@
 
   .answer p {
     font-size: 17px;
+  }
+
+  .heroCta {
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .heroCta .primaryButton {
+    width: 100%;
   }
 
   .previewNote {
