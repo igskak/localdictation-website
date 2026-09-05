@@ -10,9 +10,11 @@ export function RouteFooter({ locale = "de" }: { locale?: Locale }) {
       <div className="route-footer-inner shell">
         <span>© 2026 Witness</span>
         <nav aria-label={c.legalNav}>
-          <Link href="/impressum" hrefLang="de">{c.impressum}</Link>
-          <Link href="/datenschutz" hrefLang="de">{c.datenschutz}</Link>
+          <Link href="/agb" hrefLang="de">{c.agb}</Link>
           <Link href="/widerruf" hrefLang="de">{c.widerruf}</Link>
+          <Link href="/datenschutz" hrefLang="de">{c.datenschutz}</Link>
+          <Link href="/impressum" hrefLang="de">{c.impressum}</Link>
+          <Link href="/lizenzen" hrefLang="de">{c.lizenzen}</Link>
           <a href="mailto:hallo@witnessmac.com">{c.kontakt}</a>
         </nav>
       </div>

@@ -2,11 +2,14 @@ import type { ReactNode } from "react";
 import Link from "next/link";
 import { RouteFooter } from "./RouteFooter";
 
-// `notice` defaults to the draft warning the privacy and withdrawal pages
-// still need. The Impressum passes its own, because its provider details are
-// now complete and a page that calls complete details a draft is telling the
-// reader the one thing about it that is no longer true.
-export function LegalShell({ title, eyebrow, notice, children }: { title: string; eyebrow: string; notice?: ReactNode; children: ReactNode }) {
+// Every legal page states when it was last written. A consumer text that does
+// not say which version they agreed to is a text nobody can be held to, and
+// `updated` is the one line that fixes that.
+//
+// `notice` is per page rather than shared: the pages are no longer all drafts,
+// and one default sentence claiming they are would be wrong on every one of
+// them that is finished.
+export function LegalShell({ title, eyebrow, updated, notice, children }: { title: string; eyebrow: string; updated: string; notice: ReactNode; children: ReactNode }) {
   return (
     <div className="legal-page" lang="de">
       <header className="legal-header shell"><Link href="/">Witness</Link><Link href="/">Zur Startseite ↗</Link></header>
@@ -14,7 +17,8 @@ export function LegalShell({ title, eyebrow, notice, children }: { title: string
         <article className="legal-article shell">
           <p className="section-kicker">{eyebrow}</p>
           <h1>{title}</h1>
-          <div className="legal-notice">{notice ?? <><b>Diese Seite ist ein Entwurf.</b> Rechtsgrundlagen, Empfänger und Speicherfristen müssen von einer qualifizierten Stelle geprüft und vervollständigt werden. Die Anbieterangaben im Impressum sind davon nicht betroffen.</>}</div>
+          <p className="legal-updated">{`Stand: ${updated}`}</p>
+          <div className="legal-notice">{notice}</div>
           {children}
         </article>
       </main>

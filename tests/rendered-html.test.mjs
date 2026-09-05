@@ -3,6 +3,9 @@ import { access, readFile } from "node:fs/promises";
 import test from "node:test";
 
 const projectRoot = new URL("../", import.meta.url);
+// Every route a buyer can reach from the footer. Listing them once is what
+// keeps a new legal page from shipping unlinked from the other four.
+const legalRoutes = ["/agb", "/widerruf", "/datenschutz", "/impressum", "/lizenzen"];
 const comparisonPaths = [
   "/vergleich",
   "/vergleich/wispr-flow-alternative",
@@ -45,7 +48,7 @@ test("renders the complete German landing page in the required order", async () 
   const hero = html.match(/<section class="hero[\s\S]*?<\/section>/)?.[0] ?? "";
   assert.equal((hero.match(/class="button/g) ?? []).length, 1, "hero must hold exactly one CTA");
   assert.match(html, /nicht öffentlich dokumentiert/);
-  assert.match(html, /Aktuellen Entwurf und offene Angaben ansehen/);
+  assert.match(html, /Die vollständige Datenschutzerklärung lesen/);
   assert.match(html, /UI-Prototyp/);
   assert.match(html, /Roh-Transkript · vor der Einfügung/);
   assert.match(html, /Der 14-Tage-Test beginnt mit deiner ersten erfolgreichen Diktierung/);
@@ -160,23 +163,25 @@ test("keeps query locale isolated and renders English download metadata", async 
   assert.match(thanksHtml, /<option value="ai_prompts">AI prompts<\/option>/i);
 });
 
-test("serves privacy, legal drafts, and llms context", async () => {
-  // The Impressum carries its own notice: its provider details are complete,
-  // and a page that calls complete details a draft misstates the one thing
-  // about itself that matters to a reader looking for who is selling to them.
+test("serves the legal pages, and no longer calls any of them a draft", async () => {
+  // Each page states what it is. None of them may still say "Entwurf": the
+  // product is on sale, and a text that calls itself unfinished beside a price
+  // is the site telling a buyer not to rely on the terms they just agreed to.
   const notices = new Map([
     ["/impressum", /Anbieterangaben vollständig/],
-    ["/datenschutz", /Diese Seite ist ein Entwurf/],
-    ["/widerruf", /Diese Seite ist ein Entwurf/],
+    ["/agb", /Diese Bedingungen beschreiben das Produkt, das tatsächlich verkauft wird/],
+    ["/widerruf", /Diese Belehrung gilt für Verbraucher/],
+    ["/datenschutz", /aus dem Code geschrieben/],
+    ["/lizenzen", /Witness steht auf fremder Arbeit/],
   ]);
-  for (const route of ["/impressum", "/datenschutz", "/widerruf"]) {
+  for (const route of legalRoutes) {
     const response = await render(route);
     assert.equal(response.status, 200, route);
     const html = await response.text();
     assert.match(html, notices.get(route), route);
-    assert.match(html, /href="\/impressum"/);
-    assert.match(html, /href="\/datenschutz"/);
-    assert.match(html, /href="\/widerruf"/);
+    assert.doesNotMatch(html, /ist ein Entwurf|noch zu ergänzen|vor dem ersten Verkauf/, route);
+    assert.match(html, /Stand: 5\. September 2026/, route);
+    for (const other of legalRoutes) assert.match(html, new RegExp(`href="${other}"`), `${route} must link ${other}`);
     assert.match(html, /mailto:hallo@witnessmac\.com/);
   }
 
@@ -225,6 +230,49 @@ test("serves privacy, legal drafts, and llms context", async () => {
   assert.equal(llms.trim().split(/\n\n+/).length, 3);
 });
 
+test("states the business model the same way in the legal text and on the landing page", async () => {
+  const agb = await (await render("/agb")).text();
+  // The four things a buyer pays for, in the document that has to bind us to
+  // them: the two prices, the two Macs, the trial, and what "lifetime" means.
+  for (const claim of ["€99", "€49", "zwei von ihr genutzte Macs", "14 Tage ab deiner ersten erfolgreichen Diktierung", "Version 1", "Merchant of Record", "tschechisches Recht"]) {
+    assert.ok(agb.includes(claim), `the terms must state ${claim}`);
+  }
+  // "Lifetime" is a version, not a duration, and the terms must say so rather
+  // than leave the landing page's "lebenslang" to mean whatever a reader hopes.
+  assert.match(agb, /künftige Hauptversion \(2\.0\) ist ein neues Produkt/);
+
+  const widerruf = await (await render("/widerruf")).text();
+  assert.match(widerruf, /vierzehn Tagen ohne Angabe von Gründen/);
+  assert.match(widerruf, /Muster-Widerrufsformular/);
+  // The early-expiry clause is the whole reason a key can be delivered at once.
+  // It is stated as a condition, because the consent it depends on is collected
+  // at the checkout and not by this page.
+  assert.match(widerruf, /Liegen sie nicht vor, bleibt dein Widerrufsrecht die vollen vierzehn Tage bestehen/);
+
+  const datenschutz = await (await render("/datenschutz")).text();
+  for (const recipient of ["Cloudflare", "Stripe", "Resend", "Hugging Face", "api.witnessmac.com"]) {
+    assert.ok(datenschutz.includes(recipient), `the privacy policy must name ${recipient}`);
+  }
+  assert.match(datenschutz, /Keines davon wird übertragen/);
+  assert.match(datenschutz, /keine Cookies/);
+  assert.match(datenschutz, /Úřad pro ochranu osobních údajů/);
+
+  const lizenzen = await (await render("/lizenzen")).text();
+  for (const holder of ["WhisperKit", "argmax", "OpenAI", "Apache-2.0"]) {
+    assert.ok(lizenzen.includes(holder), `the attribution page must name ${holder}`);
+  }
+  // MIT is only satisfied by carrying the permission notice, not by naming it.
+  assert.match(lizenzen, /Permission is hereby granted, free of charge/);
+
+  // The landing page used to disclose transmitted funnel events. Nothing is
+  // transmitted, so no locale may promise a disclosure the app does not make.
+  for (const route of ["/", "/en", "/ru", "/uk"]) {
+    const html = await (await render(route)).text();
+    assert.doesNotMatch(html, /Funnel-Ereignisse|funnel events|событиями воронки|подіями воронки/, route);
+    assert.doesNotMatch(html, /Entwurf|is currently a draft|черновиком|чернеткою/, route);
+  }
+});
+
 test("derives complete social metadata from a sanitized forwarded origin", async () => {
   const response = await render("/en", {
     "user-agent": "Twitterbot/1.0",
@@ -254,8 +302,10 @@ test("rejects malformed forwarded values without failing metadata rendering", as
 test("keeps legal metadata route-specific and non-indexable", async () => {
   const expected = new Map([
     ["/impressum", "Anbieterkennzeichnung und rechtliche Hinweise"],
-    ["/datenschutz", "Datenschutzgrenzen und vorgesehener Daten-Allowlist"],
-    ["/widerruf", "Entwurf der Widerrufsbelehrung"],
+    ["/agb", "Vertrags- und Lizenzbedingungen für den Kauf"],
+    ["/datenschutz", "Datenschutzerklärung für die Website"],
+    ["/widerruf", "Widerrufsbelehrung und Muster-Widerrufsformular"],
+    ["/lizenzen", "Quelloffene Komponenten und Spracherkennungsmodelle"],
   ]);
   for (const [route, description] of expected) {
     const response = await render(route);
@@ -283,7 +333,7 @@ test("serves host-consistent crawl files containing only indexable landing route
     "https://preview.example/uk",
     ...comparisonPaths.map((path) => `https://preview.example${path}`),
   ]);
-  assert.doesNotMatch(sitemap, /danke|impressum|datenschutz|widerruf|download/);
+  assert.doesNotMatch(sitemap, /danke|impressum|datenschutz|widerruf|agb|lizenzen|download/);
 });
 
 test("renders the source-dated comparison hub and every required AEO route", async () => {

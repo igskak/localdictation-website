@@ -10,14 +10,16 @@ German-first product site for Witness, a local-first dictation utility for Apple
 - `/uk` — Ukrainian landing page
 - `/danke` — optional licence-key form and installation guide (`?lang=en|ru|uk`)
 - `/vergleich` — German comparison hub with five source-dated buying guides
-- `/datenschutz`, `/impressum`, `/widerruf` — clearly marked legal drafts
+- `/agb`, `/widerruf`, `/datenschutz`, `/impressum`, `/lizenzen` — the legal texts, written against the business model rather than against a template
 - `/llms.txt` — concise machine-readable product context
 
 ## Copy and locales
 
-All four locales share one layout; only the text differs. Page copy lives in `app/_data/landingCopy.ts` and thank-you/form copy in `app/_data/thanksCopy.ts` — edit those, not the components. `app/_lib/locale.ts` is the single source of truth for the locale list, home paths, and hreflang alternates; German stays `x-default` because paid search and the legal pages are German.
+All four locales share one layout; only the text differs. Page copy lives in `app/_data/landingCopy.ts` and thank-you/form copy in `app/_data/thanksCopy.ts` — edit those, not the components. What the landing page says about the network has to match `/datenschutz`, and a test asserts it: no locale may disclose transmitted funnel events, because nothing is transmitted. `app/_lib/locale.ts` is the single source of truth for the locale list, home paths, and hreflang alternates; German stays `x-default` because paid search and the legal pages are German.
 
 Each locale leads with the language pair its reader actually needs (`DE + EN`, `EN + DE`, `RU + EN`, `UK + EN`). `RU + DE` is not a supported speech profile and must not be promised. Legal pages remain German everywhere and are linked with `hreflang="de"`.
+
+**That is a gap, not a decision.** The English, Russian and Ukrainian landing pages sell to buyers who may not read German, and a withdrawal notice they cannot read is a withdrawal notice that starts no clock. German is the operative language today; an English set of `/agb`, `/widerruf` and `/datenschutz` is the next thing owed.
 
 ## Local development
 
@@ -57,4 +59,9 @@ Hosted runtime values belong in Sites environment settings, not in source contro
 
 ## Before public launch
 
-Replace the animated UI prototype with real German product captures, connect the signed and notarised `.dmg`, connect and disclose the lead recipient and retention period, fill real legal identity details, and reverify every competitor claim and price.
+Replace the animated UI prototype with real German product captures, and reverify every competitor claim and price.
+
+Two things the legal texts describe but this repository cannot switch on:
+
+- **The digital-content declaration.** `/widerruf` states that the right of withdrawal expires early only when the buyer expressly consented to immediate delivery *and* acknowledged losing the right. Stripe's Managed Payments checkout takes no custom text, so the app collects it instead — a checkbox above the Buy buttons, which refuse to open a checkout without it. This site only has to keep `/agb` and `/widerruf` reachable at those exact paths: the app links both from that checkbox.
+- **A cancellation button for the annual licence.** Section 8 of `/agb` promises cancellation at any time by e-mail or through Stripe's portal. For consumers in Germany, §312k BGB wants a button on the website that leads to a confirmation page, and that needs an endpoint this site does not have yet.

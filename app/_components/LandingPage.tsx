@@ -352,7 +352,7 @@ export function LandingPage({ locale }: { locale: Locale }) {
         <div className="shell footer-top"><Brand /><p>{c.footer.tagline}</p></div>
         <div className="shell footer-bottom">
           <span>© 2026 Witness</span>
-          <nav aria-label={c.footer.legalNav}><a href="/impressum" hrefLang="de">{c.footer.impressum}</a><a href="/datenschutz" hrefLang="de">{c.footer.datenschutz}</a><a href="/widerruf" hrefLang="de">{c.footer.widerruf}</a><a href="mailto:hallo@witnessmac.com">{c.footer.kontakt}</a></nav>
+          <nav aria-label={c.footer.legalNav}><a href="/agb" hrefLang="de">{c.footer.agb}</a><a href="/widerruf" hrefLang="de">{c.footer.widerruf}</a><a href="/datenschutz" hrefLang="de">{c.footer.datenschutz}</a><a href="/impressum" hrefLang="de">{c.footer.impressum}</a><a href="/lizenzen" hrefLang="de">{c.footer.lizenzen}</a><a href="mailto:hallo@witnessmac.com">{c.footer.kontakt}</a></nav>
         </div>
       </footer>
 

@@ -1283,14 +1283,42 @@ h1 span { color: #95958e; }
 .route-footer a:hover { color: #191a17; }
 .download-frame { position: absolute; width: 1px; height: 1px; border: 0; opacity: 0; pointer-events: none; }
 
-/* Legal drafts */
+/* Legal pages */
 .legal-article { max-width: 860px; padding-block: 100px 150px; }
 .legal-article h1 { max-width: 800px; margin: 0; font-size: clamp(56px, 8vw, 92px); line-height: .96; letter-spacing: -.065em; font-weight: 520; }
-.legal-notice { margin: 48px 0 68px; padding: 20px 22px; border-left: 3px solid #e95435; background: #ebe6dc; color: #666861; font-size: 12px; line-height: 1.55; }
+.legal-updated { margin: 26px 0 0 !important; color: #8a8c84 !important; font: 10px ui-monospace, SFMono-Regular, Menlo, monospace !important; text-transform: uppercase; letter-spacing: .08em; }
+.legal-notice { margin: 30px 0 68px; padding: 20px 22px; border-left: 3px solid #e95435; background: #ebe6dc; color: #666861; font-size: 12px; line-height: 1.55; }
 .legal-notice b { color: #292a26; }
-.legal-article h2 { margin: 48px 0 0; font-size: 22px; letter-spacing: -.025em; }
+.legal-article h2 { margin: 54px 0 0; font-size: 22px; letter-spacing: -.025em; }
+.legal-article h3 { margin: 32px 0 0; font-size: 15px; font-weight: 640; letter-spacing: -.015em; }
 .legal-article p { margin: 14px 0 0; color: #61635c; font-size: 14px; line-height: 1.7; }
 .legal-article em { color: #8b5143; }
+.legal-article strong { color: #292a26; font-weight: 620; }
+.legal-article a { color: #30312d; text-decoration: underline; text-underline-offset: 3px; }
+.legal-article a:hover { color: #b2422d; }
+
+/* Legal text is mostly enumeration: what is stored, what is forbidden, what a
+   licence covers. Lists carry that better than prose, so they get real styles
+   rather than the browser's. */
+.legal-article ul, .legal-article ol { margin: 14px 0 0; padding-left: 20px; color: #61635c; font-size: 14px; line-height: 1.7; }
+.legal-article li { margin-top: 8px; }
+.legal-article li::marker { color: #a8aaa2; }
+
+/* The retention and recipient tables. They are wider than a phone, so they
+   scroll inside themselves instead of pushing the page sideways. */
+.legal-table { overflow-x: auto; margin-top: 20px; border: 1px solid rgba(25,26,23,.12); border-radius: 14px; }
+.legal-table table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.legal-table th, .legal-table td { padding: 12px 16px; border-bottom: 1px solid rgba(25,26,23,.09); color: #61635c; line-height: 1.55; text-align: left; vertical-align: top; }
+.legal-table th { color: #292a26; font-weight: 620; white-space: nowrap; }
+.legal-table tr:last-child td { border-bottom: 0; }
+
+/* The model withdrawal form. It is quoted law, so it is set apart from the
+   page's own voice rather than blended into it. */
+.legal-form { margin-top: 24px; padding: 26px 28px; border: 1px solid rgba(25,26,23,.14); border-radius: 18px; background: #fffefa; }
+.legal-form h3:first-child { margin-top: 0; }
+.legal-form p { color: #4c4e48; }
+
+.legal-article code { padding: 2px 6px; border-radius: 5px; background: #e7e5dd; font: 12px ui-monospace, SFMono-Regular, Menlo, monospace; }
 
 @media (max-width: 760px) {
   .thanks-grid { grid-template-columns: 1fr; }

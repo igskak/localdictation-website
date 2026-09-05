@@ -30,7 +30,7 @@ export type LandingCopy = {
   };
   faq: { title: string; lede: string; items: { q: string; a: string }[] };
   final: { kicker: string; title: string; body: string; download: string; ready: string; preview: string };
-  footer: { tagline: string; legalNav: string; impressum: string; datenschutz: string; widerruf: string; kontakt: string };
+  footer: { tagline: string; legalNav: string; agb: string; impressum: string; datenschutz: string; widerruf: string; lizenzen: string; kontakt: string };
   ui: { skip: string; theme: string; mainNav: string; languageNav: string; promises: string };
 };
 
@@ -90,10 +90,10 @@ const de: LandingCopy = {
     facts: [
       { title: "Kein Benutzerkonto", body: "E-Mail nur für den Lizenzschlüssel. Kein Profil, kein Passwort." },
       { title: "Kein AVV für Diktatinhalte", body: "Wir übertragen oder verarbeiten deine Sprachinhalte nicht in deinem Auftrag." },
-      { title: "Netzwerkzugriffe offengelegt", body: "Nur Aktivierung, Lizenz, Checkout, Updates und klar benannte Nicht-Inhaltsereignisse." },
+      { title: "Netzwerkzugriffe offengelegt", body: "Modell einmal laden, Schlüssel holen, Mac freigeben. Mehr sendet die App nicht." },
     ],
-    disclosure: "Nie übertragen werden Audio, Transkripte, Wörterbuch, Zwischenablage, Inhalte anderer Apps oder markierte Risikofragmente. Netzwerkzugriffe sind auf Aktivierung, Lizenzprüfung, Checkout, Updates sowie ausdrücklich benannte, inhaltsfreie Funnel-Ereignisse mit minimalen technischen Metadaten begrenzt.",
-    disclosureLink: "Aktuellen Entwurf und offene Angaben ansehen",
+    disclosure: "Nie übertragen werden Audio, Transkripte, Wörterbuch, Zwischenablage, Inhalte anderer Apps oder markierte Risikofragmente. Die App sendet genau dreierlei, jedes erst auf Knopfdruck: die Anfrage nach dem Spracherkennungsmodell, deine E-Mail-Adresse mit einer Gerätekennung für den Lizenzschlüssel und diesen Schlüssel zurück, wenn du einen Mac freigibst. Produktereignisse werden gebaut, aber nicht gesendet.",
+    disclosureLink: "Die vollständige Datenschutzerklärung lesen",
   },
   languages: {
     kicker: "Sprachen",
@@ -148,8 +148,8 @@ const de: LandingCopy = {
     title: "Klartext, bevor du installierst",
     lede: "Keine Fußnoten, die das Produktversprechen zurücknehmen.",
     items: [
-      { q: "Funktioniert die Spracherkennung wirklich offline?", a: "Ja. Spracherkennung und Textaufbereitung laufen auf deinem Mac. Aktivierung, Lizenzprüfung, wenige ausdrücklich benannte Produkt- und Marketingereignisse, Checkout und Updates benötigen eine Verbindung; dabei werden weder Audio noch Text, Wörterbuch oder Inhalte anderer Apps übertragen." },
-      { q: "Brauche ich als Kanzlei oder Praxis einen AVV?", a: "Für Diktatinhalte nicht: Witness überträgt oder verarbeitet sie nicht für uns. Für Hosting, Lizenzierung, Zahlung und Support gelten eigene Datenschutzpflichten, die in der Datenschutzerklärung beschrieben werden; sie ist derzeit ein Entwurf." },
+      { q: "Funktioniert die Spracherkennung wirklich offline?", a: "Ja. Spracherkennung und Textaufbereitung laufen auf deinem Mac, und die Lizenzprüfung ebenfalls — sie prüft eine Signatur, ohne zu fragen. Eine Verbindung brauchst du einmal für das Spracherkennungsmodell und einmal für den Lizenzschlüssel. Weder Audio noch Text, Wörterbuch oder Inhalte anderer Apps werden dabei übertragen." },
+      { q: "Brauche ich als Kanzlei oder Praxis einen AVV?", a: "Für Diktatinhalte nicht: Witness überträgt oder verarbeitet sie nicht für uns. Für Hosting, Lizenzierung, Zahlung und Support gelten eigene Datenschutzpflichten; welche, mit Empfänger, Rechtsgrundlage und Speicherdauer, steht vollständig in der Datenschutzerklärung." },
       { q: "Was ist der Unterschied zur Diktierfunktion von macOS?", a: "Du wählst selbst, welche Sprachen vorkommen, statt sie erraten zu lassen — dazu ein eigenes Wörterbuch, konservative Textaufbereitung und die Markierung unsicherer Stellen." },
       { q: "Warum zahlen, wenn es kostenlose Open-Source-Tools gibt?", a: "Musst du nicht. Wenn du Modelle selbst einrichtest, sind sie eine gute Wahl. Du bekommst hier ein signiertes, von Apple notarisiertes Paket mit eigener Sprachauswahl, Verifikation und Support." },
       { q: "Welche Sprachen werden unterstützt?", a: "Ankreuzen kannst du 100, einzeln oder in beliebiger Kombination. Für Deutsch, Englisch, Russisch und Ukrainisch ist alles end-to-end gemessen: Erkennung, Textaufbereitung und jede Markierung. Die übrigen werden erkannt; sprachabhängig kalibrierte Markierungen bleiben dann aus, statt zu raten." },
@@ -169,7 +169,7 @@ const de: LandingCopy = {
   },
   footer: {
     tagline: "Lokale Diktier-Software für Menschen, die Unsicherheit lieber sehen als übersehen.",
-    legalNav: "Rechtliche Links", impressum: "Impressum", datenschutz: "Datenschutz", widerruf: "Widerruf", kontakt: "Kontakt",
+    legalNav: "Rechtliche Links", agb: "AGB", impressum: "Impressum", datenschutz: "Datenschutz", widerruf: "Widerruf", lizenzen: "Lizenzen", kontakt: "Kontakt",
   },
   ui: { skip: "Zum Inhalt", theme: "Farbschema wechseln", mainNav: "Hauptnavigation", languageNav: "Sprache wählen", promises: "Produktversprechen" },
 };
@@ -230,10 +230,10 @@ const en: LandingCopy = {
     facts: [
       { title: "No user account", body: "Email only for the licence key. No profile or password." },
       { title: "No DPA for dictation content", body: "We neither transmit nor process your speech content on your behalf." },
-      { title: "Network access disclosed", body: "Only activation, licensing, checkout, updates, and explicitly named non-content events." },
+      { title: "Network access disclosed", body: "Fetch the model once, get a key, release a Mac. The app sends nothing else." },
     ],
-    disclosure: "Audio, transcripts, vocabulary, clipboard data, other app content, and highlighted risk fragments are never transmitted. Network access is limited to activation, licence checks, checkout, updates, and explicitly disclosed content-free funnel events with minimal technical metadata.",
-    disclosureLink: "View the German draft and missing disclosures",
+    disclosure: "Audio, transcripts, vocabulary, clipboard data, other app content, and highlighted risk fragments are never transmitted. The app sends exactly three things, each only when you press something: the request for the speech model, your email address with a device identifier to get a licence key, and that key back when you release a Mac. Product events are built and not sent.",
+    disclosureLink: "Read the full privacy policy (German)",
   },
   languages: {
     kicker: "Languages",
@@ -288,8 +288,8 @@ const en: LandingCopy = {
     title: "Straight answers before you install",
     lede: "No footnotes that quietly undo the product promise.",
     items: [
-      { q: "Does speech recognition really work offline?", a: "Yes. Speech recognition and text processing run on your Mac. Activation, licence checks, a small disclosed set of non-content events, checkout, and updates need a connection; audio, text, vocabulary, and other app content are never included." },
-      { q: "Does my company need a data processing agreement?", a: "Not for dictation content: Witness does not transmit or process it on our behalf. Hosting, licensing, payment, and support remain separate data-processing activities described in the privacy policy, which is currently a draft." },
+      { q: "Does speech recognition really work offline?", a: "Yes. Speech recognition and text processing run on your Mac, and so does the licence check — it verifies a signature without asking anyone. You need a connection once for the speech model and once for the licence key. Audio, text, vocabulary, and other app content are never included." },
+      { q: "Does my company need a data processing agreement?", a: "Not for dictation content: Witness does not transmit or process it on our behalf. Hosting, licensing, payment, and support remain separate data-processing activities — the privacy policy names each recipient, legal basis, and retention period in full." },
       { q: "How is it different from macOS Dictation?", a: "You choose which languages occur instead of leaving it to detection, plus a personal vocabulary, conservative cleanup, and clear highlighting of uncertain passages." },
       { q: "Why pay when open-source tools are free?", a: "You do not have to. They are a good choice if you enjoy configuring models yourself. What you get here is a signed, Apple-notarised package with your own language selection, verification, and support." },
       { q: "Which languages are supported?", a: "You can tick 100, singly or in any combination. English, German, Russian, and Ukrainian are measured end to end: recognition, cleanup, and every mark. The rest are recognised; marks that are calibrated per language stay off rather than guess." },
@@ -309,7 +309,7 @@ const en: LandingCopy = {
   },
   footer: {
     tagline: "Local dictation for people who would rather see uncertainty than miss it.",
-    legalNav: "Legal links", impressum: "Legal notice (DE)", datenschutz: "Privacy (DE)", widerruf: "Cancellation (DE)", kontakt: "Contact",
+    legalNav: "Legal links", agb: "Terms (DE)", impressum: "Legal notice (DE)", datenschutz: "Privacy (DE)", widerruf: "Cancellation (DE)", lizenzen: "Licences (DE)", kontakt: "Contact",
   },
   ui: { skip: "Skip to content", theme: "Switch colour scheme", mainNav: "Main navigation", languageNav: "Choose language", promises: "Product promises" },
 };
@@ -370,10 +370,10 @@ const ru: LandingCopy = {
     facts: [
       { title: "Без аккаунта", body: "Почта нужна только для лицензионного ключа. Ни профиля, ни пароля." },
       { title: "Без AVV для содержимого диктовок", body: "Мы не передаём и не обрабатываем твою речь по твоему поручению." },
-      { title: "Сетевые обращения раскрыты", body: "Только активация, лицензия, оплата, обновления и явно названные события без содержимого." },
+      { title: "Сетевые обращения раскрыты", body: "Один раз скачать модель, получить ключ, освободить Mac. Больше приложение не отправляет ничего." },
     ],
-    disclosure: "Никогда не передаются: аудио, транскрипты, словарь, буфер обмена, содержимое других приложений и подсвеченные рискованные фрагменты. Сетевые обращения ограничены активацией, проверкой лицензии, оплатой, обновлениями и явно названными событиями воронки без содержимого, с минимумом технических метаданных.",
-    disclosureLink: "Посмотреть текущий черновик и открытые пункты (на немецком)",
+    disclosure: "Никогда не передаются: аудио, транскрипты, словарь, буфер обмена, содержимое других приложений и подсвеченные рискованные фрагменты. Приложение отправляет ровно три вещи, и каждую — только после нажатия: запрос модели распознавания, почту с идентификатором устройства ради лицензионного ключа и этот же ключ обратно, когда ты освобождаешь Mac. Продуктовые события собираются, но не отправляются.",
+    disclosureLink: "Прочитать полную политику конфиденциальности (на немецком)",
   },
   languages: {
     kicker: "Языки",
@@ -428,8 +428,8 @@ const ru: LandingCopy = {
     title: "Начистоту — до того, как ты установишь",
     lede: "Без сносок, которые забирают обещание обратно.",
     items: [
-      { q: "Распознавание правда работает офлайн?", a: "Да. Распознавание речи и обработка текста идут на твоём Mac. Соединение нужно для активации, проверки лицензии, нескольких явно названных продуктовых и маркетинговых событий, оплаты и обновлений; при этом не передаются ни аудио, ни текст, ни словарь, ни содержимое других приложений." },
-      { q: "Нужен ли AVV адвокатской практике или врачебному кабинету?", a: "Для содержимого диктовок — нет: Witness не передаёт и не обрабатывает его для нас. Для хостинга, лицензирования, оплаты и поддержки действуют отдельные обязанности по защите данных; они описаны в политике конфиденциальности, которая пока является черновиком." },
+      { q: "Распознавание правда работает офлайн?", a: "Да. Распознавание речи и обработка текста идут на твоём Mac, и проверка лицензии тоже — она сверяет подпись, ни у кого не спрашивая. Соединение нужно один раз для модели распознавания и один раз для лицензионного ключа. Ни аудио, ни текст, ни словарь, ни содержимое других приложений при этом не передаются." },
+      { q: "Нужен ли AVV адвокатской практике или врачебному кабинету?", a: "Для содержимого диктовок — нет: Witness не передаёт и не обрабатывает его для нас. Для хостинга, лицензирования, оплаты и поддержки действуют отдельные обязанности по защите данных; получатели, правовые основания и сроки хранения полностью перечислены в политике конфиденциальности." },
       { q: "Чем это отличается от встроенной диктовки macOS?", a: "Ты сам отмечаешь, какие языки встретятся, а не оставляешь это автоопределению; плюс свой словарь, аккуратная обработка текста без переписывания смысла и подсветка неуверенных мест." },
       { q: "Зачем платить, если есть бесплатные open-source инструменты?", a: "Не обязательно. Если тебе нравится настраивать модели самому, они хороший выбор. Здесь ты получаешь подписанную и нотаризованную Apple сборку, где языки выбираешь сам, с проверкой и поддержкой." },
       { q: "Какие языки поддерживаются?", a: "Отметить можно 100 — по одному или в любом сочетании. Немецкий, английский, русский и украинский измерены от и до: распознавание, обработка текста и все пометки. Остальные распознаются, а пометки, которые калибруются под язык, выключаются, вместо того чтобы гадать." },
@@ -449,7 +449,7 @@ const ru: LandingCopy = {
   },
   footer: {
     tagline: "Локальный диктовщик для тех, кто предпочитает видеть неуверенность, а не пропускать её.",
-    legalNav: "Юридические страницы", impressum: "Импрессум (DE)", datenschutz: "Приватность (DE)", widerruf: "Право отказа (DE)", kontakt: "Контакт",
+    legalNav: "Юридические страницы", agb: "Условия (DE)", impressum: "Импрессум (DE)", datenschutz: "Приватность (DE)", widerruf: "Право отказа (DE)", lizenzen: "Лицензии (DE)", kontakt: "Контакт",
   },
   ui: { skip: "К содержимому", theme: "Сменить тему", mainNav: "Основная навигация", languageNav: "Выбор языка", promises: "Обещания продукта" },
 };
@@ -510,10 +510,10 @@ const uk: LandingCopy = {
     facts: [
       { title: "Без облікового запису", body: "Пошта потрібна лише для ліцензійного ключа. Ні профілю, ні пароля." },
       { title: "Без AVV для вмісту диктувань", body: "Ми не передаємо і не обробляємо твоє мовлення за твоїм дорученням." },
-      { title: "Мережеві звернення розкрито", body: "Лише активація, ліцензія, оплата, оновлення та явно названі події без вмісту." },
+      { title: "Мережеві звернення розкрито", body: "Один раз завантажити модель, отримати ключ, звільнити Mac. Більше застосунок не надсилає нічого." },
     ],
-    disclosure: "Ніколи не передаються: аудіо, транскрипти, словник, буфер обміну, вміст інших застосунків і підсвічені ризиковані фрагменти. Мережеві звернення обмежені активацією, перевіркою ліцензії, оплатою, оновленнями та явно названими подіями воронки без вмісту, з мінімумом технічних метаданих.",
-    disclosureLink: "Переглянути поточний чернетковий текст і відкриті пункти (німецькою)",
+    disclosure: "Ніколи не передаються: аудіо, транскрипти, словник, буфер обміну, вміст інших застосунків і підсвічені ризиковані фрагменти. Застосунок надсилає рівно три речі, і кожну — лише після натискання: запит моделі розпізнавання, пошту з ідентифікатором пристрою заради ліцензійного ключа і цей самий ключ назад, коли ти звільняєш Mac. Продуктові події збираються, але не надсилаються.",
+    disclosureLink: "Прочитати повну політику конфіденційності (німецькою)",
   },
   languages: {
     kicker: "Мови",
@@ -568,8 +568,8 @@ const uk: LandingCopy = {
     title: "Відверто — перед тим, як ти встановиш",
     lede: "Без виносок, які забирають обіцянку назад.",
     items: [
-      { q: "Розпізнавання справді працює офлайн?", a: "Так. Розпізнавання мовлення та обробка тексту йдуть на твоєму Mac. З'єднання потрібне для активації, перевірки ліцензії, кількох явно названих продуктових і маркетингових подій, оплати та оновлень; при цьому не передаються ні аудіо, ні текст, ні словник, ні вміст інших застосунків." },
-      { q: "Чи потрібен AVV адвокатській практиці або лікарському кабінету?", a: "Для вмісту диктувань — ні: Witness не передає і не обробляє його для нас. Для хостингу, ліцензування, оплати та підтримки діють окремі обов'язки із захисту даних; вони описані в політиці конфіденційності, яка поки що є чернеткою." },
+      { q: "Розпізнавання справді працює офлайн?", a: "Так. Розпізнавання мовлення та обробка тексту йдуть на твоєму Mac, і перевірка ліцензії теж — вона звіряє підпис, ні в кого не питаючи. З'єднання потрібне один раз для моделі розпізнавання і один раз для ліцензійного ключа. Ні аудіо, ні текст, ні словник, ні вміст інших застосунків при цьому не передаються." },
+      { q: "Чи потрібен AVV адвокатській практиці або лікарському кабінету?", a: "Для вмісту диктувань — ні: Witness не передає і не обробляє його для нас. Для хостингу, ліцензування, оплати та підтримки діють окремі обов'язки із захисту даних; отримувачі, правові підстави та строки зберігання повністю перелічені в політиці конфіденційності." },
       { q: "Чим це відрізняється від вбудованого диктування macOS?", a: "Ти сам позначаєш, які мови трапляться, а не лишаєш це автовизначенню; плюс власний словник, обережна обробка тексту без переписування змісту та підсвічування непевних місць." },
       { q: "Навіщо платити, якщо є безкоштовні open-source інструменти?", a: "Не обов'язково. Якщо тобі подобається налаштовувати моделі самому, вони гарний вибір. Тут ти отримуєш підписану й нотаризовану Apple збірку, де мови вибираєш сам, з перевіркою та підтримкою." },
       { q: "Які мови підтримуються?", a: "Позначити можна 100 — окремо або в будь-якому поєднанні. Німецька, англійська, російська та українська виміряні наскрізь: розпізнавання, обробка тексту й усі позначки. Решта розпізнаються, а позначки, які калібруються під мову, вимикаються, замість того щоб вгадувати." },
@@ -589,7 +589,7 @@ const uk: LandingCopy = {
   },
   footer: {
     tagline: "Локальний диктувальник для тих, хто радше побачить непевність, ніж пропустить її.",
-    legalNav: "Юридичні сторінки", impressum: "Імпресум (DE)", datenschutz: "Приватність (DE)", widerruf: "Право на відмову (DE)", kontakt: "Контакт",
+    legalNav: "Юридичні сторінки", agb: "Умови (DE)", impressum: "Імпресум (DE)", datenschutz: "Приватність (DE)", widerruf: "Право на відмову (DE)", lizenzen: "Ліцензії (DE)", kontakt: "Контакт",
   },
   ui: { skip: "До вмісту", theme: "Змінити тему", mainNav: "Основна навігація", languageNav: "Вибір мови", promises: "Обіцянки продукту" },
 };
