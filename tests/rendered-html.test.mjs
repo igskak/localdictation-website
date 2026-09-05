@@ -184,9 +184,15 @@ test("serves privacy, legal drafts, and llms context", async () => {
   }
 
   const impressum = await (await render("/impressum")).text();
-  for (const detail of ["Ihor Skakovskyi", "Ostrovsk", "150 00 Praha 5", "17328691", "CZ686026225", "420 607 643 905"]) {
+  for (const detail of ["Ihor Skakovskyi", "Ostrovsk", "150 00 Praha 5", "17328691", "420 607 643 905"]) {
     assert.ok(impressum.includes(detail), `the Impressum must name ${detail}`);
   }
+
+  // Deliberately absent. A Czech natural person's DIČ is built from their
+  // birth number, so publishing it publishes that; Czech disclosure duty asks
+  // for the name, the seat and the IČO, and Stripe is the merchant of record
+  // a buyer's invoice comes from anyway.
+  assert.doesNotMatch(impressum, /DIČ|CZ686026225/);
 
   // Removed on purpose: a 30-day guarantee was promised on every locale of the
   // landing page while the document that had to define it said it did not yet,

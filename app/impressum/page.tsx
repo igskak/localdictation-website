@@ -9,7 +9,7 @@ export default function ImpressumPage() {
     <p>Ihor Skakovskyi<br />Ostrovského 26<br />150 00 Praha 5<br />Tschechische Republik</p>
     <h2>Rechtsform und Registrierung</h2>
     <p>Einzelunternehmer (OSVČ) nach tschechischem Recht, eingetragen im Gewerberegister der Tschechischen Republik (živnostenský registr).</p>
-    <p>Identifikationsnummer (IČO): 17328691<br />Umsatzsteuer-Identifikationsnummer (DIČ): CZ686026225</p>
+    <p>Identifikationsnummer (IČO): 17328691</p>
     <h2>Kontakt</h2>
     <p>E-Mail: <a href="mailto:hallo@witnessmac.com">hallo@witnessmac.com</a><br />Telefon: +420 607 643 905</p>
     <h2>Verantwortlich für den Inhalt</h2>
