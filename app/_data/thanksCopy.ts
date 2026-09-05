@@ -12,9 +12,9 @@ export type ThanksCopy = {
   install: { title: string; steps: { title: string; body: string }[]; permissionAlt: string; settingsGroup: string; accessibility: string; help: string; helpLink: string };
   form: {
     emailLabel: string; emailHelp: string; emailPlaceholder: string; emailError: string;
-    roleLabel: string; languagesLabel: string; usecaseLabel: string; choose: string; optOut: string;
-    roles: [string, string][]; usecases: [string, string][]; singleLanguage: string;
-    requiredError: string; sendError: string; submit: string; sending: string; skip: string;
+    usecaseLabel: string; optOut: string;
+    usecases: [string, string][];
+    sendError: string; submit: string; sending: string; skip: string;
     successTitle: string; successBody: string; previewTitle: string; previewBody: string;
     noscript: string; consent: string; privacyLink: string;
   };
@@ -51,15 +51,9 @@ const de: ThanksCopy = {
     emailHelp: "Kein Produktkonto. Der Schlüssel kommt per E-Mail.",
     emailPlaceholder: "du@unternehmen.de",
     emailError: "Bitte gib eine gültige E-Mail-Adresse ein.",
-    roleLabel: "Womit arbeitest du?",
-    languagesLabel: "Welche Sprachen mischst du?",
     usecaseLabel: "Wo diktierst du am meisten? (optional)",
-    choose: "Bitte auswählen",
     optOut: "Nicht angeben",
-    roles: [["development", "Entwicklung"], ["legal", "Recht"], ["medicine", "Medizin / Praxis"], ["consulting", "Beratung"], ["marketing_sales", "Marketing / Vertrieb"], ["administration", "Verwaltung"], ["other", "Sonstiges"]],
     usecases: [["email", "E-Mail"], ["tickets_docs", "Tickets & Doku"], ["ai_prompts", "KI-Prompts"], ["notes", "Notizen"], ["chats", "Chats"]],
-    singleLanguage: "nur eine Sprache",
-    requiredError: "Bitte beantworte die beiden Pflichtfragen.",
     sendError: "Das hat noch nicht geklappt. Bitte versuche es erneut oder überspringe die Form.",
     submit: "Schlüssel anfordern",
     sending: "Wird gesendet …",
@@ -105,15 +99,9 @@ const en: ThanksCopy = {
     emailHelp: "No product account. Your key arrives by email.",
     emailPlaceholder: "you@company.com",
     emailError: "Enter a valid email address.",
-    roleLabel: "What kind of work do you do?",
-    languagesLabel: "Which languages do you mix?",
     usecaseLabel: "Where do you dictate most? (optional)",
-    choose: "Choose one",
     optOut: "Prefer not to say",
-    roles: [["development", "Software development"], ["legal", "Legal"], ["medicine", "Medicine / Practice"], ["consulting", "Consulting"], ["marketing_sales", "Marketing / Sales"], ["administration", "Administration"], ["other", "Other"]],
     usecases: [["email", "Email"], ["tickets_docs", "Tickets & documentation"], ["ai_prompts", "AI prompts"], ["notes", "Notes"], ["chats", "Chats"]],
-    singleLanguage: "one language only",
-    requiredError: "Please answer both required questions.",
     sendError: "That did not work yet. Try again or skip the form for now.",
     submit: "Request licence key",
     sending: "Sending …",
@@ -159,15 +147,9 @@ const ru: ThanksCopy = {
     emailHelp: "Аккаунт в продукте не нужен. Ключ придёт письмом.",
     emailPlaceholder: "ty@company.com",
     emailError: "Укажи корректный адрес почты.",
-    roleLabel: "Чем ты занимаешься?",
-    languagesLabel: "Какие языки мешаешь?",
     usecaseLabel: "Где диктуешь чаще всего? (необязательно)",
-    choose: "Выбери вариант",
     optOut: "Не указывать",
-    roles: [["development", "Разработка"], ["legal", "Право"], ["medicine", "Медицина / практика"], ["consulting", "Консалтинг"], ["marketing_sales", "Маркетинг / продажи"], ["administration", "Администрирование"], ["other", "Другое"]],
     usecases: [["email", "Почта"], ["tickets_docs", "Тикеты и документация"], ["ai_prompts", "Промпты для ИИ"], ["notes", "Заметки"], ["chats", "Чаты"]],
-    singleLanguage: "только один язык",
-    requiredError: "Ответь, пожалуйста, на два обязательных вопроса.",
     sendError: "Пока не получилось. Попробуй ещё раз или пропусти форму.",
     submit: "Запросить ключ",
     sending: "Отправляем …",
@@ -213,15 +195,9 @@ const uk: ThanksCopy = {
     emailHelp: "Обліковий запис у продукті не потрібен. Ключ прийде листом.",
     emailPlaceholder: "ty@company.com",
     emailError: "Вкажи коректну адресу пошти.",
-    roleLabel: "Чим ти займаєшся?",
-    languagesLabel: "Які мови змішуєш?",
     usecaseLabel: "Де диктуєш найчастіше? (необов'язково)",
-    choose: "Обери варіант",
     optOut: "Не вказувати",
-    roles: [["development", "Розробка"], ["legal", "Право"], ["medicine", "Медицина / практика"], ["consulting", "Консалтинг"], ["marketing_sales", "Маркетинг / продажі"], ["administration", "Адміністрування"], ["other", "Інше"]],
     usecases: [["email", "Пошта"], ["tickets_docs", "Тікети та документація"], ["ai_prompts", "Промпти для ШІ"], ["notes", "Нотатки"], ["chats", "Чати"]],
-    singleLanguage: "лише одна мова",
-    requiredError: "Дай відповідь, будь ласка, на два обов'язкові запитання.",
     sendError: "Поки не вийшло. Спробуй ще раз або пропусти форму.",
     submit: "Запросити ключ",
     sending: "Надсилаємо …",

@@ -117,14 +117,14 @@ test("serves the thank-you flow in Russian and Ukrainian", async () => {
 
   assert.match(ruHtml, /<html lang="ru">/i);
   assert.match(ruHtml, /Куда прислать твой лицензионный ключ/);
-  assert.match(ruHtml, /<option value="development">Разработка<\/option>/i);
-  assert.match(ruHtml, /<option value="single">только один язык<\/option>/i);
+  assert.match(ruHtml, /Где диктуешь чаще всего/);
+  assert.match(ruHtml, /<option value="ai_prompts">Промпты для ИИ<\/option>/i);
   assert.match(ruHtml, /Универсальный доступ/);
   assert.match(ruHtml, /noindex/i);
 
   assert.match(ukHtml, /<html lang="uk">/i);
   assert.match(ukHtml, /Куди надіслати твій ліцензійний ключ/);
-  assert.match(ukHtml, /<option value="development">Розробка<\/option>/i);
+  assert.match(ukHtml, /<option value="ai_prompts">Промпти для ШІ<\/option>/i);
   assert.match(ukHtml, /Універсальний доступ/);
 });
 
@@ -133,15 +133,12 @@ test("keeps the optional thank-you form honest and index-safe", async () => {
   assert.equal(response.status, 200);
   const html = await response.text();
   assert.match(html, /Wohin sollen wir deinen Lizenzschlüssel schicken/);
-  assert.match(html, /Womit arbeitest du/);
-  assert.match(html, /Welche Sprachen mischst du/);
+  assert.match(html, /Wo diktierst du am meisten/);
   assert.match(html, /Überspringen/);
   assert.match(html, /Der Download ist gerade nicht erreichbar/);
   assert.match(html, /noindex/i);
   assert.match(html, /<form[^>]+method="post"/i);
   assert.match(html, /<button[^>]+type="submit"[^>]+disabled/i);
-  assert.match(html, /<option value="development">Entwicklung<\/option>/i);
-  assert.match(html, /<option value="de_en">DE \+ EN<\/option>/i);
   assert.match(html, /<option value="tickets_docs">Tickets &amp; Doku<\/option>/i);
   assert.match(html, /href="\/impressum"/i);
   assert.match(html, /href="\/widerruf"/i);
@@ -159,8 +156,8 @@ test("keeps query locale isolated and renders English download metadata", async 
   assert.match(thanksHtml, /<html lang="en">/i);
   assert.match(thanksHtml, /Where should we send your licence key/);
   assert.match(thanksHtml, /Install Witness and request your licence key/);
-  assert.match(thanksHtml, /<option value="development">Software development<\/option>/i);
-  assert.match(thanksHtml, /<option value="single">one language only<\/option>/i);
+  assert.match(thanksHtml, /Where do you dictate most/);
+  assert.match(thanksHtml, /<option value="ai_prompts">AI prompts<\/option>/i);
 });
 
 test("serves privacy, legal drafts, and llms context", async () => {

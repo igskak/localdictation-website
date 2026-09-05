@@ -8,7 +8,6 @@ const subscribeToHydration = () => () => {};
 
 export function ThankYouForm({ locale, leadEndpoint }: { locale: Locale; leadEndpoint: string | null }) {
   const c = thanksCopy[locale].form;
-  const languageOptions: [string, string][] = [["de_en", "DE + EN"], ["ru_uk", "RU + UK"], ["ru_en", "RU + EN"], ["uk_en", "UK + EN"], ["single", c.singleLanguage]];
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
   const [formError, setFormError] = useState("");
@@ -23,15 +22,8 @@ export function ThankYouForm({ locale, leadEndpoint }: { locale: Locale; leadEnd
     }
 
     const formData = new FormData(event.currentTarget);
-    const role = String(formData.get("role") ?? "");
-    const languages = String(formData.get("languages") ?? "");
     const usecase = String(formData.get("usecase") ?? "");
     const honeypot = String(formData.get("company_site") ?? "");
-
-    if (!role || !languages) {
-      setFormError(c.requiredError);
-      return;
-    }
 
     setError("");
     setFormError("");
@@ -53,7 +45,7 @@ export function ThankYouForm({ locale, leadEndpoint }: { locale: Locale; leadEnd
         headers: { "content-type": "application/json" },
         credentials: "omit",
         referrerPolicy: "no-referrer",
-        body: JSON.stringify({ email: email.trim(), role, languages, locale, ...(usecase ? { usecase } : {}) }),
+        body: JSON.stringify({ email: email.trim(), locale, ...(usecase ? { usecase } : {}) }),
       });
       const result = response.ok ? await response.json().catch(() => null) as { keyDelivery?: unknown } | null : null;
       if (!response.ok || result?.keyDelivery !== "queued") throw new Error(`Lead endpoint did not confirm key delivery (${response.status})`);
@@ -88,22 +80,6 @@ export function ThankYouForm({ locale, leadEndpoint }: { locale: Locale; leadEnd
       <div className="honeypot" aria-hidden="true">
         <label htmlFor="company-site">Company website</label>
         <input id="company-site" name="company_site" type="text" tabIndex={-1} autoComplete="off" />
-      </div>
-
-      <div className="form-field">
-        <label htmlFor="role">{c.roleLabel}</label>
-        <select id="role" name="role" required defaultValue="" aria-invalid={Boolean(formError)} aria-describedby={formError ? "form-error" : undefined}>
-          <option value="" disabled>{c.choose}</option>
-          {c.roles.map(([value, label]) => <option value={value} key={value}>{label}</option>)}
-        </select>
-      </div>
-
-      <div className="form-field">
-        <label htmlFor="languages">{c.languagesLabel}</label>
-        <select id="languages" name="languages" required defaultValue="" aria-invalid={Boolean(formError)} aria-describedby={formError ? "form-error" : undefined}>
-          <option value="" disabled>{c.choose}</option>
-          {languageOptions.map(([value, label]) => <option value={value} key={value}>{label}</option>)}
-        </select>
       </div>
 
       <div className="form-field full-field">

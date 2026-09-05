@@ -51,7 +51,7 @@ The standalone server binds `0.0.0.0` and honours `PORT`. `render.yaml` is a rea
 Copy `.env.example` to a local `.env` and configure only what is available:
 
 - `DOWNLOAD_URL` — preferably a same-origin signed `.dmg` response with `Content-Disposition: attachment`. When absent, every CTA opens an honest private-preview fallback instead of a broken download.
-- `LEAD_ENDPOINT` — optional same-origin or HTTPS endpoint. The form sends only `email`, stable coded `role`/`languages`, the page `locale`, and optional coded `usecase`; it sends no audio, transcript, vocabulary, clipboard, target-app, or other product content. A successful response must be JSON containing `{ "keyDelivery": "queued" }`; otherwise the UI does not claim that email was sent. Cross-origin endpoints must explicitly allow the site's CORS preflight and origin.
+- `LEAD_ENDPOINT` — optional same-origin or HTTPS endpoint. The form sends only `email`, the page `locale`, and optional coded `usecase`; it sends no audio, transcript, vocabulary, clipboard, target-app, or other product content. A successful response must be JSON containing `{ "keyDelivery": "queued" }`; otherwise the UI does not claim that email was sent. Cross-origin endpoints must explicitly allow the site's CORS preflight and origin.
 
 Hosted runtime values belong in Sites environment settings, not in source control.
 
