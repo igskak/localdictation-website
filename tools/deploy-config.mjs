@@ -18,7 +18,11 @@ import { readFileSync, writeFileSync } from "node:fs";
 const CONFIG = "dist/server/wrangler.json";
 const DOMAINS = ["witnessmac.com", "www.witnessmac.com"];
 const VARS = {
-  DOWNLOAD_URL: "https://github.com/igskak/localdictation/releases/download/v0.1.0/Witness-0.1.0.dmg",
+  // `latest` and a version-neutral file name, so shipping 0.2.0 needs neither
+  // an edit here nor a deploy of this site. The release asset has to keep being
+  // called Witness.dmg for that to hold; `docs/PHASE_6_RELEASE.md` says so
+  // where somebody cutting a release will read it.
+  DOWNLOAD_URL: "https://github.com/igskak/localdictation/releases/latest/download/Witness.dmg",
 };
 
 const config = JSON.parse(readFileSync(CONFIG, "utf8"));
