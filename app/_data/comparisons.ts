@@ -244,7 +244,7 @@ const wispr: ComparisonPageData = {
     rows: [
       ["Inhaltsverarbeitung", "Lokal auf Apple Silicon", "Cloud-SaaS; Verarbeitung und Speicherung in den USA"],
       ["Plattformen", "macOS 14.4+, Apple Silicon", "macOS, Windows, iOS und Android"],
-      ["Sprachwahl", "Feste Mischprofile, etwa DE + EN", "100+ Sprachen; Erkennung zu Sitzungsbeginn"],
+      ["Sprachwahl", "Selbst angekreuzte Sprachen; vier end-to-end gemessen", "100+ Sprachen; Erkennung zu Sitzungsbeginn"],
       ["Prüfung riskanter Stellen", "Vor Einfügung vorgesehen", "Nicht öffentlich dokumentiert"],
       ["Konto", "Kein Produktkonto vorgesehen", "Anmeldung erforderlich"],
       ["Preis", "€99 lebenslang oder €49/Jahr", "Free; Pro $15/Monat oder $12/Monat bei jährlicher Zahlung ($144/Jahr)"],
@@ -265,14 +265,14 @@ const wispr: ComparisonPageData = {
       ],
     },
     {
-      title: "Mehr Sprachen oder kontrollierte Sprachprofile",
+      title: "Auto-Erkennung oder selbst gewählte Sprachen",
       paragraphs: [
         {
           text: "Flow dokumentiert mehr als 100 unterstützte Sprachen und erkennt die Sprache am Anfang einer Diktatsitzung. Die offizielle Hilfeseite weist zugleich darauf hin, dass ein Wechsel mitten im Satz dazu führen kann, dass das gesamte Segment in nur einer Sprache transkribiert wird. Wer viele Sprachen nutzt und Geräte wechselt, bekommt damit eine breite Abdeckung.",
           sources: ["wispr-languages"],
         },
         {
-          text: "Witness begrenzt sich bewusst auf Deutsch, Englisch, Russisch und Ukrainisch. Statt freier Auto-Erkennung wählst du ein erwartbares Mischprofil wie DE + EN. Das ist enger, soll aber typische zweisprachige Arbeitssätze berechenbarer machen. Begriffe und Eigennamen lassen sich im lokalen Wörterbuch hinterlegen.",
+          text: "Witness kennt dieselbe Größenordnung — 100 Sprachen —, überlässt die Wahl aber dir: Du kreuzt an, welche du sprichst, statt sie bei jeder Sitzung erraten zu lassen. Für Deutsch, Englisch, Russisch und Ukrainisch ist der ganze Weg gemessen, von der Erkennung über die Textaufbereitung bis zu jeder Prüfmarkierung; bei den übrigen bleiben sprachabhängig kalibrierte Markierungen aus, statt zu raten. Begriffe und Eigennamen lassen sich im lokalen Wörterbuch hinterlegen.",
           sources: ["local-product"],
         },
       ],
@@ -294,7 +294,7 @@ const wispr: ComparisonPageData = {
           sources: ["wispr-setup", "wispr-plans", "wispr-free", "wispr-privacy"],
         },
         {
-          text: "Witness hat kein Produktkonto. Ein Lizenzschlüssel kommt per E-Mail; €99 als Einmalkauf oder €49 pro Jahr für zwei Macs. Wähle Wispr Flow für geräteübergreifenden Komfort und große Sprachbreite. Wähle Witness, wenn du einen Apple-Silicon-Mac nutzt, Inhaltsuploads vermeiden und erkannte Risikostellen selbst freigeben willst.",
+          text: "Witness hat kein Produktkonto. Ein Lizenzschlüssel kommt per E-Mail; €99 als Einmalkauf oder €49 pro Jahr für zwei Macs. Wähle Wispr Flow für geräteübergreifenden Komfort auf Mac, Windows, iPhone und Android. Wähle Witness, wenn du einen Apple-Silicon-Mac nutzt, Inhaltsuploads vermeiden und erkannte Risikostellen selbst freigeben willst.",
           sources: ["local-product"],
         },
       ],
@@ -330,7 +330,7 @@ const superwhisper: ComparisonPageData = {
   description:
     "Superwhisper und Witness im Quellenvergleich: lokale und Cloud-Modelle, Sprachen, Verifikation, Plattformen und Preise. Stand August 2026.",
   directAnswer: {
-    text: "Die kurze Antwort: Superwhisper ist die passendere Wahl, wenn du viele lokale und optionale Cloud-Modelle, mehr als 100 Sprachen und mehrere Plattformen möchtest. Witness ist die fokussiertere Alternative für Apple-Silicon-Macs, wenn feste zweisprachige Profile und eine Prüfung riskanter Zahlen, Namen oder Verneinungen vor dem Einfügen wichtiger sind als Modellvielfalt.",
+    text: "Die kurze Antwort: Superwhisper ist die passendere Wahl, wenn du viele lokale und optionale Cloud-Modelle, mehr als 100 Sprachen und mehrere Plattformen möchtest. Witness ist die fokussiertere Alternative für Apple-Silicon-Macs, wenn eine selbst angekreuzte Sprachauswahl und eine Prüfung riskanter Zahlen, Namen oder Verneinungen vor dem Einfügen wichtiger sind als Modellvielfalt.",
     sources: ["super-models", "super-download", "local-product"],
   },
   table: {
@@ -339,7 +339,7 @@ const superwhisper: ComparisonPageData = {
     rows: [
       ["Verarbeitung", "Inhaltsverarbeitung lokal", "Vollständig lokal konfigurierbar; optionale Cloud-Modelle"],
       ["Plattformen", "Apple Silicon, macOS 14.4+", "macOS 13.3+, Windows 10+, iOS 18+"],
-      ["Sprachen", "DE, EN, RU, UK; feste Mischprofile", "Lokale Whisper-Modelle für 100+ Sprachen"],
+      ["Sprachen", "100 Sprachen zum Ankreuzen; DE, EN, RU, UK gemessen", "Lokale Whisper-Modelle für 100+ Sprachen"],
       ["Prüfung riskanter Stellen", "Vor Einfügung vorgesehen", "Nicht öffentlich dokumentiert"],
       ["Modellauswahl", "Bewusst kuratiert", "Lokale und Cloud-Sprach- sowie Textmodelle"],
       ["Preis", "€99 lebenslang oder €49/Jahr", "$8.49/Monat, $84.99/Jahr oder $249.99 lebenslang"],
@@ -367,7 +367,7 @@ const superwhisper: ComparisonPageData = {
           sources: ["super-models"],
         },
         {
-          text: "Witness reduziert Auswahl zugunsten eines festen Ablaufs: Hotkey, sprechen, nur auffällige Fragmente prüfen, bestätigen, am Cursor einfügen. Unterstützt werden Deutsch, Englisch, Russisch und Ukrainisch. Für häufige Mischungen werden Profile wie DE + EN oder RU + UK gewählt, statt die Sprache bei jedem Segment frei zu erraten.",
+          text: "Witness reduziert die Modellauswahl zugunsten eines festen Ablaufs: Hotkey, sprechen, nur auffällige Fragmente prüfen, bestätigen, am Cursor einfügen. Bei den Sprachen bleibt die Wahl bei dir — du kreuzt aus 100 an, welche vorkommen, statt sie bei jedem Segment frei erraten zu lassen. Deutsch, Englisch, Russisch und Ukrainisch sind dabei end-to-end gemessen.",
           sources: ["local-product"],
         },
       ],
@@ -380,7 +380,7 @@ const superwhisper: ComparisonPageData = {
           sources: ["local-product", "super-security", "super-models"],
         },
         {
-          text: "Superwhisper dokumentiert automatische Spracherkennung und mögliche Fehlzuordnungen. Vokabular-Hinweise können helfen; kompatible Modelle können während einer Sitzung Sprachen wechseln. Feste Sprachpaar-Profile wie DE + EN, die den erwarteten Raum bewusst begrenzen, sind dort nicht öffentlich dokumentiert.",
+          text: "Superwhisper dokumentiert automatische Spracherkennung und mögliche Fehlzuordnungen. Vokabular-Hinweise können helfen; kompatible Modelle können während einer Sitzung Sprachen wechseln. Eine vorab angekreuzte Sprachauswahl, die den erwarteten Raum bewusst begrenzt, ist dort nicht öffentlich dokumentiert.",
           sources: ["super-languages"],
         },
       ],
@@ -410,7 +410,7 @@ const superwhisper: ComparisonPageData = {
     },
     {
       question: "Warum dann Witness wählen?",
-      answer: "Witness konzentriert sich auf feste Sprachpaar-Profile und eine Prüfung bestimmter riskanter Fragmente vor der Einfügung, statt möglichst viele Modelle anzubieten.",
+      answer: "Witness konzentriert sich auf eine selbst angekreuzte Sprachauswahl und eine Prüfung bestimmter riskanter Fragmente vor der Einfügung, statt möglichst viele Modelle anzubieten.",
     },
     {
       question: "Welche App ist genauer?",
@@ -438,7 +438,7 @@ const sprecho: ComparisonPageData = {
     rows: [
       ["Inhaltsverarbeitung", "Lokal auf dem Mac", "Cloud; Sprach- und Textverarbeitung auf Servern in Deutschland"],
       ["Plattformen", "Apple Silicon, macOS 14.4+", "Mac, Windows, Linux, iOS und Android"],
-      ["Sprachen", "DE, EN, RU, UK; feste Mischprofile", "100+ Sprachen mit Auto-Erkennung"],
+      ["Sprachen", "100 Sprachen zum Ankreuzen; DE, EN, RU, UK gemessen", "100+ Sprachen mit Auto-Erkennung"],
       ["Prüfung riskanter Stellen", "Vor Einfügung vorgesehen", "Nicht öffentlich dokumentiert"],
       ["Vertragliche Ebene", "Keine Inhaltsverarbeitung im Auftrag vorgesehen", "AVV wird angeboten"],
       ["Preis", "€99 lebenslang oder €49/Jahr", "Pro €10,99/Monat, jährlich €131,88 abgerechnet"],
@@ -479,7 +479,7 @@ const sprecho: ComparisonPageData = {
           sources: ["sprecho-product", "sprecho-pricing"],
         },
         {
-          text: "Witness läuft nur auf Apple Silicon mit macOS 14.4 oder neuer. Unterstützt werden Deutsch, Englisch, Russisch und Ukrainisch. Feste Profile wie DE + EN oder UK + EN grenzen das erwartete Sprachpaar bewusst ein. Namen, Abkürzungen und Fachbegriffe landen in einem lokalen Wörterbuch; der fertige Text wird am Cursor eingesetzt.",
+          text: "Witness läuft nur auf Apple Silicon mit macOS 14.4 oder neuer. Die Sprachen kreuzt du selbst an — 100 stehen zur Wahl, und die angekreuzten grenzen den erwarteten Raum bewusst ein, statt ihn automatisch erkennen zu lassen. Deutsch, Englisch, Russisch und Ukrainisch sind end-to-end gemessen. Namen, Abkürzungen und Fachbegriffe landen in einem lokalen Wörterbuch; der fertige Text wird am Cursor eingesetzt.",
           sources: ["local-product"],
         },
       ],
@@ -535,9 +535,9 @@ const voiceInk: ComparisonPageData = {
   title: "VoiceInk oder Witness? Zwei lokale Mac-Apps mit anderem Fokus",
   metaTitle: "VoiceInk vs. Witness | Vergleich 2026",
   description:
-    "VoiceInk und Witness sachlich verglichen: Open Source, lokale Modelle, Cloud-Optionen, Sprachprofile, Verifikation, Lizenzen und Preise.",
+    "VoiceInk und Witness sachlich verglichen: Open Source, lokale Modelle, Cloud-Optionen, Sprachauswahl, Verifikation, Lizenzen und Preise.",
   directAnswer: {
-    text: "Die kurze Antwort: VoiceInk ist die passendere Wahl, wenn du eine verfügbare Open-Source-App, freie Modellwahl und einen günstigen Einmalkauf suchst. Witness richtet sich an Menschen, die auf Deutsch und Englisch arbeiten und vor dem Einfügen bestimmte riskante Zahlen, Namen, Daten oder Verneinungen prüfen wollen. Beide Ansätze können Diktatinhalte lokal verarbeiten.",
+    text: "Die kurze Antwort: VoiceInk ist die passendere Wahl, wenn du eine verfügbare Open-Source-App, freie Modellwahl und einen günstigen Einmalkauf suchst. Witness richtet sich an Menschen, die mehr als eine Sprache benutzen und vor dem Einfügen bestimmte riskante Zahlen, Namen, Daten oder Verneinungen prüfen wollen. Beide Ansätze können Diktatinhalte lokal verarbeiten.",
     sources: ["voiceink-product", "voiceink-github", "voiceink-models", "local-product"],
   },
   table: {
@@ -546,7 +546,7 @@ const voiceInk: ComparisonPageData = {
     rows: [
       ["Produktstatus", "Verfügbar, Version 0.1.0", "Verfügbar; Quellcode öffentlich"],
       ["Verarbeitung", "Inhalte lokal", "Lokale Modelle standardmäßig; optionale Cloud-Textverbesserung"],
-      ["Sprachen", "DE, EN, RU, UK; feste Mischprofile", "Abhängig vom gewählten Sprachmodell"],
+      ["Sprachen", "100 Sprachen zum Ankreuzen; DE, EN, RU, UK gemessen", "Abhängig vom gewählten Sprachmodell"],
       ["Prüfung riskanter Stellen", "Vor Einfügung vorgesehen", "Nicht öffentlich dokumentiert"],
       ["Lizenz", "Kommerzielle App", "GPLv3-Quellcode; kommerzielle vorkompilierte App"],
       ["Preis", "€99 lebenslang oder €49/Jahr, zwei Macs", "$25 / $39 / $49 einmalig für ein / zwei / drei Macs"],
@@ -574,7 +574,7 @@ const voiceInk: ComparisonPageData = {
           sources: ["voiceink-github", "voiceink-terms"],
         },
         {
-          text: "Witness ist ein kommerzielles Produkt, kein Open-Source-Projekt. Der Quellcode ist daher kein Kaufargument. Der Gegenwert soll in einem kuratierten, signierten Mac-Ablauf, klaren lokalen Datenschutzgrenzen, festen Sprachprofilen, Verifikation und direktem Support liegen. Wer Quellcode-Audit und Selbstbau priorisiert, sollte VoiceInk ernsthaft bevorzugen.",
+          text: "Witness ist ein kommerzielles Produkt, kein Open-Source-Projekt. Der Quellcode ist daher kein Kaufargument. Der Gegenwert soll in einem kuratierten, signierten Mac-Ablauf, klaren lokalen Datenschutzgrenzen, einer selbst gewählten Sprachauswahl, Verifikation und direktem Support liegen. Wer Quellcode-Audit und Selbstbau priorisiert, sollte VoiceInk ernsthaft bevorzugen.",
           sources: ["local-product"],
         },
       ],
@@ -587,7 +587,7 @@ const voiceInk: ComparisonPageData = {
           sources: ["voiceink-models"],
         },
         {
-          text: "Witness beschränkt sich auf Deutsch, Englisch, Russisch und Ukrainisch. Nutzer wählen feste Paare wie DE + EN oder RU + UK, bevor sie diktieren. Ziel ist nicht maximale Sprachzahl, sondern ein vorhersehbarer Raum für typische mehrsprachige Sätze. Namen, Abkürzungen und Fachvokabular werden pro Sprache lokal ergänzt.",
+          text: "Bei Witness hängt die Sprachwahl nicht am Modell: Nutzer kreuzen vor dem Diktat an, welche der 100 Sprachen vorkommen. Ziel ist ein vorhersehbarer Raum für mehrsprachige Sätze statt einer Erkennung, die jedes Segment neu entscheidet. Für Deutsch, Englisch, Russisch und Ukrainisch ist zusätzlich der ganze Weg bis zu den Prüfmarkierungen gemessen. Namen, Abkürzungen und Fachvokabular werden pro Sprache lokal ergänzt.",
           sources: ["local-product"],
         },
       ],
@@ -616,7 +616,7 @@ const voiceInk: ComparisonPageData = {
     },
   ],
   verdict: {
-    text: "Fazit: VoiceInk ist eine starke, günstigere und bereits verfügbare lokale Option mit offenem Quellcode und großer Modellwahl. Witness sollte nur gewählt werden, wenn feste Mischprofile und die vorgesehene Vorabprüfung riskanter Fragmente den höheren Preis rechtfertigen.",
+    text: "Fazit: VoiceInk ist eine starke, günstigere und bereits verfügbare lokale Option mit offenem Quellcode und großer Modellwahl. Witness sollte nur gewählt werden, wenn die selbst gewählte Sprachauswahl und die vorgesehene Vorabprüfung riskanter Fragmente den höheren Preis rechtfertigen.",
     sources: ["voiceink-product", "voiceink-github", "local-product"],
   },
   faqs: [
@@ -630,7 +630,7 @@ const voiceInk: ComparisonPageData = {
     },
     {
       question: "Ist Witness besser als VoiceInk?",
-      answer: "Nicht allgemein. VoiceInk gewinnt bei Preis, Verfügbarkeit, Quelloffenheit und Modellwahl; Witness fokussiert feste Sprachpaare und Risikoprüfung vor dem Einfügen.",
+      answer: "Nicht allgemein. VoiceInk gewinnt bei Preis, Verfügbarkeit, Quelloffenheit und Modellwahl; Witness fokussiert die selbst angekreuzte Sprachauswahl und die Risikoprüfung vor dem Einfügen.",
     },
   ],
   sources: [localSource, ...voiceInkSources],
@@ -647,7 +647,7 @@ const macwhisper: ComparisonPageData = {
   updatedIso: "2026-08-25",
   updatedLabel: "25. August 2026",
   directAnswer: {
-    text: "Die kurze Antwort: MacWhisper und Witness lösen zwei verschiedene Aufgaben. MacWhisper ist in erster Linie eine Transkriptionsumgebung für Dateien, Meetings und Untertitel und bietet zusätzlich systemweites Diktat; es ist verfügbar, kostet €64 einmalig neben einer kostenlosen Version und erlaubt als persönliche Lizenz als Richtwert drei Geräte. Witness macht ausschließlich Diktat in andere Apps und richtet sich an Menschen, die auf Deutsch und Englisch arbeiten und riskante Zahlen, Namen, Daten oder Verneinungen vor dem Einfügen prüfen wollen. Wer Audiodateien transkribiert, bleibt bei MacWhisper besser aufgehoben.",
+    text: "Die kurze Antwort: MacWhisper und Witness lösen zwei verschiedene Aufgaben. MacWhisper ist in erster Linie eine Transkriptionsumgebung für Dateien, Meetings und Untertitel und bietet zusätzlich systemweites Diktat; es ist verfügbar, kostet €64 einmalig neben einer kostenlosen Version und erlaubt als persönliche Lizenz als Richtwert drei Geräte. Witness macht ausschließlich Diktat in andere Apps und richtet sich an Menschen, die mehr als eine Sprache benutzen und riskante Zahlen, Namen, Daten oder Verneinungen vor dem Einfügen prüfen wollen. Wer Audiodateien transkribiert, bleibt bei MacWhisper besser aufgehoben.",
     sources: ["macwhisper-product", "macwhisper-licensing", "local-product"],
   },
   table: {
@@ -657,7 +657,7 @@ const macwhisper: ComparisonPageData = {
       ["Schwerpunkt", "Diktat in andere Apps", "Transkription von Dateien, Meetings und Untertiteln; zusätzlich systemweites Diktat"],
       ["Produktstatus", "Verfügbar, Version 0.1.0", "Verfügbar"],
       ["Verarbeitung", "Inhalte lokal; keine Cloud-Option vorgesehen", "Lokale Modelle; optional Cloud-Anbieter wie OpenAI, Anthropic, xAI und Google Gemini"],
-      ["Sprachen", "DE, EN, RU, UK; feste Mischprofile", "100 Sprachen laut Anbieter"],
+      ["Sprachen", "100 Sprachen zum Ankreuzen; DE, EN, RU, UK gemessen", "100 Sprachen laut Anbieter"],
       ["Nachbearbeitung", "Bereinigung umkehrbar; Rohtranskript per Hotkey", "Automatische Grammatikverbesserung; Diktat mit KI-Prompts"],
       ["Prüfung riskanter Stellen", "Vor Einfügung vorgesehen", "Nicht öffentlich dokumentiert"],
       ["Geräte", "Zwei Macs", "Persönliche Lizenz, Richtwert drei Geräte"],
@@ -709,14 +709,14 @@ const macwhisper: ComparisonPageData = {
       ],
     },
     {
-      title: "Hundert Sprachen gegen vier",
+      title: "Hundert Sprachen — und vier, die gemessen sind",
       paragraphs: [
         {
-          text: "MacWhisper nennt Unterstützung für 100 Sprachen. Das ist der größere Sprachraum, und für alles außerhalb von Deutsch, Englisch, Russisch und Ukrainisch ist die Frage damit beantwortet.",
+          text: "MacWhisper nennt Unterstützung für 100 Sprachen. Eine gemessene Aufbereitung oder Prüfung pro Sprache ist dabei nicht öffentlich dokumentiert.",
           sources: ["macwhisper-product"],
         },
         {
-          text: "Witness beschränkt sich auf vier Sprachen und feste Paare wie DE + EN oder RU + UK, die vor dem Diktat gewählt werden. Ziel ist nicht die größere Zahl, sondern ein vorhersehbarer Raum für Sätze, in denen zwei Sprachen vorkommen, plus ein lokales Wörterbuch für Namen und Fachbegriffe, das jedes Mal dieselbe Schreibweise einsetzt. Einen Genauigkeitsvergleich behaupten wir dabei nicht: Es gibt keinen gemeinsamen offiziellen Benchmark mit identischer Hardware, Aufnahme und Nachbearbeitung, der beide Apps belastbar ordnet.",
+          text: "Witness kennt dieselben 100 Sprachen und lässt dich vor dem Diktat ankreuzen, welche davon vorkommen. Vier sind end-to-end gemessen — Deutsch, Englisch, Russisch und Ukrainisch bekommen Erkennung, Textaufbereitung und jede Prüfmarkierung; bei den übrigen bleiben sprachabhängig kalibrierte Markierungen aus, statt zu raten. Dazu kommt ein lokales Wörterbuch für Namen und Fachbegriffe, das jedes Mal dieselbe Schreibweise einsetzt. Einen Genauigkeitsvergleich behaupten wir dabei nicht: Es gibt keinen gemeinsamen offiziellen Benchmark mit identischer Hardware, Aufnahme und Nachbearbeitung, der beide Apps belastbar ordnet.",
           sources: ["local-product"],
         },
       ],

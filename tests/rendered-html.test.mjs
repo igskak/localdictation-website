@@ -37,7 +37,7 @@ test("renders the complete German landing page in the required order", async () 
   assert.equal(response.headers.get("permissions-policy"), "camera=(), geolocation=(), microphone=()");
   assert.match(html, /Diktieren statt tippen/);
   assert.match(html, /Alles bleibt auf deinem Mac/);
-  assert.match(html, /Für alle, die auf Deutsch und Englisch arbeiten/);
+  assert.match(html, /Für alle, die mehr als eine Sprache benutzen/);
   assert.match(html, /€99/);
   assert.match(html, /€49/);
   assert.equal((html.match(/<a[^>]+href="\/danke\?download=auto"[^>]*>[\s\S]*?Für Mac laden<\/a>/g) ?? []).length, 3);
@@ -75,7 +75,7 @@ test("renders the English variant and reciprocal language links", async () => {
   assert.match(enHtml, /UI prototype/);
   assert.match(enHtml, /€14,000/);
   assert.match(enHtml, /German/);
-  assert.match(enHtml, /All profiles/);
+  assert.match(enHtml, /All languages/);
   assert.match(enHtml, /The 14-day trial starts with your first successful dictation/);
   assert.match(enHtml, /href="\/"/i);
   assert.match(enHtml, /hreflang="de"/i);
@@ -83,7 +83,7 @@ test("renders the English variant and reciprocal language links", async () => {
   assert.match(unrelatedHtml, /<html lang="de">/i);
 });
 
-test("renders the Russian and Ukrainian variants with their own profiles and reciprocal links", async () => {
+test("renders the Russian and Ukrainian variants with their own languages and reciprocal links", async () => {
   const [ruResponse, ukResponse] = await Promise.all([render("/ru"), render("/uk")]);
   const [ruHtml, ukHtml] = await Promise.all([ruResponse.text(), ukResponse.text()]);
 
@@ -92,8 +92,8 @@ test("renders the Russian and Ukrainian variants with their own profiles and rec
   assert.match(ruHtml, /Диктуй, а не печатай/);
   assert.match(ruHtml, /Всё остаётся на твоём Mac/);
   assert.match(ruHtml, /14 000 €/);
-  // The Russian page leads with the profile its reader actually needs.
-  assert.match(ruHtml, /RU \+ EN/);
+  // The Russian page leads with the language its reader actually speaks, ticked.
+  assert.match(ruHtml, /class="active">Русский/);
   assert.match(ruHtml, /Русский и английский в одном предложении/);
   assert.match(ruHtml, /href="\/danke\?lang=ru&amp;download=auto"/i);
 
@@ -101,7 +101,7 @@ test("renders the Russian and Ukrainian variants with their own profiles and rec
   assert.match(ukHtml, /<html lang="uk">/i);
   assert.match(ukHtml, /Диктуй, а не друкуй/);
   assert.match(ukHtml, /Усе лишається на твоєму Mac/);
-  assert.match(ukHtml, /UK \+ EN/);
+  assert.match(ukHtml, /class="active">Українська/);
   assert.match(ukHtml, /href="\/danke\?lang=uk&amp;download=auto"/i);
 
   // Every locale offers the other three, and the German legal pages stay marked as German.

@@ -249,7 +249,7 @@ export function LandingPage({ locale }: { locale: Locale }) {
               <h2>{c.languages.title}</h2>
               <p>{c.languages.body}</p>
               <div className="language-pills">
-                {c.languages.pills.map((item, index) => <span className={index === 0 ? "active" : ""} key={item}>{item}{index === 0 && <b>✓</b>}</span>)}
+                {c.languages.pills.map((item, index) => <span className={index < 2 ? "active" : ""} key={item}>{item}{index < 2 && <b>✓</b>}</span>)}
               </div>
             </div>
             <div className="dictionary-window">
