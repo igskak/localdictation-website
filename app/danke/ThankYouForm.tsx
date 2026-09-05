@@ -3,6 +3,7 @@
 import { FormEvent, useState, useSyncExternalStore } from "react";
 import { thanksCopy } from "../_data/thanksCopy";
 import type { Locale } from "../_lib/locale";
+import { legalLocale, legalPaths } from "../_lib/legal";
 
 const subscribeToHydration = () => () => {};
 
@@ -96,7 +97,7 @@ export function ThankYouForm({ locale, leadEndpoint }: { locale: Locale; leadEnd
       </div>
       <noscript><p className="form-privacy full-field">{c.noscript}</p></noscript>
       {formError && <p className="field-error full-field" id="form-error" role="alert">{formError}</p>}
-      <p className="form-privacy full-field">{c.consent} <a href="/datenschutz" hrefLang="de">{c.privacyLink}</a></p>
+      <p className="form-privacy full-field">{c.consent} <a href={legalPaths[legalLocale(locale)].privacy} hrefLang={legalLocale(locale)}>{c.privacyLink}</a></p>
     </form>
   );
 }

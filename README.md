@@ -10,7 +10,8 @@ German-first product site for Witness, a local-first dictation utility for Apple
 - `/uk` — Ukrainian landing page
 - `/danke` — optional licence-key form and installation guide (`?lang=en|ru|uk`)
 - `/vergleich` — German comparison hub with five source-dated buying guides
-- `/agb`, `/widerruf`, `/datenschutz`, `/impressum`, `/lizenzen` — the legal texts, written against the business model rather than against a template
+- `/agb`, `/widerruf`, `/datenschutz`, `/impressum`, `/lizenzen` — the German legal texts, written against the business model rather than against a template
+- `/en/terms`, `/en/cancellation`, `/en/privacy`, `/en/legal-notice`, `/en/licences` — the same five in English
 - `/llms.txt` — concise machine-readable product context
 
 ## Copy and locales
@@ -19,7 +20,9 @@ All four locales share one layout; only the text differs. Page copy lives in `ap
 
 Each locale leads with the language pair its reader actually needs (`DE + EN`, `EN + DE`, `RU + EN`, `UK + EN`). `RU + DE` is not a supported speech profile and must not be promised. Legal pages remain German everywhere and are linked with `hreflang="de"`.
 
-**That is a gap, not a decision.** The English, Russian and Ukrainian landing pages sell to buyers who may not read German, and a withdrawal notice they cannot read is a withdrawal notice that starts no clock. German is the operative language today; an English set of `/agb`, `/widerruf` and `/datenschutz` is the next thing owed.
+The legal texts exist in **German and English**, and `app/_lib/legal.ts` is the single map of which document lives where. German readers get the German set; English, Russian and Ukrainian readers get the English one — Russian and Ukrainian have no set of their own, and English is the second language those locales already lead with. Every page carries a switch to the other language.
+
+Neither language is a translation of record that overrides the other: each applies to purchases made in it, and both pages say so. That is deliberate. A clause making one version prevail over the one a consumer actually read is the kind of term that gets struck out. The consequence is that **the two sets have to keep saying the same thing** — a test compares the claims a disagreement would be expensive in, and it is not a substitute for reading both when either changes.
 
 ## Local development
 

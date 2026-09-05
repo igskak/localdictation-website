@@ -3,9 +3,12 @@ import { access, readFile } from "node:fs/promises";
 import test from "node:test";
 
 const projectRoot = new URL("../", import.meta.url);
-// Every route a buyer can reach from the footer. Listing them once is what
-// keeps a new legal page from shipping unlinked from the other four.
+// Every route a buyer can reach from the footer, in both languages. Listing
+// them once is what keeps a new legal page from shipping unlinked from the
+// other four -- and keeps the two sets the same size, which is the cheapest
+// way to notice that a document was translated and then forgotten.
 const legalRoutes = ["/agb", "/widerruf", "/datenschutz", "/impressum", "/lizenzen"];
+const legalRoutesEn = ["/en/terms", "/en/cancellation", "/en/privacy", "/en/legal-notice", "/en/licences"];
 const comparisonPaths = [
   "/vergleich",
   "/vergleich/wispr-flow-alternative",
@@ -107,10 +110,13 @@ test("renders the Russian and Ukrainian variants with their own languages and re
   assert.match(ukHtml, /class="active">Українська/);
   assert.match(ukHtml, /href="\/danke\?lang=uk&amp;download=auto"/i);
 
-  // Every locale offers the other three, and the German legal pages stay marked as German.
+  // Every locale offers the other three. Russian and Ukrainian readers have no
+  // legal set of their own, and get the English one rather than a German
+  // withdrawal instruction they cannot read.
   for (const [html, others] of [[ruHtml, ["de", "en", "uk"]], [ukHtml, ["de", "en", "ru"]]]) {
     for (const other of others) assert.match(html, new RegExp(`hreflang="${other}"`, "i"), other);
-    assert.match(html, /href="\/impressum" hreflang="de"/i);
+    assert.match(html, /href="\/en\/legal-notice" hreflang="en"/i);
+    assert.doesNotMatch(html, /href="\/impressum"/i, "no locale may be sent to a document in a third language");
   }
 });
 
@@ -173,16 +179,26 @@ test("serves the legal pages, and no longer calls any of them a draft", async ()
     ["/widerruf", /Diese Belehrung gilt für Verbraucher/],
     ["/datenschutz", /aus dem Code geschrieben/],
     ["/lizenzen", /Witness steht auf fremder Arbeit/],
+    ["/en/legal-notice", /Provider details complete/],
+    ["/en/terms", /This English text applies to purchases made in English/],
+    ["/en/cancellation", /This instruction is for consumers/],
+    ["/en/privacy", /written from the code, not from an intention/],
+    ["/en/licences", /Witness stands on other people/],
   ]);
-  for (const route of legalRoutes) {
-    const response = await render(route);
-    assert.equal(response.status, 200, route);
-    const html = await response.text();
-    assert.match(html, notices.get(route), route);
-    assert.doesNotMatch(html, /ist ein Entwurf|noch zu ergänzen|vor dem ersten Verkauf/, route);
-    assert.match(html, /Stand: 5\. September 2026/, route);
-    for (const other of legalRoutes) assert.match(html, new RegExp(`href="${other}"`), `${route} must link ${other}`);
-    assert.match(html, /mailto:hallo@witnessmac\.com/);
+  for (const [routes, stamp, counterparts] of [[legalRoutes, /Stand: 5\. September 2026/, legalRoutesEn], [legalRoutesEn, /Last updated: 5 September 2026/, legalRoutes]]) {
+    for (const [index, route] of routes.entries()) {
+      const response = await render(route);
+      assert.equal(response.status, 200, route);
+      const html = await response.text();
+      assert.match(html, notices.get(route), route);
+      assert.doesNotMatch(html, /ist ein Entwurf|noch zu ergänzen|vor dem ersten Verkauf/, route);
+      assert.match(html, stamp, route);
+      for (const other of routes) assert.match(html, new RegExp(`href="${other}"`), `${route} must link ${other}`);
+      // And the same document in the other language, which is the one link a
+      // reader who cannot read this page needs.
+      assert.match(html, new RegExp(`href="${counterparts[index]}"`), `${route} must link ${counterparts[index]}`);
+      assert.match(html, /mailto:hallo@witnessmac\.com/);
+    }
   }
 
   const impressum = await (await render("/impressum")).text();
@@ -273,6 +289,43 @@ test("states the business model the same way in the legal text and on the landin
   }
 });
 
+test("the English legal set says the same thing as the German one", async () => {
+  // A translation that quietly disagrees with the original is worse than no
+  // translation: two buyers then have two different contracts and neither
+  // knows it. These are the claims a disagreement would be expensive in.
+  const terms = await (await render("/en/terms")).text();
+  for (const claim of ["€99", "€49", "up to two Macs they use", "14 days from your first successful dictation", "version 1 today", "merchant of record", "Czech law"]) {
+    assert.ok(terms.includes(claim), `the English terms must state ${claim}`);
+  }
+  assert.match(terms, /future major version \(2\.0\) is a new product/);
+
+  const cancellation = await (await render("/en/cancellation")).text();
+  assert.match(cancellation, /fourteen days without giving any reason/);
+  assert.match(cancellation, /Model withdrawal form/);
+  assert.match(cancellation, /If those declarations were not made, your right of withdrawal runs the full fourteen days/);
+
+  const privacy = await (await render("/en/privacy")).text();
+  for (const recipient of ["Cloudflare", "Stripe", "Resend", "Hugging Face", "api.witnessmac.com"]) {
+    assert.ok(privacy.includes(recipient), `the English privacy policy must name ${recipient}`);
+  }
+  assert.match(privacy, /None of them is transmitted/);
+  assert.match(privacy, /no cookies/);
+  assert.match(privacy, /Úřad pro ochranu osobních údajů/);
+
+  const licences = await (await render("/en/licences")).text();
+  for (const holder of ["WhisperKit", "argmax", "OpenAI", "Apache-2.0"]) {
+    assert.ok(licences.includes(holder), `the English attribution page must name ${holder}`);
+  }
+  assert.match(licences, /Permission is hereby granted, free of charge/);
+
+  // Both sets describe the same checkout. The declaration is made in the app,
+  // because the payment page cannot ask -- and both pages have to say so, or
+  // one of them is describing a product that does not exist.
+  const [de, en] = await Promise.all([render("/widerruf"), render("/en/cancellation")].map(async (r) => (await r).text()));
+  assert.match(de, /Kaufknöpfe tun nichts, solange nicht angekreuzt ist/);
+  assert.match(en, /Buy buttons do nothing until it is ticked/);
+});
+
 test("derives complete social metadata from a sanitized forwarded origin", async () => {
   const response = await render("/en", {
     "user-agent": "Twitterbot/1.0",
@@ -306,6 +359,11 @@ test("keeps legal metadata route-specific and non-indexable", async () => {
     ["/datenschutz", "Datenschutzerklärung für die Website"],
     ["/widerruf", "Widerrufsbelehrung und Muster-Widerrufsformular"],
     ["/lizenzen", "Quelloffene Komponenten und Spracherkennungsmodelle"],
+    ["/en/legal-notice", "Provider identification and legal information"],
+    ["/en/terms", "Terms of sale and licence terms"],
+    ["/en/privacy", "Privacy policy for the website"],
+    ["/en/cancellation", "Right of withdrawal and model withdrawal form"],
+    ["/en/licences", "Open-source components and speech recognition models"],
   ]);
   for (const [route, description] of expected) {
     const response = await render(route);
@@ -334,6 +392,7 @@ test("serves host-consistent crawl files containing only indexable landing route
     ...comparisonPaths.map((path) => `https://preview.example${path}`),
   ]);
   assert.doesNotMatch(sitemap, /danke|impressum|datenschutz|widerruf|agb|lizenzen|download/);
+  assert.doesNotMatch(sitemap, /\/en\/(terms|cancellation|privacy|legal-notice|licences)/);
 });
 
 test("renders the source-dated comparison hub and every required AEO route", async () => {

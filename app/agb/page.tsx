@@ -6,6 +6,7 @@ export const metadata: Metadata = { title: "Vertrags- und Lizenzbedingungen · W
 
 export default function AGBPage() {
   return <LegalShell
+    page="terms"
     eyebrow="Rechtliches"
     title="Vertrags- und Lizenzbedingungen"
     updated="5. September 2026"

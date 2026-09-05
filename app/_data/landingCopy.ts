@@ -233,7 +233,7 @@ const en: LandingCopy = {
       { title: "Network access disclosed", body: "Fetch the model once, get a key, release a Mac. The app sends nothing else." },
     ],
     disclosure: "Audio, transcripts, vocabulary, clipboard data, other app content, and highlighted risk fragments are never transmitted. The app sends exactly three things, each only when you press something: the request for the speech model, your email address with a device identifier to get a licence key, and that key back when you release a Mac. Product events are built and not sent.",
-    disclosureLink: "Read the full privacy policy (German)",
+    disclosureLink: "Read the full privacy policy",
   },
   languages: {
     kicker: "Languages",
@@ -309,7 +309,7 @@ const en: LandingCopy = {
   },
   footer: {
     tagline: "Local dictation for people who would rather see uncertainty than miss it.",
-    legalNav: "Legal links", agb: "Terms (DE)", impressum: "Legal notice (DE)", datenschutz: "Privacy (DE)", widerruf: "Cancellation (DE)", lizenzen: "Licences (DE)", kontakt: "Contact",
+    legalNav: "Legal links", agb: "Terms", impressum: "Legal notice", datenschutz: "Privacy", widerruf: "Cancellation", lizenzen: "Licences", kontakt: "Contact",
   },
   ui: { skip: "Skip to content", theme: "Switch colour scheme", mainNav: "Main navigation", languageNav: "Choose language", promises: "Product promises" },
 };
@@ -373,7 +373,7 @@ const ru: LandingCopy = {
       { title: "Сетевые обращения раскрыты", body: "Один раз скачать модель, получить ключ, освободить Mac. Больше приложение не отправляет ничего." },
     ],
     disclosure: "Никогда не передаются: аудио, транскрипты, словарь, буфер обмена, содержимое других приложений и подсвеченные рискованные фрагменты. Приложение отправляет ровно три вещи, и каждую — только после нажатия: запрос модели распознавания, почту с идентификатором устройства ради лицензионного ключа и этот же ключ обратно, когда ты освобождаешь Mac. Продуктовые события собираются, но не отправляются.",
-    disclosureLink: "Прочитать полную политику конфиденциальности (на немецком)",
+    disclosureLink: "Прочитать полную политику конфиденциальности (на английском)",
   },
   languages: {
     kicker: "Языки",
@@ -449,7 +449,7 @@ const ru: LandingCopy = {
   },
   footer: {
     tagline: "Локальный диктовщик для тех, кто предпочитает видеть неуверенность, а не пропускать её.",
-    legalNav: "Юридические страницы", agb: "Условия (DE)", impressum: "Импрессум (DE)", datenschutz: "Приватность (DE)", widerruf: "Право отказа (DE)", lizenzen: "Лицензии (DE)", kontakt: "Контакт",
+    legalNav: "Юридические страницы", agb: "Условия (EN)", impressum: "Импрессум (EN)", datenschutz: "Приватность (EN)", widerruf: "Право отказа (EN)", lizenzen: "Лицензии (EN)", kontakt: "Контакт",
   },
   ui: { skip: "К содержимому", theme: "Сменить тему", mainNav: "Основная навигация", languageNav: "Выбор языка", promises: "Обещания продукта" },
 };
@@ -513,7 +513,7 @@ const uk: LandingCopy = {
       { title: "Мережеві звернення розкрито", body: "Один раз завантажити модель, отримати ключ, звільнити Mac. Більше застосунок не надсилає нічого." },
     ],
     disclosure: "Ніколи не передаються: аудіо, транскрипти, словник, буфер обміну, вміст інших застосунків і підсвічені ризиковані фрагменти. Застосунок надсилає рівно три речі, і кожну — лише після натискання: запит моделі розпізнавання, пошту з ідентифікатором пристрою заради ліцензійного ключа і цей самий ключ назад, коли ти звільняєш Mac. Продуктові події збираються, але не надсилаються.",
-    disclosureLink: "Прочитати повну політику конфіденційності (німецькою)",
+    disclosureLink: "Прочитати повну політику конфіденційності (англійською)",
   },
   languages: {
     kicker: "Мови",
@@ -589,7 +589,7 @@ const uk: LandingCopy = {
   },
   footer: {
     tagline: "Локальний диктувальник для тих, хто радше побачить непевність, ніж пропустить її.",
-    legalNav: "Юридичні сторінки", agb: "Умови (DE)", impressum: "Імпресум (DE)", datenschutz: "Приватність (DE)", widerruf: "Право на відмову (DE)", lizenzen: "Ліцензії (DE)", kontakt: "Контакт",
+    legalNav: "Юридичні сторінки", agb: "Умови (EN)", impressum: "Імпресум (EN)", datenschutz: "Приватність (EN)", widerruf: "Право на відмову (EN)", lizenzen: "Ліцензії (EN)", kontakt: "Контакт",
   },
   ui: { skip: "До вмісту", theme: "Змінити тему", mainNav: "Основна навігація", languageNav: "Вибір мови", promises: "Обіцянки продукту" },
 };

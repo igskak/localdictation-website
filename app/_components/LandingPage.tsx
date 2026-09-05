@@ -1,6 +1,7 @@
 import { getDownloadTarget } from "../_lib/download";
 import { landingCopy } from "../_data/landingCopy";
 import { localeHome, localeLabels, locales, type Locale } from "../_lib/locale";
+import { legalLocale, legalPaths } from "../_lib/legal";
 
 const waveHeights = [7, 13, 20, 10, 25, 16, 28, 12, 20, 8, 15, 6];
 
@@ -98,6 +99,10 @@ function ProductDemo({ locale, expanded = false }: { locale: Locale; expanded?: 
 
 export function LandingPage({ locale }: { locale: Locale }) {
   const c = landingCopy[locale];
+  // German readers get the German documents; everybody else gets the English
+  // set, which is the only one they can be expected to have read.
+  const legalLang = legalLocale(locale);
+  const legal = legalPaths[legalLang];
   const downloadAvailable = Boolean(getDownloadTarget());
   const downloadHref = locale === "de" ? "/danke?download=auto" : `/danke?lang=${locale}&download=auto`;
 
@@ -238,7 +243,7 @@ export function LandingPage({ locale }: { locale: Locale }) {
           </div>
           <p className="privacy-disclosure">
             {c.privacy.disclosure}{" "}
-            <a href="/datenschutz" hrefLang="de">{c.privacy.disclosureLink} ↗</a>
+            <a href={legal.privacy} hrefLang={legalLang}>{c.privacy.disclosureLink} ↗</a>
           </p>
         </section>
 
@@ -352,7 +357,7 @@ export function LandingPage({ locale }: { locale: Locale }) {
         <div className="shell footer-top"><Brand /><p>{c.footer.tagline}</p></div>
         <div className="shell footer-bottom">
           <span>© 2026 Witness</span>
-          <nav aria-label={c.footer.legalNav}><a href="/agb" hrefLang="de">{c.footer.agb}</a><a href="/widerruf" hrefLang="de">{c.footer.widerruf}</a><a href="/datenschutz" hrefLang="de">{c.footer.datenschutz}</a><a href="/impressum" hrefLang="de">{c.footer.impressum}</a><a href="/lizenzen" hrefLang="de">{c.footer.lizenzen}</a><a href="mailto:hallo@witnessmac.com">{c.footer.kontakt}</a></nav>
+          <nav aria-label={c.footer.legalNav}><a href={legal.terms} hrefLang={legalLang}>{c.footer.agb}</a><a href={legal.withdrawal} hrefLang={legalLang}>{c.footer.widerruf}</a><a href={legal.privacy} hrefLang={legalLang}>{c.footer.datenschutz}</a><a href={legal.imprint} hrefLang={legalLang}>{c.footer.impressum}</a><a href={legal.licences} hrefLang={legalLang}>{c.footer.lizenzen}</a><a href="mailto:hallo@witnessmac.com">{c.footer.kontakt}</a></nav>
         </div>
       </footer>
 

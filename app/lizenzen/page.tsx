@@ -9,6 +9,7 @@ export const metadata: Metadata = { title: "Lizenzen Dritter · Witness", descri
 // holders above it is how one page discharges that for all of them.
 export default function LizenzenPage() {
   return <LegalShell
+    page="licences"
     eyebrow="Rechtliches"
     title="Lizenzen Dritter"
     updated="5. September 2026"

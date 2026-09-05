@@ -6,6 +6,7 @@ export const metadata: Metadata = { title: "Widerruf · Witness", description: "
 
 export default function WiderrufPage() {
   return <LegalShell
+    page="withdrawal"
     eyebrow="Rechtliches"
     title="Widerruf"
     updated="5. September 2026"
@@ -31,7 +32,7 @@ export default function WiderrufPage() {
       <li>deine Kenntnis davon bestätigt hast, dass du durch deine Zustimmung mit Beginn der Ausführung des Vertrags dein Widerrufsrecht verlierst,</li>
     </ol>
     <p>und wir dir diese Bestätigung zur Verfügung gestellt haben.</p>
-    <p>Der Lizenzschlüssel wird sofort ausgestellt und nicht erst nach vierzehn Tagen. Ob die beiden Erklärungen oben vorliegen, richtet sich danach, was der Bezahlvorgang abfragt, bevor du zahlst. <strong>Liegen sie nicht vor, bleibt dein Widerrufsrecht die vollen vierzehn Tage bestehen</strong> — auch dann, wenn du den Schlüssel bereits erhalten und Witness benutzt hast.</p>
+    <p>Witness holt beide Erklärungen ein, bevor die App einen Bezahlvorgang öffnet — die Bezahlseite ist standardisiert und kann nicht danach fragen, also fragt die App, über den Preisen, und die Kaufknöpfe tun nichts, solange nicht angekreuzt ist. Deine Kaufbestätigung wiederholt die Erklärung. <strong>Liegen sie nicht vor, bleibt dein Widerrufsrecht die vollen vierzehn Tage bestehen</strong> — auch dann, wenn du den Schlüssel bereits erhalten und Witness benutzt hast.</p>
 
     <h2>Jahreslizenz</h2>
     <p>Das Widerrufsrecht bezieht sich auf den Abschluss des Vertrags. Eine automatische Verlängerung der Jahreslizenz ist kein neuer Vertragsabschluss und löst deshalb kein neues Widerrufsrecht aus. Beenden kannst du die Verlängerung jederzeit bis zum letzten Tag der laufenden Laufzeit; wie das geht, steht in Abschnitt 8 der <Link href="/agb">Vertrags- und Lizenzbedingungen</Link>.</p>

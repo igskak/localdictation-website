@@ -6,6 +6,7 @@ export const metadata: Metadata = { title: "Impressum · Witness", description: 
 
 export default function ImpressumPage() {
   return <LegalShell
+    page="imprint"
     eyebrow="Rechtliches"
     title="Impressum"
     updated="5. September 2026"

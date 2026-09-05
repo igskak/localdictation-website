@@ -333,9 +333,10 @@ export async function ComparisonPage({ data }: { data: ComparisonPageData }) {
       <footer className={styles.footer}>
         <span>© {new Date().getFullYear()} Witness</span>
         <nav aria-label="Rechtliche Links">
-          <Link href="/impressum">Impressum</Link>
-          <Link href="/datenschutz">Datenschutz</Link>
+          <Link href="/agb">AGB</Link>
           <Link href="/widerruf">Widerruf</Link>
+          <Link href="/datenschutz">Datenschutz</Link>
+          <Link href="/impressum">Impressum</Link>
         </nav>
       </footer>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: schema }} />
@@ -423,9 +424,10 @@ export async function ComparisonHub() {
       <footer className={styles.footer}>
         <span>© {new Date().getFullYear()} Witness</span>
         <nav aria-label="Rechtliche Links">
-          <Link href="/impressum">Impressum</Link>
-          <Link href="/datenschutz">Datenschutz</Link>
+          <Link href="/agb">AGB</Link>
           <Link href="/widerruf">Widerruf</Link>
+          <Link href="/datenschutz">Datenschutz</Link>
+          <Link href="/impressum">Impressum</Link>
         </nav>
       </footer>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: schema }} />

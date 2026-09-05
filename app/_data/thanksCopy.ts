@@ -112,7 +112,7 @@ const en: ThanksCopy = {
     previewBody: "This form does not send email at the moment. Request your key in the app instead: Settings, then License.",
     noscript: "The optional form needs JavaScript. The download and installation guide continue to work without the form.",
     consent: "By submitting, you agree that these details may be used for activation and onboarding.",
-    privacyLink: "Privacy (DE)",
+    privacyLink: "Privacy",
   },
 };
 
@@ -160,7 +160,7 @@ const ru: ThanksCopy = {
     previewBody: "Через эту форму письма сейчас не отправляются. Запроси ключ в приложении: Настройки, затем Лицензия.",
     noscript: "Добровольная форма требует JavaScript. Загрузка и инструкция по установке работают и без неё.",
     consent: "Отправляя форму, ты соглашаешься на обработку этих данных для активации и онбординга.",
-    privacyLink: "Приватность (DE)",
+    privacyLink: "Приватность (EN)",
   },
 };
 
@@ -208,7 +208,7 @@ const uk: ThanksCopy = {
     previewBody: "Через цю форму листи зараз не надсилаються. Запроси ключ у застосунку: Налаштування, далі Ліцензія.",
     noscript: "Добровільна форма потребує JavaScript. Завантаження та інструкція зі встановлення працюють і без неї.",
     consent: "Надсилаючи форму, ти погоджуєшся на обробку цих даних для активації та онбордингу.",
-    privacyLink: "Приватність (DE)",
+    privacyLink: "Приватність (EN)",
   },
 };
 

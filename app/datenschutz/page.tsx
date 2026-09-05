@@ -6,6 +6,7 @@ export const metadata: Metadata = { title: "Datenschutz · Witness", description
 
 export default function DatenschutzPage() {
   return <LegalShell
+    page="privacy"
     eyebrow="Datenschutz"
     title="Klare Grenzen für deine Daten"
     updated="5. September 2026"
@@ -38,6 +39,7 @@ export default function DatenschutzPage() {
     <p>Das ist die vollständige Liste. Es gibt keine vierte Zeile. Die Aktivierungsanfrage hat genau zwei Felder — <code>email</code> und <code>device</code> —, und ein automatischer Test schlägt fehl, sobald ein drittes hinzukäme. So bleibt diese Seite wahr.</p>
     <p>Die Gerätekennung ist ein auf 128 Bit gekürzter, gesalzener SHA-256-Wert der Hardware-Kennung deines Macs. Sie lässt sich nicht in eine Seriennummer zurückrechnen, gilt nur für diese App und passt zu nichts außerhalb davon. Sie existiert, damit eine Lizenz zwei Macs abdeckt statt beliebig viele.</p>
     <p>Die Verbindung ist HTTPS. Ein Endpunkt ohne Verschlüsselung führt dazu, dass die App sich als nicht konfiguriert meldet, statt eine Adresse im Klartext zu senden; eine Einstellung, die das lockert, gibt es in keinem Build.</p>
+    <p>Die Erklärung, die du in der App abgibst, bevor ein Bezahlvorgang öffnet — dass der Schlüssel sofort geliefert wird und du dadurch dein Widerrufsrecht verlierst —, wird <strong>nicht</strong> übertragen. Sie wird in das lokale Systemprotokoll auf deinem Mac geschrieben und sonst nirgends.</p>
 
     <h2>5. Der Aktivierungsdienst</h2>
     <p><strong>Zweck</strong>: einen Lizenzschlüssel ausstellen, ihn dir per E-Mail zusenden, dich wiedererkennen, wenn du einen zweiten Mac aktivierst oder einen ersetzt, und die Zwei-Geräte-Grenze durchsetzen.</p>
