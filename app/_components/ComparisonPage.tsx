@@ -17,7 +17,7 @@ const comparisonLabels: Record<ComparisonSlug, string> = {
   "wispr-flow-alternative": "Wispr Flow",
   "superwhisper-alternative": "Superwhisper",
   "sprecho-alternative": "Sprecho",
-  "voiceink-vs-localdictation": "VoiceInk",
+  "voiceink-vs-witness": "VoiceInk",
   "macwhisper-alternative": "MacWhisper",
   "diktiersoftware-mac-dsgvo": "Mac & DSGVO",
 };
@@ -36,7 +36,7 @@ export async function comparisonMetadata(data: ComparisonPageData): Promise<Meta
       type: "article",
       locale: "de_DE",
       url: canonical,
-      siteName: "LocalDictation",
+      siteName: "Witness",
       title: data.metaTitle,
       description: data.description,
       images: [],
@@ -54,9 +54,9 @@ export async function comparisonHubMetadata(): Promise<Metadata> {
   const origin = await requestOrigin();
   const canonical = new URL("/vergleich", origin).toString();
   const image = new URL("/og.png", origin).toString();
-  const title = "Diktier-Apps für den Mac im Vergleich | LocalDictation";
+  const title = "Diktier-Apps für den Mac im Vergleich | Witness";
   const description =
-    "Quellenbasierte Vergleiche von LocalDictation, Wispr Flow, Superwhisper, Sprecho und VoiceInk — mit Datenfluss, Sprachen, Preisen und Produktstatus.";
+    "Quellenbasierte Vergleiche von Witness, Wispr Flow, Superwhisper, Sprecho und VoiceInk — mit Datenfluss, Sprachen, Preisen und Produktstatus.";
 
   return {
     metadataBase: origin,
@@ -68,10 +68,10 @@ export async function comparisonHubMetadata(): Promise<Metadata> {
       type: "website",
       locale: "de_DE",
       url: canonical,
-      siteName: "LocalDictation",
+      siteName: "Witness",
       title,
       description,
-      images: [{ url: image, width: 1200, height: 630, alt: "LocalDictation für den Mac" }],
+      images: [{ url: image, width: 1200, height: 630, alt: "Witness für den Mac" }],
     },
     twitter: { card: "summary_large_image", title, description, images: [image] },
   };
@@ -127,8 +127,8 @@ export async function ComparisonPage({ data }: { data: ComparisonPageData }) {
     inLanguage: "de-DE",
     dateModified: updatedIso,
     mainEntityOfPage: canonical,
-    author: { "@type": "Organization", name: "LocalDictation", url: origin.toString() },
-    publisher: { "@type": "Organization", name: "LocalDictation", url: origin.toString() },
+    author: { "@type": "Organization", name: "Witness", url: origin.toString() },
+    publisher: { "@type": "Organization", name: "Witness", url: origin.toString() },
     citation: citations,
   };
   const breadcrumbSchema = {
@@ -157,7 +157,7 @@ export async function ComparisonPage({ data }: { data: ComparisonPageData }) {
         Zum Inhalt
       </a>
       <header className={styles.header}>
-        <Link className={styles.brand} href="/" aria-label="LocalDictation Startseite">
+        <Link className={styles.brand} href="/" aria-label="Witness Startseite">
           <span className={styles.brandMark} aria-hidden="true">
             <i />
             <i />
@@ -165,7 +165,7 @@ export async function ComparisonPage({ data }: { data: ComparisonPageData }) {
             <i />
             <i />
           </span>
-          LocalDictation
+          Witness
         </Link>
         <Link className={styles.headerLink} href="/#vergleich">
           Produktvergleich <span aria-hidden="true">↗</span>
@@ -212,7 +212,7 @@ export async function ComparisonPage({ data }: { data: ComparisonPageData }) {
           </header>
 
           <aside className={styles.previewNote} aria-label="Hinweis zum Produktstatus">
-            <strong>Transparenzhinweis:</strong> LocalDictation befindet sich in privater Vorschau. Funktionen und Preise
+            <strong>Transparenzhinweis:</strong> Witness befindet sich in privater Vorschau. Funktionen und Preise
             beschreiben den vorgesehenen Launch-Umfang; die verglichenen Konkurrenzprodukte sind bereits verfügbar.
           </aside>
 
@@ -331,7 +331,7 @@ export async function ComparisonPage({ data }: { data: ComparisonPageData }) {
       </main>
 
       <footer className={styles.footer}>
-        <span>© {new Date().getFullYear()} LocalDictation</span>
+        <span>© {new Date().getFullYear()} Witness</span>
         <nav aria-label="Rechtliche Links">
           <Link href="/impressum">Impressum</Link>
           <Link href="/datenschutz">Datenschutz</Link>
@@ -353,7 +353,7 @@ export async function ComparisonHub() {
   const canonical = new URL("/vergleich", origin).toString();
   const title = "Diktier-Apps für den Mac: sechs nachvollziehbare Vergleiche";
   const description =
-    "Offizielle Quellen statt Genauigkeitsversprechen: Vergleiche Datenfluss, Plattformen, Sprachen, Kontrolle und Kosten von LocalDictation und etablierten Diktier-Apps.";
+    "Offizielle Quellen statt Genauigkeitsversprechen: Vergleiche Datenfluss, Plattformen, Sprachen, Kontrolle und Kosten von Witness und etablierten Diktier-Apps.";
   const schema = JSON.stringify({
     "@context": "https://schema.org",
     "@type": "CollectionPage",
@@ -378,9 +378,9 @@ export async function ComparisonHub() {
     <div className={styles.page}>
       <a className={styles.skipLink} href="#vergleich-inhalt">Zum Inhalt</a>
       <header className={styles.header}>
-        <Link className={styles.brand} href="/" aria-label="LocalDictation Startseite">
+        <Link className={styles.brand} href="/" aria-label="Witness Startseite">
           <span className={styles.brandMark} aria-hidden="true"><i /><i /><i /><i /><i /></span>
-          LocalDictation
+          Witness
         </Link>
         <Link className={styles.headerLink} href="/">Zur Produktseite <span aria-hidden="true">↗</span></Link>
       </header>
@@ -421,7 +421,7 @@ export async function ComparisonHub() {
         </div>
       </main>
       <footer className={styles.footer}>
-        <span>© {new Date().getFullYear()} LocalDictation</span>
+        <span>© {new Date().getFullYear()} Witness</span>
         <nav aria-label="Rechtliche Links">
           <Link href="/impressum">Impressum</Link>
           <Link href="/datenschutz">Datenschutz</Link>

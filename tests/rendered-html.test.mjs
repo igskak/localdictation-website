@@ -8,7 +8,7 @@ const comparisonPaths = [
   "/vergleich/wispr-flow-alternative",
   "/vergleich/superwhisper-alternative",
   "/vergleich/sprecho-alternative",
-  "/vergleich/voiceink-vs-localdictation",
+  "/vergleich/voiceink-vs-witness",
   "/vergleich/macwhisper-alternative",
   "/vergleich/diktiersoftware-mac-dsgvo",
 ];
@@ -158,21 +158,43 @@ test("keeps query locale isolated and renders English download metadata", async 
   assert.match(landingHtml, /Diktieren statt tippen/);
   assert.match(thanksHtml, /<html lang="en">/i);
   assert.match(thanksHtml, /Where should we send your licence key/);
-  assert.match(thanksHtml, /Install LocalDictation and request your licence key/);
+  assert.match(thanksHtml, /Install Witness and request your licence key/);
   assert.match(thanksHtml, /<option value="development">Software development<\/option>/i);
   assert.match(thanksHtml, /<option value="single">one language only<\/option>/i);
 });
 
 test("serves privacy, legal drafts, and llms context", async () => {
+  // The Impressum carries its own notice: its provider details are complete,
+  // and a page that calls complete details a draft misstates the one thing
+  // about itself that matters to a reader looking for who is selling to them.
+  const notices = new Map([
+    ["/impressum", /Anbieterangaben vollständig/],
+    ["/datenschutz", /Entwurf für die private Produktvorschau/],
+    ["/widerruf", /Entwurf für die private Produktvorschau/],
+  ]);
   for (const route of ["/impressum", "/datenschutz", "/widerruf"]) {
     const response = await render(route);
     assert.equal(response.status, 200, route);
     const html = await response.text();
-    assert.match(html, /Entwurf für die private Produktvorschau/);
+    assert.match(html, notices.get(route), route);
     assert.match(html, /href="\/impressum"/);
     assert.match(html, /href="\/datenschutz"/);
     assert.match(html, /href="\/widerruf"/);
-    assert.match(html, /mailto:hallo@localdictation\.app/);
+    assert.match(html, /mailto:hallo@witnessmac\.com/);
+  }
+
+  const impressum = await (await render("/impressum")).text();
+  for (const detail of ["Ihor Skakovskyi", "Ostrovsk", "150 00 Praha 5", "17328691", "CZ686026225", "420 607 643 905"]) {
+    assert.ok(impressum.includes(detail), `the Impressum must name ${detail}`);
+  }
+
+  // Removed on purpose: a 30-day guarantee was promised on every locale of the
+  // landing page while the document that had to define it said it did not yet,
+  // and the checkout said nothing at all. The statutory right of withdrawal is
+  // unaffected and is what `/widerruf` still has to spell out.
+  for (const route of ["/", "/en", "/ru", "/uk", "/widerruf"]) {
+    const html = await (await render(route)).text();
+    assert.doesNotMatch(html, /Geld zurück|money-back|Возврат денег|Повернення грошей/, route);
   }
 
   const llmsResponse = await render("/llms.txt");
@@ -294,7 +316,7 @@ test("keeps download routing index-safe and fails to an honest localized page", 
   assert.equal(response.headers.get("x-robots-tag"), "noindex, nofollow, noarchive");
 
   const original = process.env.DOWNLOAD_URL;
-  process.env.DOWNLOAD_URL = "https://downloads.example/LocalDictation.dmg";
+  process.env.DOWNLOAD_URL = "https://downloads.example/Witness.dmg";
   try {
     const startedPageHtml = await (await render("/danke?download=auto")).text();
     assert.match(startedPageHtml, /<iframe[^>]+aria-hidden="true"[^>]+tabindex="-1"/i);
@@ -306,11 +328,11 @@ test("keeps download routing index-safe and fails to an honest localized page", 
 
 test("redirects to a validated HTTPS download when the runtime target is configured", async () => {
   const original = process.env.DOWNLOAD_URL;
-  process.env.DOWNLOAD_URL = "https://downloads.example/LocalDictation.dmg?channel=stable";
+  process.env.DOWNLOAD_URL = "https://downloads.example/Witness.dmg?channel=stable";
   try {
     const response = await render("/download");
     assert.equal(response.status, 307);
-    assert.equal(response.headers.get("location"), "https://downloads.example/LocalDictation.dmg?channel=stable");
+    assert.equal(response.headers.get("location"), "https://downloads.example/Witness.dmg?channel=stable");
     assert.equal(response.headers.get("cache-control"), "private, no-store");
     assert.equal(response.headers.get("x-robots-tag"), "noindex, nofollow, noarchive");
   } finally {

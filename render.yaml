@@ -3,7 +3,7 @@
 # service uses the Node bundle produced by npm run build:node.
 services:
   - type: web
-    name: localdictation-website
+    name: witness-website
     runtime: node
     plan: free
     region: frankfurt

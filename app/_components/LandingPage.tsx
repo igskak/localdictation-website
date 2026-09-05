@@ -16,7 +16,7 @@ function Brand() {
         <i />
         <i />
       </span>
-      <span>LocalDictation</span>
+      <span>Witness</span>
     </span>
   );
 }
@@ -104,7 +104,7 @@ export function LandingPage({ locale }: { locale: Locale }) {
   const softwareSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    name: "LocalDictation",
+    name: "Witness",
     applicationCategory: "BusinessApplication",
     operatingSystem: "macOS 14.4 or newer on Apple silicon",
     offers: [
@@ -130,7 +130,7 @@ export function LandingPage({ locale }: { locale: Locale }) {
 
       <header className="site-header-wrap">
         <div className="site-header shell">
-          <a className="brand" href={localeHome(locale)} aria-label="LocalDictation">
+          <a className="brand" href={localeHome(locale)} aria-label="Witness">
             <Brand />
           </a>
           <nav className="site-nav" aria-label={c.ui.mainNav}>
@@ -283,7 +283,7 @@ export function LandingPage({ locale }: { locale: Locale }) {
             <div className="comparison-wrap" role="region" tabIndex={0} aria-label={c.comparison.tableLabel}>
               <table>
                 <caption className="sr-only">{c.comparison.caption}</caption>
-                <thead><tr><th scope="col">{c.comparison.featureHead}</th><th scope="col" className="featured-col">LocalDictation</th><th scope="col">Wispr Flow</th><th scope="col">sprecho.ai</th><th scope="col">Superwhisper</th><th scope="col">VoiceInk</th></tr></thead>
+                <thead><tr><th scope="col">{c.comparison.featureHead}</th><th scope="col" className="featured-col">Witness</th><th scope="col">Wispr Flow</th><th scope="col">sprecho.ai</th><th scope="col">Superwhisper</th><th scope="col">VoiceInk</th></tr></thead>
                 <tbody>
                   {c.comparison.rows.map((row) => <tr key={row[0]}>{row.map((cell, index) => index === 0 ? <th scope="row" key={cell}>{cell}</th> : <td className={index === 1 ? "featured-col" : ""} key={`${row[0]}-${index}`}>{index === 1 && <b aria-hidden="true">✓</b>}{cell}</td>)}</tr>)}
                 </tbody>
@@ -351,8 +351,8 @@ export function LandingPage({ locale }: { locale: Locale }) {
       <footer className="site-footer">
         <div className="shell footer-top"><Brand /><p>{c.footer.tagline}</p></div>
         <div className="shell footer-bottom">
-          <span>© 2026 LocalDictation</span>
-          <nav aria-label={c.footer.legalNav}><a href="/impressum" hrefLang="de">{c.footer.impressum}</a><a href="/datenschutz" hrefLang="de">{c.footer.datenschutz}</a><a href="/widerruf" hrefLang="de">{c.footer.widerruf}</a><a href="mailto:hallo@localdictation.app">{c.footer.kontakt}</a></nav>
+          <span>© 2026 Witness</span>
+          <nav aria-label={c.footer.legalNav}><a href="/impressum" hrefLang="de">{c.footer.impressum}</a><a href="/datenschutz" hrefLang="de">{c.footer.datenschutz}</a><a href="/widerruf" hrefLang="de">{c.footer.widerruf}</a><a href="mailto:hallo@witnessmac.com">{c.footer.kontakt}</a></nav>
         </div>
       </footer>
 

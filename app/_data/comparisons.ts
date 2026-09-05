@@ -2,7 +2,7 @@ export const comparisonSlugs = [
   "wispr-flow-alternative",
   "superwhisper-alternative",
   "sprecho-alternative",
-  "voiceink-vs-localdictation",
+  "voiceink-vs-witness",
   "macwhisper-alternative",
   "diktiersoftware-mac-dsgvo",
 ] as const;
@@ -59,8 +59,8 @@ export const comparisonUpdatedLabel = "18. August 2026";
 
 const localSource: ComparisonSource = {
   id: "local-product",
-  title: "LocalDictation Produktseite und Produktstatus",
-  publisher: "LocalDictation",
+  title: "Witness Produktseite und Produktstatus",
+  publisher: "Witness",
   url: "/",
 };
 
@@ -230,17 +230,17 @@ const wispr: ComparisonPageData = {
   slug: "wispr-flow-alternative",
   path: "/vergleich/wispr-flow-alternative",
   eyebrow: "Wispr-Flow-Alternative",
-  title: "LocalDictation oder Wispr Flow? Lokalität ist die eigentliche Entscheidung",
-  metaTitle: "Wispr-Flow-Alternative für den Mac | LocalDictation",
+  title: "Witness oder Wispr Flow? Lokalität ist die eigentliche Entscheidung",
+  metaTitle: "Wispr-Flow-Alternative für den Mac | Witness",
   description:
-    "Wispr Flow und LocalDictation im sachlichen Vergleich: Verarbeitung, Sprachen, Prüfung, Konto und Preis — mit offiziellen Quellen, Stand August 2026.",
+    "Wispr Flow und Witness im sachlichen Vergleich: Verarbeitung, Sprachen, Prüfung, Konto und Preis — mit offiziellen Quellen, Stand August 2026.",
   directAnswer: {
-    text: "Die kurze Antwort: LocalDictation ist die passendere Wispr-Flow-Alternative, wenn Diktatinhalte den Mac nicht verlassen sollen und du Zahlen, Namen oder Verneinungen vor dem Einfügen prüfen möchtest. Wispr Flow passt besser, wenn du dieselbe cloudbasierte Diktieroberfläche auf Mac, Windows, iPhone und Android sowie automatische Erkennung aus mehr als 100 Sprachen suchst.",
+    text: "Die kurze Antwort: Witness ist die passendere Wispr-Flow-Alternative, wenn Diktatinhalte den Mac nicht verlassen sollen und du Zahlen, Namen oder Verneinungen vor dem Einfügen prüfen möchtest. Wispr Flow passt besser, wenn du dieselbe cloudbasierte Diktieroberfläche auf Mac, Windows, iPhone und Android sowie automatische Erkennung aus mehr als 100 Sprachen suchst.",
     sources: ["wispr-security", "wispr-languages", "local-product"],
   },
   table: {
     caption: "Die wichtigsten Unterschiede auf einen Blick",
-    headers: ["Kriterium", "LocalDictation", "Wispr Flow"],
+    headers: ["Kriterium", "Witness", "Wispr Flow"],
     rows: [
       ["Inhaltsverarbeitung", "Lokal auf Apple Silicon", "Cloud-SaaS; Verarbeitung und Speicherung in den USA"],
       ["Plattformen", "macOS 14.4+, Apple Silicon", "macOS, Windows, iOS und Android"],
@@ -259,7 +259,7 @@ const wispr: ComparisonPageData = {
           sources: ["wispr-security"],
         },
         {
-          text: "LocalDictation verfolgt den Gegenentwurf: Audio, Transkript, Wörterbuch und Inhalte der Ziel-App werden auf dem Mac verarbeitet. Audio bleibt standardmäßig nur für das aktuelle Diktat und eine mögliche Prüfung im Arbeitsspeicher. Netzwerkzugriffe für Aktivierung, Lizenz, Zahlung und Updates sind davon getrennt. Der Produktstatus ist noch private Vorschau; diese Angaben beschreiben den vorgesehenen Launch-Umfang.",
+          text: "Witness verfolgt den Gegenentwurf: Audio, Transkript, Wörterbuch und Inhalte der Ziel-App werden auf dem Mac verarbeitet. Audio bleibt standardmäßig nur für das aktuelle Diktat und eine mögliche Prüfung im Arbeitsspeicher. Netzwerkzugriffe für Aktivierung, Lizenz, Zahlung und Updates sind davon getrennt. Der Produktstatus ist noch private Vorschau; diese Angaben beschreiben den vorgesehenen Launch-Umfang.",
           sources: ["local-product"],
         },
       ],
@@ -272,7 +272,7 @@ const wispr: ComparisonPageData = {
           sources: ["wispr-languages"],
         },
         {
-          text: "LocalDictation begrenzt den MVP bewusst auf Deutsch, Englisch, Russisch und Ukrainisch. Statt freier Auto-Erkennung wählst du ein erwartbares Mischprofil wie DE + EN. Das ist enger, soll aber typische zweisprachige Arbeitssätze berechenbarer machen. Begriffe und Eigennamen lassen sich im lokalen Wörterbuch hinterlegen.",
+          text: "Witness begrenzt den MVP bewusst auf Deutsch, Englisch, Russisch und Ukrainisch. Statt freier Auto-Erkennung wählst du ein erwartbares Mischprofil wie DE + EN. Das ist enger, soll aber typische zweisprachige Arbeitssätze berechenbarer machen. Begriffe und Eigennamen lassen sich im lokalen Wörterbuch hinterlegen.",
           sources: ["local-product"],
         },
       ],
@@ -281,7 +281,7 @@ const wispr: ComparisonPageData = {
       title: "Prüfen statt geglättete Unsicherheit zu übersehen",
       paragraphs: [
         {
-          text: "Der besondere Fokus von LocalDictation ist nicht eine behauptete höhere Trefferquote. Vor dem Einfügen sollen riskante Fragmente wie Zahlen, Datumsangaben, Namen, Verneinungen und Wörterbuchbegriffe markiert werden. Du kannst den Originalton des Fragments erneut hören und das Rohtranskript sehen. Für eine entsprechende risikobasierte Prüfzeile fanden wir in der öffentlichen Wispr-Flow-Dokumentation keinen Nachweis: nicht öffentlich dokumentiert.",
+          text: "Der besondere Fokus von Witness ist nicht eine behauptete höhere Trefferquote. Vor dem Einfügen sollen riskante Fragmente wie Zahlen, Datumsangaben, Namen, Verneinungen und Wörterbuchbegriffe markiert werden. Du kannst den Originalton des Fragments erneut hören und das Rohtranskript sehen. Für eine entsprechende risikobasierte Prüfzeile fanden wir in der öffentlichen Wispr-Flow-Dokumentation keinen Nachweis: nicht öffentlich dokumentiert.",
           sources: ["local-product", "wispr-security", "wispr-languages"],
         },
       ],
@@ -294,14 +294,14 @@ const wispr: ComparisonPageData = {
           sources: ["wispr-setup", "wispr-plans", "wispr-free", "wispr-privacy"],
         },
         {
-          text: "LocalDictation plant kein Produktkonto. Ein Lizenzschlüssel kommt per E-Mail; vorgesehen sind €99 als Einmalkauf oder €49 pro Jahr für zwei Macs. Wähle Wispr Flow für geräteübergreifenden Komfort und große Sprachbreite. Wähle LocalDictation, wenn du einen Apple-Silicon-Mac nutzt, Inhaltsuploads vermeiden und erkannte Risikostellen selbst freigeben willst.",
+          text: "Witness plant kein Produktkonto. Ein Lizenzschlüssel kommt per E-Mail; vorgesehen sind €99 als Einmalkauf oder €49 pro Jahr für zwei Macs. Wähle Wispr Flow für geräteübergreifenden Komfort und große Sprachbreite. Wähle Witness, wenn du einen Apple-Silicon-Mac nutzt, Inhaltsuploads vermeiden und erkannte Risikostellen selbst freigeben willst.",
           sources: ["local-product"],
         },
       ],
     },
   ],
   verdict: {
-    text: "Fazit: Beide Produkte lösen schnelles Diktieren, aber mit gegensätzlichen Architekturen. Wispr Flow ist die breitere Cloud-Lösung. LocalDictation ist die fokussierte Mac-Alternative für lokale Verarbeitung und explizite Kontrolle vor der Einfügung. Es gibt keinen veröffentlichten, vergleichbaren Benchmark, der eine allgemeine Genauigkeitsrangfolge rechtfertigt.",
+    text: "Fazit: Beide Produkte lösen schnelles Diktieren, aber mit gegensätzlichen Architekturen. Wispr Flow ist die breitere Cloud-Lösung. Witness ist die fokussierte Mac-Alternative für lokale Verarbeitung und explizite Kontrolle vor der Einfügung. Es gibt keinen veröffentlichten, vergleichbaren Benchmark, der eine allgemeine Genauigkeitsrangfolge rechtfertigt.",
     sources: ["wispr-security", "local-product"],
   },
   faqs: [
@@ -314,8 +314,8 @@ const wispr: ComparisonPageData = {
       answer: "Wispr Flow unterstützt beide Sprachen, dokumentiert aber, dass ein Wechsel mitten im Satz das gesamte Segment in nur einer Sprache ergeben kann.",
     },
     {
-      question: "Ist LocalDictation bereits allgemein verfügbar?",
-      answer: "Noch nicht. LocalDictation befindet sich in privater Vorschau; Preis und Funktionen auf dieser Seite sind der vorgesehene Launch-Umfang.",
+      question: "Ist Witness bereits allgemein verfügbar?",
+      answer: "Noch nicht. Witness befindet sich in privater Vorschau; Preis und Funktionen auf dieser Seite sind der vorgesehene Launch-Umfang.",
     },
   ],
   sources: [localSource, ...wisprSources],
@@ -325,17 +325,17 @@ const superwhisper: ComparisonPageData = {
   slug: "superwhisper-alternative",
   path: "/vergleich/superwhisper-alternative",
   eyebrow: "Superwhisper-Alternative",
-  title: "LocalDictation oder Superwhisper? Zwei lokale Mac-Ansätze im Vergleich",
-  metaTitle: "Superwhisper-Alternative für Mac | LocalDictation",
+  title: "Witness oder Superwhisper? Zwei lokale Mac-Ansätze im Vergleich",
+  metaTitle: "Superwhisper-Alternative für Mac | Witness",
   description:
-    "Superwhisper und LocalDictation im Quellenvergleich: lokale und Cloud-Modelle, Sprachen, Verifikation, Plattformen und Preise. Stand August 2026.",
+    "Superwhisper und Witness im Quellenvergleich: lokale und Cloud-Modelle, Sprachen, Verifikation, Plattformen und Preise. Stand August 2026.",
   directAnswer: {
-    text: "Die kurze Antwort: Superwhisper ist die passendere Wahl, wenn du viele lokale und optionale Cloud-Modelle, mehr als 100 Sprachen und mehrere Plattformen möchtest. LocalDictation ist die fokussiertere Alternative für Apple-Silicon-Macs, wenn feste zweisprachige Profile und eine Prüfung riskanter Zahlen, Namen oder Verneinungen vor dem Einfügen wichtiger sind als Modellvielfalt.",
+    text: "Die kurze Antwort: Superwhisper ist die passendere Wahl, wenn du viele lokale und optionale Cloud-Modelle, mehr als 100 Sprachen und mehrere Plattformen möchtest. Witness ist die fokussiertere Alternative für Apple-Silicon-Macs, wenn feste zweisprachige Profile und eine Prüfung riskanter Zahlen, Namen oder Verneinungen vor dem Einfügen wichtiger sind als Modellvielfalt.",
     sources: ["super-models", "super-download", "local-product"],
   },
   table: {
-    caption: "LocalDictation und Superwhisper im direkten Vergleich",
-    headers: ["Kriterium", "LocalDictation", "Superwhisper"],
+    caption: "Witness und Superwhisper im direkten Vergleich",
+    headers: ["Kriterium", "Witness", "Superwhisper"],
     rows: [
       ["Verarbeitung", "Inhaltsverarbeitung lokal", "Vollständig lokal konfigurierbar; optionale Cloud-Modelle"],
       ["Plattformen", "Apple Silicon, macOS 14.4+", "macOS 13.3+, Windows 10+, iOS 18+"],
@@ -354,7 +354,7 @@ const superwhisper: ComparisonPageData = {
           sources: ["super-security", "super-models"],
         },
         {
-          text: "LocalDictation macht diese Grenze zur Produktvorgabe. Audio, Transkript, Wörterbuch und Ziel-App-Inhalte sollen lokal bleiben; das Audio wird nach Diktat und möglicher Prüfung aus dem Arbeitsspeicher verworfen. Aktivierung, Lizenzprüfung, Checkout und Updates können Netzwerkzugriffe nutzen, jedoch keine Inhaltsdaten. Der Dienst befindet sich noch in privater Vorschau.",
+          text: "Witness macht diese Grenze zur Produktvorgabe. Audio, Transkript, Wörterbuch und Ziel-App-Inhalte sollen lokal bleiben; das Audio wird nach Diktat und möglicher Prüfung aus dem Arbeitsspeicher verworfen. Aktivierung, Lizenzprüfung, Checkout und Updates können Netzwerkzugriffe nutzen, jedoch keine Inhaltsdaten. Der Dienst befindet sich noch in privater Vorschau.",
           sources: ["local-product"],
         },
       ],
@@ -367,7 +367,7 @@ const superwhisper: ComparisonPageData = {
           sources: ["super-models"],
         },
         {
-          text: "LocalDictation reduziert Auswahl zugunsten eines festen Ablaufs: Hotkey, sprechen, nur auffällige Fragmente prüfen, bestätigen, am Cursor einfügen. Der MVP unterstützt Deutsch, Englisch, Russisch und Ukrainisch. Für häufige Mischungen werden Profile wie DE + EN oder RU + UK gewählt, statt die Sprache bei jedem Segment frei zu erraten.",
+          text: "Witness reduziert Auswahl zugunsten eines festen Ablaufs: Hotkey, sprechen, nur auffällige Fragmente prüfen, bestätigen, am Cursor einfügen. Der MVP unterstützt Deutsch, Englisch, Russisch und Ukrainisch. Für häufige Mischungen werden Profile wie DE + EN oder RU + UK gewählt, statt die Sprache bei jedem Segment frei zu erraten.",
           sources: ["local-product"],
         },
       ],
@@ -376,7 +376,7 @@ const superwhisper: ComparisonPageData = {
       title: "Der Unterschied liegt nach der Transkription",
       paragraphs: [
         {
-          text: "LocalDictation soll Zahlen, Datumsangaben, Eigennamen, Verneinungen und Wörterbuchbegriffe vor der Einfügung markieren. Zu jedem markierten Fragment sind Rohtranskript und kurzer Originalton vorgesehen. Das verspricht keine fehlerfreie Erkennung; es macht bestimmte Fehlerklassen sichtbar. Eine vergleichbare, risikobasierte Vorabprüfung ist in den von uns geprüften öffentlichen Superwhisper-Dokumenten nicht öffentlich dokumentiert.",
+          text: "Witness soll Zahlen, Datumsangaben, Eigennamen, Verneinungen und Wörterbuchbegriffe vor der Einfügung markieren. Zu jedem markierten Fragment sind Rohtranskript und kurzer Originalton vorgesehen. Das verspricht keine fehlerfreie Erkennung; es macht bestimmte Fehlerklassen sichtbar. Eine vergleichbare, risikobasierte Vorabprüfung ist in den von uns geprüften öffentlichen Superwhisper-Dokumenten nicht öffentlich dokumentiert.",
           sources: ["local-product", "super-security", "super-models"],
         },
         {
@@ -393,14 +393,14 @@ const superwhisper: ComparisonPageData = {
           sources: ["super-download", "super-pro"],
         },
         {
-          text: "LocalDictation zielt ausschließlich auf Apple Silicon mit macOS 14.4 oder neuer. Vorgesehen sind zwei Macs pro Lizenz, €99 lebenslang oder €49 jährlich. Superwhisper bietet damit mehr Gerätefreiheit und Konfigurationsbreite. LocalDictation setzt dagegen auf weniger Optionen, eine feste lokale Datenschutzgrenze und die explizite Prüfung vor dem Einfügen.",
+          text: "Witness zielt ausschließlich auf Apple Silicon mit macOS 14.4 oder neuer. Vorgesehen sind zwei Macs pro Lizenz, €99 lebenslang oder €49 jährlich. Superwhisper bietet damit mehr Gerätefreiheit und Konfigurationsbreite. Witness setzt dagegen auf weniger Optionen, eine feste lokale Datenschutzgrenze und die explizite Prüfung vor dem Einfügen.",
           sources: ["local-product"],
         },
       ],
     },
   ],
   verdict: {
-    text: "Fazit: Superwhisper ist kein bloßer Cloud-Gegner, sondern kann auf dem Mac vollständig lokal laufen. Seine Stärke ist Auswahl. LocalDictation differenziert sich nicht durch erfundene Genauigkeitswerte, sondern durch den engeren zweisprachigen Workflow und die vorgesehene Verifikation riskanter Fragmente.",
+    text: "Fazit: Superwhisper ist kein bloßer Cloud-Gegner, sondern kann auf dem Mac vollständig lokal laufen. Seine Stärke ist Auswahl. Witness differenziert sich nicht durch erfundene Genauigkeitswerte, sondern durch den engeren zweisprachigen Workflow und die vorgesehene Verifikation riskanter Fragmente.",
     sources: ["super-security", "local-product"],
   },
   faqs: [
@@ -409,8 +409,8 @@ const superwhisper: ComparisonPageData = {
       answer: "Ja. Auf macOS dokumentiert Superwhisper eine vollständig lokale Konfiguration mit lokalem Sprach- und lokalem Textmodell.",
     },
     {
-      question: "Warum dann LocalDictation wählen?",
-      answer: "LocalDictation konzentriert sich auf feste Sprachpaar-Profile und eine Prüfung bestimmter riskanter Fragmente vor der Einfügung, statt möglichst viele Modelle anzubieten.",
+      question: "Warum dann Witness wählen?",
+      answer: "Witness konzentriert sich auf feste Sprachpaar-Profile und eine Prüfung bestimmter riskanter Fragmente vor der Einfügung, statt möglichst viele Modelle anzubieten.",
     },
     {
       question: "Welche App ist genauer?",
@@ -424,17 +424,17 @@ const sprecho: ComparisonPageData = {
   slug: "sprecho-alternative",
   path: "/vergleich/sprecho-alternative",
   eyebrow: "Sprecho-Alternative",
-  title: "LocalDictation oder Sprecho? Lokaler Mac-Workflow gegen EU-Cloud",
-  metaTitle: "Sprecho-Alternative für den Mac | LocalDictation",
+  title: "Witness oder Sprecho? Lokaler Mac-Workflow gegen EU-Cloud",
+  metaTitle: "Sprecho-Alternative für den Mac | Witness",
   description:
-    "Sprecho und LocalDictation sachlich verglichen: EU-Cloud, lokale Verarbeitung, Plattformen, Sprachen, Prüfung, AVV und Preis. Stand August 2026.",
+    "Sprecho und Witness sachlich verglichen: EU-Cloud, lokale Verarbeitung, Plattformen, Sprachen, Prüfung, AVV und Preis. Stand August 2026.",
   directAnswer: {
-    text: "Die kurze Antwort: LocalDictation ist die passendere Sprecho-Alternative, wenn Diktatinhalte vollständig auf einem Apple-Silicon-Mac verarbeitet werden sollen und du riskante Fragmente vor dem Einfügen kontrollieren möchtest. Sprecho passt besser, wenn du eine fertige Diktierlösung für Mac, Windows, Linux, iOS und Android, mehr als 100 Sprachen sowie Cloud-Synchronisation brauchst.",
+    text: "Die kurze Antwort: Witness ist die passendere Sprecho-Alternative, wenn Diktatinhalte vollständig auf einem Apple-Silicon-Mac verarbeitet werden sollen und du riskante Fragmente vor dem Einfügen kontrollieren möchtest. Sprecho passt besser, wenn du eine fertige Diktierlösung für Mac, Windows, Linux, iOS und Android, mehr als 100 Sprachen sowie Cloud-Synchronisation brauchst.",
     sources: ["sprecho-product", "sprecho-dpa", "local-product"],
   },
   table: {
     caption: "Die dokumentierten Unterschiede",
-    headers: ["Kriterium", "LocalDictation", "Sprecho"],
+    headers: ["Kriterium", "Witness", "Sprecho"],
     rows: [
       ["Inhaltsverarbeitung", "Lokal auf dem Mac", "Cloud; Sprach- und Textverarbeitung auf Servern in Deutschland"],
       ["Plattformen", "Apple Silicon, macOS 14.4+", "Mac, Windows, Linux, iOS und Android"],
@@ -453,7 +453,7 @@ const sprecho: ComparisonPageData = {
           sources: ["sprecho-product", "sprecho-dpa"],
         },
         {
-          text: "Das kann für Organisationen ein sinnvoll dokumentierbarer Cloud-Weg sein. Es ist aber technisch etwas anderes als LocalDictation: Dort sollen Audio, Transkript, Wörterbuch und Ziel-App-Inhalte den Mac nicht verlassen. Das Audio bleibt standardmäßig nur für Diktat und mögliche Prüfung im Arbeitsspeicher. LocalDictation befindet sich noch in privater Vorschau; die Angaben beschreiben den vorgesehenen Launch-Umfang.",
+          text: "Das kann für Organisationen ein sinnvoll dokumentierbarer Cloud-Weg sein. Es ist aber technisch etwas anderes als Witness: Dort sollen Audio, Transkript, Wörterbuch und Ziel-App-Inhalte den Mac nicht verlassen. Das Audio bleibt standardmäßig nur für Diktat und mögliche Prüfung im Arbeitsspeicher. Witness befindet sich noch in privater Vorschau; die Angaben beschreiben den vorgesehenen Launch-Umfang.",
           sources: ["local-product"],
         },
       ],
@@ -466,7 +466,7 @@ const sprecho: ComparisonPageData = {
           sources: ["sprecho-dpa"],
         },
         {
-          text: "LocalDictation soll keine Diktatinhalte im Auftrag empfangen. Deshalb ist für diese Inhaltsverarbeitung kein AVV mit LocalDictation vorgesehen. Lizenzierung, Zahlung und Updates bleiben getrennte Verarbeitungsvorgänge und müssen transparent beschrieben werden. Auch lokale Software entbindet ein Unternehmen nicht von eigenen Pflichten beim Umgang mit personenbezogenen Daten.",
+          text: "Witness soll keine Diktatinhalte im Auftrag empfangen. Deshalb ist für diese Inhaltsverarbeitung kein AVV mit Witness vorgesehen. Lizenzierung, Zahlung und Updates bleiben getrennte Verarbeitungsvorgänge und müssen transparent beschrieben werden. Auch lokale Software entbindet ein Unternehmen nicht von eigenen Pflichten beim Umgang mit personenbezogenen Daten.",
           sources: ["local-product"],
         },
       ],
@@ -479,7 +479,7 @@ const sprecho: ComparisonPageData = {
           sources: ["sprecho-product", "sprecho-pricing"],
         },
         {
-          text: "LocalDictation läuft nur auf Apple Silicon mit macOS 14.4 oder neuer. Im MVP sind Deutsch, Englisch, Russisch und Ukrainisch vorgesehen. Feste Profile wie DE + EN oder UK + EN grenzen das erwartete Sprachpaar bewusst ein. Namen, Abkürzungen und Fachbegriffe landen in einem lokalen Wörterbuch; der fertige Text wird am Cursor eingesetzt.",
+          text: "Witness läuft nur auf Apple Silicon mit macOS 14.4 oder neuer. Im MVP sind Deutsch, Englisch, Russisch und Ukrainisch vorgesehen. Feste Profile wie DE + EN oder UK + EN grenzen das erwartete Sprachpaar bewusst ein. Namen, Abkürzungen und Fachbegriffe landen in einem lokalen Wörterbuch; der fertige Text wird am Cursor eingesetzt.",
           sources: ["local-product"],
         },
       ],
@@ -488,7 +488,7 @@ const sprecho: ComparisonPageData = {
       title: "Was vor der Einfügung sichtbar wird",
       paragraphs: [
         {
-          text: "LocalDictation soll bestimmte Risikoklassen vor dem Einfügen markieren: Zahlen, Daten, Eigennamen, Verneinungen und Begriffe aus dem eigenen Wörterbuch. Der Nutzer kann das kurze Audiofragment erneut anhören und das unveränderte Rohtranskript ansehen. Das ist keine Behauptung perfekter Erkennung, sondern eine Kontrollstufe für mögliche Folgen eines Fehlers.",
+          text: "Witness soll bestimmte Risikoklassen vor dem Einfügen markieren: Zahlen, Daten, Eigennamen, Verneinungen und Begriffe aus dem eigenen Wörterbuch. Der Nutzer kann das kurze Audiofragment erneut anhören und das unveränderte Rohtranskript ansehen. Das ist keine Behauptung perfekter Erkennung, sondern eine Kontrollstufe für mögliche Folgen eines Fehlers.",
           sources: ["local-product"],
         },
         {
@@ -501,14 +501,14 @@ const sprecho: ComparisonPageData = {
       title: "Preis und Entscheidung",
       paragraphs: [
         {
-          text: "Sprecho Pro kostet laut offizieller Preisseite €10,99 pro Monat und wird mit €131,88 jährlich abgerechnet. Genannt wird eine 14-tägige Testphase ohne Kreditkarte. LocalDictation plant €99 als Einmalkauf oder €49 jährlich für zwei Macs. Preise allein sind aber kein fairer Vergleich: Sprecho finanziert einen Cloud-Dienst über mehrere Plattformen; LocalDictation setzt lokale Rechenleistung voraus.",
+          text: "Sprecho Pro kostet laut offizieller Preisseite €10,99 pro Monat und wird mit €131,88 jährlich abgerechnet. Genannt wird eine 14-tägige Testphase ohne Kreditkarte. Witness plant €99 als Einmalkauf oder €49 jährlich für zwei Macs. Preise allein sind aber kein fairer Vergleich: Sprecho finanziert einen Cloud-Dienst über mehrere Plattformen; Witness setzt lokale Rechenleistung voraus.",
           sources: ["sprecho-pricing", "local-product"],
         },
       ],
     },
   ],
   verdict: {
-    text: "Fazit: Sprecho ist die breitere EU-Cloud-Lösung mit dokumentiertem AVV und vielen Plattformen. LocalDictation ist die engere Mac-Alternative ohne Übertragung von Diktatinhalten und mit vorgesehener Risikoprüfung. Welche Architektur passt, entscheidet der konkrete Workflow — nicht ein pauschales Datenschutzsiegel.",
+    text: "Fazit: Sprecho ist die breitere EU-Cloud-Lösung mit dokumentiertem AVV und vielen Plattformen. Witness ist die engere Mac-Alternative ohne Übertragung von Diktatinhalten und mit vorgesehener Risikoprüfung. Welche Architektur passt, entscheidet der konkrete Workflow — nicht ein pauschales Datenschutzsiegel.",
     sources: ["sprecho-dpa", "local-product"],
   },
   faqs: [
@@ -522,27 +522,27 @@ const sprecho: ComparisonPageData = {
     },
     {
       question: "Welche Sprecho-Alternative läuft ohne Inhaltsupload?",
-      answer: "LocalDictation ist dafür konzipiert, Audio und Text auf dem Apple-Silicon-Mac zu verarbeiten. Der Dienst ist aktuell noch in privater Vorschau.",
+      answer: "Witness ist dafür konzipiert, Audio und Text auf dem Apple-Silicon-Mac zu verarbeiten. Der Dienst ist aktuell noch in privater Vorschau.",
     },
   ],
   sources: [localSource, ...sprechoSources],
 };
 
 const voiceInk: ComparisonPageData = {
-  slug: "voiceink-vs-localdictation",
-  path: "/vergleich/voiceink-vs-localdictation",
-  eyebrow: "VoiceInk vs. LocalDictation",
-  title: "VoiceInk oder LocalDictation? Zwei lokale Mac-Apps mit anderem Fokus",
-  metaTitle: "VoiceInk vs. LocalDictation | Vergleich 2026",
+  slug: "voiceink-vs-witness",
+  path: "/vergleich/voiceink-vs-witness",
+  eyebrow: "VoiceInk vs. Witness",
+  title: "VoiceInk oder Witness? Zwei lokale Mac-Apps mit anderem Fokus",
+  metaTitle: "VoiceInk vs. Witness | Vergleich 2026",
   description:
-    "VoiceInk und LocalDictation sachlich verglichen: Open Source, lokale Modelle, Cloud-Optionen, Sprachprofile, Verifikation, Lizenzen und Preise.",
+    "VoiceInk und Witness sachlich verglichen: Open Source, lokale Modelle, Cloud-Optionen, Sprachprofile, Verifikation, Lizenzen und Preise.",
   directAnswer: {
-    text: "Die kurze Antwort: VoiceInk ist die passendere Wahl, wenn du eine verfügbare Open-Source-App, freie Modellwahl und einen günstigen Einmalkauf suchst. LocalDictation richtet sich an Menschen, die auf Deutsch und Englisch arbeiten und vor dem Einfügen bestimmte riskante Zahlen, Namen, Daten oder Verneinungen prüfen wollen. Beide Ansätze können Diktatinhalte lokal verarbeiten.",
+    text: "Die kurze Antwort: VoiceInk ist die passendere Wahl, wenn du eine verfügbare Open-Source-App, freie Modellwahl und einen günstigen Einmalkauf suchst. Witness richtet sich an Menschen, die auf Deutsch und Englisch arbeiten und vor dem Einfügen bestimmte riskante Zahlen, Namen, Daten oder Verneinungen prüfen wollen. Beide Ansätze können Diktatinhalte lokal verarbeiten.",
     sources: ["voiceink-product", "voiceink-github", "voiceink-models", "local-product"],
   },
   table: {
-    caption: "VoiceInk und LocalDictation auf einen Blick",
-    headers: ["Kriterium", "LocalDictation", "VoiceInk"],
+    caption: "VoiceInk und Witness auf einen Blick",
+    headers: ["Kriterium", "Witness", "VoiceInk"],
     rows: [
       ["Produktstatus", "Private Vorschau", "Verfügbar; Quellcode öffentlich"],
       ["Verarbeitung", "Inhalte lokal", "Lokale Modelle standardmäßig; optionale Cloud-Textverbesserung"],
@@ -561,7 +561,7 @@ const voiceInk: ComparisonPageData = {
           sources: ["voiceink-product", "voiceink-models"],
         },
         {
-          text: "LocalDictation setzt eine engere Grenze: Audio, Transkript, Wörterbuch und Ziel-App-Inhalte sollen lokal bleiben und nicht zur Sprach- oder Textverbesserung an einen Cloud-Anbieter gehen. Audio bleibt standardmäßig nur im Arbeitsspeicher. Aktivierung, Lizenzprüfung, Checkout und Updates dürfen getrennte, offengelegte Nicht-Inhaltsdaten übertragen. Das Produkt befindet sich noch in privater Vorschau.",
+          text: "Witness setzt eine engere Grenze: Audio, Transkript, Wörterbuch und Ziel-App-Inhalte sollen lokal bleiben und nicht zur Sprach- oder Textverbesserung an einen Cloud-Anbieter gehen. Audio bleibt standardmäßig nur im Arbeitsspeicher. Aktivierung, Lizenzprüfung, Checkout und Updates dürfen getrennte, offengelegte Nicht-Inhaltsdaten übertragen. Das Produkt befindet sich noch in privater Vorschau.",
           sources: ["local-product"],
         },
       ],
@@ -574,7 +574,7 @@ const voiceInk: ComparisonPageData = {
           sources: ["voiceink-github", "voiceink-terms"],
         },
         {
-          text: "LocalDictation ist als kommerzielles Produkt geplant, nicht als Open-Source-Projekt. Der Quellcode ist daher kein Kaufargument. Der Gegenwert soll in einem kuratierten, signierten Mac-Ablauf, klaren lokalen Datenschutzgrenzen, festen Sprachprofilen, Verifikation und direktem Support liegen. Wer Quellcode-Audit und Selbstbau priorisiert, sollte VoiceInk ernsthaft bevorzugen.",
+          text: "Witness ist als kommerzielles Produkt geplant, nicht als Open-Source-Projekt. Der Quellcode ist daher kein Kaufargument. Der Gegenwert soll in einem kuratierten, signierten Mac-Ablauf, klaren lokalen Datenschutzgrenzen, festen Sprachprofilen, Verifikation und direktem Support liegen. Wer Quellcode-Audit und Selbstbau priorisiert, sollte VoiceInk ernsthaft bevorzugen.",
           sources: ["local-product"],
         },
       ],
@@ -583,11 +583,11 @@ const voiceInk: ComparisonPageData = {
       title: "Modellauswahl oder vorgegebener Sprachraum",
       paragraphs: [
         {
-          text: "VoiceInk bietet eine breite Modelllandschaft. Welche Sprachen, Geschwindigkeiten und Hardwareanforderungen gelten, hängt deshalb vom ausgewählten Modell ab. Einen pauschalen Genauigkeitsvergleich übernehmen wir nicht: Es gibt keinen gemeinsamen offiziellen Benchmark mit identischer Hardware, Aufnahme und Nachbearbeitung, der VoiceInk und LocalDictation belastbar ordnet.",
+          text: "VoiceInk bietet eine breite Modelllandschaft. Welche Sprachen, Geschwindigkeiten und Hardwareanforderungen gelten, hängt deshalb vom ausgewählten Modell ab. Einen pauschalen Genauigkeitsvergleich übernehmen wir nicht: Es gibt keinen gemeinsamen offiziellen Benchmark mit identischer Hardware, Aufnahme und Nachbearbeitung, der VoiceInk und Witness belastbar ordnet.",
           sources: ["voiceink-models"],
         },
         {
-          text: "LocalDictation beschränkt den MVP auf Deutsch, Englisch, Russisch und Ukrainisch. Nutzer wählen feste Paare wie DE + EN oder RU + UK, bevor sie diktieren. Ziel ist nicht maximale Sprachzahl, sondern ein vorhersehbarer Raum für typische mehrsprachige Sätze. Namen, Abkürzungen und Fachvokabular werden pro Sprache lokal ergänzt.",
+          text: "Witness beschränkt den MVP auf Deutsch, Englisch, Russisch und Ukrainisch. Nutzer wählen feste Paare wie DE + EN oder RU + UK, bevor sie diktieren. Ziel ist nicht maximale Sprachzahl, sondern ein vorhersehbarer Raum für typische mehrsprachige Sätze. Namen, Abkürzungen und Fachvokabular werden pro Sprache lokal ergänzt.",
           sources: ["local-product"],
         },
       ],
@@ -596,11 +596,11 @@ const voiceInk: ComparisonPageData = {
       title: "Verifikation ist nicht dasselbe wie Verlauf",
       paragraphs: [
         {
-          text: "LocalDictation soll riskante Fragmente vor der Einfügung markieren. Bei Zahlen, Datumsangaben, Eigennamen, Verneinungen und Wörterbuchbegriffen kann der Nutzer Originalton und Rohtranskript prüfen und erst danach bestätigen. Die Funktion behauptet nicht, jeden Fehler zu finden; sie soll folgenreiche Stellen sichtbar machen, bevor Text eine Mail oder ein Formular erreicht.",
+          text: "Witness soll riskante Fragmente vor der Einfügung markieren. Bei Zahlen, Datumsangaben, Eigennamen, Verneinungen und Wörterbuchbegriffen kann der Nutzer Originalton und Rohtranskript prüfen und erst danach bestätigen. Die Funktion behauptet nicht, jeden Fehler zu finden; sie soll folgenreiche Stellen sichtbar machen, bevor Text eine Mail oder ein Formular erreicht.",
           sources: ["local-product"],
         },
         {
-          text: "Eine automatische Confidence- oder Risikomarkierung auf Fragmentebene ist in der geprüften öffentlichen VoiceInk-Produkt-, Modell- und Repository-Dokumentation nicht öffentlich dokumentiert. Das ist keine Aussage, dass VoiceInk keine Korrekturmöglichkeiten besitzt. Es bedeutet nur, dass wir genau diese LocalDictation-Funktion nicht als belegten Gleichstand eintragen können.",
+          text: "Eine automatische Confidence- oder Risikomarkierung auf Fragmentebene ist in der geprüften öffentlichen VoiceInk-Produkt-, Modell- und Repository-Dokumentation nicht öffentlich dokumentiert. Das ist keine Aussage, dass VoiceInk keine Korrekturmöglichkeiten besitzt. Es bedeutet nur, dass wir genau diese Witness-Funktion nicht als belegten Gleichstand eintragen können.",
           sources: ["voiceink-product", "voiceink-github", "voiceink-models"],
         },
       ],
@@ -609,14 +609,14 @@ const voiceInk: ComparisonPageData = {
       title: "System und Preis",
       paragraphs: [
         {
-          text: "Beide Produkte setzen Apple Silicon und macOS 14.4 oder neuer voraus. VoiceInk nennt aktuell $25 für einen Mac, $39 für zwei und $49 für drei Macs, jeweils als Einmalkauf, plus eine 14-tägige Erstattungsfrist. LocalDictation plant €99 lebenslang oder €49 jährlich für zwei Macs. VoiceInk ist damit beim reinen Lizenzpreis deutlich günstiger.",
+          text: "Beide Produkte setzen Apple Silicon und macOS 14.4 oder neuer voraus. VoiceInk nennt aktuell $25 für einen Mac, $39 für zwei und $49 für drei Macs, jeweils als Einmalkauf, plus eine 14-tägige Erstattungsfrist. Witness plant €99 lebenslang oder €49 jährlich für zwei Macs. VoiceInk ist damit beim reinen Lizenzpreis deutlich günstiger.",
           sources: ["voiceink-product", "local-product"],
         },
       ],
     },
   ],
   verdict: {
-    text: "Fazit: VoiceInk ist eine starke, günstigere und bereits verfügbare lokale Option mit offenem Quellcode und großer Modellwahl. LocalDictation sollte nur gewählt werden, wenn feste Mischprofile und die vorgesehene Vorabprüfung riskanter Fragmente den höheren Preis rechtfertigen. Bis zum öffentlichen Launch bleibt VoiceInk die sofort nutzbare Lösung.",
+    text: "Fazit: VoiceInk ist eine starke, günstigere und bereits verfügbare lokale Option mit offenem Quellcode und großer Modellwahl. Witness sollte nur gewählt werden, wenn feste Mischprofile und die vorgesehene Vorabprüfung riskanter Fragmente den höheren Preis rechtfertigen. Bis zum öffentlichen Launch bleibt VoiceInk die sofort nutzbare Lösung.",
     sources: ["voiceink-product", "voiceink-github", "local-product"],
   },
   faqs: [
@@ -629,8 +629,8 @@ const voiceInk: ComparisonPageData = {
       answer: "Nach offizieller Angabe bleibt Audio bei lokaler Transkription auf dem Gerät. Die optionale Cloud Enhancement überträgt den transkribierten Text, nicht das Audio.",
     },
     {
-      question: "Ist LocalDictation besser als VoiceInk?",
-      answer: "Nicht allgemein. VoiceInk gewinnt bei Preis, Verfügbarkeit, Quelloffenheit und Modellwahl; LocalDictation fokussiert feste Sprachpaare und Risikoprüfung vor dem Einfügen.",
+      question: "Ist Witness besser als VoiceInk?",
+      answer: "Nicht allgemein. VoiceInk gewinnt bei Preis, Verfügbarkeit, Quelloffenheit und Modellwahl; Witness fokussiert feste Sprachpaare und Risikoprüfung vor dem Einfügen.",
     },
   ],
   sources: [localSource, ...voiceInkSources],
@@ -643,16 +643,16 @@ const macwhisper: ComparisonPageData = {
   title: "MacWhisper-Alternative? Es kommt darauf an, ob du Dateien transkribierst oder diktierst",
   metaTitle: "MacWhisper Alternative für den Mac | Vergleich 2026",
   description:
-    "MacWhisper und LocalDictation sachlich verglichen: Dateitranskription gegen Diktat, lokale Modelle, optionale Cloud-Anbieter, Grammatikverbesserung, Sprachen, Geräte und Preise.",
+    "MacWhisper und Witness sachlich verglichen: Dateitranskription gegen Diktat, lokale Modelle, optionale Cloud-Anbieter, Grammatikverbesserung, Sprachen, Geräte und Preise.",
   updatedIso: "2026-08-25",
   updatedLabel: "25. August 2026",
   directAnswer: {
-    text: "Die kurze Antwort: MacWhisper und LocalDictation lösen zwei verschiedene Aufgaben. MacWhisper ist in erster Linie eine Transkriptionsumgebung für Dateien, Meetings und Untertitel und bietet zusätzlich systemweites Diktat; es ist verfügbar, kostet €64 einmalig neben einer kostenlosen Version und erlaubt als persönliche Lizenz als Richtwert drei Geräte. LocalDictation macht ausschließlich Diktat in andere Apps und richtet sich an Menschen, die auf Deutsch und Englisch arbeiten und riskante Zahlen, Namen, Daten oder Verneinungen vor dem Einfügen prüfen wollen. Wer Audiodateien transkribiert, bleibt bei MacWhisper besser aufgehoben.",
+    text: "Die kurze Antwort: MacWhisper und Witness lösen zwei verschiedene Aufgaben. MacWhisper ist in erster Linie eine Transkriptionsumgebung für Dateien, Meetings und Untertitel und bietet zusätzlich systemweites Diktat; es ist verfügbar, kostet €64 einmalig neben einer kostenlosen Version und erlaubt als persönliche Lizenz als Richtwert drei Geräte. Witness macht ausschließlich Diktat in andere Apps und richtet sich an Menschen, die auf Deutsch und Englisch arbeiten und riskante Zahlen, Namen, Daten oder Verneinungen vor dem Einfügen prüfen wollen. Wer Audiodateien transkribiert, bleibt bei MacWhisper besser aufgehoben.",
     sources: ["macwhisper-product", "macwhisper-licensing", "local-product"],
   },
   table: {
-    caption: "MacWhisper und LocalDictation auf einen Blick",
-    headers: ["Kriterium", "LocalDictation", "MacWhisper"],
+    caption: "MacWhisper und Witness auf einen Blick",
+    headers: ["Kriterium", "Witness", "MacWhisper"],
     rows: [
       ["Schwerpunkt", "Diktat in andere Apps", "Transkription von Dateien, Meetings und Untertiteln; zusätzlich systemweites Diktat"],
       ["Produktstatus", "Private Vorschau", "Verfügbar"],
@@ -673,7 +673,7 @@ const macwhisper: ComparisonPageData = {
           sources: ["macwhisper-product"],
         },
         {
-          text: "LocalDictation kann nichts davon und soll es auch nicht können. Es gibt keine Dateitranskription, keine Untertitel, keine Sprechererkennung und keinen Meeting-Mitschnitt. Das Produkt macht eine einzige Sache: Hotkey drücken, sprechen, Text erscheint an der Cursorposition in der App, in der du gerade bist. Wenn dein Alltag aus Aufnahmen besteht, die hinterher zu Text werden sollen, ist dieser Vergleich bereits entschieden — dann ist MacWhisper das richtige Werkzeug.",
+          text: "Witness kann nichts davon und soll es auch nicht können. Es gibt keine Dateitranskription, keine Untertitel, keine Sprechererkennung und keinen Meeting-Mitschnitt. Das Produkt macht eine einzige Sache: Hotkey drücken, sprechen, Text erscheint an der Cursorposition in der App, in der du gerade bist. Wenn dein Alltag aus Aufnahmen besteht, die hinterher zu Text werden sollen, ist dieser Vergleich bereits entschieden — dann ist MacWhisper das richtige Werkzeug.",
           sources: ["local-product"],
         },
       ],
@@ -686,7 +686,7 @@ const macwhisper: ComparisonPageData = {
           sources: ["macwhisper-product"],
         },
         {
-          text: "LocalDictation setzt an dieser Stelle bewusst anders an. Die Bereinigung bleibt konservativ und umkehrbar: Ein Hotkey zeigt das Rohtranskript, damit nachträglich sichtbar bleibt, was das Programm verändert hat. Zusätzlich sollen Zahlen, Datumsangaben, Eigennamen, Verneinungen und Wörterbuchbegriffe vor der Einfügung markiert werden, sodass Originalton und Rohtext daneben zur Kontrolle stehen. Der Gedanke dahinter: Je glatter ein Text formuliert ist, desto schwerer fällt auf, dass eine Summe oder ein Name unterwegs ein anderer geworden ist.",
+          text: "Witness setzt an dieser Stelle bewusst anders an. Die Bereinigung bleibt konservativ und umkehrbar: Ein Hotkey zeigt das Rohtranskript, damit nachträglich sichtbar bleibt, was das Programm verändert hat. Zusätzlich sollen Zahlen, Datumsangaben, Eigennamen, Verneinungen und Wörterbuchbegriffe vor der Einfügung markiert werden, sodass Originalton und Rohtext daneben zur Kontrolle stehen. Der Gedanke dahinter: Je glatter ein Text formuliert ist, desto schwerer fällt auf, dass eine Summe oder ein Name unterwegs ein anderer geworden ist.",
           sources: ["local-product"],
         },
         {
@@ -703,7 +703,7 @@ const macwhisper: ComparisonPageData = {
           sources: ["macwhisper-product"],
         },
         {
-          text: "LocalDictation sieht diesen Schalter gar nicht erst vor: Audio, Transkript, Wörterbuch und Inhalte der Ziel-App sollen lokal bleiben, Audio standardmäßig nur im Arbeitsspeicher. Getrennt davon dürfen Aktivierung, Lizenzprüfung, Checkout und Updates offengelegte Nicht-Inhaltsdaten übertragen. Das ist weniger flexibel, dafür gibt es weniger zu prüfen und weniger falsch einzustellen.",
+          text: "Witness sieht diesen Schalter gar nicht erst vor: Audio, Transkript, Wörterbuch und Inhalte der Ziel-App sollen lokal bleiben, Audio standardmäßig nur im Arbeitsspeicher. Getrennt davon dürfen Aktivierung, Lizenzprüfung, Checkout und Updates offengelegte Nicht-Inhaltsdaten übertragen. Das ist weniger flexibel, dafür gibt es weniger zu prüfen und weniger falsch einzustellen.",
           sources: ["local-product"],
         },
       ],
@@ -716,7 +716,7 @@ const macwhisper: ComparisonPageData = {
           sources: ["macwhisper-product"],
         },
         {
-          text: "LocalDictation beschränkt den MVP auf vier Sprachen und feste Paare wie DE + EN oder RU + UK, die vor dem Diktat gewählt werden. Ziel ist nicht die größere Zahl, sondern ein vorhersehbarer Raum für Sätze, in denen zwei Sprachen vorkommen, plus ein lokales Wörterbuch für Namen und Fachbegriffe, das jedes Mal dieselbe Schreibweise einsetzt. Einen Genauigkeitsvergleich behaupten wir dabei nicht: Es gibt keinen gemeinsamen offiziellen Benchmark mit identischer Hardware, Aufnahme und Nachbearbeitung, der beide Apps belastbar ordnet.",
+          text: "Witness beschränkt den MVP auf vier Sprachen und feste Paare wie DE + EN oder RU + UK, die vor dem Diktat gewählt werden. Ziel ist nicht die größere Zahl, sondern ein vorhersehbarer Raum für Sätze, in denen zwei Sprachen vorkommen, plus ein lokales Wörterbuch für Namen und Fachbegriffe, das jedes Mal dieselbe Schreibweise einsetzt. Einen Genauigkeitsvergleich behaupten wir dabei nicht: Es gibt keinen gemeinsamen offiziellen Benchmark mit identischer Hardware, Aufnahme und Nachbearbeitung, der beide Apps belastbar ordnet.",
           sources: ["local-product"],
         },
       ],
@@ -725,18 +725,18 @@ const macwhisper: ComparisonPageData = {
       title: "Preis, Geräte und Hardware",
       paragraphs: [
         {
-          text: "MacWhisper nennt eine dauerhaft kostenlose Version und MacWhisper Pro für €64 als Einmalkauf inklusive lebenslanger Updates. Die persönliche Lizenz ist laut Support für die eigenen Geräte gedacht, mit einem Richtwert von drei. LocalDictation plant €99 lebenslang oder €49 jährlich für zwei Macs. MacWhisper ist damit günstiger, deckt mehr Geräte ab und lässt sich vorher kostenlos ausprobieren — beim reinen Preis-Leistungs-Vergleich gewinnt es deutlich.",
+          text: "MacWhisper nennt eine dauerhaft kostenlose Version und MacWhisper Pro für €64 als Einmalkauf inklusive lebenslanger Updates. Die persönliche Lizenz ist laut Support für die eigenen Geräte gedacht, mit einem Richtwert von drei. Witness plant €99 lebenslang oder €49 jährlich für zwei Macs. MacWhisper ist damit günstiger, deckt mehr Geräte ab und lässt sich vorher kostenlos ausprobieren — beim reinen Preis-Leistungs-Vergleich gewinnt es deutlich.",
           sources: ["macwhisper-product", "macwhisper-licensing", "local-product"],
         },
         {
-          text: "Ein praktischer Hinweis aus der MacWhisper-Dokumentation, der beide Produkte betrifft: Für die Modelle Medium und Large sollte der Mac mehr als 8 GB RAM haben, und auf älteren Intel-Macs kann die Leistung schlecht ausfallen. Lokale Spracherkennung ist rechenintensiv, unabhängig davon, welche App sie ausführt. LocalDictation setzt Apple Silicon voraus.",
+          text: "Ein praktischer Hinweis aus der MacWhisper-Dokumentation, der beide Produkte betrifft: Für die Modelle Medium und Large sollte der Mac mehr als 8 GB RAM haben, und auf älteren Intel-Macs kann die Leistung schlecht ausfallen. Lokale Spracherkennung ist rechenintensiv, unabhängig davon, welche App sie ausführt. Witness setzt Apple Silicon voraus.",
           sources: ["macwhisper-docs", "local-product"],
         },
       ],
     },
   ],
   verdict: {
-    text: "Fazit: MacWhisper ist die breitere, günstigere und bereits verfügbare App — für Dateitranskription, Meetings und Untertitel gibt es hier keinen Grund zu wechseln. LocalDictation ist nur dann die passendere Wahl, wenn du den ganzen Tag in andere Apps diktierst, dabei Deutsch und Englisch mischst und willst, dass Zahlen und Namen vor dem Einfügen markiert statt geglättet werden. Bis zum öffentlichen Launch bleibt MacWhisper ohnehin die sofort nutzbare Lösung.",
+    text: "Fazit: MacWhisper ist die breitere, günstigere und bereits verfügbare App — für Dateitranskription, Meetings und Untertitel gibt es hier keinen Grund zu wechseln. Witness ist nur dann die passendere Wahl, wenn du den ganzen Tag in andere Apps diktierst, dabei Deutsch und Englisch mischst und willst, dass Zahlen und Namen vor dem Einfügen markiert statt geglättet werden. Bis zum öffentlichen Launch bleibt MacWhisper ohnehin die sofort nutzbare Lösung.",
     sources: ["macwhisper-product", "local-product"],
   },
   faqs: [
@@ -750,11 +750,11 @@ const macwhisper: ComparisonPageData = {
     },
     {
       question: "Auf wie vielen Macs darf ich MacWhisper nutzen?",
-      answer: "Die persönliche Lizenz ist laut Support für die eigenen Geräte gedacht, mit einem Richtwert von drei. LocalDictation plant zwei Macs pro Lizenz.",
+      answer: "Die persönliche Lizenz ist laut Support für die eigenen Geräte gedacht, mit einem Richtwert von drei. Witness plant zwei Macs pro Lizenz.",
     },
     {
-      question: "Ist LocalDictation ein vollwertiger MacWhisper-Ersatz?",
-      answer: "Nein. LocalDictation transkribiert keine Dateien, erstellt keine Untertitel, erkennt keine Sprecher und zeichnet keine Meetings auf. Es ersetzt MacWhisper nur für den Teil, der Diktat in andere Apps heißt.",
+      question: "Ist Witness ein vollwertiger MacWhisper-Ersatz?",
+      answer: "Nein. Witness transkribiert keine Dateien, erstellt keine Untertitel, erkennt keine Sprecher und zeichnet keine Meetings auf. Es ersetzt MacWhisper nur für den Teil, der Diktat in andere Apps heißt.",
     },
   ],
   sources: [localSource, ...macwhisperSources],
@@ -769,14 +769,14 @@ const dsgvo: ComparisonPageData = {
   description:
     "Mac-Diktiersoftware nach nachvollziehbaren Datenschutzkriterien vergleichen: lokal, EU-Cloud, US-Cloud, AVV, Konten und Inhaltsprüfung. Stand August 2026.",
   directAnswer: {
-    text: "Die kurze Antwort: Für möglichst wenig Inhaltsübertragung sind vollständig lokal konfigurierte Lösungen wie LocalDictation, VoiceInk oder Superwhisper naheliegend. Sprecho verarbeitet Audio und Transkripte in einer deutschen beziehungsweise EU-Cloud und bietet dafür einen AVV. Wispr Flow ist laut eigener Dokumentation eine US-gehostete Cloud-SaaS. Welche Option im konkreten Betrieb DSGVO-konform ist, bleibt eine rechtliche und organisatorische Einzelfallprüfung.",
+    text: "Die kurze Antwort: Für möglichst wenig Inhaltsübertragung sind vollständig lokal konfigurierte Lösungen wie Witness, VoiceInk oder Superwhisper naheliegend. Sprecho verarbeitet Audio und Transkripte in einer deutschen beziehungsweise EU-Cloud und bietet dafür einen AVV. Wispr Flow ist laut eigener Dokumentation eine US-gehostete Cloud-SaaS. Welche Option im konkreten Betrieb DSGVO-konform ist, bleibt eine rechtliche und organisatorische Einzelfallprüfung.",
     sources: ["local-product", "voiceink-product", "super-security", "sprecho-dpa", "wispr-security", "gdpr"],
   },
   table: {
     caption: "Architektur statt pauschaler Datenschutzsiegel",
     headers: ["Lösung", "Dokumentierter Verarbeitungsweg", "Wichtige Einordnung"],
     rows: [
-      ["LocalDictation", "Diktatinhalte lokal vorgesehen", "Private Vorschau; Risikoprüfung vorgesehen"],
+      ["Witness", "Diktatinhalte lokal vorgesehen", "Private Vorschau; Risikoprüfung vorgesehen"],
       ["VoiceInk", "Lokale Transkription; optionale Cloud-Textverbesserung", "GPLv3-Quellcode und kommerzielle App"],
       ["Superwhisper", "Vollständig lokal konfigurierbar; optionale Cloud-Modelle", "Konfiguration entscheidet"],
       ["Sprecho", "Cloud-Verarbeitung auf Servern in Deutschland", "AVV verfügbar"],
@@ -789,7 +789,7 @@ const dsgvo: ComparisonPageData = {
       title: "Erste Frage: Verlässt Audio oder Text das Gerät?",
       paragraphs: [
         {
-          text: "Lokale Verarbeitung reduziert einen wichtigen Datenfluss, ist aber kein vollständiges Datenschutzkonzept. LocalDictation soll Audio und Text ausschließlich auf Apple Silicon verarbeiten. VoiceInk transkribiert nach eigener Angabe standardmäßig lokal, kann aber optional transkribierten Text zur Cloud-Verbesserung senden. Superwhisper kann mit lokalen Sprach- und Textmodellen vollständig lokal laufen; bei Cloud-Modellen gelten andere Wege.",
+          text: "Lokale Verarbeitung reduziert einen wichtigen Datenfluss, ist aber kein vollständiges Datenschutzkonzept. Witness soll Audio und Text ausschließlich auf Apple Silicon verarbeiten. VoiceInk transkribiert nach eigener Angabe standardmäßig lokal, kann aber optional transkribierten Text zur Cloud-Verbesserung senden. Superwhisper kann mit lokalen Sprach- und Textmodellen vollständig lokal laufen; bei Cloud-Modellen gelten andere Wege.",
           sources: ["local-product", "voiceink-product", "super-security"],
         },
         {
@@ -828,7 +828,7 @@ const dsgvo: ComparisonPageData = {
       title: "Vierte Frage: Wie werden Fehler vor dem Absenden sichtbar?",
       paragraphs: [
         {
-          text: "Datenschutz schützt nicht vor einer falsch erkannten Summe oder verlorenen Verneinung. LocalDictation soll Zahlen, Daten, Namen, Verneinungen und Wörterbuchbegriffe vor der Einfügung markieren; Originalton und Rohtranskript sollen zur Kontrolle danebenliegen. Vergleichbare automatische Risikomarkierungen sind bei Wispr Flow, Superwhisper, Sprecho und VoiceInk in den von uns geprüften öffentlichen Unterlagen nicht öffentlich dokumentiert.",
+          text: "Datenschutz schützt nicht vor einer falsch erkannten Summe oder verlorenen Verneinung. Witness soll Zahlen, Daten, Namen, Verneinungen und Wörterbuchbegriffe vor der Einfügung markieren; Originalton und Rohtranskript sollen zur Kontrolle danebenliegen. Vergleichbare automatische Risikomarkierungen sind bei Wispr Flow, Superwhisper, Sprecho und VoiceInk in den von uns geprüften öffentlichen Unterlagen nicht öffentlich dokumentiert.",
           sources: ["local-product", "wispr-security", "super-security", "sprecho-product", "voiceink-product"],
         },
         {
@@ -849,7 +849,7 @@ const dsgvo: ComparisonPageData = {
     },
   ],
   verdict: {
-    text: "Fazit: Die beste Mac-Diktiersoftware für sensible Inhalte ist nicht automatisch die App mit dem stärksten DSGVO-Claim. Entscheidend sind der reale Datenfluss, optionale Cloud-Schalter, Verträge, organisatorische Regeln und der Umgang mit Erkennungsfehlern. LocalDictation minimiert den vorgesehenen Inhaltsdatenfluss, ist aber bis zum öffentlichen Launch noch keine sofort verfügbare Wahl.",
+    text: "Fazit: Die beste Mac-Diktiersoftware für sensible Inhalte ist nicht automatisch die App mit dem stärksten DSGVO-Claim. Entscheidend sind der reale Datenfluss, optionale Cloud-Schalter, Verträge, organisatorische Regeln und der Umgang mit Erkennungsfehlern. Witness minimiert den vorgesehenen Inhaltsdatenfluss, ist aber bis zum öffentlichen Launch noch keine sofort verfügbare Wahl.",
     sources: ["gdpr", "local-product"],
   },
   faqs: [
@@ -882,7 +882,7 @@ export const comparisons: Record<ComparisonSlug, ComparisonPageData> = {
   "wispr-flow-alternative": wispr,
   "superwhisper-alternative": superwhisper,
   "sprecho-alternative": sprecho,
-  "voiceink-vs-localdictation": voiceInk,
+  "voiceink-vs-witness": voiceInk,
   "macwhisper-alternative": macwhisper,
   "diktiersoftware-mac-dsgvo": dsgvo,
 };

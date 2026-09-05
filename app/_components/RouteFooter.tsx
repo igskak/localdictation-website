@@ -8,12 +8,12 @@ export function RouteFooter({ locale = "de" }: { locale?: Locale }) {
   return (
     <footer className="route-footer">
       <div className="route-footer-inner shell">
-        <span>© 2026 LocalDictation</span>
+        <span>© 2026 Witness</span>
         <nav aria-label={c.legalNav}>
           <Link href="/impressum" hrefLang="de">{c.impressum}</Link>
           <Link href="/datenschutz" hrefLang="de">{c.datenschutz}</Link>
           <Link href="/widerruf" hrefLang="de">{c.widerruf}</Link>
-          <a href="mailto:hallo@localdictation.app">{c.kontakt}</a>
+          <a href="mailto:hallo@witnessmac.com">{c.kontakt}</a>
         </nav>
       </div>
     </footer>

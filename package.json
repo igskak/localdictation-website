@@ -1,5 +1,5 @@
 {
-  "name": "localdictation-website",
+  "name": "witness-website",
   "version": "0.1.0",
   "private": true,
   "engines": {
@@ -13,7 +13,8 @@
     "test": "npm run typecheck && npm run build && node --test tests/*.test.mjs",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
     "build:node": "VINEXT_PLATFORM=node vinext build",
-    "start:node": "node dist/standalone/server.js"
+    "start:node": "node dist/standalone/server.js",
+    "deploy": "npm run build && node tools/add-domains.mjs && wrangler deploy -c dist/server/wrangler.json"
   },
   "dependencies": {
     "react": "19.2.8",

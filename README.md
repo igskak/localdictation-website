@@ -1,6 +1,6 @@
-# LocalDictation website
+# Witness website
 
-German-first product site for LocalDictation, a local-first dictation utility for Apple silicon Macs. The site mirrors the native macOS product direction: restrained typography, compact system-like surfaces, one coral verification accent, and explicit uncertainty instead of hidden cleanup.
+German-first product site for Witness, a local-first dictation utility for Apple silicon Macs. The site mirrors the native macOS product direction: restrained typography, compact system-like surfaces, one coral verification accent, and explicit uncertainty instead of hidden cleanup.
 
 ## Routes
 

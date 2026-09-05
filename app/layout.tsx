@@ -4,10 +4,10 @@ import { parseLocale } from "./_lib/locale";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "LocalDictation — Diktieren, ohne deine Daten zu teilen",
+  title: "Witness — Diktieren, ohne deine Daten zu teilen",
   description:
     "Lokale Spracherkennung für den Mac. Diktiere auf Deutsch und Englisch, prüfe unsichere Stellen und behalte Audio und Text auf deinem Gerät.",
-  applicationName: "LocalDictation",
+  applicationName: "Witness",
   category: "productivity",
   robots: { index: true, follow: true },
 };

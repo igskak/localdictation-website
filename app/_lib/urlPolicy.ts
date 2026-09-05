@@ -1,4 +1,4 @@
-const localBase = new URL("https://localdictation.invalid");
+const localBase = new URL("https://witness.invalid");
 
 function trimmed(value: string | null | undefined) {
   const candidate = value?.trim();

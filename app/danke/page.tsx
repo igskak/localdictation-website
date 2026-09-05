@@ -29,7 +29,7 @@ export default async function DankePage({ searchParams }: { searchParams: Promis
   return (
     <div className="thanks-page" lang={locale}>
       <header className="thanks-header shell">
-        <a href={localeHome(locale)} className="thanks-brand">LocalDictation</a>
+        <a href={localeHome(locale)} className="thanks-brand">Witness</a>
         <span>{previewMode ? c.badge.preview : c.badge.download}</span>
       </header>
       <main>
@@ -60,9 +60,9 @@ export default async function DankePage({ searchParams }: { searchParams: Promis
         </div>
         <div className="permission-window" role="img" aria-label={c.install.permissionAlt}>
           <div className="permission-sidebar"><i /><i /><i /><i /></div>
-          <div className="permission-content"><small>{c.install.settingsGroup}</small><h3>{c.install.accessibility}</h3><div><span className="mini-app-icon">L</span><b>LocalDictation</b><i className="toggle-on" /></div></div>
+          <div className="permission-content"><small>{c.install.settingsGroup}</small><h3>{c.install.accessibility}</h3><div><span className="mini-app-icon">W</span><b>Witness</b><i className="toggle-on" /></div></div>
         </div>
-        <p className="help-line">{c.install.help} <a href="mailto:hallo@localdictation.app">{c.install.helpLink} ↗</a></p>
+        <p className="help-line">{c.install.help} <a href="mailto:hallo@witnessmac.com">{c.install.helpLink} ↗</a></p>
         </section>
       </main>
       <RouteFooter locale={locale} />
