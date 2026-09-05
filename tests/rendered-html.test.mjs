@@ -206,7 +206,12 @@ test("serves privacy, legal drafts, and llms context", async () => {
   // The product ships. No visitor-facing route may still call it a preview --
   // the download button hands over a signed, notarized build, and a page that
   // says otherwise beside a price is the site arguing with itself.
-  for (const route of ["/", "/en", "/ru", "/uk", "/vergleich", "/vergleich/voiceink-vs-witness"]) {
+  // Every comparison route, listed from the data rather than by hand: naming
+  // them here is how one of them kept its "Private Vorschau" row through a
+  // sweep that had already passed.
+  const { comparisonSlugs } = await import("../app/_data/comparisons.ts");
+  const routes = ["/", "/en", "/ru", "/uk", "/vergleich", ...comparisonSlugs.map((slug) => `/vergleich/${slug}`)];
+  for (const route of routes) {
     const html = await (await render(route)).text();
     assert.doesNotMatch(html, /Vorschau|private preview|превью|прев'ю|\bMVP\b|\bLaunch\b|запуску|planned/i, route);
   }

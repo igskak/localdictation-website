@@ -716,7 +716,7 @@ const macwhisper: ComparisonPageData = {
           sources: ["macwhisper-product"],
         },
         {
-          text: "Witness beschränkt den MVP auf vier Sprachen und feste Paare wie DE + EN oder RU + UK, die vor dem Diktat gewählt werden. Ziel ist nicht die größere Zahl, sondern ein vorhersehbarer Raum für Sätze, in denen zwei Sprachen vorkommen, plus ein lokales Wörterbuch für Namen und Fachbegriffe, das jedes Mal dieselbe Schreibweise einsetzt. Einen Genauigkeitsvergleich behaupten wir dabei nicht: Es gibt keinen gemeinsamen offiziellen Benchmark mit identischer Hardware, Aufnahme und Nachbearbeitung, der beide Apps belastbar ordnet.",
+          text: "Witness beschränkt sich auf vier Sprachen und feste Paare wie DE + EN oder RU + UK, die vor dem Diktat gewählt werden. Ziel ist nicht die größere Zahl, sondern ein vorhersehbarer Raum für Sätze, in denen zwei Sprachen vorkommen, plus ein lokales Wörterbuch für Namen und Fachbegriffe, das jedes Mal dieselbe Schreibweise einsetzt. Einen Genauigkeitsvergleich behaupten wir dabei nicht: Es gibt keinen gemeinsamen offiziellen Benchmark mit identischer Hardware, Aufnahme und Nachbearbeitung, der beide Apps belastbar ordnet.",
           sources: ["local-product"],
         },
       ],
@@ -736,7 +736,7 @@ const macwhisper: ComparisonPageData = {
     },
   ],
   verdict: {
-    text: "Fazit: MacWhisper ist die breitere, günstigere und bereits verfügbare App — für Dateitranskription, Meetings und Untertitel gibt es hier keinen Grund zu wechseln. Witness ist nur dann die passendere Wahl, wenn du den ganzen Tag in andere Apps diktierst, dabei Deutsch und Englisch mischst und willst, dass Zahlen und Namen vor dem Einfügen markiert statt geglättet werden. Bis zum öffentlichen Launch bleibt MacWhisper ohnehin die sofort nutzbare Lösung.",
+    text: "Fazit: MacWhisper ist die breitere, günstigere und bereits verfügbare App — für Dateitranskription, Meetings und Untertitel gibt es hier keinen Grund zu wechseln. Witness ist nur dann die passendere Wahl, wenn du den ganzen Tag in andere Apps diktierst, dabei Deutsch und Englisch mischst und willst, dass Zahlen und Namen vor dem Einfügen markiert statt geglättet werden.",
     sources: ["macwhisper-product", "local-product"],
   },
   faqs: [
@@ -776,7 +776,7 @@ const dsgvo: ComparisonPageData = {
     caption: "Architektur statt pauschaler Datenschutzsiegel",
     headers: ["Lösung", "Dokumentierter Verarbeitungsweg", "Wichtige Einordnung"],
     rows: [
-      ["Witness", "Diktatinhalte lokal vorgesehen", "Private Vorschau; Risikoprüfung vorgesehen"],
+      ["Witness", "Diktatinhalte lokal", "Verfügbar, Version 0.1.0; Risikoprüfung vor Einfügung"],
       ["VoiceInk", "Lokale Transkription; optionale Cloud-Textverbesserung", "GPLv3-Quellcode und kommerzielle App"],
       ["Superwhisper", "Vollständig lokal konfigurierbar; optionale Cloud-Modelle", "Konfiguration entscheidet"],
       ["Sprecho", "Cloud-Verarbeitung auf Servern in Deutschland", "AVV verfügbar"],
@@ -849,7 +849,7 @@ const dsgvo: ComparisonPageData = {
     },
   ],
   verdict: {
-    text: "Fazit: Die beste Mac-Diktiersoftware für sensible Inhalte ist nicht automatisch die App mit dem stärksten DSGVO-Claim. Entscheidend sind der reale Datenfluss, optionale Cloud-Schalter, Verträge, organisatorische Regeln und der Umgang mit Erkennungsfehlern. Witness minimiert den vorgesehenen Inhaltsdatenfluss, ist aber bis zum öffentlichen Launch noch keine sofort verfügbare Wahl.",
+    text: "Fazit: Die beste Mac-Diktiersoftware für sensible Inhalte ist nicht automatisch die App mit dem stärksten DSGVO-Claim. Entscheidend sind der reale Datenfluss, optionale Cloud-Schalter, Verträge, organisatorische Regeln und der Umgang mit Erkennungsfehlern. Witness minimiert den Inhaltsdatenfluss und ist als signierte, von Apple notarisierte App verfügbar.",
     sources: ["gdpr", "local-product"],
   },
   faqs: [
