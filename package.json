@@ -14,7 +14,7 @@
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
     "build:node": "VINEXT_PLATFORM=node vinext build",
     "start:node": "node dist/standalone/server.js",
-    "deploy": "npm run build && node tools/add-domains.mjs && wrangler deploy -c dist/server/wrangler.json"
+    "deploy": "npm run build && node tools/deploy-config.mjs && wrangler deploy -c dist/server/wrangler.json"
   },
   "dependencies": {
     "react": "19.2.8",
