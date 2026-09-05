@@ -212,8 +212,8 @@ export async function ComparisonPage({ data }: { data: ComparisonPageData }) {
           </header>
 
           <aside className={styles.previewNote} aria-label="Hinweis zum Produktstatus">
-            <strong>Transparenzhinweis:</strong> Witness befindet sich in privater Vorschau. Funktionen und Preise
-            beschreiben den vorgesehenen Launch-Umfang; die verglichenen Konkurrenzprodukte sind bereits verfügbar.
+            <strong>Transparenzhinweis:</strong> Angaben zu Witness beschreiben Version 0.1.0. Angaben zu den
+            verglichenen Produkten stammen aus deren öffentlicher Dokumentation zum unten genannten Stand.
           </aside>
 
           <section className={styles.tableSection} aria-labelledby="vergleich-tabelle">

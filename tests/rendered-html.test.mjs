@@ -136,7 +136,7 @@ test("keeps the optional thank-you form honest and index-safe", async () => {
   assert.match(html, /Womit arbeitest du/);
   assert.match(html, /Welche Sprachen mischst du/);
   assert.match(html, /Überspringen/);
-  assert.match(html, /signierte Build ist noch nicht/);
+  assert.match(html, /Der Download ist gerade nicht erreichbar/);
   assert.match(html, /noindex/i);
   assert.match(html, /<form[^>]+method="post"/i);
   assert.match(html, /<button[^>]+type="submit"[^>]+disabled/i);
@@ -169,8 +169,8 @@ test("serves privacy, legal drafts, and llms context", async () => {
   // about itself that matters to a reader looking for who is selling to them.
   const notices = new Map([
     ["/impressum", /Anbieterangaben vollständig/],
-    ["/datenschutz", /Entwurf für die private Produktvorschau/],
-    ["/widerruf", /Entwurf für die private Produktvorschau/],
+    ["/datenschutz", /Diese Seite ist ein Entwurf/],
+    ["/widerruf", /Diese Seite ist ein Entwurf/],
   ]);
   for (const route of ["/impressum", "/datenschutz", "/widerruf"]) {
     const response = await render(route);
@@ -203,12 +203,23 @@ test("serves privacy, legal drafts, and llms context", async () => {
     assert.doesNotMatch(html, /Geld zurück|money-back|Возврат денег|Повернення грошей/, route);
   }
 
+  // The product ships. No visitor-facing route may still call it a preview --
+  // the download button hands over a signed, notarized build, and a page that
+  // says otherwise beside a price is the site arguing with itself.
+  for (const route of ["/", "/en", "/ru", "/uk", "/vergleich", "/vergleich/voiceink-vs-witness"]) {
+    const html = await (await render(route)).text();
+    assert.doesNotMatch(html, /Vorschau|private preview|превью-версия|прев'ю-версія|\bMVP\b|öffentlichen Launch/i, route);
+  }
+
   const llmsResponse = await render("/llms.txt");
   assert.equal(llmsResponse.status, 200);
   assert.match(llmsResponse.headers.get("content-type") ?? "", /^text\/plain/i);
   const llms = await llmsResponse.text();
-  assert.match(llms, /private implementation preview/);
-  assert.match(llms, /speech recognition and text processing will run on the Mac/i);
+  assert.match(llms, /local-first dictation utility/);
+  assert.match(llms, /speech recognition and text processing run on the Mac/i);
+  // The site sells a signed build. Nothing on it may call the product a
+  // preview or its prices planned, in any of the four locales.
+  assert.doesNotMatch(llms, /preview|planned/i);
   assert.equal(llms.trim().split(/\n\n+/).length, 3);
 });
 

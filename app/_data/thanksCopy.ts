@@ -22,12 +22,12 @@ export type ThanksCopy = {
 
 const de: ThanksCopy = {
   meta: { title: "Download · Witness", description: "Witness installieren und den Lizenzschlüssel anfordern." },
-  badge: { preview: "Private Vorschau", download: "Download" },
-  state: { started: "Download läuft", preview: "Download-Platz ist vorbereitet", ready: "Download ist bereit" },
+  badge: { preview: "Download nicht verfügbar", download: "Download" },
+  state: { started: "Download läuft", preview: "Download derzeit nicht verfügbar", ready: "Download ist bereit" },
   title: "Wohin sollen wir deinen Lizenzschlüssel schicken?",
   body: {
     started: "Witness wird bereits geladen. Die freiwillige Form hält die Datei nicht auf und hilft uns, deinen Lizenzschlüssel und passende Einrichtungshinweise zu senden.",
-    preview: "Der signierte Build ist noch nicht an diese Vorschau angeschlossen. Sobald er bereit ist, startet der Download vor dieser Seite automatisch — die Form bleibt freiwillig.",
+    preview: "Der Download ist gerade nicht erreichbar. Sobald er wieder verfügbar ist, startet er vor dieser Seite automatisch — das Formular bleibt freiwillig.",
     direct: "Wenn du direkt hier gelandet bist, kannst du den signierten Build unten starten. Die Form bleibt freiwillig.",
   },
   iframeTitle: "Witness Download",
@@ -67,7 +67,7 @@ const de: ThanksCopy = {
     successTitle: "Schlüssel ist unterwegs",
     successBody: "Prüfe deinen Posteingang. Wenn nach einigen Minuten nichts angekommen ist, antworte einfach über den Kontaktlink unten.",
     previewTitle: "Die Oberfläche ist bereit",
-    previewBody: "In dieser privaten Vorschau wird noch keine E-Mail versendet. Sobald Lizenz-Backend und Absender verbunden sind, bestätigt dieser Schritt den Versand.",
+    previewBody: "Über dieses Formular wird derzeit keine E-Mail versendet. Deinen Schlüssel forderst du in der App an: Einstellungen, dann Lizenz.",
     noscript: "Die freiwillige Formularvorschau benötigt JavaScript. Der Download und die Installationsanleitung funktionieren ohne Formular weiter.",
     consent: "Mit dem Absenden stimmst du der Verarbeitung dieser Angaben für Aktivierung und Onboarding zu.",
     privacyLink: "Datenschutz",
@@ -76,12 +76,12 @@ const de: ThanksCopy = {
 
 const en: ThanksCopy = {
   meta: { title: "Download · Witness", description: "Install Witness and request your licence key." },
-  badge: { preview: "Private preview", download: "Download" },
-  state: { started: "Download started", preview: "The download slot is ready", ready: "Download is ready" },
+  badge: { preview: "Download unavailable", download: "Download" },
+  state: { started: "Download started", preview: "The download is currently unavailable", ready: "Download is ready" },
   title: "Where should we send your licence key?",
   body: {
     started: "Witness is already downloading. This optional form never gates the file and helps us send your licence key and relevant setup guidance.",
-    preview: "The signed build is not connected to this preview yet. Once it is ready, the download will start before this page opens — the form will remain optional.",
+    preview: "The download is not reachable right now. Once it is available again, it starts before this page opens — the form stays optional.",
     direct: "If you landed here directly, you can start the signed build below. The form remains optional.",
   },
   iframeTitle: "Witness download",
@@ -121,7 +121,7 @@ const en: ThanksCopy = {
     successTitle: "Your key is on its way",
     successBody: "Check your inbox. If nothing arrives after a few minutes, use the contact link below.",
     previewTitle: "The flow is ready",
-    previewBody: "This private preview does not send email yet. Once the licence backend and sender are connected, this step confirms delivery.",
+    previewBody: "This form does not send email at the moment. Request your key in the app instead: Settings, then License.",
     noscript: "The optional form preview needs JavaScript. The download and installation guide continue to work without the form.",
     consent: "By submitting, you agree that these details may be used for activation and onboarding.",
     privacyLink: "Privacy (DE)",
@@ -130,12 +130,12 @@ const en: ThanksCopy = {
 
 const ru: ThanksCopy = {
   meta: { title: "Скачивание · Witness", description: "Установи Witness и запроси лицензионный ключ." },
-  badge: { preview: "Закрытая превью-версия", download: "Скачивание" },
-  state: { started: "Загрузка началась", preview: "Место для загрузки готово", ready: "Файл готов к загрузке" },
+  badge: { preview: "Загрузка недоступна", download: "Скачивание" },
+  state: { started: "Загрузка началась", preview: "Загрузка сейчас недоступна", ready: "Файл готов к загрузке" },
   title: "Куда прислать твой лицензионный ключ?",
   body: {
     started: "Witness уже качается. Форма добровольная, файл она не задерживает — она нужна, чтобы прислать ключ и подсказки по настройке.",
-    preview: "Подписанная сборка ещё не подключена к этой превью-версии. Как только она будет готова, загрузка начнётся до открытия этой страницы — форма останется добровольной.",
+    preview: "Загрузка сейчас недоступна. Как только она снова заработает, файл начнёт скачиваться до открытия этой страницы — форма останется добровольной.",
     direct: "Если ты попал сюда напрямую, запусти подписанную сборку по кнопке ниже. Форма остаётся добровольной.",
   },
   iframeTitle: "Загрузка Witness",
@@ -175,7 +175,7 @@ const ru: ThanksCopy = {
     successTitle: "Ключ уже в пути",
     successBody: "Загляни в почту. Если через несколько минут ничего нет, напиши мне по контактной ссылке ниже.",
     previewTitle: "Сценарий готов",
-    previewBody: "В этой закрытой превью-версии письма ещё не отправляются. Как только лицензионный бэкенд и отправитель будут подключены, этот шаг подтвердит отправку.",
+    previewBody: "Через эту форму письма сейчас не отправляются. Запроси ключ в приложении: Настройки, затем Лицензия.",
     noscript: "Добровольная форма требует JavaScript. Загрузка и инструкция по установке работают и без неё.",
     consent: "Отправляя форму, ты соглашаешься на обработку этих данных для активации и онбординга.",
     privacyLink: "Приватность (DE)",
@@ -184,12 +184,12 @@ const ru: ThanksCopy = {
 
 const uk: ThanksCopy = {
   meta: { title: "Завантаження · Witness", description: "Встанови Witness і запроси ліцензійний ключ." },
-  badge: { preview: "Закрита прев'ю-версія", download: "Завантаження" },
-  state: { started: "Завантаження почалося", preview: "Місце для завантаження готове", ready: "Файл готовий до завантаження" },
+  badge: { preview: "Завантаження недоступне", download: "Завантаження" },
+  state: { started: "Завантаження почалося", preview: "Завантаження зараз недоступне", ready: "Файл готовий до завантаження" },
   title: "Куди надіслати твій ліцензійний ключ?",
   body: {
     started: "Witness уже завантажується. Форма добровільна, файл вона не затримує — вона потрібна, щоб надіслати ключ і підказки з налаштування.",
-    preview: "Підписану збірку ще не під'єднано до цієї прев'ю-версії. Щойно вона буде готова, завантаження почнеться до відкриття цієї сторінки — форма лишиться добровільною.",
+    preview: "Завантаження зараз недоступне. Щойно воно запрацює, файл почне завантажуватися до відкриття цієї сторінки — форма лишиться добровільною.",
     direct: "Якщо ти потрапив сюди напряму, запусти підписану збірку кнопкою нижче. Форма лишається добровільною.",
   },
   iframeTitle: "Завантаження Witness",
@@ -229,7 +229,7 @@ const uk: ThanksCopy = {
     successTitle: "Ключ уже в дорозі",
     successBody: "Заглянь у пошту. Якщо за кілька хвилин нічого немає, напиши мені за контактним посиланням нижче.",
     previewTitle: "Сценарій готовий",
-    previewBody: "У цій закритій прев'ю-версії листи ще не надсилаються. Щойно ліцензійний бекенд і відправника буде під'єднано, цей крок підтвердить надсилання.",
+    previewBody: "Через цю форму листи зараз не надсилаються. Запроси ключ у застосунку: Налаштування, далі Ліцензія.",
     noscript: "Добровільна форма потребує JavaScript. Завантаження та інструкція зі встановлення працюють і без неї.",
     consent: "Надсилаючи форму, ти погоджуєшся на обробку цих даних для активації та онбордингу.",
     privacyLink: "Приватність (DE)",

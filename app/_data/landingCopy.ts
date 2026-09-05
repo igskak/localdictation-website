@@ -42,7 +42,7 @@ const de: LandingCopy = {
     { label: "Preis", href: "#preis" },
   ],
   hero: {
-    eyebrow: "Private Produktvorschau für macOS",
+    eyebrow: "Lokale Diktier-App für macOS",
     title: "Diktieren statt tippen.",
     titleMuted: "Alles bleibt auf deinem Mac.",
     lede: "Drück den Hotkey, sprich — nach einer kurzen Prüfung landet der fertige Text dort, wo dein Cursor steht. Ohne Cloud-Verarbeitung, ohne Benutzerkonto, einmal zahlen statt monatlich.",
@@ -57,7 +57,7 @@ const de: LandingCopy = {
     rawLabel: "Roh-Transkript · vor der Einfügung", rawBefore: "Review mit ", rawMiddle: " · Budget ",
     state: "Diktat prüfen", checks: "Stellen", riskLabel: "Bitte prüfen", play: "Original anhören",
     stageNote: "UI-Prototyp · drücken, sprechen, einsetzen",
-    prototypeNote: "Animierte UI-Vorschau · wird vor Veröffentlichung durch eine echte Produktaufnahme ersetzt",
+    prototypeNote: "Animierte Darstellung der Oberfläche · keine Bildschirmaufnahme des Programms",
   },
   process: {
     kicker: "Ablauf",
@@ -151,7 +151,7 @@ const de: LandingCopy = {
       { q: "Funktioniert die Spracherkennung wirklich offline?", a: "Im vorgesehenen Launch-Umfang: ja. Spracherkennung und Textaufbereitung laufen auf deinem Mac. Aktivierung, Lizenzprüfung, wenige ausdrücklich benannte Produkt- und Marketingereignisse, Checkout und Updates benötigen eine Verbindung; dabei werden weder Audio noch Text, Wörterbuch oder Inhalte anderer Apps übertragen." },
       { q: "Brauche ich als Kanzlei oder Praxis einen AVV?", a: "Für Diktatinhalte nicht: Witness überträgt oder verarbeitet sie nicht für uns. Für Hosting, Lizenzierung, Zahlung und Support gelten eigene Datenschutzpflichten, die vor dem Launch vollständig offengelegt werden." },
       { q: "Was ist der Unterschied zur Diktierfunktion von macOS?", a: "Sprachprofile für gemischtes Deutsch-Englisch, ein eigenes Wörterbuch, konservative Textaufbereitung und die Markierung unsicherer Stellen." },
-      { q: "Warum zahlen, wenn es kostenlose Open-Source-Tools gibt?", a: "Musst du nicht. Wenn du Modelle selbst einrichtest, sind sie eine gute Wahl. Zum öffentlichen Launch ist ein signiertes, notarisiertes Paket mit Sprachprofilen, Verifikation und Support vorgesehen." },
+      { q: "Warum zahlen, wenn es kostenlose Open-Source-Tools gibt?", a: "Musst du nicht. Wenn du Modelle selbst einrichtest, sind sie eine gute Wahl. Du bekommst hier ein signiertes, von Apple notarisiertes Paket mit Sprachprofilen, Verifikation und Support." },
       { q: "Welche Sprachen werden unterstützt?", a: "Deutsch, Englisch, Russisch und Ukrainisch — einzeln oder in den vorgesehenen gemischten Profilen." },
       { q: "Läuft es auf Intel-Macs?", a: "Nein. Witness unterstützt Apple Silicon ab macOS 14.4." },
       { q: "Was passiert nach den 14 Testtagen?", a: "Neue Diktate werden pausiert und die App zeigt die beiden Lizenzoptionen. Einstellungen und Lizenzaktivierung bleiben erreichbar." },
@@ -165,7 +165,7 @@ const de: LandingCopy = {
     body: "Lade Witness, drück den Hotkey, sprich. Der 14-Tage-Test beginnt mit deiner ersten erfolgreichen Diktierung. Nach fünf Diktaten oder 24 Stunden brauchst du einen E-Mail-Schlüssel, um weiterzumachen — ohne Produktkonto und ohne Kreditkarte. Beim Entfernen bleibt kein Audio- oder Transkriptarchiv zurück.",
     download: "Für Mac laden",
     ready: "Apple Silicon · macOS 14.4+",
-    preview: "Private Vorschau ohne Build · Apple Silicon · macOS 14.4+",
+    preview: "Download derzeit nicht verfügbar · Apple Silicon · macOS 14.4+",
   },
   footer: {
     tagline: "Lokale Diktier-Software für Menschen, die Unsicherheit lieber sehen als übersehen.",
@@ -182,7 +182,7 @@ const en: LandingCopy = {
     { label: "Pricing", href: "#preis" },
   ],
   hero: {
-    eyebrow: "Private product preview for macOS",
+    eyebrow: "Local dictation app for macOS",
     title: "Dictate instead of typing.",
     titleMuted: "Everything stays on your Mac.",
     lede: "Press the hotkey and speak. After a quick check, finished text appears exactly where your cursor is. No cloud processing, no user account, and a one-time purchase instead of another monthly bill.",
@@ -197,7 +197,7 @@ const en: LandingCopy = {
     rawLabel: "Raw transcript · before insertion", rawBefore: "Review with ", rawMiddle: " · budget ",
     state: "Review dictation", checks: "checks", riskLabel: "Check this", play: "Play original",
     stageNote: "UI prototype · press, speak, insert",
-    prototypeNote: "Animated UI preview · to be replaced with a real product capture before launch",
+    prototypeNote: "Animated illustration of the interface · not a screen capture of the app",
   },
   process: {
     kicker: "Workflow",
@@ -291,7 +291,7 @@ const en: LandingCopy = {
       { q: "Does speech recognition really work offline?", a: "In the planned launch scope, yes. Speech recognition and text processing run on your Mac. Activation, licence checks, a small disclosed set of non-content events, checkout, and updates need a connection; audio, text, vocabulary, and other app content are never included." },
       { q: "Does my company need a data processing agreement?", a: "Not for dictation content: Witness does not transmit or process it on our behalf. Hosting, licensing, payment, and support remain separate data-processing activities that will be fully disclosed before launch." },
       { q: "How is it different from macOS Dictation?", a: "Mixed English-German profiles, a personal vocabulary, conservative cleanup, and clear highlighting of uncertain passages." },
-      { q: "Why pay when open-source tools are free?", a: "You do not have to. They are a good choice if you enjoy configuring models yourself. A signed, notarised package with language profiles, verification, and support is planned for public launch." },
+      { q: "Why pay when open-source tools are free?", a: "You do not have to. They are a good choice if you enjoy configuring models yourself. What you get here is a signed, Apple-notarised package with language profiles, verification, and support." },
       { q: "Which languages are supported?", a: "English, German, Russian, and Ukrainian, including the listed mixed-language profiles." },
       { q: "Does it run on Intel Macs?", a: "No. Witness supports Apple silicon with macOS 14.4 or newer." },
       { q: "What happens after the 14-day trial?", a: "New dictations pause and the app shows both licence options. Settings and licence activation stay available." },
@@ -305,7 +305,7 @@ const en: LandingCopy = {
     body: "Download Witness, press the hotkey, and speak. The 14-day trial starts with your first successful dictation. After five dictations or 24 hours, you need an email key to continue — with no product account or credit card. Removing the app leaves no audio or transcript archive behind.",
     download: "Download for Mac",
     ready: "Apple silicon · macOS 14.4+",
-    preview: "Private preview without build · Apple silicon · macOS 14.4+",
+    preview: "Download currently unavailable · Apple silicon · macOS 14.4+",
   },
   footer: {
     tagline: "Local dictation for people who would rather see uncertainty than miss it.",
@@ -322,7 +322,7 @@ const ru: LandingCopy = {
     { label: "Цена", href: "#preis" },
   ],
   hero: {
-    eyebrow: "Закрытая превью-версия для macOS",
+    eyebrow: "Локальная диктовка для macOS",
     title: "Диктуй, а не печатай.",
     titleMuted: "Всё остаётся на твоём Mac.",
     lede: "Нажми хоткей и говори — после короткой проверки готовый текст появится там, где стоит курсор. Без обработки в облаке, без аккаунта, платишь один раз вместо ежемесячной подписки.",
@@ -337,7 +337,7 @@ const ru: LandingCopy = {
     rawLabel: "Исходный транскрипт · до вставки", rawBefore: "Ревью с ", rawMiddle: " · бюджет ",
     state: "Проверь диктовку", checks: "места", riskLabel: "Проверь это", play: "Прослушать оригинал",
     stageNote: "Прототип интерфейса · нажми, скажи, вставь",
-    prototypeNote: "Анимированное превью интерфейса · перед запуском заменим записью реального продукта",
+    prototypeNote: "Анимированная иллюстрация интерфейса · не запись экрана программы",
   },
   process: {
     kicker: "Как работает",
@@ -431,7 +431,7 @@ const ru: LandingCopy = {
       { q: "Распознавание правда работает офлайн?", a: "В запланированном объёме запуска — да. Распознавание речи и обработка текста идут на твоём Mac. Соединение нужно для активации, проверки лицензии, нескольких явно названных продуктовых и маркетинговых событий, оплаты и обновлений; при этом не передаются ни аудио, ни текст, ни словарь, ни содержимое других приложений." },
       { q: "Нужен ли AVV адвокатской практике или врачебному кабинету?", a: "Для содержимого диктовок — нет: Witness не передаёт и не обрабатывает его для нас. Для хостинга, лицензирования, оплаты и поддержки действуют отдельные обязанности по защите данных, и мы раскроем их полностью до запуска." },
       { q: "Чем это отличается от встроенной диктовки macOS?", a: "Языковые профили для смешанной речи, свой словарь, аккуратная обработка текста без переписывания смысла и подсветка неуверенных мест." },
-      { q: "Зачем платить, если есть бесплатные open-source инструменты?", a: "Не обязательно. Если тебе нравится настраивать модели самому, они хороший выбор. К публичному запуску мы готовим подписанную и нотаризованную сборку с языковыми профилями, проверкой и поддержкой." },
+      { q: "Зачем платить, если есть бесплатные open-source инструменты?", a: "Не обязательно. Если тебе нравится настраивать модели самому, они хороший выбор. Здесь ты получаешь подписанную и нотаризованную Apple сборку с языковыми профилями, проверкой и поддержкой." },
       { q: "Какие языки поддерживаются?", a: "Немецкий, английский, русский и украинский — по отдельности или в предусмотренных смешанных профилях." },
       { q: "Работает ли на Intel-Mac?", a: "Нет. Witness работает на Apple Silicon начиная с macOS 14.4." },
       { q: "Что будет после 14 дней теста?", a: "Новые диктовки ставятся на паузу, и приложение показывает два варианта лицензии. Настройки и активация остаются доступны." },
@@ -445,7 +445,7 @@ const ru: LandingCopy = {
     body: "Скачай Witness, нажми хоткей, говори. 14 дней теста начинаются с первой успешной диктовки. После пяти диктовок или 24 часов понадобится ключ с почты, чтобы продолжить — без аккаунта в продукте и без карты. После удаления не остаётся ни архива аудио, ни транскриптов.",
     download: "Скачать для Mac",
     ready: "Apple Silicon · macOS 14.4+",
-    preview: "Закрытая превью-версия без сборки · Apple Silicon · macOS 14.4+",
+    preview: "Загрузка сейчас недоступна · Apple Silicon · macOS 14.4+",
   },
   footer: {
     tagline: "Локальный диктовщик для тех, кто предпочитает видеть неуверенность, а не пропускать её.",
@@ -462,7 +462,7 @@ const uk: LandingCopy = {
     { label: "Ціна", href: "#preis" },
   ],
   hero: {
-    eyebrow: "Закрита прев'ю-версія для macOS",
+    eyebrow: "Локальне диктування для macOS",
     title: "Диктуй, а не друкуй.",
     titleMuted: "Усе лишається на твоєму Mac.",
     lede: "Натисни гарячу клавішу й говори — після короткої перевірки готовий текст з'явиться там, де стоїть курсор. Без обробки в хмарі, без облікового запису, платиш один раз замість щомісячної підписки.",
@@ -477,7 +477,7 @@ const uk: LandingCopy = {
     rawLabel: "Вихідний транскрипт · до вставлення", rawBefore: "Рев'ю з ", rawMiddle: " · бюджет ",
     state: "Перевір диктування", checks: "місця", riskLabel: "Перевір це", play: "Прослухати оригінал",
     stageNote: "Прототип інтерфейсу · натисни, скажи, встав",
-    prototypeNote: "Анімоване прев'ю інтерфейсу · перед запуском замінимо записом реального продукту",
+    prototypeNote: "Анімована ілюстрація інтерфейсу · не запис екрана програми",
   },
   process: {
     kicker: "Як працює",
@@ -571,7 +571,7 @@ const uk: LandingCopy = {
       { q: "Розпізнавання справді працює офлайн?", a: "У запланованому обсязі запуску — так. Розпізнавання мовлення та обробка тексту йдуть на твоєму Mac. З'єднання потрібне для активації, перевірки ліцензії, кількох явно названих продуктових і маркетингових подій, оплати та оновлень; при цьому не передаються ні аудіо, ні текст, ні словник, ні вміст інших застосунків." },
       { q: "Чи потрібен AVV адвокатській практиці або лікарському кабінету?", a: "Для вмісту диктувань — ні: Witness не передає і не обробляє його для нас. Для хостингу, ліцензування, оплати та підтримки діють окремі обов'язки із захисту даних, і ми розкриємо їх повністю до запуску." },
       { q: "Чим це відрізняється від вбудованого диктування macOS?", a: "Мовні профілі для змішаного мовлення, власний словник, обережна обробка тексту без переписування змісту та підсвічування непевних місць." },
-      { q: "Навіщо платити, якщо є безкоштовні open-source інструменти?", a: "Не обов'язково. Якщо тобі подобається налаштовувати моделі самому, вони гарний вибір. До публічного запуску ми готуємо підписану й нотаризовану збірку з мовними профілями, перевіркою та підтримкою." },
+      { q: "Навіщо платити, якщо є безкоштовні open-source інструменти?", a: "Не обов'язково. Якщо тобі подобається налаштовувати моделі самому, вони гарний вибір. Тут ти отримуєш підписану й нотаризовану Apple збірку з мовними профілями, перевіркою та підтримкою." },
       { q: "Які мови підтримуються?", a: "Німецька, англійська, російська та українська — окремо або в передбачених змішаних профілях." },
       { q: "Чи працює на Intel-Mac?", a: "Ні. Witness працює на Apple Silicon починаючи з macOS 14.4." },
       { q: "Що буде після 14 днів тесту?", a: "Нові диктування ставляться на паузу, і застосунок показує два варіанти ліцензії. Налаштування та активація лишаються доступними." },
@@ -585,7 +585,7 @@ const uk: LandingCopy = {
     body: "Завантаж Witness, натисни гарячу клавішу, говори. 14 днів тесту починаються з першого успішного диктування. Після п'яти диктувань або 24 годин знадобиться ключ із пошти, щоб продовжити — без облікового запису в продукті й без картки. Після видалення не лишається ні архіву аудіо, ні транскриптів.",
     download: "Завантажити для Mac",
     ready: "Apple Silicon · macOS 14.4+",
-    preview: "Закрита прев'ю-версія без збірки · Apple Silicon · macOS 14.4+",
+    preview: "Завантаження зараз недоступне · Apple Silicon · macOS 14.4+",
   },
   footer: {
     tagline: "Локальний диктувальник для тих, хто радше побачить непевність, ніж пропустить її.",

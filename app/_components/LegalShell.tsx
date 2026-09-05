@@ -14,7 +14,7 @@ export function LegalShell({ title, eyebrow, notice, children }: { title: string
         <article className="legal-article shell">
           <p className="section-kicker">{eyebrow}</p>
           <h1>{title}</h1>
-          <div className="legal-notice">{notice ?? <><b>Entwurf für die private Produktvorschau.</b> Vor einer öffentlichen Veröffentlichung müssen Rechtsgrundlagen, Empfänger und Speicherfristen von einer qualifizierten Stelle geprüft und vervollständigt werden.</>}</div>
+          <div className="legal-notice">{notice ?? <><b>Diese Seite ist ein Entwurf.</b> Rechtsgrundlagen, Empfänger und Speicherfristen müssen von einer qualifizierten Stelle geprüft und vervollständigt werden. Die Anbieterangaben im Impressum sind davon nicht betroffen.</>}</div>
           {children}
         </article>
       </main>

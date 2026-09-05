@@ -259,7 +259,7 @@ const wispr: ComparisonPageData = {
           sources: ["wispr-security"],
         },
         {
-          text: "Witness verfolgt den Gegenentwurf: Audio, Transkript, Wörterbuch und Inhalte der Ziel-App werden auf dem Mac verarbeitet. Audio bleibt standardmäßig nur für das aktuelle Diktat und eine mögliche Prüfung im Arbeitsspeicher. Netzwerkzugriffe für Aktivierung, Lizenz, Zahlung und Updates sind davon getrennt. Der Produktstatus ist noch private Vorschau; diese Angaben beschreiben den vorgesehenen Launch-Umfang.",
+          text: "Witness verfolgt den Gegenentwurf: Audio, Transkript, Wörterbuch und Inhalte der Ziel-App werden auf dem Mac verarbeitet. Audio bleibt standardmäßig nur für das aktuelle Diktat und eine mögliche Prüfung im Arbeitsspeicher. Netzwerkzugriffe für Aktivierung, Lizenz, Zahlung und Updates sind davon getrennt.",
           sources: ["local-product"],
         },
       ],
@@ -272,7 +272,7 @@ const wispr: ComparisonPageData = {
           sources: ["wispr-languages"],
         },
         {
-          text: "Witness begrenzt den MVP bewusst auf Deutsch, Englisch, Russisch und Ukrainisch. Statt freier Auto-Erkennung wählst du ein erwartbares Mischprofil wie DE + EN. Das ist enger, soll aber typische zweisprachige Arbeitssätze berechenbarer machen. Begriffe und Eigennamen lassen sich im lokalen Wörterbuch hinterlegen.",
+          text: "Witness begrenzt sich bewusst auf Deutsch, Englisch, Russisch und Ukrainisch. Statt freier Auto-Erkennung wählst du ein erwartbares Mischprofil wie DE + EN. Das ist enger, soll aber typische zweisprachige Arbeitssätze berechenbarer machen. Begriffe und Eigennamen lassen sich im lokalen Wörterbuch hinterlegen.",
           sources: ["local-product"],
         },
       ],
@@ -294,7 +294,7 @@ const wispr: ComparisonPageData = {
           sources: ["wispr-setup", "wispr-plans", "wispr-free", "wispr-privacy"],
         },
         {
-          text: "Witness plant kein Produktkonto. Ein Lizenzschlüssel kommt per E-Mail; vorgesehen sind €99 als Einmalkauf oder €49 pro Jahr für zwei Macs. Wähle Wispr Flow für geräteübergreifenden Komfort und große Sprachbreite. Wähle Witness, wenn du einen Apple-Silicon-Mac nutzt, Inhaltsuploads vermeiden und erkannte Risikostellen selbst freigeben willst.",
+          text: "Witness hat kein Produktkonto. Ein Lizenzschlüssel kommt per E-Mail; €99 als Einmalkauf oder €49 pro Jahr für zwei Macs. Wähle Wispr Flow für geräteübergreifenden Komfort und große Sprachbreite. Wähle Witness, wenn du einen Apple-Silicon-Mac nutzt, Inhaltsuploads vermeiden und erkannte Risikostellen selbst freigeben willst.",
           sources: ["local-product"],
         },
       ],
@@ -315,7 +315,7 @@ const wispr: ComparisonPageData = {
     },
     {
       question: "Ist Witness bereits allgemein verfügbar?",
-      answer: "Noch nicht. Witness befindet sich in privater Vorschau; Preis und Funktionen auf dieser Seite sind der vorgesehene Launch-Umfang.",
+      answer: "Ja. Version 0.1.0 ist signiert, von Apple notarisiert und über /download erhältlich. Preis und Funktionen auf dieser Seite beschreiben diese Version.",
     },
   ],
   sources: [localSource, ...wisprSources],
@@ -354,7 +354,7 @@ const superwhisper: ComparisonPageData = {
           sources: ["super-security", "super-models"],
         },
         {
-          text: "Witness macht diese Grenze zur Produktvorgabe. Audio, Transkript, Wörterbuch und Ziel-App-Inhalte sollen lokal bleiben; das Audio wird nach Diktat und möglicher Prüfung aus dem Arbeitsspeicher verworfen. Aktivierung, Lizenzprüfung, Checkout und Updates können Netzwerkzugriffe nutzen, jedoch keine Inhaltsdaten. Der Dienst befindet sich noch in privater Vorschau.",
+          text: "Witness macht diese Grenze zur Produktvorgabe. Audio, Transkript, Wörterbuch und Ziel-App-Inhalte sollen lokal bleiben; das Audio wird nach Diktat und möglicher Prüfung aus dem Arbeitsspeicher verworfen. Aktivierung, Lizenzprüfung, Checkout und Updates können Netzwerkzugriffe nutzen, jedoch keine Inhaltsdaten.",
           sources: ["local-product"],
         },
       ],
@@ -367,7 +367,7 @@ const superwhisper: ComparisonPageData = {
           sources: ["super-models"],
         },
         {
-          text: "Witness reduziert Auswahl zugunsten eines festen Ablaufs: Hotkey, sprechen, nur auffällige Fragmente prüfen, bestätigen, am Cursor einfügen. Der MVP unterstützt Deutsch, Englisch, Russisch und Ukrainisch. Für häufige Mischungen werden Profile wie DE + EN oder RU + UK gewählt, statt die Sprache bei jedem Segment frei zu erraten.",
+          text: "Witness reduziert Auswahl zugunsten eines festen Ablaufs: Hotkey, sprechen, nur auffällige Fragmente prüfen, bestätigen, am Cursor einfügen. Unterstützt werden Deutsch, Englisch, Russisch und Ukrainisch. Für häufige Mischungen werden Profile wie DE + EN oder RU + UK gewählt, statt die Sprache bei jedem Segment frei zu erraten.",
           sources: ["local-product"],
         },
       ],
@@ -453,7 +453,7 @@ const sprecho: ComparisonPageData = {
           sources: ["sprecho-product", "sprecho-dpa"],
         },
         {
-          text: "Das kann für Organisationen ein sinnvoll dokumentierbarer Cloud-Weg sein. Es ist aber technisch etwas anderes als Witness: Dort sollen Audio, Transkript, Wörterbuch und Ziel-App-Inhalte den Mac nicht verlassen. Das Audio bleibt standardmäßig nur für Diktat und mögliche Prüfung im Arbeitsspeicher. Witness befindet sich noch in privater Vorschau; die Angaben beschreiben den vorgesehenen Launch-Umfang.",
+          text: "Das kann für Organisationen ein sinnvoll dokumentierbarer Cloud-Weg sein. Es ist aber technisch etwas anderes als Witness: Dort sollen Audio, Transkript, Wörterbuch und Ziel-App-Inhalte den Mac nicht verlassen. Das Audio bleibt standardmäßig nur für Diktat und mögliche Prüfung im Arbeitsspeicher.",
           sources: ["local-product"],
         },
       ],
@@ -479,7 +479,7 @@ const sprecho: ComparisonPageData = {
           sources: ["sprecho-product", "sprecho-pricing"],
         },
         {
-          text: "Witness läuft nur auf Apple Silicon mit macOS 14.4 oder neuer. Im MVP sind Deutsch, Englisch, Russisch und Ukrainisch vorgesehen. Feste Profile wie DE + EN oder UK + EN grenzen das erwartete Sprachpaar bewusst ein. Namen, Abkürzungen und Fachbegriffe landen in einem lokalen Wörterbuch; der fertige Text wird am Cursor eingesetzt.",
+          text: "Witness läuft nur auf Apple Silicon mit macOS 14.4 oder neuer. Unterstützt werden Deutsch, Englisch, Russisch und Ukrainisch. Feste Profile wie DE + EN oder UK + EN grenzen das erwartete Sprachpaar bewusst ein. Namen, Abkürzungen und Fachbegriffe landen in einem lokalen Wörterbuch; der fertige Text wird am Cursor eingesetzt.",
           sources: ["local-product"],
         },
       ],
@@ -522,7 +522,7 @@ const sprecho: ComparisonPageData = {
     },
     {
       question: "Welche Sprecho-Alternative läuft ohne Inhaltsupload?",
-      answer: "Witness ist dafür konzipiert, Audio und Text auf dem Apple-Silicon-Mac zu verarbeiten. Der Dienst ist aktuell noch in privater Vorschau.",
+      answer: "Witness ist dafür konzipiert, Audio und Text auf dem Apple-Silicon-Mac zu verarbeiten.",
     },
   ],
   sources: [localSource, ...sprechoSources],
@@ -544,7 +544,7 @@ const voiceInk: ComparisonPageData = {
     caption: "VoiceInk und Witness auf einen Blick",
     headers: ["Kriterium", "Witness", "VoiceInk"],
     rows: [
-      ["Produktstatus", "Private Vorschau", "Verfügbar; Quellcode öffentlich"],
+      ["Produktstatus", "Verfügbar, Version 0.1.0", "Verfügbar; Quellcode öffentlich"],
       ["Verarbeitung", "Inhalte lokal", "Lokale Modelle standardmäßig; optionale Cloud-Textverbesserung"],
       ["Sprachen", "DE, EN, RU, UK; feste Mischprofile", "Abhängig vom gewählten Sprachmodell"],
       ["Prüfung riskanter Stellen", "Vor Einfügung vorgesehen", "Nicht öffentlich dokumentiert"],
@@ -561,7 +561,7 @@ const voiceInk: ComparisonPageData = {
           sources: ["voiceink-product", "voiceink-models"],
         },
         {
-          text: "Witness setzt eine engere Grenze: Audio, Transkript, Wörterbuch und Ziel-App-Inhalte sollen lokal bleiben und nicht zur Sprach- oder Textverbesserung an einen Cloud-Anbieter gehen. Audio bleibt standardmäßig nur im Arbeitsspeicher. Aktivierung, Lizenzprüfung, Checkout und Updates dürfen getrennte, offengelegte Nicht-Inhaltsdaten übertragen. Das Produkt befindet sich noch in privater Vorschau.",
+          text: "Witness setzt eine engere Grenze: Audio, Transkript, Wörterbuch und Ziel-App-Inhalte sollen lokal bleiben und nicht zur Sprach- oder Textverbesserung an einen Cloud-Anbieter gehen. Audio bleibt standardmäßig nur im Arbeitsspeicher. Aktivierung, Lizenzprüfung, Checkout und Updates dürfen getrennte, offengelegte Nicht-Inhaltsdaten übertragen.",
           sources: ["local-product"],
         },
       ],
@@ -574,7 +574,7 @@ const voiceInk: ComparisonPageData = {
           sources: ["voiceink-github", "voiceink-terms"],
         },
         {
-          text: "Witness ist als kommerzielles Produkt geplant, nicht als Open-Source-Projekt. Der Quellcode ist daher kein Kaufargument. Der Gegenwert soll in einem kuratierten, signierten Mac-Ablauf, klaren lokalen Datenschutzgrenzen, festen Sprachprofilen, Verifikation und direktem Support liegen. Wer Quellcode-Audit und Selbstbau priorisiert, sollte VoiceInk ernsthaft bevorzugen.",
+          text: "Witness ist ein kommerzielles Produkt, kein Open-Source-Projekt. Der Quellcode ist daher kein Kaufargument. Der Gegenwert soll in einem kuratierten, signierten Mac-Ablauf, klaren lokalen Datenschutzgrenzen, festen Sprachprofilen, Verifikation und direktem Support liegen. Wer Quellcode-Audit und Selbstbau priorisiert, sollte VoiceInk ernsthaft bevorzugen.",
           sources: ["local-product"],
         },
       ],
@@ -587,7 +587,7 @@ const voiceInk: ComparisonPageData = {
           sources: ["voiceink-models"],
         },
         {
-          text: "Witness beschränkt den MVP auf Deutsch, Englisch, Russisch und Ukrainisch. Nutzer wählen feste Paare wie DE + EN oder RU + UK, bevor sie diktieren. Ziel ist nicht maximale Sprachzahl, sondern ein vorhersehbarer Raum für typische mehrsprachige Sätze. Namen, Abkürzungen und Fachvokabular werden pro Sprache lokal ergänzt.",
+          text: "Witness beschränkt sich auf Deutsch, Englisch, Russisch und Ukrainisch. Nutzer wählen feste Paare wie DE + EN oder RU + UK, bevor sie diktieren. Ziel ist nicht maximale Sprachzahl, sondern ein vorhersehbarer Raum für typische mehrsprachige Sätze. Namen, Abkürzungen und Fachvokabular werden pro Sprache lokal ergänzt.",
           sources: ["local-product"],
         },
       ],
@@ -616,7 +616,7 @@ const voiceInk: ComparisonPageData = {
     },
   ],
   verdict: {
-    text: "Fazit: VoiceInk ist eine starke, günstigere und bereits verfügbare lokale Option mit offenem Quellcode und großer Modellwahl. Witness sollte nur gewählt werden, wenn feste Mischprofile und die vorgesehene Vorabprüfung riskanter Fragmente den höheren Preis rechtfertigen. Bis zum öffentlichen Launch bleibt VoiceInk die sofort nutzbare Lösung.",
+    text: "Fazit: VoiceInk ist eine starke, günstigere und bereits verfügbare lokale Option mit offenem Quellcode und großer Modellwahl. Witness sollte nur gewählt werden, wenn feste Mischprofile und die vorgesehene Vorabprüfung riskanter Fragmente den höheren Preis rechtfertigen.",
     sources: ["voiceink-product", "voiceink-github", "local-product"],
   },
   faqs: [
@@ -655,7 +655,7 @@ const macwhisper: ComparisonPageData = {
     headers: ["Kriterium", "Witness", "MacWhisper"],
     rows: [
       ["Schwerpunkt", "Diktat in andere Apps", "Transkription von Dateien, Meetings und Untertiteln; zusätzlich systemweites Diktat"],
-      ["Produktstatus", "Private Vorschau", "Verfügbar"],
+      ["Produktstatus", "Verfügbar, Version 0.1.0", "Verfügbar"],
       ["Verarbeitung", "Inhalte lokal; keine Cloud-Option vorgesehen", "Lokale Modelle; optional Cloud-Anbieter wie OpenAI, Anthropic, xAI und Google Gemini"],
       ["Sprachen", "DE, EN, RU, UK; feste Mischprofile", "100 Sprachen laut Anbieter"],
       ["Nachbearbeitung", "Bereinigung umkehrbar; Rohtranskript per Hotkey", "Automatische Grammatikverbesserung; Diktat mit KI-Prompts"],
