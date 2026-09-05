@@ -208,7 +208,7 @@ test("serves privacy, legal drafts, and llms context", async () => {
   // says otherwise beside a price is the site arguing with itself.
   for (const route of ["/", "/en", "/ru", "/uk", "/vergleich", "/vergleich/voiceink-vs-witness"]) {
     const html = await (await render(route)).text();
-    assert.doesNotMatch(html, /Vorschau|private preview|превью-версия|прев'ю-версія|\bMVP\b|öffentlichen Launch/i, route);
+    assert.doesNotMatch(html, /Vorschau|private preview|превью|прев'ю|\bMVP\b|\bLaunch\b|запуску|planned/i, route);
   }
 
   const llmsResponse = await render("/llms.txt");
