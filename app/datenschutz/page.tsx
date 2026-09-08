@@ -1,10 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { LegalShell } from "../_components/LegalShell";
+import { analyticsEnabled, getAnalyticsConfig } from "../_lib/analytics";
 
 export const metadata: Metadata = { title: "Datenschutz · Witness", description: "Datenschutzerklärung für die Website, die App Witness und den Aktivierungsdienst.", robots: { index: false, follow: false } };
 
 export default function DatenschutzPage() {
+  // Section 8 describes the tags that are actually configured. With none set
+  // the site loads none, and the section says so instead of describing a
+  // measurement that is not running.
+  const messung = analyticsEnabled(getAnalyticsConfig());
   return <LegalShell
     page="privacy"
     eyebrow="Datenschutz"
@@ -17,7 +22,8 @@ export default function DatenschutzPage() {
     <p>Ein Datenschutzbeauftragter ist nicht benannt; die gesetzlichen Voraussetzungen dafür liegen bei einem Einzelunternehmen dieser Größe und dieser Verarbeitung nicht vor. Für alle Anliegen zum Datenschutz ist die oben genannte Adresse zuständig.</p>
 
     <h2>2. Die kurze Fassung</h2>
-    <p>Nichts, was du diktierst, verlässt deinen Mac. Nicht das Audio, nicht das Transkript, nicht der aufbereitete Text, nicht dein Wörterbuch, nicht die Namen der Programme, in die du diktierst, und nichts, was daraus abgeleitet wird. Es gibt kein Produktkonto, keine Anmeldung und keine Analyse-Software — weder in der App noch auf dieser Website.</p>
+    <p>Nichts, was du diktierst, verlässt deinen Mac. Nicht das Audio, nicht das Transkript, nicht der aufbereitete Text, nicht dein Wörterbuch, nicht die Namen der Programme, in die du diktierst, und nichts, was daraus abgeleitet wird. Es gibt kein Produktkonto, keine Anmeldung und keine Analyse-Software <strong>in der App</strong>.</p>
+    <p><strong>Diese Website ist eine andere Sache, und das steht hier bewusst nebeneinander.</strong> Das Versprechen dieses Produkts gilt der App auf deinem Mac, nicht dieser Seite: Sie ist eine Verkaufsseite, wir bezahlen dafür, dass Menschen sie finden, und eine Verkaufsseite darf messen, wer sie besucht. Was diese Seite heute tatsächlich tut, steht in Abschnitt 8.</p>
     <p>Drei Dinge können die App verlassen, und jedes davon erst, nachdem du etwas gedrückt hast. Sie stehen in Abschnitt 4.</p>
 
     <h2>3. Was auf deinem Mac bleibt</h2>
@@ -85,7 +91,16 @@ export default function DatenschutzPage() {
     <p>Eingehende Mail an <code>hallo@</code>, <code>keys@</code> und <code>dmarc@</code> nimmt Cloudflare Email Routing entgegen und leitet sie an ein privates Postfach des Anbieters bei Google (Gmail) weiter. Schreibst du uns, verarbeiten wir deine Nachricht und deine Adresse, um sie zu beantworten (Art. 6 Abs. 1 lit. b beziehungsweise lit. f DSGVO), und bewahren den Vorgang so lange auf, wie er für Rückfragen oder gesetzliche Pflichten nötig ist.</p>
 
     <h2>8. Diese Website</h2>
-    <p>Die Website lädt <strong>keine Analyse-, Werbe- oder Tracking-Skripte</strong>, setzt <strong>keine Cookies</strong> und bindet keine Schriften, Karten, Videos oder sonstigen Inhalte von fremden Servern ein. Es gibt deshalb auch kein Einwilligungsbanner: Es gäbe nichts, worin eingewilligt werden könnte.</p>
+    {messung ? <>
+    <p>Diese Seite misst mit <strong>Google Analytics 4</strong> und dem <strong>Conversion-Tag von Google Ads</strong>, welche Anzeige und welcher Suchbegriff zu einem Besuch und zu einer angeforderten Lizenz geführt haben. Anbieter ist Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland.</p>
+    <p><strong>Ohne deine Einwilligung</strong> wird nichts auf deinem Gerät gespeichert und nichts von dort ausgelesen. Gemessen wird trotzdem, aber ohne Wiedererkennung: Das Tag sendet gekürzte IP-Adresse, aufgerufene Seite, Gerät und Browser sowie die Klickkennung der Anzeige aus der Adresszeile. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO; unser berechtigtes Interesse ist zu wissen, wofür wir Werbung bezahlen. Du kannst dem nach Art. 21 DSGVO widersprechen.</p>
+    <p><strong>Mit deiner Einwilligung</strong> dürfen Google Analytics und Google Ads zusätzlich Cookies setzen und auslesen und deine Besuche einander zuordnen. Rechtsgrundlage ist § 25 Abs. 1 TDDDG für das Speichern auf deinem Gerät und Art. 6 Abs. 1 lit. a DSGVO für die Verarbeitung. Deine Entscheidung liegt in der lokalen Ablage deines Browsers unter <code>witness.consent</code>; ändern kannst du sie jederzeit über <em>Cookie-Einstellungen</em> im Fuß jeder Seite, mit Wirkung für die Zukunft.</p>
+    <p><strong>Wenn du einen Schlüssel anforderst</strong>, übergibt die Seite deine E-Mail-Adresse als <em>Enhanced Conversion</em>: Das Google-Skript bildet daraus noch in deinem Browser einen Hash, und nur dieser Hash wird gesendet — damit eine Anzeige der Anforderung zugeordnet werden kann, ohne die Adresse selbst zu übermitteln.</p>
+    <p><strong>Was dabei nicht verarbeitet wird</strong>: nichts aus der App. Kein Audio, kein Transkript, kein Wörterbuch, keine Programme, in die du diktierst. Die App enthält keinen dieser Tags, und die Ereignisse aus Abschnitt 4a gehen an unseren eigenen Dienst und nicht an Google.</p>
+    <p><strong>Speicherdauer</strong>: Die Cookies laufen nach längstens 24 Monaten ab; in Google Analytics werden Nutzer- und Ereignisdaten nach 14 Monaten gelöscht.</p>
+    <p><strong>Drittland</strong>: Google verarbeitet Daten auch in den Vereinigten Staaten. Grundlage sind die Standardvertragsklauseln der Europäischen Kommission und der Angemessenheitsbeschluss zum EU-US Data Privacy Framework, unter dem Google LLC zertifiziert ist. Ein Zugriff US-amerikanischer Behörden lässt sich nicht ausschließen.</p>
+    </> : <p>Diese Website lädt derzeit <strong>keine Analyse-, Werbe- oder Tracking-Skripte</strong> und setzt <strong>keine Cookies</strong>. Es gibt deshalb auch kein Einwilligungsbanner: Es gäbe nichts, worin eingewilligt werden könnte.</p>}
+    <p>Sie bindet keine Schriften, Karten oder Videos von fremden Servern ein.</p>
     <p>Sie wird von <strong>Cloudflare</strong> ausgeliefert (Auftragsverarbeiter). Beim Abruf verarbeitet die Infrastruktur die technisch notwendigen Verbindungsdaten — IP-Adresse, Zeitpunkt, angeforderte Adresse, übertragene Datenmenge, Statuscode und User-Agent —, um die Seite auszuliefern und den Betrieb gegen Angriffe abzusichern. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO; das berechtigte Interesse ist der sichere und funktionsfähige Betrieb der Website. Diese Verbindungsdaten werden nicht zu Profilen zusammengeführt und nicht mit anderen Daten verknüpft.</p>
 
     <h2>9. Das Formular auf /danke</h2>
@@ -105,7 +120,7 @@ export default function DatenschutzPage() {
     <p>Es findet keine automatisierte Entscheidungsfindung einschließlich Profiling im Sinne von Art. 22 DSGVO statt.</p>
 
     <h2>13. Übermittlung in Drittländer</h2>
-    <p>Cloudflare, Stripe, Resend, Amazon Web Services, Hugging Face und Google sind Unternehmen mit Sitz oder Mutterkonzern in den Vereinigten Staaten. Auch wo die Daten in der EU gespeichert werden — bei uns die Lizenztabelle in Cloudflares Region Osteuropa und der Mailversand über Irland —, ist ein Zugriff aus einem Drittland nicht ausgeschlossen. Solche Übermittlungen stützen wir auf die Standardvertragsklauseln der Europäischen Kommission und, soweit der jeweilige Anbieter danach zertifiziert ist, auf den Angemessenheitsbeschluss zum EU-US Data Privacy Framework.</p>
+    <p>Cloudflare, Stripe, Resend, Amazon Web Services, Hugging Face und Google (Gmail, und bei erteilter Einwilligung Analytics und Ads) sind Unternehmen mit Sitz oder Mutterkonzern in den Vereinigten Staaten. Auch wo die Daten in der EU gespeichert werden — bei uns die Lizenztabelle in Cloudflares Region Osteuropa und der Mailversand über Irland —, ist ein Zugriff aus einem Drittland nicht ausgeschlossen. Solche Übermittlungen stützen wir auf die Standardvertragsklauseln der Europäischen Kommission und, soweit der jeweilige Anbieter danach zertifiziert ist, auf den Angemessenheitsbeschluss zum EU-US Data Privacy Framework.</p>
 
     <h2>14. Deine Rechte</h2>
     <ul>

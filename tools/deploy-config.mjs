@@ -23,6 +23,17 @@ const VARS = {
   // called Witness.dmg for that to hold; `docs/PHASE_6_RELEASE.md` says so
   // where somebody cutting a release will read it.
   DOWNLOAD_URL: "https://github.com/igskak/localdictation/releases/latest/download/Witness.dmg",
+
+  // Measurement for the paid-search campaign in `docs/GTM.md`. Vars rather
+  // than secrets, and here rather than in a dashboard, for the same reason as
+  // the line above: all three ship to the browser inside the tag, so none of
+  // them is a secret, and a measurement that silently stopped after a deploy
+  // looks exactly like a campaign that stopped working. Paste the three
+  // identifiers from the Google Ads and Analytics accounts and deploy; until
+  // then the site loads no tag and both privacy policies say so.
+  // GA4_MEASUREMENT_ID: "G-XXXXXXXXXX",
+  // ADS_CONVERSION_ID: "AW-XXXXXXXXX",
+  // ADS_LEAD_CONVERSION_LABEL: "XXXXXXXXXXXXXXXXXXX",
 };
 
 const config = JSON.parse(readFileSync(CONFIG, "utf8"));

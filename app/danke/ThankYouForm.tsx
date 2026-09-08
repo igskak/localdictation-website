@@ -4,10 +4,11 @@ import { FormEvent, useState, useSyncExternalStore } from "react";
 import { thanksCopy } from "../_data/thanksCopy";
 import type { Locale } from "../_lib/locale";
 import { legalLocale, legalPaths } from "../_lib/legal";
+import { type GtagConfig, reportLead } from "../_lib/gtag";
 
 const subscribeToHydration = () => () => {};
 
-export function ThankYouForm({ locale, leadEndpoint }: { locale: Locale; leadEndpoint: string | null }) {
+export function ThankYouForm({ locale, leadEndpoint, analytics }: { locale: Locale; leadEndpoint: string | null; analytics: GtagConfig }) {
   const c = thanksCopy[locale].form;
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
@@ -50,6 +51,10 @@ export function ThankYouForm({ locale, leadEndpoint }: { locale: Locale; leadEnd
       });
       const result = response.ok ? await response.json().catch(() => null) as { keyDelivery?: unknown } | null : null;
       if (!response.ok || result?.keyDelivery !== "queued") throw new Error(`Lead endpoint did not confirm key delivery (${response.status})`);
+      // Reported here and nowhere else: a conversion is a key that was actually
+      // queued, not a button that was pressed. Ads optimises on this number,
+      // so a form that failed silently must not inflate it.
+      reportLead(analytics, email.trim());
       setStatus("success");
     } catch {
       setStatus("idle");

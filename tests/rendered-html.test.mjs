@@ -277,7 +277,9 @@ test("states the business model the same way in the legal text and on the landin
     assert.ok(datenschutz.includes(event), `the privacy policy must name the ${event} event`);
   }
   assert.match(datenschutz, /Einstellungen → Privatsphäre/);
+  // With no measurement configured the policy has to say the site sets none.
   assert.match(datenschutz, /keine Cookies/);
+  assert.doesNotMatch(datenschutz, /Google Analytics 4/);
   assert.match(datenschutz, /Úřad pro ochranu osobních údajů/);
 
   const lizenzen = await (await render("/lizenzen")).text();
@@ -321,6 +323,7 @@ test("the English legal set says the same thing as the German one", async () => 
   }
   assert.match(privacy, /Settings → Privacy/);
   assert.match(privacy, /no cookies/);
+  assert.doesNotMatch(privacy, /Google Analytics 4/);
   assert.match(privacy, /Úřad pro ochranu osobních údajů/);
 
   const licences = await (await render("/en/licences")).text();
@@ -335,6 +338,65 @@ test("the English legal set says the same thing as the German one", async () => 
   const [de, en] = await Promise.all([render("/widerruf"), render("/en/cancellation")].map(async (r) => (await r).text()));
   assert.match(de, /Kaufknöpfe tun nichts, solange nicht angekreuzt ist/);
   assert.match(en, /Buy buttons do nothing until it is ticked/);
+});
+
+test("declares the measurement it is configured for, in both languages, and asks before loading it", async () => {
+  // The claim in section 8 is generated from the same environment the tag
+  // reads. This is the assertion that stops the page describing a measurement
+  // that is switched off -- or, worse, staying silent about one that is on.
+  const originals = {
+    GA4_MEASUREMENT_ID: process.env.GA4_MEASUREMENT_ID,
+    ADS_CONVERSION_ID: process.env.ADS_CONVERSION_ID,
+    ADS_LEAD_CONVERSION_LABEL: process.env.ADS_LEAD_CONVERSION_LABEL,
+  };
+  process.env.GA4_MEASUREMENT_ID = "G-TEST12345";
+  process.env.ADS_CONVERSION_ID = "AW-123456789";
+  process.env.ADS_LEAD_CONVERSION_LABEL = "abcdeFGHij_klm";
+  try {
+    const datenschutz = await (await render("/datenschutz")).text();
+    assert.match(datenschutz, /Google Analytics 4/);
+    assert.match(datenschutz, /Google Ireland Limited/);
+    assert.match(datenschutz, /§ 25 Abs. 1 TDDDG/);
+    assert.match(datenschutz, /witness.consent/);
+    assert.doesNotMatch(datenschutz, /keine Cookies/);
+
+    const privacy = await (await render("/en/privacy")).text();
+    assert.match(privacy, /Google Analytics 4/);
+    assert.match(privacy, /§ 25\(1\) TDDDG/);
+    assert.doesNotMatch(privacy, /no cookies/);
+
+    // Consent governs storage, not measurement, and the policy has to describe
+    // that shape rather than a stricter one we do not run: both branches of
+    // section 8 are named, and neither promises that declining stops the tag.
+    assert.match(datenschutz, /Ohne deine Einwilligung/);
+    assert.match(datenschutz, /Mit deiner Einwilligung/);
+    assert.doesNotMatch(datenschutz, /passiert davon nichts/);
+    assert.match(privacy, /Without your consent/);
+    assert.match(privacy, /With your consent/);
+
+    // The identifiers reach the browser, because the banner needs them once
+    // the reader agrees; the conversion label is not a secret either.
+    const danke = await (await render("/danke")).text();
+    assert.ok(danke.includes("G-TEST12345"), "the thank-you page must carry the measurement id for the tag it may load");
+  } finally {
+    for (const [key, value] of Object.entries(originals)) {
+      if (value === undefined) delete process.env[key];
+      else process.env[key] = value;
+    }
+  }
+});
+
+test("ignores measurement identifiers that are not shaped like identifiers", async () => {
+  const original = process.env.GA4_MEASUREMENT_ID;
+  process.env.GA4_MEASUREMENT_ID = "G-<script>alert(1)</script>";
+  try {
+    const datenschutz = await (await render("/datenschutz")).text();
+    assert.match(datenschutz, /keine Cookies/);
+    assert.doesNotMatch(datenschutz, /alert\(1\)/);
+  } finally {
+    if (original === undefined) delete process.env.GA4_MEASUREMENT_ID;
+    else process.env.GA4_MEASUREMENT_ID = original;
+  }
 });
 
 test("derives complete social metadata from a sanitized forwarded origin", async () => {

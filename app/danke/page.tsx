@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ThankYouForm } from "./ThankYouForm";
 import { getDownloadTarget } from "../_lib/download";
 import { safeLeadEndpoint } from "../_lib/urlPolicy";
+import { getAnalyticsConfig } from "../_lib/analytics";
 import { RouteFooter } from "../_components/RouteFooter";
 import { thanksCopy } from "../_data/thanksCopy";
 import { localeHome, parseLocale } from "../_lib/locale";
@@ -44,7 +45,7 @@ export default async function DankePage({ searchParams }: { searchParams: Promis
         {downloadAvailable && <a className="inline-download" href={downloadPath}>{downloadStarted ? c.inlineDownload.again : c.inlineDownload.now} ↓</a>}
         </section>
         <section className="thanks-grid shell">
-        <ThankYouForm locale={locale} leadEndpoint={leadEndpoint} />
+        <ThankYouForm locale={locale} leadEndpoint={leadEndpoint} analytics={getAnalyticsConfig()} />
         <aside className="key-card">
           <span>{c.key.label}</span>
           <strong>•••• — •••• — ••••</strong>

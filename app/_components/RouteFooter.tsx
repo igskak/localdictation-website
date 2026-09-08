@@ -1,5 +1,8 @@
 import Link from "next/link";
 import { landingCopy } from "../_data/landingCopy";
+import { consentCopy } from "../_data/consentCopy";
+import { analyticsEnabled, getAnalyticsConfig } from "../_lib/analytics";
+import { ConsentReopenLink } from "./ConsentGate";
 import { legalLocale, legalPaths } from "../_lib/legal";
 import type { Locale } from "../_lib/locale";
 
@@ -16,6 +19,7 @@ export function RouteFooter({ locale = "de" }: { locale?: Locale }) {
   const legal = legalLocale(locale);
   const paths = legalPaths[legal];
   const lang = legal;
+  const showConsent = analyticsEnabled(getAnalyticsConfig());
 
   return (
     <footer className="route-footer">
@@ -28,6 +32,7 @@ export function RouteFooter({ locale = "de" }: { locale?: Locale }) {
           <Link href={paths.imprint} hrefLang={lang}>{c.impressum}</Link>
           <Link href={paths.licences} hrefLang={lang}>{c.lizenzen}</Link>
           <a href="mailto:hallo@witnessmac.com">{c.kontakt}</a>
+          {showConsent && <ConsentReopenLink label={consentCopy[locale].reopen} />}
         </nav>
       </div>
     </footer>

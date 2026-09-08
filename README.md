@@ -47,15 +47,16 @@ Two build targets share one codebase:
 | Target | Build | Start | Notes |
 |---|---|---|---|
 | Cloudflare Workers (default) | `npm run build` | — | What `npm test` exercises; `dist/server/index.js` is the Worker entry |
-| Node (self-hosting, Render) | `npm run build:node` | `npm run start:node` | `VINEXT_PLATFORM=node` switches `next.config.ts` to `output: "standalone"` and drops the Cloudflare Vite plugin |
+| Node (self-hosting) | `npm run build:node` | `npm run start:node` | `VINEXT_PLATFORM=node` switches `next.config.ts` to `output: "standalone"` and drops the Cloudflare Vite plugin |
 
-The standalone server binds `0.0.0.0` and honours `PORT`. `render.yaml` is a ready Render Blueprint for a free web service; free instances sleep when idle, so the first request after a pause takes about a minute — fine for review, not for paid traffic.
+The standalone server binds `0.0.0.0` and honours `PORT`. **witnessmac.com runs on the Cloudflare target and nothing else**; the Node build exists so the site can be served without Cloudflare, not because anything currently does.
 
 ## Launch configuration
 
 Copy `.env.example` to a local `.env` and configure only what is available:
 
 - `DOWNLOAD_URL` — preferably a same-origin signed `.dmg` response with `Content-Disposition: attachment`. When absent, every CTA opens an honest private-preview fallback instead of a broken download.
+- `GA4_MEASUREMENT_ID`, `ADS_CONVERSION_ID`, `ADS_LEAD_CONVERSION_LABEL` — measurement for the paid-search campaign in `docs/GTM.md`. In production these are set in `tools/deploy-config.mjs` alongside `DOWNLOAD_URL`, not in a dashboard; all three ship to the browser, so none is a secret. All three empty is a valid state and the default: no tag, no consent banner, and section 8 of both privacy policies says the site sets no cookies. Set them and the same section describes Analytics and Ads instead — the text is generated from the same environment the tag reads, so it cannot drift from what is running. Consent governs storage, not measurement (advanced consent mode): declining means no cookies and no recognition, not an unmeasured visit.
 - `LEAD_ENDPOINT` — optional same-origin or HTTPS endpoint. The form sends only `email`, the page `locale`, and optional coded `usecase`; it sends no audio, transcript, vocabulary, clipboard, target-app, or other product content. A successful response must be JSON containing `{ "keyDelivery": "queued" }`; otherwise the UI does not claim that email was sent. Cross-origin endpoints must explicitly allow the site's CORS preflight and origin.
 
 Hosted runtime values belong in Sites environment settings, not in source control.
