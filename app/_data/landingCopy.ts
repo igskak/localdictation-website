@@ -98,7 +98,7 @@ const de: LandingCopy = {
   languages: {
     kicker: "Sprachen",
     title: "Deutsch und Englisch in einem Satz",
-    body: "Du kreuzt an, welche Sprachen du sprichst — geraten wird nichts. Vier davon sind end-to-end gemessen, die übrigen 96 werden erkannt.",
+    body: "Du kreuzt an, welche Sprachen du sprichst — geraten wird nichts. Ein Wort, das nach einer anderen deiner Sprachen aussieht, landet vor dem Einfügen in der Prüfzeile. Vier Sprachen sind end-to-end gemessen, die übrigen 96 werden erkannt.",
     pills: ["Deutsch", "English", "Русский", "Українська", "+96 weitere"],
     dictionaryTitle: "Eigenes Wörterbuch",
     tags: { german: "Deutsch", english: "English", all: "Alle Sprachen" },
@@ -238,7 +238,7 @@ const en: LandingCopy = {
   languages: {
     kicker: "Languages",
     title: "English and German in one sentence",
-    body: "Tick the languages you speak — nothing is guessed. Four of them are measured end to end, the other 96 are recognised.",
+    body: "Tick the languages you speak — nothing is guessed. A word that looks like another of your languages lands in the check row before insertion. Four languages are measured end to end, the other 96 are recognised.",
     pills: ["English", "Deutsch", "Русский", "Українська", "+96 more"],
     dictionaryTitle: "Personal vocabulary",
     tags: { german: "German", english: "English", all: "All languages" },
@@ -378,7 +378,7 @@ const ru: LandingCopy = {
   languages: {
     kicker: "Языки",
     title: "Русский и английский в одном предложении",
-    body: "Ты отмечаешь галочками языки, на которых говоришь, — ничего не угадывается. Четыре проверены от и до, остальные 96 распознаются.",
+    body: "Ты отмечаешь галочками языки, на которых говоришь, — ничего не угадывается. Слово, похожее на другой из твоих языков, попадает в строку проверки перед вставкой. Четыре языка проверены от и до, остальные 96 распознаются.",
     pills: ["Русский", "English", "Deutsch", "Українська", "+96 ещё"],
     dictionaryTitle: "Свой словарь",
     tags: { german: "Немецкий", english: "Английский", all: "Все языки" },
@@ -518,7 +518,7 @@ const uk: LandingCopy = {
   languages: {
     kicker: "Мови",
     title: "Українська та англійська в одному реченні",
-    body: "Ти позначаєш галочками мови, якими говориш, — нічого не вгадується. Чотири виміряні наскрізь, решта 96 розпізнаються.",
+    body: "Ти позначаєш галочками мови, якими говориш, — нічого не вгадується. Слово, схоже на іншу з твоїх мов, потрапляє в рядок перевірки перед вставленням. Чотири мови виміряні наскрізь, решта 96 розпізнаються.",
     pills: ["Українська", "English", "Deutsch", "Русский", "+96 ще"],
     dictionaryTitle: "Власний словник",
     tags: { german: "Німецька", english: "Англійська", all: "Усі мови" },

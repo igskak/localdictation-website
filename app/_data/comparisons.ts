@@ -244,7 +244,7 @@ const wispr: ComparisonPageData = {
     rows: [
       ["Inhaltsverarbeitung", "Lokal auf Apple Silicon", "Cloud-SaaS; Verarbeitung und Speicherung in den USA"],
       ["Plattformen", "macOS 14.4+, Apple Silicon", "macOS, Windows, iOS und Android"],
-      ["Sprachwahl", "Selbst angekreuzte Sprachen; vier end-to-end gemessen", "100+ Sprachen; Erkennung zu Sitzungsbeginn"],
+      ["Sprachwahl", "Angekreuzte Sprachen, eine je Diktat; vier end-to-end gemessen", "100+ Sprachen; Erkennung zu Sitzungsbeginn, eine je Segment"],
       ["Prüfung riskanter Stellen", "Vor Einfügung vorgesehen", "Nicht öffentlich dokumentiert"],
       ["Konto", "Kein Produktkonto vorgesehen", "Anmeldung erforderlich"],
       ["Preis", "€99 lebenslang oder €49/Jahr", "Free; Pro $15/Monat oder $12/Monat bei jährlicher Zahlung ($144/Jahr)"],
@@ -268,11 +268,11 @@ const wispr: ComparisonPageData = {
       title: "Auto-Erkennung oder selbst gewählte Sprachen",
       paragraphs: [
         {
-          text: "Flow dokumentiert mehr als 100 unterstützte Sprachen und erkennt die Sprache am Anfang einer Diktatsitzung. Die offizielle Hilfeseite weist zugleich darauf hin, dass ein Wechsel mitten im Satz dazu führen kann, dass das gesamte Segment in nur einer Sprache transkribiert wird. Wer viele Sprachen nutzt und Geräte wechselt, bekommt damit eine breite Abdeckung.",
+          text: "Flow dokumentiert mehr als 100 unterstützte Sprachen und erkennt die Sprache am Anfang einer Diktatsitzung. Die offizielle Hilfeseite hält fest, dass ein Wechsel mitten im Satz dazu führen kann, dass das gesamte Segment in nur einer Sprache transkribiert wird. Wer viele Sprachen nutzt und Geräte wechselt, bekommt damit eine breite Abdeckung.",
           sources: ["wispr-languages"],
         },
         {
-          text: "Witness kennt dieselbe Größenordnung — 100 Sprachen —, überlässt die Wahl aber dir: Du kreuzt an, welche du sprichst, statt sie bei jeder Sitzung erraten zu lassen. Für Deutsch, Englisch, Russisch und Ukrainisch ist der ganze Weg gemessen, von der Erkennung über die Textaufbereitung bis zu jeder Prüfmarkierung; bei den übrigen bleiben sprachabhängig kalibrierte Markierungen aus, statt zu raten. Begriffe und Eigennamen lassen sich im lokalen Wörterbuch hinterlegen.",
+          text: "Auch Witness entscheidet sich pro Aufnahme für eine Sprache; gemischte Sätze kommen bei beiden Produkten gemischt heraus, und wir führen das deshalb nicht als Unterschied. Der Unterschied liegt darin, woher diese eine Sprache kommt und was danach passiert. Witness kennt dieselbe Größenordnung — 100 Sprachen —, überlässt die Wahl aber dir: Du kreuzt an, welche du sprichst, und entschieden wird nur noch zwischen diesen. Wörter, die nach einer anderen deiner Sprachen aussehen, stehen vor dem Einfügen in der Prüfzeile. Für Deutsch, Englisch, Russisch und Ukrainisch ist der ganze Weg gemessen, von der Erkennung über die Textaufbereitung bis zu jeder Prüfmarkierung; bei den übrigen bleiben sprachabhängig kalibrierte Markierungen aus, statt zu raten. Begriffe und Eigennamen lassen sich im lokalen Wörterbuch hinterlegen.",
           sources: ["local-product"],
         },
       ],
@@ -310,8 +310,8 @@ const wispr: ComparisonPageData = {
       answer: "Nein. Wispr Flow beschreibt sich offiziell als vollständig cloudbasierte SaaS-Lösung und nennt eine Internetverbindung als Voraussetzung.",
     },
     {
-      question: "Unterstützt Wispr Flow Deutsch und Englisch in einem Satz?",
-      answer: "Wispr Flow unterstützt beide Sprachen, dokumentiert aber, dass ein Wechsel mitten im Satz das gesamte Segment in nur einer Sprache ergeben kann.",
+      question: "Wie gehen Witness und Wispr Flow mit Deutsch und Englisch in einem Satz um?",
+      answer: "Beide unterstützen Deutsch und Englisch in einem Satz, und beide entscheiden sich pro Aufnahme für eine Sprache — das ist kein Unterschied zwischen ihnen. Der Unterschied bei Witness: Du kreuzt vorher an, welche Sprachen überhaupt in Frage kommen, und ein Wort in einer Sprache, die du nicht angekreuzt hast, wird vor dem Einfügen markiert.",
     },
     {
       question: "Ist Witness bereits allgemein verfügbar?",
