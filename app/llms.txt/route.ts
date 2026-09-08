@@ -3,6 +3,6 @@ export function GET() {
 
 Speech recognition and text processing run on the Mac. Before insertion, Witness marks uncertain numbers, dates, names, negations, and vocabulary terms; short source-audio fragments stay in memory only and can be replayed during review. The product is built around an explicit user-chosen language set rather than automatic detection, a personal vocabulary, and an email licence key without a product account.
 
-Pricing is EUR 99 lifetime for version 1 and its minor updates or EUR 49 per year, both for two Macs, after a 14-day full trial. The signed, Apple-notarized build is at /download. Canonical pages: German /, English /en, Russian /ru, Ukrainian /uk, privacy /datenschutz (English /en/privacy), terms /agb (English /en/terms), pricing /#preis, FAQ /#faq. The Russian and Ukrainian pages address Russian- and Ukrainian-speaking professionals living in Germany and link the English legal set.
+Pricing is EUR 99 lifetime for version 1 and its minor updates or EUR 49 per year, both for two Macs, after a free trial of three days plus ten more once you add an e-mail address. The signed, Apple-notarized build is at /download. Canonical pages: German /, English /en, Russian /ru, Ukrainian /uk, privacy /datenschutz (English /en/privacy), terms /agb (English /en/terms), pricing /#preis, FAQ /#faq. The Russian and Ukrainian pages address Russian- and Ukrainian-speaking professionals living in Germany and link the English legal set.
 `, { headers: { "content-type": "text/plain; charset=utf-8" } });
 }

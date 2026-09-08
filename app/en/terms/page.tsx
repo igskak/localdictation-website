@@ -30,9 +30,10 @@ export default function TermsPage() {
     <p>We do not owe any particular recognition accuracy. It depends on your microphone, the noise around you, the language, the pronunciation and the vocabulary, and it is not a warranted property.</p>
 
     <h2>3. The free trial</h2>
-    <p>The trial is the full product and runs for <strong>14 days from your first successful dictation</strong>.</p>
+    <p>The trial is the full product. The <strong>first three days from your first successful dictation</strong> ask for nothing; a free trial key then unlocks <strong>ten more days</strong>.</p>
     <ul>
-      <li>After five dictations or 24 hours — whichever comes first — you need a free trial key. To issue it, the app sends your e-mail address and a device identifier to our activation service; the details are in the <Link href={en.privacy}>privacy policy</Link>.</li>
+      <li>After those three days you need a free trial key. To issue it, the app sends your e-mail address and a device identifier to our activation service; the details are in the <Link href={en.privacy}>privacy policy</Link>. The key arrives in the app itself and unlocks it; the copy sent to your e-mail is a spare, for a reinstall or another Mac.</li>
+      <li>The ten days run from activation, so activating later gives you correspondingly longer.</li>
       <li>No payment details are collected for the trial.</li>
       <li>There is one trial per e-mail address and one per Mac. A second one is refused rather than quietly granted.</li>
       <li>No subscription comes out of the trial. It ends without you cancelling anything.</li>

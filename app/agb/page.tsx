@@ -26,9 +26,10 @@ export default function AGBPage() {
     <p>Wir schulden keine bestimmte Erkennungsgenauigkeit. Sie hängt von Mikrofon, Umgebungsgeräusch, Sprache, Aussprache und Fachvokabular ab und ist keine zugesicherte Eigenschaft.</p>
 
     <h2>3. Kostenloser Test</h2>
-    <p>Der Test umfasst den vollen Funktionsumfang und läuft <strong>14 Tage ab deiner ersten erfolgreichen Diktierung</strong>.</p>
+    <p>Der Test umfasst den vollen Funktionsumfang. Die <strong>ersten drei Tage ab deiner ersten erfolgreichen Diktierung</strong> fragen nach nichts; ein kostenloser Testschlüssel schaltet danach <strong>zehn weitere Tage</strong> frei.</p>
     <ul>
-      <li>Nach fünf Diktierungen oder 24 Stunden — je nachdem, was zuerst eintritt — brauchst du einen kostenlosen Testschlüssel. Dafür übermittelt die App deine E-Mail-Adresse und eine Gerätekennung an unseren Aktivierungsdienst; Einzelheiten stehen in der <Link href="/datenschutz">Datenschutzerklärung</Link>.</li>
+      <li>Nach diesen drei Tagen brauchst du einen kostenlosen Testschlüssel. Dafür übermittelt die App deine E-Mail-Adresse und eine Gerätekennung an unseren Aktivierungsdienst; Einzelheiten stehen in der <Link href="/datenschutz">Datenschutzerklärung</Link>. Der Schlüssel kommt unmittelbar in der App an und schaltet sie frei; die Kopie per E-Mail ist ein Ersatzexemplar für eine Neuinstallation oder einen anderen Mac.</li>
+      <li>Die zehn Tage laufen ab der Aktivierung. Wer später aktiviert, hat entsprechend länger.</li>
       <li>Zahlungsdaten werden für den Test nicht erhoben.</li>
       <li>Es gibt einen Test je E-Mail-Adresse und einen je Mac. Ein zweiter Test wird abgelehnt und nicht stillschweigend gewährt.</li>
       <li>Aus dem Test entsteht kein Abonnement. Er endet, ohne dass du etwas kündigen musst.</li>

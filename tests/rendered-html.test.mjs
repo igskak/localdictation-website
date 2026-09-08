@@ -54,7 +54,7 @@ test("renders the complete German landing page in the required order", async () 
   assert.match(html, /Die vollständige Datenschutzerklärung lesen/);
   assert.match(html, /UI-Prototyp/);
   assert.match(html, /Roh-Transkript · vor der Einfügung/);
-  assert.match(html, /Der 14-Tage-Test beginnt mit deiner ersten erfolgreichen Diktierung/);
+  assert.match(html, /Die ersten drei Tage ab deiner ersten erfolgreichen Diktierung fragen nach nichts/);
   assert.match(html, /\$15 Monat \/ \$144 Jahr/);
   assert.match(html, /\$25 \/ \$39 \/ \$49 einmalig/);
   assert.doesNotMatch(html, /€15 Monat|\$29–69/);
@@ -82,7 +82,7 @@ test("renders the English variant and reciprocal language links", async () => {
   assert.match(enHtml, /€14,000/);
   assert.match(enHtml, /German/);
   assert.match(enHtml, /All languages/);
-  assert.match(enHtml, /The 14-day trial starts with your first successful dictation/);
+  assert.match(enHtml, /The first three days after your first successful dictation ask for nothing/);
   assert.match(enHtml, /href="\/"/i);
   assert.match(enHtml, /hreflang="de"/i);
   assert.match(deHtml, /href="\/en"/i);
@@ -250,7 +250,7 @@ test("states the business model the same way in the legal text and on the landin
   const agb = await (await render("/agb")).text();
   // The four things a buyer pays for, in the document that has to bind us to
   // them: the two prices, the two Macs, the trial, and what "lifetime" means.
-  for (const claim of ["€99", "€49", "zwei von ihr genutzte Macs", "14 Tage ab deiner ersten erfolgreichen Diktierung", "Version 1", "Merchant of Record", "tschechisches Recht"]) {
+  for (const claim of ["€99", "€49", "zwei von ihr genutzte Macs", "ersten drei Tage ab deiner ersten erfolgreichen Diktierung", "Version 1", "Merchant of Record", "tschechisches Recht"]) {
     assert.ok(agb.includes(claim), `the terms must state ${claim}`);
   }
   // "Lifetime" is a version, not a duration, and the terms must say so rather
@@ -269,7 +269,14 @@ test("states the business model the same way in the legal text and on the landin
   for (const recipient of ["Cloudflare", "Stripe", "Resend", "Hugging Face", "api.witnessmac.com"]) {
     assert.ok(datenschutz.includes(recipient), `the privacy policy must name ${recipient}`);
   }
-  assert.match(datenschutz, /Keines davon wird übertragen/);
+  assert.match(datenschutz, /Die übrigen sieben werden nicht übertragen/);
+  // The three that do leave have to be named, and the way to stop them with
+  // them. A policy that lists a transmission without its off switch is the
+  // failure this assertion exists to catch.
+  for (const event of ["trial_started", "activation_requested", "paywall_shown"]) {
+    assert.ok(datenschutz.includes(event), `the privacy policy must name the ${event} event`);
+  }
+  assert.match(datenschutz, /Einstellungen → Privatsphäre/);
   assert.match(datenschutz, /keine Cookies/);
   assert.match(datenschutz, /Úřad pro ochranu osobních údajů/);
 
@@ -294,7 +301,7 @@ test("the English legal set says the same thing as the German one", async () => 
   // translation: two buyers then have two different contracts and neither
   // knows it. These are the claims a disagreement would be expensive in.
   const terms = await (await render("/en/terms")).text();
-  for (const claim of ["€99", "€49", "up to two Macs they use", "14 days from your first successful dictation", "version 1 today", "merchant of record", "Czech law"]) {
+  for (const claim of ["€99", "€49", "up to two Macs they use", "first three days from your first successful dictation", "version 1 today", "merchant of record", "Czech law"]) {
     assert.ok(terms.includes(claim), `the English terms must state ${claim}`);
   }
   assert.match(terms, /future major version \(2\.0\) is a new product/);
@@ -308,7 +315,11 @@ test("the English legal set says the same thing as the German one", async () => 
   for (const recipient of ["Cloudflare", "Stripe", "Resend", "Hugging Face", "api.witnessmac.com"]) {
     assert.ok(privacy.includes(recipient), `the English privacy policy must name ${recipient}`);
   }
-  assert.match(privacy, /None of them is transmitted/);
+  assert.match(privacy, /The other seven are not transmitted/);
+  for (const event of ["trial_started", "activation_requested", "paywall_shown"]) {
+    assert.ok(privacy.includes(event), `the English privacy policy must name the ${event} event`);
+  }
+  assert.match(privacy, /Settings → Privacy/);
   assert.match(privacy, /no cookies/);
   assert.match(privacy, /Úřad pro ochranu osobních údajů/);
 

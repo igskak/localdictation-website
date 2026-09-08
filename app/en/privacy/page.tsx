@@ -32,16 +32,31 @@ export default function PrivacyPage() {
       <table>
         <thead><tr><th>What</th><th>When</th><th>To whom</th><th>Why</th></tr></thead>
         <tbody>
-          <tr><td>A request for the speech model</td><td>You press “Prepare speech model…”</td><td>Hugging Face, the model&apos;s host</td><td>Fetching a static file. One way — nothing is uploaded</td></tr>
+          <tr><td>A request for the speech model</td><td>At first launch, automatically, and any later launch where the model is missing</td><td>Hugging Face, the model&apos;s host</td><td>Fetching a static file. One way — nothing is uploaded</td></tr>
           <tr><td>Your e-mail address and a device identifier</td><td>You press “Send me a key”</td><td>Our activation service at <code>api.witnessmac.com</code></td><td>Issuing a licence key for this Mac</td></tr>
           <tr><td>A licence key you already hold</td><td>You press “Remove from this Mac”</td><td>The same service</td><td>Freeing one of the two Macs your licence covers</td></tr>
+          <tr><td>Three events about the trial, each with an app version, a macOS major and minor version, and a random number made at install</td><td>A trial starts, the app asks for an e-mail address, or it puts the prices on screen — unless you switch this off</td><td>The same service</td><td>Counting how many people reach the wall and how many get past it</td></tr>
         </tbody>
       </table>
     </div>
-    <p>That is the complete list. There is no fourth row. The activation request has exactly two fields — <code>email</code> and <code>device</code> — and an automated test fails the moment a third is added. That is how this page stays true.</p>
+    <p>That is the complete list. There is no fifth row. The activation request has exactly two fields — <code>email</code> and <code>device</code> — and an automated test fails the moment a third is added. That is how this page stays true.</p>
     <p>The device identifier is a salted SHA-256 of your Mac&apos;s hardware identifier, truncated to 128 bits. It cannot be turned back into a serial number, it applies only to this app, and it matches nothing outside it. It exists so that a licence covers two Macs rather than any number of them.</p>
     <p>The connection is HTTPS. An endpoint without encryption makes the app report itself as unconfigured rather than send an address in the clear, and no build has a setting that relaxes that.</p>
     <p>The declaration you make in the app before a checkout opens — that the key be delivered immediately, and that this gives up the right of withdrawal — is <strong>not</strong> transmitted. It is recorded in the local system log on your Mac and nowhere else.</p>
+
+    <h2>4a. The three product events, field by field</h2>
+    <p>Witness builds ten events about the licensing funnel. <strong>Three of them are sent</strong> — <code>trial_started</code>, <code>activation_requested</code> and <code>paywall_shown</code>. The other seven are written to the local system log on your Mac and go nowhere.</p>
+    <p>Each message is exactly this, and nothing else:</p>
+    <pre><code>{'{"app_version":"0.4.0","event":"trial_started","install_id":"<a random UUID>","system_version":"15.0"}'}</code></pre>
+    <p><code>paywall_shown</code> adds one more field, <code>qualifier</code>, whose value is one of four fixed words describing why the prices were shown. There is no sixth field, and an automated test fails if one is added without this page naming it.</p>
+    <ul>
+      <li><strong><code>install_id</code></strong> is a random value created once, when you install the app. It is derived from nothing — not from this Mac, not from you, not from your licence — so it cannot be joined to the device identifier above, to your e-mail address, or to anything outside this product.</li>
+      <li><strong><code>app_version</code></strong> and <strong><code>system_version</code></strong> are what they say. The macOS version is major and minor only, because a rare build number is an identifier.</li>
+      <li><strong><code>event</code></strong> and <strong><code>qualifier</code></strong> are drawn from fixed lists in the app, and the service refuses anything outside them. Nothing you dictate is in this and nothing could be: there are five fields and none of them can hold a word you said.</li>
+    </ul>
+    <p><strong>Turning it off</strong>: Settings → Privacy, one switch, which is on when you install the app. The first-run screen says so before the first of these events can happen. Off means none of the three is sent, and nothing else about the app changes.</p>
+    <p><strong>Legal basis</strong>: Art. 6(1)(f) GDPR. Our legitimate interest is knowing where people stop using a product we are asking them to pay for; the interest is weighed against an identifier that is deliberately unlinkable to you and a message that cannot carry content. You can object at any time with the switch above, with no consequence for the trial, the licence, or dictation.</p>
+    <p><strong>Retention</strong>: 90 days, then the rows are deleted. No IP address is stored for these events.</p>
 
     <h2>5. The activation service</h2>
     <p><strong>Purpose</strong>: to issue a licence key, mail it to you, recognise you when you activate a second Mac or replace one, and enforce the two-device limit.</p>
@@ -83,9 +98,9 @@ export default function PrivacyPage() {
     <h2>10. The speech model</h2>
     <p>When you press “Prepare speech model…”, the app fetches the model from the public repository <code>argmaxinc/whisperkit-coreml</code> at Hugging Face. Hugging Face thereby learns the technical connection data of that request, in particular your IP address. Nothing is uploaded, and the request contains nothing about who you are. The legal basis is Art. 6(1)(b) GDPR, because there is no recognition without a model. Hugging Face&apos;s own privacy policy applies to that fetch.</p>
 
-    <h2>11. No telemetry</h2>
-    <p>The app builds ten events about the licensing journey — installed, trial started, key requested and so on — carrying the app version, the major macOS version and a random identifier created at install. <strong>None of them is transmitted.</strong> They are written to the local system log and stay there.</p>
-    <p>The type they are built from has no free-text field anywhere, so there is nothing a transcript could end up in even by accident. If that ever changes, it changes with consent asked for in the app and with a new row in the table in section 4 — not quietly.</p>
+    <h2>11. The seven events that are not transmitted</h2>
+    <p>The app builds ten events about the licensing journey — installed, trial started, key requested and so on. <strong>Three of them are sent</strong>, and section 4a says exactly which and exactly what is in them. <strong>The other seven are not transmitted</strong>: they are written to the local system log on your Mac and stay there.</p>
+    <p>The type they are built from has no free-text field anywhere, so there is nothing a transcript could end up in even by accident. Any further change happens with a new row in the table in section 4 and a switch you can reach — not quietly.</p>
     <p>We collect no crash reports. macOS may offer to send Apple a report; that is between you and Apple, and this app neither reads it nor asks for it.</p>
 
     <h2>12. No automated decision-making</h2>
