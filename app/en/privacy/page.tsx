@@ -1,14 +1,21 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { LegalShell } from "../../_components/LegalShell";
-import { analyticsEnabled, getAnalyticsConfig } from "../../_lib/analytics";
+import { analyticsEnabled, analyticsProducts, getAnalyticsConfig } from "../../_lib/analytics";
 import { legalPaths } from "../../_lib/legal";
 
 export const metadata: Metadata = { title: "Privacy · Witness", description: "Privacy policy for the website, the Witness app, and the activation service.", robots: { index: false, follow: false } };
 
 export default function PrivacyPage() {
   // Mirrors the German page: section 8 describes the tags that are configured.
-  const measuring = analyticsEnabled(getAnalyticsConfig());
+  const configuration = getAnalyticsConfig();
+  const measuring = analyticsEnabled(configuration);
+  const { analytics, ads } = analyticsProducts(configuration);
+  const tools = analytics && ads
+    ? <><strong>Google Analytics 4</strong> and the <strong>Google Ads conversion tag</strong></>
+    : analytics
+      ? <><strong>Google Analytics 4</strong></>
+      : <>the <strong>Google Ads conversion tag</strong></>;
   return <LegalShell
     locale="en"
     page="privacy"
@@ -92,12 +99,12 @@ export default function PrivacyPage() {
 
     <h2>8. This website</h2>
     {measuring ? <>
-    <p>This page uses <strong>Google Analytics 4</strong> and the <strong>Google Ads conversion tag</strong> to measure which ad and which search term led to a visit and to a requested licence. The provider is Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Ireland.</p>
+    <p>This page uses {tools} to measure which ad and which search term led to a visit and to a requested licence. The provider is Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Ireland.</p>
     <p><strong>Without your consent</strong> nothing is stored on your device and nothing is read from it. Measurement still happens, but without recognition: the tag sends a shortened IP address, the page viewed, device and browser, and the ad click identifier from the address bar. The legal basis is Art. 6(1)(f) GDPR; our legitimate interest is knowing what we are paying for advertising for. You may object under Art. 21 GDPR.</p>
     <p><strong>With your consent</strong> Google Analytics and Google Ads may additionally set and read cookies and connect your visits to one another. The legal basis is § 25(1) TDDDG for the storage on your device and Art. 6(1)(a) GDPR for the processing. Your decision sits in your browser&apos;s local storage under <code>witness.consent</code>; you can change it at any time through <em>Cookie settings</em> in the footer of every page, with effect for the future.</p>
     <p><strong>When you request a key</strong>, the page passes your e-mail address as an <em>enhanced conversion</em>: the Google script hashes it inside your browser and only that hash is sent, so that an ad can be matched to the request without transmitting the address itself.</p>
     <p><strong>What is not processed</strong>: anything from the app. No audio, no transcript, no vocabulary, none of the applications you dictate into. The app carries none of these tags, and the events in section 4a go to our own service and not to Google.</p>
-    <p><strong>Retention</strong>: the cookies expire after at most 24 months; in Google Analytics user and event data is deleted after 14 months.</p>
+    <p><strong>Retention</strong>: the cookies expire after at most 24 months{analytics ? "; in Google Analytics user and event data is deleted after 14 months" : ""}.</p>
     <p><strong>Third country</strong>: Google also processes data in the United States. This rests on the European Commission&apos;s standard contractual clauses and on the adequacy decision for the EU-US Data Privacy Framework, under which Google LLC is certified. Access by US authorities cannot be ruled out.</p>
     </> : <p>This website currently loads <strong>no analytics, advertising or tracking scripts</strong> and sets <strong>no cookies</strong>. There is therefore no consent banner either: there would be nothing to consent to.</p>}
     <p>It embeds no fonts, maps or videos from third-party servers.</p>

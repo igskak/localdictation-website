@@ -42,3 +42,14 @@ export function getAnalyticsConfig(): AnalyticsConfig {
 export function analyticsEnabled(config: AnalyticsConfig): boolean {
   return Boolean(config.measurementId || config.adsConversionId);
 }
+
+/**
+ * Which of the two is actually running.
+ *
+ * The privacy policy names products, and naming one that is switched off is
+ * the same failure as staying silent about one that is on -- so the sentence
+ * is built from this rather than written out once and left to rot.
+ */
+export function analyticsProducts(config: AnalyticsConfig): { analytics: boolean; ads: boolean } {
+  return { analytics: Boolean(config.measurementId), ads: Boolean(config.adsConversionId) };
+}

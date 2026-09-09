@@ -386,6 +386,30 @@ test("declares the measurement it is configured for, in both languages, and asks
   }
 });
 
+test("names only the measurement that is actually configured", async () => {
+  // Ads without Analytics is the state the account reaches first, and the
+  // policy may not name a product that is switched off.
+  const originals = { GA4_MEASUREMENT_ID: process.env.GA4_MEASUREMENT_ID, ADS_CONVERSION_ID: process.env.ADS_CONVERSION_ID, ADS_LEAD_CONVERSION_LABEL: process.env.ADS_LEAD_CONVERSION_LABEL };
+  delete process.env.GA4_MEASUREMENT_ID;
+  process.env.ADS_CONVERSION_ID = "AW-123456789";
+  process.env.ADS_LEAD_CONVERSION_LABEL = "abcdeFGHij_klm";
+  try {
+    const datenschutz = await (await render("/datenschutz")).text();
+    assert.match(datenschutz, /Conversion-Tag von Google Ads/);
+    assert.doesNotMatch(datenschutz, /Google Analytics 4/);
+    assert.doesNotMatch(datenschutz, /nach 14 Monaten/);
+
+    const privacy = await (await render("/en/privacy")).text();
+    assert.match(privacy, /Google Ads conversion tag/);
+    assert.doesNotMatch(privacy, /Google Analytics 4/);
+  } finally {
+    for (const [key, value] of Object.entries(originals)) {
+      if (value === undefined) delete process.env[key];
+      else process.env[key] = value;
+    }
+  }
+});
+
 test("ignores measurement identifiers that are not shaped like identifiers", async () => {
   const original = process.env.GA4_MEASUREMENT_ID;
   process.env.GA4_MEASUREMENT_ID = "G-<script>alert(1)</script>";
