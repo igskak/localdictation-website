@@ -66,13 +66,14 @@ export function ConsentGate({ config, locale }: { config: GtagConfig; locale: Lo
   if (!hydrated || (stored !== null && !reopened)) return null;
 
   const privacy = legalPaths[legalLocale(locale)].privacy;
+  const tools = config.measurementId && config.adsConversionId ? c.tools.both : config.measurementId ? c.tools.analytics : c.tools.ads;
 
   return (
     <aside className="consent-banner" role="dialog" aria-modal="false" aria-label={c.region} lang={locale}>
       <div className="consent-inner">
         <div className="consent-text">
           <h2>{c.title}</h2>
-          <p>{c.body}</p>
+          <p>{c.body(tools)}</p>
           <a href={privacy} hrefLang={legalLocale(locale)}>{c.privacyLink}</a>
         </div>
         <div className="consent-actions">
