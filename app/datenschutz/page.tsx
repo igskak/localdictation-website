@@ -3,7 +3,7 @@ import Link from "next/link";
 import { LegalShell } from "../_components/LegalShell";
 import { analyticsEnabled, analyticsProducts, getAnalyticsConfig } from "../_lib/analytics";
 import { safeLeadEndpoint } from "../_lib/urlPolicy";
-import { posthogCookieMonths, posthogEventMonths } from "../_lib/retention";
+import { posthogCookieMonths } from "../_lib/retention";
 
 export const metadata: Metadata = { title: "Datenschutz · Witness", description: "Datenschutzerklärung für die Website, die App Witness und den Aktivierungsdienst.", robots: { index: false, follow: false } };
 
@@ -26,7 +26,8 @@ export default function DatenschutzPage() {
     google && "die Cookies von Google laufen nach längstens 24 Monaten ab",
     analytics && "in Google Analytics werden Nutzer- und Ereignisdaten nach 14 Monaten gelöscht",
     product && `die Kennung von PostHog läuft nach ${posthogCookieMonths} Monaten ab`,
-    product && `die Ereignisse in PostHog werden nach ${posthogEventMonths} Monaten gelöscht`,
+    product && "die Ereignisse in PostHog löschen wir, sobald sie für diesen Zweck nicht mehr gebraucht werden, spätestens mit der Schließung des Projekts — eine automatische Löschfrist bietet PostHog nicht an, und wir nennen hier keine, die wir nicht einhalten könnten",
+    product && "auf Verlangen löschen wir die zu dir gehörenden Ereignisse, siehe Abschnitt 14",
   ].filter((frist): frist is string => Boolean(frist)).join("; ");
   // Was mit Einwilligung überhaupt etwas ablegen darf, in einem Satzteil.
   const speicherer = [analytics && "Google Analytics", ads && "Google Ads", product && "PostHog"]

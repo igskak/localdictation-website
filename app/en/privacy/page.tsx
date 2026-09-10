@@ -3,7 +3,7 @@ import Link from "next/link";
 import { LegalShell } from "../../_components/LegalShell";
 import { analyticsEnabled, analyticsProducts, getAnalyticsConfig } from "../../_lib/analytics";
 import { safeLeadEndpoint } from "../../_lib/urlPolicy";
-import { posthogCookieMonths, posthogEventMonths } from "../../_lib/retention";
+import { posthogCookieMonths } from "../../_lib/retention";
 import { legalPaths } from "../../_lib/legal";
 
 export const metadata: Metadata = { title: "Privacy · Witness", description: "Privacy policy for the website, the Witness app, and the activation service.", robots: { index: false, follow: false } };
@@ -25,7 +25,8 @@ export default function PrivacyPage() {
     google && "Google’s cookies expire after at most 24 months",
     analytics && "in Google Analytics user and event data is deleted after 14 months",
     product && `PostHog’s identifier expires after ${posthogCookieMonths} months`,
-    product && `the events in PostHog are deleted after ${posthogEventMonths} months`,
+    product && "the events in PostHog are deleted once they are no longer needed for that purpose, and at the latest when the project is closed — PostHog offers no automatic retention period to configure, and we will not state one here that we could not keep",
+    product && "on request we delete the events belonging to you, see section 14",
   ].filter((period): period is string => Boolean(period)).join("; ");
   // What may store anything at all once consent is given, as one phrase.
   const storers = [analytics && "Google Analytics", ads && "Google Ads", product && "PostHog"]

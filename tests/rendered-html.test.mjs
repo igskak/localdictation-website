@@ -429,6 +429,13 @@ test("declares the measurement it is configured for, in both languages, and asks
     for (const claim of ["PostHog, Inc.", "EU Cloud", "Frankfurt am Main", "Session recording is switched off", "witnessmac.com/ingest"]) {
       assert.ok(privacy.includes(claim), `the English privacy policy must state ${claim}`);
     }
+    // PostHog Cloud has no retention setting: a plan guarantees that data is
+    // kept for a year, which is not a promise that it is deleted after one.
+    // So the policies may state the criterion, and may not state a period.
+    assert.match(privacy, /no automatic retention period to configure/);
+    assert.doesNotMatch(privacy, /events in PostHog are deleted after \d+ months/);
+    assert.match(datenschutz, /eine automatische Löschfrist bietet PostHog nicht an/);
+    assert.doesNotMatch(datenschutz, /Ereignisse in PostHog werden nach \d+ Monaten gelöscht/);
     for (const claim of ["PostHog, Inc.", "EU Cloud", "Frankfurt am Main", "Sitzungsaufzeichnungen sind abgeschaltet", "witnessmac.com/ingest"]) {
       assert.ok(datenschutz.includes(claim), `the privacy policy must state ${claim}`);
     }
