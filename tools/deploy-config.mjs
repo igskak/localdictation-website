@@ -31,9 +31,7 @@ const VARS = {
   // looks exactly like a campaign that stopped working. Paste the three
   // identifiers from the Google Ads and Analytics accounts and deploy; until
   // then the site loads no tag and both privacy policies say so.
-  // GA4 has no property for witnessmac.com yet; until it does, the policy
-  // names Google Ads alone, because that is what runs.
-  // GA4_MEASUREMENT_ID: "G-XXXXXXXXXX",
+  GA4_MEASUREMENT_ID: "G-CWNBL1TC3B",
   ADS_CONVERSION_ID: "AW-18439722393",
   ADS_LEAD_CONVERSION_LABEL: "8apHCIq59vEcEJmr39hE",
 };
