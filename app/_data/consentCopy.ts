@@ -8,7 +8,16 @@ export type ConsentCopy = {
   /** The line about dictation itself. Not consent information -- hidden where the banner
    *  would otherwise cover the page it sits on. See `.consent-aside` in globals.css. */
   reassurance: string;
-  tools: { both: string; analytics: string; ads: string };
+  /**
+   * One name per product, joined by `and` in the order they are declared.
+   *
+   * A fixed "both" string could only ever describe two products, and there are
+   * three. The banner may not name one that is switched off, so the phrase is
+   * built from what is configured rather than picked from a list of cases.
+   */
+  tools: { analytics: string; ads: string; product: string };
+  /** The word before the last item. German "und", and so on -- there is no library for this here. */
+  and: string;
   accept: string;
   decline: string;
   privacyLink: string;
@@ -28,7 +37,8 @@ export const consentCopy: Record<Locale, ConsentCopy> = {
     title: "Dürfen wir Cookies für die Messung setzen?",
     body: (tools) => `Dafür werden Daten von ${tools} verarbeitet, auch in den USA. Stimmst du zu, dürfen Cookies auf deinem Gerät gespeichert werden; lehnst du ab, wird nichts gespeichert und die Messung bleibt anonym.`,
     reassurance: "Was du in Witness diktierst, ist davon in keinem Fall berührt — das verlässt deinen Mac nicht.",
-    tools: { both: "Google Analytics und Google Ads", analytics: "Google Analytics", ads: "Google Ads" },
+    tools: { analytics: "Google Analytics", ads: "Google Ads", product: "PostHog" },
+    and: "und",
     accept: "Einverstanden",
     decline: "Ablehnen",
     privacyLink: "Was genau gemessen wird",
@@ -39,7 +49,8 @@ export const consentCopy: Record<Locale, ConsentCopy> = {
     title: "May we set cookies for measurement?",
     body: (tools) => `Data is processed for that by ${tools}, including in the United States. Agree and cookies may be stored on your device; decline and nothing is stored and the measurement stays anonymous.`,
     reassurance: "What you dictate in Witness is untouched either way — it does not leave your Mac.",
-    tools: { both: "Google Analytics and Google Ads", analytics: "Google Analytics", ads: "Google Ads" },
+    tools: { analytics: "Google Analytics", ads: "Google Ads", product: "PostHog" },
+    and: "and",
     accept: "Agree",
     decline: "Decline",
     privacyLink: "What exactly is measured",
@@ -50,7 +61,8 @@ export const consentCopy: Record<Locale, ConsentCopy> = {
     title: "Можно ставить cookies для измерений?",
     body: (tools) => `Для этого данные обрабатываются сервисами ${tools}, в том числе в США. Согласие разрешает хранить cookies на вашем устройстве; при отказе ничего не сохраняется, а измерение остаётся анонимным.`,
     reassurance: "То, что вы диктуете в Witness, это не затрагивает ни при каком выборе — оно не покидает ваш Mac.",
-    tools: { both: "Google Analytics и Google Ads", analytics: "Google Analytics", ads: "Google Ads" },
+    tools: { analytics: "Google Analytics", ads: "Google Ads", product: "PostHog" },
+    and: "и",
     accept: "Согласен",
     decline: "Отказаться",
     privacyLink: "Что именно измеряется",
@@ -61,7 +73,8 @@ export const consentCopy: Record<Locale, ConsentCopy> = {
     title: "Можна ставити cookies для вимірювань?",
     body: (tools) => `Для цього дані обробляються сервісами ${tools}, зокрема у США. Згода дозволяє зберігати cookies на вашому пристрої; за відмови нічого не зберігається, а вимірювання залишається анонімним.`,
     reassurance: "Те, що ви диктуєте у Witness, це не зачіпає за жодного вибору — воно не залишає ваш Mac.",
-    tools: { both: "Google Analytics і Google Ads", analytics: "Google Analytics", ads: "Google Ads" },
+    tools: { analytics: "Google Analytics", ads: "Google Ads", product: "PostHog" },
+    and: "і",
     accept: "Погоджуюсь",
     decline: "Відмовитись",
     privacyLink: "Що саме вимірюється",

@@ -11,6 +11,11 @@ const projectRoot = new URL("../", import.meta.url);
 // can actually be received. The opposite state is asserted on its own below.
 process.env.LEAD_ENDPOINT ??= "https://api.example/v1/leads";
 
+// Shaped like a real PostHog project key, because `analytics.ts` refuses
+// anything that is not: a test that configures an invalid key would assert
+// that the policy stays silent and pass for the wrong reason.
+const TEST_POSTHOG_KEY = "phc_Ab3kQ9zR7mT2wX5vY8nL4jH6gD1sF0pC9eU";
+
 const legalRoutes = ["/agb", "/widerruf", "/datenschutz", "/impressum", "/lizenzen"];
 const legalRoutesEn = ["/en/terms", "/en/cancellation", "/en/privacy", "/en/legal-notice", "/en/licences"];
 const comparisonPaths = [
@@ -317,6 +322,7 @@ test("states the business model the same way in the legal text and on the landin
   // With no measurement configured the policy has to say the site sets none.
   assert.match(datenschutz, /keine Cookies/);
   assert.doesNotMatch(datenschutz, /Google Analytics 4/);
+  assert.doesNotMatch(datenschutz, /PostHog/);
   assert.match(datenschutz, /Úřad pro ochranu osobních údajů/);
 
   const lizenzen = await (await render("/lizenzen")).text();
@@ -361,6 +367,7 @@ test("the English legal set says the same thing as the German one", async () => 
   assert.match(privacy, /Settings → Privacy/);
   assert.match(privacy, /no cookies/);
   assert.doesNotMatch(privacy, /Google Analytics 4/);
+  assert.doesNotMatch(privacy, /PostHog/);
   assert.match(privacy, /Úřad pro ochranu osobních údajů/);
 
   const licences = await (await render("/en/licences")).text();
@@ -385,10 +392,12 @@ test("declares the measurement it is configured for, in both languages, and asks
     GA4_MEASUREMENT_ID: process.env.GA4_MEASUREMENT_ID,
     ADS_CONVERSION_ID: process.env.ADS_CONVERSION_ID,
     ADS_LEAD_CONVERSION_LABEL: process.env.ADS_LEAD_CONVERSION_LABEL,
+    POSTHOG_KEY: process.env.POSTHOG_KEY,
   };
   process.env.GA4_MEASUREMENT_ID = "G-TEST12345";
   process.env.ADS_CONVERSION_ID = "AW-123456789";
   process.env.ADS_LEAD_CONVERSION_LABEL = "abcdeFGHij_klm";
+  process.env.POSTHOG_KEY = TEST_POSTHOG_KEY;
   try {
     const datenschutz = await (await render("/datenschutz")).text();
     assert.match(datenschutz, /Google Analytics 4/);
@@ -413,10 +422,62 @@ test("declares the measurement it is configured for, in both languages, and asks
     assert.match(privacy, /Without your consent/);
     assert.match(privacy, /With your consent/);
 
+    // PostHog is a processor in a second country with a second storage model,
+    // so the paragraph may not reduce to naming it. These four are the claims
+    // that make the disclosure worth reading: who, where, that the identifier
+    // is optional, and that no replay is running.
+    for (const claim of ["PostHog, Inc.", "EU Cloud", "Frankfurt am Main", "Session recording is switched off", "witnessmac.com/ingest"]) {
+      assert.ok(privacy.includes(claim), `the English privacy policy must state ${claim}`);
+    }
+    for (const claim of ["PostHog, Inc.", "EU Cloud", "Frankfurt am Main", "Sitzungsaufzeichnungen sind abgeschaltet", "witnessmac.com/ingest"]) {
+      assert.ok(datenschutz.includes(claim), `the privacy policy must state ${claim}`);
+    }
+    // An entity that survives into the page is a string literal that was
+    // written as if it were JSX text. It renders as itself, in a legal text.
+    assert.doesNotMatch(datenschutz, /&apos;|&amp;apos;/);
+    assert.doesNotMatch(privacy, /&apos;|&amp;apos;/);
+
     // The identifiers reach the browser, because the banner needs them once
     // the reader agrees; the conversion label is not a secret either.
     const danke = await (await render("/danke")).text();
     assert.ok(danke.includes("G-TEST12345"), "the thank-you page must carry the measurement id for the tag it may load");
+    assert.ok(danke.includes(TEST_POSTHOG_KEY), "the thank-you page must carry the project key for the library it may load");
+  } finally {
+    for (const [key, value] of Object.entries(originals)) {
+      if (value === undefined) delete process.env[key];
+      else process.env[key] = value;
+    }
+  }
+});
+
+test("names PostHog on its own, without borrowing Google's paragraph", async () => {
+  // PostHog first and Google later is a real order to arrive in: product
+  // analytics costs nothing to start and the ad account is a decision. The
+  // section then may not claim an ad measurement that is not running.
+  const originals = {
+    GA4_MEASUREMENT_ID: process.env.GA4_MEASUREMENT_ID,
+    ADS_CONVERSION_ID: process.env.ADS_CONVERSION_ID,
+    ADS_LEAD_CONVERSION_LABEL: process.env.ADS_LEAD_CONVERSION_LABEL,
+    POSTHOG_KEY: process.env.POSTHOG_KEY,
+  };
+  delete process.env.GA4_MEASUREMENT_ID;
+  delete process.env.ADS_CONVERSION_ID;
+  delete process.env.ADS_LEAD_CONVERSION_LABEL;
+  process.env.POSTHOG_KEY = TEST_POSTHOG_KEY;
+  try {
+    const datenschutz = await (await render("/datenschutz")).text();
+    assert.match(datenschutz, /PostHog/);
+    assert.doesNotMatch(datenschutz, /Google Analytics 4/);
+    assert.doesNotMatch(datenschutz, /Conversion-Tag von Google Ads/);
+    // The banner exists because PostHog may store something once agreed to.
+    assert.doesNotMatch(datenschutz, /keine Cookies/);
+    assert.match(datenschutz, /§ 25 Abs. 1 TDDDG/);
+
+    const privacy = await (await render("/en/privacy")).text();
+    assert.match(privacy, /PostHog/);
+    assert.doesNotMatch(privacy, /Google Analytics 4/);
+    assert.doesNotMatch(privacy, /Google Ads conversion tag/);
+    assert.doesNotMatch(privacy, /no cookies/);
   } finally {
     for (const [key, value] of Object.entries(originals)) {
       if (value === undefined) delete process.env[key];
@@ -428,8 +489,9 @@ test("declares the measurement it is configured for, in both languages, and asks
 test("names only the measurement that is actually configured", async () => {
   // Ads without Analytics is the state the account reaches first, and the
   // policy may not name a product that is switched off.
-  const originals = { GA4_MEASUREMENT_ID: process.env.GA4_MEASUREMENT_ID, ADS_CONVERSION_ID: process.env.ADS_CONVERSION_ID, ADS_LEAD_CONVERSION_LABEL: process.env.ADS_LEAD_CONVERSION_LABEL };
+  const originals = { GA4_MEASUREMENT_ID: process.env.GA4_MEASUREMENT_ID, ADS_CONVERSION_ID: process.env.ADS_CONVERSION_ID, ADS_LEAD_CONVERSION_LABEL: process.env.ADS_LEAD_CONVERSION_LABEL, POSTHOG_KEY: process.env.POSTHOG_KEY };
   delete process.env.GA4_MEASUREMENT_ID;
+  delete process.env.POSTHOG_KEY;
   process.env.ADS_CONVERSION_ID = "AW-123456789";
   process.env.ADS_LEAD_CONVERSION_LABEL = "abcdeFGHij_klm";
   try {
@@ -441,6 +503,7 @@ test("names only the measurement that is actually configured", async () => {
     const privacy = await (await render("/en/privacy")).text();
     assert.match(privacy, /Google Ads conversion tag/);
     assert.doesNotMatch(privacy, /Google Analytics 4/);
+    assert.doesNotMatch(privacy, /PostHog/);
   } finally {
     for (const [key, value] of Object.entries(originals)) {
       if (value === undefined) delete process.env[key];
@@ -626,4 +689,57 @@ test("removes all disposable starter-preview code", async () => {
   assert.doesNotMatch(packageJson, /react-loading-skeleton/);
   await assert.rejects(access(new URL("app/_sites-preview/SkeletonPreview.tsx", projectRoot)));
   await assert.rejects(access(new URL("app/_sites-preview/preview.css", projectRoot)));
+});
+
+test("forwards the analytics prefix to PostHog's EU region, without the cookie jar", async () => {
+  // The proxy is the one piece no rendered page can show. It is also the piece
+  // whose failure is invisible: a broken prefix means every event 404s and the
+  // dashboard is simply empty, which looks exactly like having no visitors.
+  //
+  // The upstream is not called here. What is asserted is what the request is
+  // turned into, because that is what section 8 of both policies describes.
+  const workerUrl = new URL("../dist/server/index.js", import.meta.url);
+  workerUrl.searchParams.set("test", `proxy-${process.pid}-${Math.random()}`);
+  const { default: worker } = await import(workerUrl.href);
+
+  const seen = [];
+  const realFetch = globalThis.fetch;
+  globalThis.fetch = async (request) => {
+    seen.push(request);
+    return new Response("{}", { status: 200, headers: { "content-type": "application/json" } });
+  };
+  try {
+    const env = { ASSETS: { fetch: async () => new Response("Not found", { status: 404 }) } };
+    const ctx = { waitUntil() {}, passThroughOnException() {} };
+
+    const captured = await worker.fetch(
+      new Request("http://localhost/ingest/e/?ip=1", {
+        method: "POST",
+        body: "{}",
+        headers: { cookie: "witness.consent=granted", "cf-connecting-ip": "203.0.113.7", "content-type": "application/json" },
+      }),
+      env,
+      ctx,
+    );
+    assert.equal(captured.status, 200);
+    assert.equal(seen.length, 1);
+    assert.equal(seen[0].url, "https://eu.i.posthog.com/e/?ip=1");
+    // The reader's own cookies are not a processor's business -- least of all
+    // the answer they gave this site's consent banner.
+    assert.equal(seen[0].headers.get("cookie"), null);
+    // Without this every reader resolves to one Cloudflare address, and the
+    // country column becomes a single row. The policies say it is passed on.
+    assert.equal(seen[0].headers.get("x-forwarded-for"), "203.0.113.7");
+
+    // PostHog serves its own bundles from a second host; routing those at the
+    // ingest host returns 404 for each one.
+    await worker.fetch(new Request("http://localhost/ingest/static/array.js"), env, ctx);
+    assert.equal(seen[1].url, "https://eu-assets.i.posthog.com/static/array.js");
+
+    // A path that merely starts with the same letters is the app's, not the proxy's.
+    await worker.fetch(new Request("http://localhost/ingested"), env, ctx);
+    assert.equal(seen.length, 2, "/ingested is a page, not the analytics prefix");
+  } finally {
+    globalThis.fetch = realFetch;
+  }
 });

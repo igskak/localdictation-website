@@ -3,6 +3,7 @@ import Link from "next/link";
 import { LegalShell } from "../_components/LegalShell";
 import { analyticsEnabled, analyticsProducts, getAnalyticsConfig } from "../_lib/analytics";
 import { safeLeadEndpoint } from "../_lib/urlPolicy";
+import { posthogCookieMonths, posthogEventMonths } from "../_lib/retention";
 
 export const metadata: Metadata = { title: "Datenschutz · Witness", description: "Datenschutzerklärung für die Website, die App Witness und den Aktivierungsdienst.", robots: { index: false, follow: false } };
 
@@ -12,7 +13,27 @@ export default function DatenschutzPage() {
   // measurement that is not running.
   const konfiguration = getAnalyticsConfig();
   const messung = analyticsEnabled(konfiguration);
-  const { analytics, ads } = analyticsProducts(konfiguration);
+  const { analytics, ads, product } = analyticsProducts(konfiguration);
+  // Die beiden Google-Tags beschreibt derselbe Absatz; PostHog hat einen
+  // eigenen, weil es eine andere Frage beantwortet und ein anderer Anbieter
+  // ist. Ohne Google darf der Google-Absatz gar nicht erscheinen.
+  const google = analytics || ads;
+  // Eine Frist je Sache, die eine hat. Als Liste, weil ein Satz mit
+  // ausgeschalteten Zweigen sonst sagen müsste, was es *nicht* gibt -- und
+  // "keine Cookies" ist in diesem Dokument die Aussage, dass diese Seite
+  // überhaupt nicht misst. Sie darf hier nicht versehentlich entstehen.
+  const speicherfristen = [
+    google && "die Cookies von Google laufen nach längstens 24 Monaten ab",
+    analytics && "in Google Analytics werden Nutzer- und Ereignisdaten nach 14 Monaten gelöscht",
+    product && `die Kennung von PostHog läuft nach ${posthogCookieMonths} Monaten ab`,
+    product && `die Ereignisse in PostHog werden nach ${posthogEventMonths} Monaten gelöscht`,
+  ].filter((frist): frist is string => Boolean(frist)).join("; ");
+  // Was mit Einwilligung überhaupt etwas ablegen darf, in einem Satzteil.
+  const speicherer = [analytics && "Google Analytics", ads && "Google Ads", product && "PostHog"]
+    .filter((name): name is string => Boolean(name));
+  const speichererSatz = speicherer.length > 1
+    ? `${speicherer.slice(0, -1).join(", ")} und ${speicherer[speicherer.length - 1]}`
+    : speicherer[0];
   // Ohne Endpunkt gibt es kein Formular und damit keine Adresse, die als
   // Enhanced Conversion übergeben werden könnte.
   const formular = Boolean(safeLeadEndpoint(process.env.LEAD_ENDPOINT));
@@ -103,13 +124,15 @@ export default function DatenschutzPage() {
 
     <h2>8. Diese Website</h2>
     {messung ? <>
-    <p>Diese Seite misst mit {werkzeuge}, welche Anzeige und welcher Suchbegriff zu einem Besuch und zu einer angeforderten Lizenz geführt haben. Anbieter ist Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland.</p>
-    <p><strong>Ohne deine Einwilligung</strong> wird nichts auf deinem Gerät gespeichert und nichts von dort ausgelesen. Gemessen wird trotzdem, aber ohne Wiedererkennung: Das Tag sendet gekürzte IP-Adresse, aufgerufene Seite, Gerät und Browser sowie die Klickkennung der Anzeige aus der Adresszeile. Gemeldet wird dabei, dass die Downloadseite <code>/danke</code> geöffnet wurde{formular ? " und ob dort ein Schlüssel angefordert wurde" : ""}. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO; unser berechtigtes Interesse ist zu wissen, wofür wir Werbung bezahlen. Du kannst dem nach Art. 21 DSGVO widersprechen.</p>
-    <p><strong>Mit deiner Einwilligung</strong> dürfen Google Analytics und Google Ads zusätzlich Cookies setzen und auslesen und deine Besuche einander zuordnen. Rechtsgrundlage ist § 25 Abs. 1 TDDDG für das Speichern auf deinem Gerät und Art. 6 Abs. 1 lit. a DSGVO für die Verarbeitung. Deine Entscheidung liegt in der lokalen Ablage deines Browsers unter <code>witness.consent</code>; ändern kannst du sie jederzeit über <em>Cookie-Einstellungen</em> im Fuß jeder Seite, mit Wirkung für die Zukunft.</p>
+    {google && <p>Diese Seite misst mit {werkzeuge}, welche Anzeige und welcher Suchbegriff zu einem Besuch und zu einer angeforderten Lizenz geführt haben. Anbieter ist Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland.</p>}
+    {product && <><p>Mit <strong>PostHog</strong> messen wir außerdem, wie diese Seite benutzt wird: über welche Seite du hierher gekommen bist, welche Unterseiten du aufrufst, welche Knöpfe und Links du anklickst, wie weit du liest und ob der Download gestartet ist. Das beantwortet, woran diese Seite scheitert — nicht, wer du bist.</p>
+    <p>Anbieter ist die <strong>PostHog, Inc.</strong>, 2261 Market Street #4008, San Francisco, CA 94114, USA, für uns als Auftragsverarbeiter. Die Ereignisse werden in PostHogs <em>EU Cloud</em> in Frankfurt am Main verarbeitet und gespeichert. Die Anfragen laufen nicht direkt dorthin, sondern über <code>witnessmac.com/ingest</code> und damit über unseren eigenen Server: Deine IP-Adresse geben wir dabei weiter, damit das Land bestimmt werden kann, die Cookies dieser Seite dagegen nicht. <strong>Sitzungsaufzeichnungen sind abgeschaltet</strong> — es entsteht kein Video deines Besuchs und keine Aufnahme deiner Mausbewegungen.</p></>}
+    <p><strong>Ohne deine Einwilligung</strong> wird nichts auf deinem Gerät gespeichert und nichts von dort ausgelesen. Gemessen wird trotzdem, aber ohne Wiedererkennung: {google ? "Das Google-Tag sendet gekürzte IP-Adresse, aufgerufene Seite, Gerät und Browser sowie die Klickkennung der Anzeige aus der Adresszeile. " : ""}{product ? "PostHog läuft dann ganz ohne Ablage auf deinem Gerät — die Ereignisse eines Besuchs hängen nur so lange zusammen, wie der Tab offen ist, und beim nächsten Besuch bist du eine unbekannte Person. " : ""}Gemeldet wird dabei, dass die Downloadseite <code>/danke</code> geöffnet wurde{formular ? " und ob dort ein Schlüssel angefordert wurde" : ""}. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO; unser berechtigtes Interesse ist zu wissen, wofür wir Werbung bezahlen und woran diese Seite scheitert. Du kannst dem nach Art. 21 DSGVO widersprechen.</p>
+    <p><strong>Mit deiner Einwilligung</strong> dürfen {speichererSatz} zusätzlich Cookies setzen und auslesen und deine Besuche einander zuordnen{product ? "; PostHog legt seine Kennung unter dem Namen ph_…_posthog in der lokalen Ablage deines Browsers und in einem Cookie desselben Namens ab" : ""}. Rechtsgrundlage ist § 25 Abs. 1 TDDDG für das Speichern auf deinem Gerät und Art. 6 Abs. 1 lit. a DSGVO für die Verarbeitung. Deine Entscheidung liegt in der lokalen Ablage deines Browsers unter <code>witness.consent</code>; ändern kannst du sie jederzeit über <em>Cookie-Einstellungen</em> im Fuß jeder Seite, mit Wirkung für die Zukunft.{product ? " Widerrufst du sie, wird die Kennung von PostHog gelöscht und weiterhin ohne Ablage gemessen." : ""}</p>
     {formular && <p><strong>Wenn du einen Schlüssel anforderst</strong>, übergibt die Seite deine E-Mail-Adresse als <em>Enhanced Conversion</em>: Das Google-Skript bildet daraus noch in deinem Browser einen Hash, und nur dieser Hash wird gesendet — damit eine Anzeige der Anforderung zugeordnet werden kann, ohne die Adresse selbst zu übermitteln.</p>}
-    <p><strong>Was dabei nicht verarbeitet wird</strong>: nichts aus der App. Kein Audio, kein Transkript, kein Wörterbuch, keine Programme, in die du diktierst. Die App enthält keinen dieser Tags, und die Ereignisse aus Abschnitt 4a gehen an unseren eigenen Dienst und nicht an Google.</p>
-    <p><strong>Speicherdauer</strong>: Die Cookies laufen nach längstens 24 Monaten ab{analytics ? "; in Google Analytics werden Nutzer- und Ereignisdaten nach 14 Monaten gelöscht" : ""}.</p>
-    <p><strong>Drittland</strong>: Google verarbeitet Daten auch in den Vereinigten Staaten. Grundlage sind die Standardvertragsklauseln der Europäischen Kommission und der Angemessenheitsbeschluss zum EU-US Data Privacy Framework, unter dem Google LLC zertifiziert ist. Ein Zugriff US-amerikanischer Behörden lässt sich nicht ausschließen.</p>
+    <p><strong>Was dabei nicht verarbeitet wird</strong>: nichts aus der App. Kein Audio, kein Transkript, kein Wörterbuch, keine Programme, in die du diktierst. Die App enthält keinen dieser Tags, und die Ereignisse aus Abschnitt 4a gehen an unseren eigenen Dienst und nicht an Google{product ? " oder PostHog" : ""}.</p>
+    <p><strong>Speicherdauer</strong>: {speicherfristen}.</p>
+    <p><strong>Drittland</strong>: {google ? "Google verarbeitet Daten auch in den Vereinigten Staaten. Grundlage sind die Standardvertragsklauseln der Europäischen Kommission und der Angemessenheitsbeschluss zum EU-US Data Privacy Framework, unter dem Google LLC zertifiziert ist. " : ""}{product ? "PostHog speichert die Ereignisse dieser Seite in der Europäischen Union; Mutterkonzern ist die PostHog, Inc. in den Vereinigten Staaten, und Grundlage einer Übermittlung dorthin sind die Standardvertragsklauseln der Europäischen Kommission. " : ""}Ein Zugriff US-amerikanischer Behörden lässt sich nicht ausschließen.</p>
     </> : <p>Diese Website lädt derzeit <strong>keine Analyse-, Werbe- oder Tracking-Skripte</strong> und setzt <strong>keine Cookies</strong>. Es gibt deshalb auch kein Einwilligungsbanner: Es gäbe nichts, worin eingewilligt werden könnte.</p>}
     <p>Sie bindet keine Schriften, Karten oder Videos von fremden Servern ein.</p>
     <p>Sie wird von <strong>Cloudflare</strong> ausgeliefert (Auftragsverarbeiter). Beim Abruf verarbeitet die Infrastruktur die technisch notwendigen Verbindungsdaten — IP-Adresse, Zeitpunkt, angeforderte Adresse, übertragene Datenmenge, Statuscode und User-Agent —, um die Seite auszuliefern und den Betrieb gegen Angriffe abzusichern. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO; das berechtigte Interesse ist der sichere und funktionsfähige Betrieb der Website. Diese Verbindungsdaten werden nicht zu Profilen zusammengeführt und nicht mit anderen Daten verknüpft.</p>
@@ -131,7 +154,7 @@ export default function DatenschutzPage() {
     <p>Es findet keine automatisierte Entscheidungsfindung einschließlich Profiling im Sinne von Art. 22 DSGVO statt.</p>
 
     <h2>13. Übermittlung in Drittländer</h2>
-    <p>Cloudflare, Stripe, Resend, Amazon Web Services, Hugging Face und Google (Gmail, und bei erteilter Einwilligung Analytics und Ads) sind Unternehmen mit Sitz oder Mutterkonzern in den Vereinigten Staaten. Auch wo die Daten in der EU gespeichert werden — bei uns die Lizenztabelle in Cloudflares Region Osteuropa und der Mailversand über Irland —, ist ein Zugriff aus einem Drittland nicht ausgeschlossen. Solche Übermittlungen stützen wir auf die Standardvertragsklauseln der Europäischen Kommission und, soweit der jeweilige Anbieter danach zertifiziert ist, auf den Angemessenheitsbeschluss zum EU-US Data Privacy Framework.</p>
+    <p>Cloudflare, Stripe, Resend, Amazon Web Services, Hugging Face{product ? ", PostHog" : ""} und Google (Gmail, und bei erteilter Einwilligung Analytics und Ads) sind Unternehmen mit Sitz oder Mutterkonzern in den Vereinigten Staaten. Auch wo die Daten in der EU gespeichert werden — bei uns die Lizenztabelle in Cloudflares Region Osteuropa und der Mailversand über Irland —, ist ein Zugriff aus einem Drittland nicht ausgeschlossen. Solche Übermittlungen stützen wir auf die Standardvertragsklauseln der Europäischen Kommission und, soweit der jeweilige Anbieter danach zertifiziert ist, auf den Angemessenheitsbeschluss zum EU-US Data Privacy Framework.</p>
 
     <h2>14. Deine Rechte</h2>
     <ul>

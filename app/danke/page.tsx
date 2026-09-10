@@ -47,8 +47,8 @@ export default async function DankePage({ searchParams }: { searchParams: Promis
         <h1>{keyByMail ? c.title : c.titleInApp}</h1>
         <p>{downloadStarted ? c.body.started : previewMode ? c.body.preview : c.body.direct} {keyByMail ? c.trade.mail : c.trade.inApp}</p>
         {downloadStarted && <iframe className="download-frame" src={downloadPath} title={c.iframeTitle} aria-hidden="true" tabIndex={-1} />}
-        {downloadAvailable && <DownloadLink analytics={analytics} href={downloadPath} label={downloadStarted ? c.inlineDownload.again : c.inlineDownload.now} />}
-        <DownloadSignal analytics={analytics} started={downloadStarted} />
+        {downloadAvailable && <DownloadLink analytics={analytics} locale={locale} href={downloadPath} label={downloadStarted ? c.inlineDownload.again : c.inlineDownload.now} />}
+        <DownloadSignal analytics={analytics} started={downloadStarted} locale={locale} />
         </section>
         <section className="thanks-grid shell">
         {keyByMail && <ThankYouForm locale={locale} leadEndpoint={leadEndpoint} analytics={analytics} />}

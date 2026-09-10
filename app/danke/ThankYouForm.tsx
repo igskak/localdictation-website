@@ -4,11 +4,11 @@ import { FormEvent, useState, useSyncExternalStore } from "react";
 import { thanksCopy } from "../_data/thanksCopy";
 import type { Locale } from "../_lib/locale";
 import { legalLocale, legalPaths } from "../_lib/legal";
-import { type GtagConfig, reportLead } from "../_lib/gtag";
+import { type MeasureConfig, reportLead } from "../_lib/measure";
 
 const subscribeToHydration = () => () => {};
 
-export function ThankYouForm({ locale, leadEndpoint, analytics }: { locale: Locale; leadEndpoint: string | null; analytics: GtagConfig }) {
+export function ThankYouForm({ locale, leadEndpoint, analytics }: { locale: Locale; leadEndpoint: string | null; analytics: MeasureConfig }) {
   const c = thanksCopy[locale].form;
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");

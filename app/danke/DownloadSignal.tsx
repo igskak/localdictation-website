@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { type GtagConfig, reportDownload } from "../_lib/gtag";
+import { type MeasureConfig, reportDownload } from "../_lib/measure";
+import type { Locale } from "../_lib/locale";
 
 /**
  * Reports that the reader reached the page the file comes from.
@@ -12,21 +13,21 @@ import { type GtagConfig, reportDownload } from "../_lib/gtag";
  * like a second arrival -- while a deliberate click is reported every time,
  * because it is a deliberate click.
  */
-export function DownloadSignal({ analytics, started }: { analytics: GtagConfig; started: boolean }) {
+export function DownloadSignal({ analytics, started, locale }: { analytics: MeasureConfig; started: boolean; locale: Locale }) {
   const reported = useRef(false);
 
   useEffect(() => {
     if (!started || reported.current) return;
     reported.current = true;
-    reportDownload(analytics);
-  }, [started, analytics]);
+    reportDownload(analytics, "auto", locale);
+  }, [started, analytics, locale]);
 
   return null;
 }
 
-export function DownloadLink({ analytics, href, label }: { analytics: GtagConfig; href: string; label: string }) {
+export function DownloadLink({ analytics, href, label, locale }: { analytics: MeasureConfig; href: string; label: string; locale: Locale }) {
   return (
-    <a className="inline-download" href={href} onClick={() => reportDownload(analytics)}>
+    <a className="inline-download" href={href} onClick={() => reportDownload(analytics, "link", locale)}>
       {label} ↓
     </a>
   );

@@ -18,11 +18,19 @@ export type AnalyticsConfig = {
   adsLeadLabel: string | null;
   /** Label of the download-page conversion: observation only, never a bidding target. */
   adsDownloadLabel: string | null;
+  /**
+   * PostHog project key, `phc_` followed by the project's own characters.
+   *
+   * Public by construction: it ships inside the page like the two Google
+   * identifiers, and it can only write events into the project it names.
+   */
+  posthogKey: string | null;
 };
 
 const measurementPattern = /^G-[A-Z0-9]{4,20}$/i;
 const adsPattern = /^AW-\d{6,20}$/;
 const labelPattern = /^[A-Za-z0-9_-]{5,40}$/;
+const posthogPattern = /^phc_[A-Za-z0-9]{30,60}$/;
 
 function matched(value: string | null | undefined, pattern: RegExp): string | null {
   const candidate = value?.trim();
@@ -41,20 +49,25 @@ export function getAnalyticsConfig(): AnalyticsConfig {
     adsConversionId: reportable ? adsConversionId : null,
     adsLeadLabel: reportable ? adsLeadLabel : null,
     adsDownloadLabel: reportable ? adsDownloadLabel : null,
+    posthogKey: matched(process.env.POSTHOG_KEY, posthogPattern),
   };
 }
 
 export function analyticsEnabled(config: AnalyticsConfig): boolean {
-  return Boolean(config.measurementId || config.adsConversionId);
+  return Boolean(config.measurementId || config.adsConversionId || config.posthogKey);
 }
 
 /**
- * Which of the two is actually running.
+ * Which of the three is actually running.
  *
  * The privacy policy names products, and naming one that is switched off is
  * the same failure as staying silent about one that is on -- so the sentence
  * is built from this rather than written out once and left to rot.
  */
-export function analyticsProducts(config: AnalyticsConfig): { analytics: boolean; ads: boolean } {
-  return { analytics: Boolean(config.measurementId), ads: Boolean(config.adsConversionId) };
+export function analyticsProducts(config: AnalyticsConfig): { analytics: boolean; ads: boolean; product: boolean } {
+  return {
+    analytics: Boolean(config.measurementId),
+    ads: Boolean(config.adsConversionId),
+    product: Boolean(config.posthogKey),
+  };
 }

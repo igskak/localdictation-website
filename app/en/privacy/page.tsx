@@ -3,6 +3,7 @@ import Link from "next/link";
 import { LegalShell } from "../../_components/LegalShell";
 import { analyticsEnabled, analyticsProducts, getAnalyticsConfig } from "../../_lib/analytics";
 import { safeLeadEndpoint } from "../../_lib/urlPolicy";
+import { posthogCookieMonths, posthogEventMonths } from "../../_lib/retention";
 import { legalPaths } from "../../_lib/legal";
 
 export const metadata: Metadata = { title: "Privacy · Witness", description: "Privacy policy for the website, the Witness app, and the activation service.", robots: { index: false, follow: false } };
@@ -11,7 +12,27 @@ export default function PrivacyPage() {
   // Mirrors the German page: section 8 describes the tags that are configured.
   const configuration = getAnalyticsConfig();
   const measuring = analyticsEnabled(configuration);
-  const { analytics, ads } = analyticsProducts(configuration);
+  const { analytics, ads, product } = analyticsProducts(configuration);
+  // The two Google tags share a paragraph; PostHog gets its own, because it
+  // answers a different question and is a different provider. With no Google
+  // configured the Google paragraph may not appear at all.
+  const google = analytics || ads;
+  // One period per thing that has one. A list rather than a sentence, because
+  // a sentence with switched-off branches would have to say what there is
+  // *not* -- and "no cookies" is this document's way of saying the site does
+  // not measure at all. It may not appear here by accident.
+  const retentions = [
+    google && "Google’s cookies expire after at most 24 months",
+    analytics && "in Google Analytics user and event data is deleted after 14 months",
+    product && `PostHog’s identifier expires after ${posthogCookieMonths} months`,
+    product && `the events in PostHog are deleted after ${posthogEventMonths} months`,
+  ].filter((period): period is string => Boolean(period)).join("; ");
+  // What may store anything at all once consent is given, as one phrase.
+  const storers = [analytics && "Google Analytics", ads && "Google Ads", product && "PostHog"]
+    .filter((name): name is string => Boolean(name));
+  const storerPhrase = storers.length > 1
+    ? `${storers.slice(0, -1).join(", ")} and ${storers[storers.length - 1]}`
+    : storers[0];
   // No endpoint means no form, so no address exists to pass as an enhanced conversion.
   const form = Boolean(safeLeadEndpoint(process.env.LEAD_ENDPOINT));
   const tools = analytics && ads
@@ -102,13 +123,15 @@ export default function PrivacyPage() {
 
     <h2>8. This website</h2>
     {measuring ? <>
-    <p>This page uses {tools} to measure which ad and which search term led to a visit and to a requested licence. The provider is Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Ireland.</p>
-    <p><strong>Without your consent</strong> nothing is stored on your device and nothing is read from it. Measurement still happens, but without recognition: the tag sends a shortened IP address, the page viewed, device and browser, and the ad click identifier from the address bar. What is reported is that the download page <code>/danke</code> was opened{form ? ", and whether a key was requested there" : ""}. The legal basis is Art. 6(1)(f) GDPR; our legitimate interest is knowing what we are paying for advertising for. You may object under Art. 21 GDPR.</p>
-    <p><strong>With your consent</strong> Google Analytics and Google Ads may additionally set and read cookies and connect your visits to one another. The legal basis is § 25(1) TDDDG for the storage on your device and Art. 6(1)(a) GDPR for the processing. Your decision sits in your browser&apos;s local storage under <code>witness.consent</code>; you can change it at any time through <em>Cookie settings</em> in the footer of every page, with effect for the future.</p>
+    {google && <p>This page uses {tools} to measure which ad and which search term led to a visit and to a requested licence. The provider is Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Ireland.</p>}
+    {product && <><p>With <strong>PostHog</strong> we also measure how this page is used: which page you arrived from, which sub-pages you open, which buttons and links you click, how far you read, and whether the download started. That answers where this page fails — not who you are.</p>
+    <p>The provider is <strong>PostHog, Inc.</strong>, 2261 Market Street #4008, San Francisco, CA 94114, USA, acting as a processor for us. The events are processed and stored in PostHog&apos;s <em>EU Cloud</em> in Frankfurt am Main. The requests do not go there directly but through <code>witnessmac.com/ingest</code>, and so through our own server: we pass on your IP address so that the country can be determined, but not this site&apos;s cookies. <strong>Session recording is switched off</strong> — no video of your visit and no recording of your mouse movements is created.</p></>}
+    <p><strong>Without your consent</strong> nothing is stored on your device and nothing is read from it. Measurement still happens, but without recognition: {google ? "the Google tag sends a shortened IP address, the page viewed, device and browser, and the ad click identifier from the address bar. " : ""}{product ? "PostHog then runs with no storage on your device at all — the events of one visit hang together only for as long as the tab is open, and on your next visit you are an unknown person. " : ""}What is reported is that the download page <code>/danke</code> was opened{form ? ", and whether a key was requested there" : ""}. The legal basis is Art. 6(1)(f) GDPR; our legitimate interest is knowing what we are paying for advertising for and where this page fails. You may object under Art. 21 GDPR.</p>
+    <p><strong>With your consent</strong> {storerPhrase} may additionally set and read cookies and connect your visits to one another{product ? "; PostHog keeps its identifier under the name ph_…_posthog in your browser’s local storage and in a cookie of the same name" : ""}. The legal basis is § 25(1) TDDDG for the storage on your device and Art. 6(1)(a) GDPR for the processing. Your decision sits in your browser&apos;s local storage under <code>witness.consent</code>; you can change it at any time through <em>Cookie settings</em> in the footer of every page, with effect for the future.{product ? " Withdraw it and PostHog’s identifier is deleted, and measurement continues without storage." : ""}</p>
     {form && <p><strong>When you request a key</strong>, the page passes your e-mail address as an <em>enhanced conversion</em>: the Google script hashes it inside your browser and only that hash is sent, so that an ad can be matched to the request without transmitting the address itself.</p>}
-    <p><strong>What is not processed</strong>: anything from the app. No audio, no transcript, no vocabulary, none of the applications you dictate into. The app carries none of these tags, and the events in section 4a go to our own service and not to Google.</p>
-    <p><strong>Retention</strong>: the cookies expire after at most 24 months{analytics ? "; in Google Analytics user and event data is deleted after 14 months" : ""}.</p>
-    <p><strong>Third country</strong>: Google also processes data in the United States. This rests on the European Commission&apos;s standard contractual clauses and on the adequacy decision for the EU-US Data Privacy Framework, under which Google LLC is certified. Access by US authorities cannot be ruled out.</p>
+    <p><strong>What is not processed</strong>: anything from the app. No audio, no transcript, no vocabulary, none of the applications you dictate into. The app carries none of these tags, and the events in section 4a go to our own service and not to Google{product ? " or PostHog" : ""}.</p>
+    <p><strong>Retention</strong>: {retentions}.</p>
+    <p><strong>Third country</strong>: {google ? "Google also processes data in the United States. This rests on the European Commission’s standard contractual clauses and on the adequacy decision for the EU-US Data Privacy Framework, under which Google LLC is certified. " : ""}{product ? "PostHog stores this site’s events in the European Union; its parent company PostHog, Inc. is in the United States, and any transfer there rests on the European Commission’s standard contractual clauses. " : ""}Access by US authorities cannot be ruled out.</p>
     </> : <p>This website currently loads <strong>no analytics, advertising or tracking scripts</strong> and sets <strong>no cookies</strong>. There is therefore no consent banner either: there would be nothing to consent to.</p>}
     <p>It embeds no fonts, maps or videos from third-party servers.</p>
     <p>It is served by <strong>Cloudflare</strong> (processor). When you load a page, the infrastructure processes the technically necessary connection data — IP address, time, requested address, amount of data transferred, status code and user agent — in order to deliver the page and keep the service safe from attack. The legal basis is Art. 6(1)(f) GDPR; the legitimate interest is the secure and functioning operation of the website. This connection data is not combined into profiles and not linked with other data.</p>
@@ -130,7 +153,7 @@ export default function PrivacyPage() {
     <p>There is no automated decision-making, including profiling, within the meaning of Art. 22 GDPR.</p>
 
     <h2>13. Transfers to third countries</h2>
-    <p>Cloudflare, Stripe, Resend, Amazon Web Services, Hugging Face and Google (Gmail, and where consent is given Analytics and Ads) are companies established in, or with a parent company in, the United States. Even where the data is stored in the EU — for us, the licence table in Cloudflare&apos;s Eastern Europe region and mail delivery through Ireland — access from a third country cannot be ruled out. We base such transfers on the European Commission&apos;s standard contractual clauses and, where the provider concerned is certified under it, on the adequacy decision for the EU-US Data Privacy Framework.</p>
+    <p>Cloudflare, Stripe, Resend, Amazon Web Services, Hugging Face{product ? ", PostHog" : ""} and Google (Gmail, and where consent is given Analytics and Ads) are companies established in, or with a parent company in, the United States. Even where the data is stored in the EU — for us, the licence table in Cloudflare&apos;s Eastern Europe region and mail delivery through Ireland — access from a third country cannot be ruled out. We base such transfers on the European Commission&apos;s standard contractual clauses and, where the provider concerned is certified under it, on the adequacy decision for the EU-US Data Privacy Framework.</p>
 
     <h2>14. Your rights</h2>
     <ul>

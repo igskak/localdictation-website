@@ -4,7 +4,8 @@ import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "
 import { consentCopy } from "../_data/consentCopy";
 import { legalLocale, legalPaths } from "../_lib/legal";
 import type { Locale } from "../_lib/locale";
-import { type ConsentChoice, type GtagConfig, denyStorage, grantStorage, loadTags, readConsent, writeConsent } from "../_lib/gtag";
+import { type ConsentChoice, readConsent, writeConsent } from "../_lib/gtag";
+import { type MeasureConfig, denyMeasurementStorage, grantMeasurementStorage, startMeasurement } from "../_lib/measure";
 
 /** The footer link dispatches this; nothing else in the app listens for it. */
 export const reopenConsentEvent = "witness:consent-reopen";
@@ -39,7 +40,7 @@ function subscribeToConsent(onChange: () => void) {
  * invalid rather than merely disliked -- and an invalid consent is worth less
  * than none, because it is the one a complaint can point at.
  */
-export function ConsentGate({ config, locale }: { config: GtagConfig; locale: Locale }) {
+export function ConsentGate({ config, locale }: { config: MeasureConfig; locale: Locale }) {
   const c = consentCopy[locale];
   const hydrated = useSyncExternalStore(subscribeToHydration, () => true, () => false);
   const stored = useSyncExternalStore(subscribeToConsent, readConsent, () => null);
@@ -47,7 +48,7 @@ export function ConsentGate({ config, locale }: { config: GtagConfig; locale: Lo
   const banner = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
-    if (hydrated) loadTags(config, readConsent());
+    if (hydrated) startMeasurement(config, readConsent());
   }, [hydrated, config]);
 
   /**
@@ -86,15 +87,21 @@ export function ConsentGate({ config, locale }: { config: GtagConfig; locale: Lo
   const decide = useCallback((next: ConsentChoice) => {
     writeConsent(next);
     setReopened(false);
-    if (next === "granted") grantStorage();
-    else denyStorage();
+    if (next === "granted") grantMeasurementStorage(config);
+    else denyMeasurementStorage(config);
     window.dispatchEvent(new Event(consentChangedEvent));
-  }, []);
+  }, [config]);
 
   if (!hydrated || (stored !== null && !reopened)) return null;
 
   const privacy = legalPaths[legalLocale(locale)].privacy;
-  const tools = config.measurementId && config.adsConversionId ? c.tools.both : config.measurementId ? c.tools.analytics : c.tools.ads;
+  // Only what is loaded, in one phrase: "A", "A und B", "A, B und C".
+  const loaded = [
+    config.measurementId && c.tools.analytics,
+    config.adsConversionId && c.tools.ads,
+    config.posthogKey && c.tools.product,
+  ].filter((name): name is string => Boolean(name));
+  const tools = loaded.length > 1 ? `${loaded.slice(0, -1).join(", ")} ${c.and} ${loaded[loaded.length - 1]}` : loaded[0];
 
   return (
     <aside ref={banner} className="consent-banner" role="dialog" aria-modal="false" aria-label={c.region} lang={locale}>

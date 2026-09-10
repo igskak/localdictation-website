@@ -17,6 +17,7 @@
     "deploy": "npm run build && node tools/deploy-config.mjs && wrangler deploy -c dist/server/wrangler.json"
   },
   "dependencies": {
+    "posthog-js": "^1.429.3",
     "react": "19.2.8",
     "react-dom": "19.2.8"
   },

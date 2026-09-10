@@ -39,6 +39,19 @@ const VARS = {
   ADS_LEAD_CONVERSION_LABEL: "8apHCIq59vEcEJmr39hE",
   // Reaching the download page. Observation only -- never a bidding target.
   ADS_DOWNLOAD_CONVERSION_LABEL: "yp1TCM6njPMcEJmr39hE",
+
+  // Product analytics: where readers came from and what they did on the page,
+  // which is the question the two identifiers above are the wrong shape for.
+  //
+  // The project key, from PostHog under Settings → Project → Project API key.
+  // It must be an **EU Cloud** project: the browser is pointed at `/ingest`,
+  // `worker/index.ts` forwards that to `eu.i.posthog.com`, and section 8 of
+  // both privacy pages says the events are processed in the European Union.
+  // A key from a US project would make that sentence false.
+  //
+  // Empty until it is pasted, and empty is a working state: no PostHog script,
+  // no PostHog in the consent banner, and no PostHog in the privacy policy.
+  POSTHOG_KEY: "",
 };
 
 const config = JSON.parse(readFileSync(CONFIG, "utf8"));
