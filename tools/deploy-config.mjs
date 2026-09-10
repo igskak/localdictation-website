@@ -38,7 +38,7 @@ const VARS = {
   // stays here because the conversion action exists and will be needed.
   ADS_LEAD_CONVERSION_LABEL: "8apHCIq59vEcEJmr39hE",
   // Reaching the download page. Observation only -- never a bidding target.
-  // ADS_DOWNLOAD_CONVERSION_LABEL: "XXXXXXXXXXXXXXXXXXX",
+  ADS_DOWNLOAD_CONVERSION_LABEL: "yp1TCM6njPMcEJmr39hE",
 };
 
 const config = JSON.parse(readFileSync(CONFIG, "utf8"));
