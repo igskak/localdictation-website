@@ -49,9 +49,10 @@ const VARS = {
   // both privacy pages says the events are processed in the European Union.
   // A key from a US project would make that sentence false.
   //
-  // Empty until it is pasted, and empty is a working state: no PostHog script,
-  // no PostHog in the consent banner, and no PostHog in the privacy policy.
-  POSTHOG_KEY: "",
+  // Verified against the region before it was pasted: this key authenticates
+  // at eu.i.posthog.com and is rejected at us.i.posthog.com, which is what
+  // makes the EU sentence in section 8 of both policies true.
+  POSTHOG_KEY: "phc_r2TiozST3mu9RfMWdXCRJB2B9kKr5LEDLEiPsiAXb5hp",
 };
 
 const config = JSON.parse(readFileSync(CONFIG, "utf8"));
