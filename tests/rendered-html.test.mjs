@@ -7,6 +7,10 @@ const projectRoot = new URL("../", import.meta.url);
 // them once is what keeps a new legal page from shipping unlinked from the
 // other four -- and keeps the two sets the same size, which is the cheapest
 // way to notice that a document was translated and then forgotten.
+// Most of these tests describe the thank-you page as it looks once an address
+// can actually be received. The opposite state is asserted on its own below.
+process.env.LEAD_ENDPOINT ??= "https://api.example/v1/leads";
+
 const legalRoutes = ["/agb", "/widerruf", "/datenschutz", "/impressum", "/lizenzen"];
 const legalRoutesEn = ["/en/terms", "/en/cancellation", "/en/privacy", "/en/legal-notice", "/en/licences"];
 const comparisonPaths = [
@@ -143,14 +147,14 @@ test("keeps the optional thank-you form honest and index-safe", async () => {
   const html = await response.text();
   assert.match(html, /Wohin sollen wir deinen Lizenzschlüssel schicken/);
   assert.match(html, /Wo diktierst du am meisten/);
-  // Why the address is worth giving, in the numbers the app actually enforces:
-  // `EntitlementPolicy.ungatedDuration` is three days, and the trial key adds
+  assert.match(html, /Überspringen/);
+  // Why the key is worth having, in the numbers the app enforces:
+  // `EntitlementPolicy.ungatedDuration` is three days and the trial key adds
   // ten. A page that asks for an address without naming the trade is the page
   // this assertion exists to stop shipping again.
-  const direct = await (await render("/danke")).text();
-  assert.match(direct, /[Dd]rei Tage/);
-  assert.match(direct, /dreizehn/);
-  assert.match(direct, /Einstellungen → Lizenz/);
+  assert.match(html, /[Dd]rei Tage/);
+  assert.match(html, /dreizehn/);
+  assert.match(html, /Einstellungen → Lizenz/);
   assert.match(html, /Überspringen/);
   assert.match(html, /Der Download ist gerade nicht erreichbar/);
   assert.match(html, /noindex/i);
@@ -160,6 +164,28 @@ test("keeps the optional thank-you form honest and index-safe", async () => {
   assert.match(html, /href="\/impressum"/i);
   assert.match(html, /href="\/widerruf"/i);
   assert.doesNotMatch(html, /LEAD_ENDPOINT|DOWNLOAD_URL/);
+});
+
+test("asks for an address only when something can receive it", async () => {
+  // Production ran for a day in exactly this state: no endpoint, a form that
+  // discarded what was typed, and a page promising a key by mail. With nothing
+  // to receive an address the page must not ask for one and must send the
+  // reader to the app instead.
+  const original = process.env.LEAD_ENDPOINT;
+  delete process.env.LEAD_ENDPOINT;
+  try {
+    const html = await (await render("/danke")).text();
+    assert.doesNotMatch(html, /<form[^>]+method="post"/i);
+    assert.doesNotMatch(html, /name="email"/);
+    assert.doesNotMatch(html, /Wo diktierst du am meisten/);
+    assert.doesNotMatch(html, /Trag deine Adresse ein/);
+    // The trade is still named, and the key still has somewhere to come from.
+    assert.match(html, /[Dd]rei Tage/);
+    assert.match(html, /dreizehn/);
+    assert.match(html, /Einstellungen → Lizenz/);
+  } finally {
+    if (original !== undefined) process.env.LEAD_ENDPOINT = original;
+  }
 });
 
 test("keeps query locale isolated and renders English download metadata", async () => {

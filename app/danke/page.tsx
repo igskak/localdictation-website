@@ -23,6 +23,9 @@ export default async function DankePage({ searchParams }: { searchParams: Promis
   const c = thanksCopy[locale];
   const downloadAvailable = Boolean(getDownloadTarget());
   const leadEndpoint = safeLeadEndpoint(process.env.LEAD_ENDPOINT);
+  // No endpoint means the address goes nowhere. The page then may not ask for
+  // one, and may not promise a key by mail: the app issues it instead.
+  const keyByMail = Boolean(leadEndpoint);
   const downloadStarted = downloadAvailable && params.download === "auto";
   const previewMode = !downloadAvailable;
   const downloadPath = locale === "de" ? "/download" : `/download?lang=${locale}`;
@@ -40,12 +43,12 @@ export default async function DankePage({ searchParams }: { searchParams: Promis
           <p>{downloadStarted ? c.state.started : previewMode ? c.state.preview : c.state.ready}</p>
         </div>
         <h1>{c.title}</h1>
-        <p>{downloadStarted ? c.body.started : previewMode ? c.body.preview : c.body.direct}</p>
+        <p>{downloadStarted ? c.body.started : previewMode ? c.body.preview : c.body.direct} {keyByMail ? c.trade.mail : c.trade.inApp}</p>
         {downloadStarted && <iframe className="download-frame" src={downloadPath} title={c.iframeTitle} aria-hidden="true" tabIndex={-1} />}
         {downloadAvailable && <a className="inline-download" href={downloadPath}>{downloadStarted ? c.inlineDownload.again : c.inlineDownload.now} ↓</a>}
         </section>
         <section className="thanks-grid shell">
-        <ThankYouForm locale={locale} leadEndpoint={leadEndpoint} analytics={getAnalyticsConfig()} />
+        {keyByMail && <ThankYouForm locale={locale} leadEndpoint={leadEndpoint} analytics={getAnalyticsConfig()} />}
         <aside className="key-card">
           <span>{c.key.label}</span>
           <strong>•••• — •••• — ••••</strong>

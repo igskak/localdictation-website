@@ -6,6 +6,8 @@ export type ThanksCopy = {
   state: { started: string; preview: string; ready: string };
   title: string;
   body: { started: string; preview: string; direct: string };
+  /** What the key costs and where it comes from. `inApp` is the truth when no lead endpoint is configured. */
+  trade: { mail: string; inApp: string };
   iframeTitle: string;
   inlineDownload: { again: string; now: string };
   key: { label: string; note: string };
@@ -26,9 +28,13 @@ const de: ThanksCopy = {
   state: { started: "Download läuft", preview: "Download derzeit nicht verfügbar", ready: "Download ist bereit" },
   title: "Wohin sollen wir deinen Lizenzschlüssel schicken?",
   body: {
-    started: "Die Datei lädt bereits. Drei Tage diktierst du ohne Schlüssel — danach fragt Witness nach einem, und mit ihm sind es dreizehn. Trag deine Adresse ein, dann liegt er am dritten Tag bereit. Oder überspring das hier: Den Schlüssel forderst du auch in der App an, unter Einstellungen → Lizenz.",
-    preview: "Der Download ist gerade nicht erreichbar. Sobald er wieder verfügbar ist, startet er vor dieser Seite automatisch. Drei Tage diktierst du ohne Schlüssel, mit ihm sind es dreizehn — trag deine Adresse ein oder fordere ihn später in der App an, unter Einstellungen → Lizenz.",
-    direct: "Wenn du direkt hier gelandet bist, starte den signierten Build unten. Drei Tage diktierst du ohne Schlüssel, mit ihm sind es dreizehn — trag deine Adresse ein, dann liegt er am dritten Tag bereit. Oder fordere ihn später in der App an, unter Einstellungen → Lizenz.",
+    started: "Die Datei lädt bereits.",
+    preview: "Der Download ist gerade nicht erreichbar. Sobald er wieder verfügbar ist, startet er vor dieser Seite automatisch.",
+    direct: "Wenn du direkt hier gelandet bist, starte den signierten Build unten.",
+  },
+  trade: {
+    mail: "Drei Tage diktierst du ohne Schlüssel — danach fragt Witness nach einem, und mit ihm sind es dreizehn. Trag deine Adresse ein, dann liegt er am dritten Tag bereit. Oder überspring das hier und fordere ihn in der App an, unter Einstellungen → Lizenz.",
+    inApp: "Drei Tage diktierst du ohne Schlüssel — danach fragt Witness nach einem, und mit ihm sind es dreizehn. Den Schlüssel forderst du direkt in der App an, unter Einstellungen → Lizenz.",
   },
   iframeTitle: "Witness Download",
   inlineDownload: { again: "Download erneut starten", now: "Download jetzt starten" },
@@ -74,9 +80,13 @@ const en: ThanksCopy = {
   state: { started: "Download started", preview: "The download is currently unavailable", ready: "Download is ready" },
   title: "Where should we send your licence key?",
   body: {
-    started: "The file is already downloading. You dictate for three days without a key — then Witness asks for one, and with it you have thirteen. Leave your address and it is waiting on day three. Or skip this: you can also request the key in the app, under Settings → Licence.",
-    preview: "The download is not reachable right now. Once it is available again, it starts before this page opens. Three days without a key, thirteen with one — leave your address, or request it later in the app, under Settings → Licence.",
-    direct: "If you landed here directly, start the signed build below. Three days without a key, thirteen with one — leave your address and it is waiting on day three. Or request it later in the app, under Settings → Licence.",
+    started: "The file is already downloading.",
+    preview: "The download is not reachable right now. Once it is available again, it starts before this page opens.",
+    direct: "If you landed here directly, start the signed build below.",
+  },
+  trade: {
+    mail: "You dictate for three days without a key — then Witness asks for one, and with it you have thirteen. Leave your address and it is waiting on day three. Or skip this and request it in the app, under Settings → Licence.",
+    inApp: "You dictate for three days without a key — then Witness asks for one, and with it you have thirteen. You request the key in the app itself, under Settings → Licence.",
   },
   iframeTitle: "Witness download",
   inlineDownload: { again: "Start download again", now: "Start download now" },
@@ -122,9 +132,13 @@ const ru: ThanksCopy = {
   state: { started: "Загрузка началась", preview: "Загрузка сейчас недоступна", ready: "Файл готов к загрузке" },
   title: "Куда прислать твой лицензионный ключ?",
   body: {
-    started: "Файл уже качается. Три дня диктуешь без ключа — потом Witness попросит его, и с ключом дней становится тринадцать. Оставь адрес, и на третий день ключ уже будет у тебя. Или пропусти: ключ можно запросить и в приложении, в разделе Настройки → Лицензия.",
-    preview: "Загрузка сейчас недоступна. Как только она снова заработает, файл начнёт скачиваться до открытия этой страницы. Три дня без ключа, с ключом — тринадцать: оставь адрес или запроси его позже в приложении, в разделе Настройки → Лицензия.",
-    direct: "Если ты попал сюда напрямую, запусти подписанную сборку по кнопке ниже. Три дня без ключа, с ключом — тринадцать: оставь адрес, и на третий день он уже будет у тебя. Или запроси его позже в приложении, в разделе Настройки → Лицензия.",
+    started: "Файл уже качается.",
+    preview: "Загрузка сейчас недоступна. Как только она снова заработает, файл начнёт скачиваться до открытия этой страницы.",
+    direct: "Если ты попал сюда напрямую, запусти подписанную сборку по кнопке ниже.",
+  },
+  trade: {
+    mail: "Три дня диктуешь без ключа — потом Witness попросит его, и с ключом дней становится тринадцать. Оставь адрес, и на третий день он уже будет у тебя. Или пропусти и запроси ключ в приложении, в разделе Настройки → Лицензия.",
+    inApp: "Три дня диктуешь без ключа — потом Witness попросит его, и с ключом дней становится тринадцать. Ключ запрашивается прямо в приложении, в разделе Настройки → Лицензия.",
   },
   iframeTitle: "Загрузка Witness",
   inlineDownload: { again: "Запустить загрузку ещё раз", now: "Запустить загрузку" },
@@ -170,9 +184,13 @@ const uk: ThanksCopy = {
   state: { started: "Завантаження почалося", preview: "Завантаження зараз недоступне", ready: "Файл готовий до завантаження" },
   title: "Куди надіслати твій ліцензійний ключ?",
   body: {
-    started: "Файл уже завантажується. Три дні диктуєш без ключа — далі Witness попросить його, і з ключем днів стає тринадцять. Залиш адресу, і на третій день ключ уже буде в тебе. Або пропусти: ключ можна запросити й у застосунку, у розділі Налаштування → Ліцензія.",
-    preview: "Завантаження зараз недоступне. Щойно воно запрацює, файл почне завантажуватися до відкриття цієї сторінки. Три дні без ключа, з ключем — тринадцять: залиш адресу або запроси його пізніше у застосунку, у розділі Налаштування → Ліцензія.",
-    direct: "Якщо ти потрапив сюди напряму, запусти підписану збірку кнопкою нижче. Три дні без ключа, з ключем — тринадцять: залиш адресу, і на третій день він уже буде в тебе. Або запроси його пізніше у застосунку, у розділі Налаштування → Ліцензія.",
+    started: "Файл уже завантажується.",
+    preview: "Завантаження зараз недоступне. Щойно воно запрацює, файл почне завантажуватися до відкриття цієї сторінки.",
+    direct: "Якщо ти потрапив сюди напряму, запусти підписану збірку кнопкою нижче.",
+  },
+  trade: {
+    mail: "Три дні диктуєш без ключа — далі Witness попросить його, і з ключем днів стає тринадцять. Залиш адресу, і на третій день він уже буде в тебе. Або пропусти й запроси ключ у застосунку, у розділі Налаштування → Ліцензія.",
+    inApp: "Три дні диктуєш без ключа — далі Witness попросить його, і з ключем днів стає тринадцять. Ключ запитується прямо у застосунку, у розділі Налаштування → Ліцензія.",
   },
   iframeTitle: "Завантаження Witness",
   inlineDownload: { again: "Запустити завантаження ще раз", now: "Запустити завантаження" },
