@@ -143,6 +143,14 @@ test("keeps the optional thank-you form honest and index-safe", async () => {
   const html = await response.text();
   assert.match(html, /Wohin sollen wir deinen Lizenzschlüssel schicken/);
   assert.match(html, /Wo diktierst du am meisten/);
+  // Why the address is worth giving, in the numbers the app actually enforces:
+  // `EntitlementPolicy.ungatedDuration` is three days, and the trial key adds
+  // ten. A page that asks for an address without naming the trade is the page
+  // this assertion exists to stop shipping again.
+  const direct = await (await render("/danke")).text();
+  assert.match(direct, /[Dd]rei Tage/);
+  assert.match(direct, /dreizehn/);
+  assert.match(direct, /Einstellungen → Lizenz/);
   assert.match(html, /Überspringen/);
   assert.match(html, /Der Download ist gerade nicht erreichbar/);
   assert.match(html, /noindex/i);
