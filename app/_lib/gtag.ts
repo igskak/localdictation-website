@@ -16,6 +16,7 @@ export type GtagConfig = {
   measurementId: string | null;
   adsConversionId: string | null;
   adsLeadLabel: string | null;
+  adsDownloadLabel: string | null;
 };
 
 export type ConsentChoice = "granted" | "denied";
@@ -131,4 +132,23 @@ export function reportLead(config: GtagConfig, email: string): void {
     gtag("event", "conversion", { send_to: `${config.adsConversionId}/${config.adsLeadLabel}` });
   }
   if (config.measurementId) gtag("event", "lead_created");
+}
+
+/**
+ * Reaching the page the file downloads from.
+ *
+ * Named for what it is. The download starts by itself when the page opens, so
+ * this reports an arrival, not a decision, and it measures the landing page
+ * rather than intent to install. `docs/GTM.md` says why it must stay an
+ * observation and never become a bidding target: a system told to optimise for
+ * people who open download pages will find people who open download pages.
+ */
+export function reportDownload(config: GtagConfig): void {
+  const gtag = window.gtag;
+  if (!gtag) return;
+
+  if (config.adsConversionId && config.adsDownloadLabel) {
+    gtag("event", "conversion", { send_to: `${config.adsConversionId}/${config.adsDownloadLabel}` });
+  }
+  if (config.measurementId) gtag("event", "download_started");
 }

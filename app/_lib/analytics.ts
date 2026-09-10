@@ -14,8 +14,10 @@ export type AnalyticsConfig = {
   measurementId: string | null;
   /** Google Ads conversion account, `AW-` followed by digits. */
   adsConversionId: string | null;
-  /** The label of the one conversion this site reports: a submitted lead form. */
+  /** Label of the lead conversion. Null while nothing can receive a lead. */
   adsLeadLabel: string | null;
+  /** Label of the download-page conversion: observation only, never a bidding target. */
+  adsDownloadLabel: string | null;
 };
 
 const measurementPattern = /^G-[A-Z0-9]{4,20}$/i;
@@ -30,12 +32,15 @@ function matched(value: string | null | undefined, pattern: RegExp): string | nu
 export function getAnalyticsConfig(): AnalyticsConfig {
   const adsConversionId = matched(process.env.ADS_CONVERSION_ID, adsPattern);
   const adsLeadLabel = matched(process.env.ADS_LEAD_CONVERSION_LABEL, labelPattern);
+  const adsDownloadLabel = matched(process.env.ADS_DOWNLOAD_CONVERSION_LABEL, labelPattern);
+  // The account is only worth configuring if at least one label can be
+  // reported against it, and a label without an account reports nowhere.
+  const reportable = Boolean(adsConversionId && (adsLeadLabel || adsDownloadLabel));
   return {
     measurementId: matched(process.env.GA4_MEASUREMENT_ID, measurementPattern),
-    // A conversion account without a label reports nothing, so treat the pair
-    // as one setting: half of it configured is a misconfiguration, not a mode.
-    adsConversionId: adsLeadLabel ? adsConversionId : null,
-    adsLeadLabel: adsConversionId ? adsLeadLabel : null,
+    adsConversionId: reportable ? adsConversionId : null,
+    adsLeadLabel: reportable ? adsLeadLabel : null,
+    adsDownloadLabel: reportable ? adsDownloadLabel : null,
   };
 }
 

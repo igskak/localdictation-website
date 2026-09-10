@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ThankYouForm } from "./ThankYouForm";
+import { DownloadLink, DownloadSignal } from "./DownloadSignal";
 import { getDownloadTarget } from "../_lib/download";
 import { safeLeadEndpoint } from "../_lib/urlPolicy";
 import { getAnalyticsConfig } from "../_lib/analytics";
@@ -23,6 +24,7 @@ export default async function DankePage({ searchParams }: { searchParams: Promis
   const c = thanksCopy[locale];
   const downloadAvailable = Boolean(getDownloadTarget());
   const leadEndpoint = safeLeadEndpoint(process.env.LEAD_ENDPOINT);
+  const analytics = getAnalyticsConfig();
   // No endpoint means the address goes nowhere. The page then may not ask for
   // one, and may not promise a key by mail: the app issues it instead.
   const keyByMail = Boolean(leadEndpoint);
@@ -45,10 +47,11 @@ export default async function DankePage({ searchParams }: { searchParams: Promis
         <h1>{keyByMail ? c.title : c.titleInApp}</h1>
         <p>{downloadStarted ? c.body.started : previewMode ? c.body.preview : c.body.direct} {keyByMail ? c.trade.mail : c.trade.inApp}</p>
         {downloadStarted && <iframe className="download-frame" src={downloadPath} title={c.iframeTitle} aria-hidden="true" tabIndex={-1} />}
-        {downloadAvailable && <a className="inline-download" href={downloadPath}>{downloadStarted ? c.inlineDownload.again : c.inlineDownload.now} ↓</a>}
+        {downloadAvailable && <DownloadLink analytics={analytics} href={downloadPath} label={downloadStarted ? c.inlineDownload.again : c.inlineDownload.now} />}
+        <DownloadSignal analytics={analytics} started={downloadStarted} />
         </section>
         <section className="thanks-grid shell">
-        {keyByMail && <ThankYouForm locale={locale} leadEndpoint={leadEndpoint} analytics={getAnalyticsConfig()} />}
+        {keyByMail && <ThankYouForm locale={locale} leadEndpoint={leadEndpoint} analytics={analytics} />}
         <aside className="key-card">
           <span>{c.key.label}</span>
           <strong>•••• — •••• — ••••</strong>

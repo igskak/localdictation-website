@@ -33,7 +33,12 @@ const VARS = {
   // then the site loads no tag and both privacy policies say so.
   GA4_MEASUREMENT_ID: "G-CWNBL1TC3B",
   ADS_CONVERSION_ID: "AW-18439722393",
+  // Nothing receives a lead today (`LEAD_ENDPOINT` is unset and the service has
+  // no route for one), so this label reports nothing until that is built. It
+  // stays here because the conversion action exists and will be needed.
   ADS_LEAD_CONVERSION_LABEL: "8apHCIq59vEcEJmr39hE",
+  // Reaching the download page. Observation only -- never a bidding target.
+  // ADS_DOWNLOAD_CONVERSION_LABEL: "XXXXXXXXXXXXXXXXXXX",
 };
 
 const config = JSON.parse(readFileSync(CONFIG, "utf8"));

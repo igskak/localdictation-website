@@ -406,6 +406,8 @@ test("declares the measurement it is configured for, in both languages, and asks
     // that shape rather than a stricter one we do not run: both branches of
     // section 8 are named, and neither promises that declining stops the tag.
     assert.match(datenschutz, /Ohne deine Einwilligung/);
+    // The policy names the event the site actually reports.
+    assert.match(datenschutz, /Downloadseite/);
     assert.match(datenschutz, /Mit deiner Einwilligung/);
     assert.doesNotMatch(datenschutz, /passiert davon nichts/);
     assert.match(privacy, /Without your consent/);

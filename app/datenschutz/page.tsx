@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { LegalShell } from "../_components/LegalShell";
 import { analyticsEnabled, analyticsProducts, getAnalyticsConfig } from "../_lib/analytics";
+import { safeLeadEndpoint } from "../_lib/urlPolicy";
 
 export const metadata: Metadata = { title: "Datenschutz · Witness", description: "Datenschutzerklärung für die Website, die App Witness und den Aktivierungsdienst.", robots: { index: false, follow: false } };
 
@@ -12,6 +13,9 @@ export default function DatenschutzPage() {
   const konfiguration = getAnalyticsConfig();
   const messung = analyticsEnabled(konfiguration);
   const { analytics, ads } = analyticsProducts(konfiguration);
+  // Ohne Endpunkt gibt es kein Formular und damit keine Adresse, die als
+  // Enhanced Conversion übergeben werden könnte.
+  const formular = Boolean(safeLeadEndpoint(process.env.LEAD_ENDPOINT));
   const werkzeuge = analytics && ads
     ? <><strong>Google Analytics 4</strong> und dem <strong>Conversion-Tag von Google Ads</strong></>
     : analytics
@@ -100,9 +104,9 @@ export default function DatenschutzPage() {
     <h2>8. Diese Website</h2>
     {messung ? <>
     <p>Diese Seite misst mit {werkzeuge}, welche Anzeige und welcher Suchbegriff zu einem Besuch und zu einer angeforderten Lizenz geführt haben. Anbieter ist Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland.</p>
-    <p><strong>Ohne deine Einwilligung</strong> wird nichts auf deinem Gerät gespeichert und nichts von dort ausgelesen. Gemessen wird trotzdem, aber ohne Wiedererkennung: Das Tag sendet gekürzte IP-Adresse, aufgerufene Seite, Gerät und Browser sowie die Klickkennung der Anzeige aus der Adresszeile. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO; unser berechtigtes Interesse ist zu wissen, wofür wir Werbung bezahlen. Du kannst dem nach Art. 21 DSGVO widersprechen.</p>
+    <p><strong>Ohne deine Einwilligung</strong> wird nichts auf deinem Gerät gespeichert und nichts von dort ausgelesen. Gemessen wird trotzdem, aber ohne Wiedererkennung: Das Tag sendet gekürzte IP-Adresse, aufgerufene Seite, Gerät und Browser sowie die Klickkennung der Anzeige aus der Adresszeile. Gemeldet wird dabei, dass die Downloadseite <code>/danke</code> geöffnet wurde{formular ? " und ob dort ein Schlüssel angefordert wurde" : ""}. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO; unser berechtigtes Interesse ist zu wissen, wofür wir Werbung bezahlen. Du kannst dem nach Art. 21 DSGVO widersprechen.</p>
     <p><strong>Mit deiner Einwilligung</strong> dürfen Google Analytics und Google Ads zusätzlich Cookies setzen und auslesen und deine Besuche einander zuordnen. Rechtsgrundlage ist § 25 Abs. 1 TDDDG für das Speichern auf deinem Gerät und Art. 6 Abs. 1 lit. a DSGVO für die Verarbeitung. Deine Entscheidung liegt in der lokalen Ablage deines Browsers unter <code>witness.consent</code>; ändern kannst du sie jederzeit über <em>Cookie-Einstellungen</em> im Fuß jeder Seite, mit Wirkung für die Zukunft.</p>
-    <p><strong>Wenn du einen Schlüssel anforderst</strong>, übergibt die Seite deine E-Mail-Adresse als <em>Enhanced Conversion</em>: Das Google-Skript bildet daraus noch in deinem Browser einen Hash, und nur dieser Hash wird gesendet — damit eine Anzeige der Anforderung zugeordnet werden kann, ohne die Adresse selbst zu übermitteln.</p>
+    {formular && <p><strong>Wenn du einen Schlüssel anforderst</strong>, übergibt die Seite deine E-Mail-Adresse als <em>Enhanced Conversion</em>: Das Google-Skript bildet daraus noch in deinem Browser einen Hash, und nur dieser Hash wird gesendet — damit eine Anzeige der Anforderung zugeordnet werden kann, ohne die Adresse selbst zu übermitteln.</p>}
     <p><strong>Was dabei nicht verarbeitet wird</strong>: nichts aus der App. Kein Audio, kein Transkript, kein Wörterbuch, keine Programme, in die du diktierst. Die App enthält keinen dieser Tags, und die Ereignisse aus Abschnitt 4a gehen an unseren eigenen Dienst und nicht an Google.</p>
     <p><strong>Speicherdauer</strong>: Die Cookies laufen nach längstens 24 Monaten ab{analytics ? "; in Google Analytics werden Nutzer- und Ereignisdaten nach 14 Monaten gelöscht" : ""}.</p>
     <p><strong>Drittland</strong>: Google verarbeitet Daten auch in den Vereinigten Staaten. Grundlage sind die Standardvertragsklauseln der Europäischen Kommission und der Angemessenheitsbeschluss zum EU-US Data Privacy Framework, unter dem Google LLC zertifiziert ist. Ein Zugriff US-amerikanischer Behörden lässt sich nicht ausschließen.</p>
