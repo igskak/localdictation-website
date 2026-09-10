@@ -124,8 +124,11 @@ export function denyStorage(): void {
  * there is exactly one line in this codebase where a lead becomes a number.
  */
 export function reportLead(config: GtagConfig, email: string): void {
-  const gtag = window.gtag;
-  if (!gtag) return;
+  // Queue rather than bail. A report can happen before the consent banner has
+  // created the shim -- effects run child-first, and the banner is the last
+  // thing in the tree -- and gtag.js replays whatever is already in dataLayer
+  // when it loads. Reading `window.gtag` here instead lost the event.
+  const gtag = ensureGtag();
 
   if (config.adsConversionId && config.adsLeadLabel) {
     gtag("set", "user_data", { email });
@@ -144,8 +147,7 @@ export function reportLead(config: GtagConfig, email: string): void {
  * people who open download pages will find people who open download pages.
  */
 export function reportDownload(config: GtagConfig): void {
-  const gtag = window.gtag;
-  if (!gtag) return;
+  const gtag = ensureGtag();
 
   if (config.adsConversionId && config.adsDownloadLabel) {
     gtag("event", "conversion", { send_to: `${config.adsConversionId}/${config.adsDownloadLabel}` });
