@@ -56,6 +56,17 @@ export const cookieDays = Math.round(posthogCookieMonths * 30.44);
 let started = false;
 
 /**
+ * Events reported before `init` ran, kept until it has.
+ *
+ * The same race `gtag.ts` queues around, for the same reason: effects run
+ * child-first, and the banner that starts the measurement is the last thing
+ * in the tree, so the thank-you page reports its arrival before PostHog
+ * exists. `dataLayer` replays itself and solved it for Google; posthog-js has
+ * no such buffer, and a `capture` before `init` is dropped on the floor.
+ */
+const pending: { event: string; properties?: Record<string, unknown> }[] = [];
+
+/**
  * Idempotent, and called once per page load whatever the reader has decided.
  *
  * The library is loaded either way. What the answer changes is where it is
@@ -80,6 +91,10 @@ export function startPosthog(config: PosthogConfig, consent: ConsentChoice | nul
     // count, but PostHog is not asked to remember a person between visits.
     person_profiles: consent === "granted" ? "always" : "identified_only",
   });
+
+  // Whatever was reported while the library was still loading, in the order
+  // it happened. Emptied here so a second call cannot send it twice.
+  for (const { event, properties } of pending.splice(0)) posthog.capture(event, properties);
 }
 
 /** Lets the identifier be stored, after the reader has said it may be. */
@@ -117,6 +132,13 @@ export function denyPosthogStorage(config: PosthogConfig): void {
  * rather than as the two different things they measure.
  */
 export function capturePosthog(config: PosthogConfig, event: string, properties?: Record<string, unknown>): void {
-  if (!config.posthogKey || !started) return;
+  if (!config.posthogKey) return;
+  // Queue rather than bail: `startPosthog` replays this the moment it runs.
+  // Reading `started` and returning lost `download_started` entirely, because
+  // the only page that reports it does so before the banner mounts.
+  if (!started) {
+    pending.push({ event, properties });
+    return;
+  }
   posthog.capture(event, properties);
 }
