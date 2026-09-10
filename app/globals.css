@@ -633,7 +633,11 @@ h1 span { color: #95958e; }
 .download-symbol { font-size: 17px; line-height: 0; }
 
 .site-root .hero {
-  min-height: min(880px, calc(100svh - 76px));
+  /* The hero centres its copy in whatever height it is given, so a banner
+     pinned to the bottom of the screen pushes the download button under it.
+     Taking the banner's height out of the budget lifts the copy back into
+     the part of the screen that is actually visible. */
+  min-height: min(880px, calc(100svh - 76px - var(--consent-height, 0px)));
   padding-block: clamp(64px, 8vh, 100px) 92px;
 }
 
@@ -1398,7 +1402,62 @@ h1 span { color: #95958e; }
   text-underline-offset: 3px;
 }
 
+/* The consent banner is fixed, so it covers whatever it is fixed over, and
+   what it kept covering was the hero's download button. Two numbers decide
+   the rules below: the button sits about 680px down the page on a desktop
+   layout and about 600px down on a phone, and neither moves with the height
+   of the screen. So a bottom banner only fits when the screen is tall enough
+   to hold both. Reserving the banner's measured height -- ConsentGate
+   publishes it as --consent-height -- keeps the rest of the page scrollable
+   clear of it too. */
+body { padding-bottom: var(--consent-height, 0px); }
+
+/* The line about dictation is reassurance, not consent information, and it is
+   the two lines that pushed the banner into the button. Dropped on any screen
+   that cannot spare them. What consent needs stays: which tools, which
+   country, and what either answer does. */
+@media (max-height: 940px) {
+  .consent-aside { display: none; }
+  .consent-banner { padding: 12px 16px; }
+}
+
 @media (max-width: 720px) {
-  .consent-inner { flex-direction: column; align-items: stretch; gap: 14px; }
-  .consent-actions .button { flex: 1; text-align: center; }
+  .consent-inner { flex-direction: column; align-items: stretch; gap: 10px; }
+  .consent-banner { padding: 12px 14px; }
+  .consent-text h2 { margin-bottom: 4px; font-size: 14px; }
+  .consent-text p { margin-bottom: 4px; font-size: 12px; line-height: 1.4; }
+  .consent-actions .button { flex: 1; padding: 9px 16px; text-align: center; }
+}
+
+/* A narrower screen wraps the same sentence onto more lines, which is where
+   the banner grew back into the button. Buy the lines back with a tighter
+   measure. */
+@media (max-width: 380px) {
+  .consent-banner { padding: 10px 12px; }
+  .consent-inner { gap: 8px; }
+  .consent-text h2 { font-size: 13px; }
+  .consent-text p { font-size: 11.5px; line-height: 1.35; }
+  .consent-text a { font-size: 11px; }
+  .consent-actions .button { padding: 8px 14px; }
+}
+
+/* Below roughly 820px of screen there is no bottom banner small enough to
+   clear the button, however hard the text is trimmed. Move it to the top
+   instead and offset the document to match: the header steps aside for a
+   moment, and nothing is covered anywhere. */
+@media (max-height: 820px) {
+  .consent-banner {
+    inset: 0 0 auto 0;
+    border-top: 0;
+    border-bottom: 1px solid var(--line-strong);
+    box-shadow: 0 18px 48px rgba(0, 0, 0, 0.38);
+    max-height: 62svh;
+    overflow-y: auto;
+  }
+
+  body { padding-top: var(--consent-height, 0px); padding-bottom: 0; }
+
+  /* The header sticks at z-index 100 and would otherwise ride over the banner
+     on the way up. Park it below instead. */
+  .site-header-wrap { top: var(--consent-height, 0px); }
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState, useSyncExternalStore } from "react";
+import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { consentCopy } from "../_data/consentCopy";
 import { legalLocale, legalPaths } from "../_lib/legal";
 import type { Locale } from "../_lib/locale";
@@ -44,10 +44,38 @@ export function ConsentGate({ config, locale }: { config: GtagConfig; locale: Lo
   const hydrated = useSyncExternalStore(subscribeToHydration, () => true, () => false);
   const stored = useSyncExternalStore(subscribeToConsent, readConsent, () => null);
   const [reopened, setReopened] = useState(false);
+  const banner = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     if (hydrated) loadTags(config, readConsent());
   }, [hydrated, config]);
+
+  /**
+   * Publishes the banner's height so the page can reserve it -- see
+   * `--consent-height` in globals.css. The banner wraps to a different number
+   * of lines per width and per language, so the number is measured rather
+   * than guessed, and cleared the moment the banner goes away.
+   */
+  useEffect(() => {
+    const node = banner.current;
+    const root = document.documentElement;
+    if (!node) {
+      root.style.removeProperty("--consent-height");
+      return;
+    }
+    // Border box, not content box: the banner's own padding is page it covers.
+    const publish = () => root.style.setProperty("--consent-height", `${Math.ceil(node.getBoundingClientRect().height)}px`);
+    // Once now, so the reservation is right on the first paint rather than one
+    // observer tick later, and again whenever a rotation or a font swap
+    // rewraps the text.
+    publish();
+    const observer = new ResizeObserver(publish);
+    observer.observe(node);
+    return () => {
+      observer.disconnect();
+      root.style.removeProperty("--consent-height");
+    };
+  });
 
   useEffect(() => {
     const reopen = () => setReopened(true);
@@ -69,11 +97,12 @@ export function ConsentGate({ config, locale }: { config: GtagConfig; locale: Lo
   const tools = config.measurementId && config.adsConversionId ? c.tools.both : config.measurementId ? c.tools.analytics : c.tools.ads;
 
   return (
-    <aside className="consent-banner" role="dialog" aria-modal="false" aria-label={c.region} lang={locale}>
+    <aside ref={banner} className="consent-banner" role="dialog" aria-modal="false" aria-label={c.region} lang={locale}>
       <div className="consent-inner">
         <div className="consent-text">
           <h2>{c.title}</h2>
           <p>{c.body(tools)}</p>
+          <p className="consent-aside">{c.reassurance}</p>
           <a href={privacy} hrefLang={legalLocale(locale)}>{c.privacyLink}</a>
         </div>
         <div className="consent-actions">
