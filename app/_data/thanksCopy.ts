@@ -5,6 +5,8 @@ export type ThanksCopy = {
   badge: { preview: string; download: string };
   state: { started: string; preview: string; ready: string };
   title: string;
+  /** Used when no endpoint exists: a page with no field may not ask where to send anything. */
+  titleInApp: string;
   body: { started: string; preview: string; direct: string };
   /** What the key costs and where it comes from. `inApp` is the truth when no lead endpoint is configured. */
   trade: { mail: string; inApp: string };
@@ -27,6 +29,7 @@ const de: ThanksCopy = {
   badge: { preview: "Download nicht verfügbar", download: "Download" },
   state: { started: "Download läuft", preview: "Download derzeit nicht verfügbar", ready: "Download ist bereit" },
   title: "Wohin sollen wir deinen Lizenzschlüssel schicken?",
+  titleInApp: "Deinen Schlüssel holst du in der App",
   body: {
     started: "Die Datei lädt bereits.",
     preview: "Der Download ist gerade nicht erreichbar. Sobald er wieder verfügbar ist, startet er vor dieser Seite automatisch.",
@@ -79,6 +82,7 @@ const en: ThanksCopy = {
   badge: { preview: "Download unavailable", download: "Download" },
   state: { started: "Download started", preview: "The download is currently unavailable", ready: "Download is ready" },
   title: "Where should we send your licence key?",
+  titleInApp: "You get your key inside the app",
   body: {
     started: "The file is already downloading.",
     preview: "The download is not reachable right now. Once it is available again, it starts before this page opens.",
@@ -131,6 +135,7 @@ const ru: ThanksCopy = {
   badge: { preview: "Загрузка недоступна", download: "Скачивание" },
   state: { started: "Загрузка началась", preview: "Загрузка сейчас недоступна", ready: "Файл готов к загрузке" },
   title: "Куда прислать твой лицензионный ключ?",
+  titleInApp: "Ключ ты забираешь в приложении",
   body: {
     started: "Файл уже качается.",
     preview: "Загрузка сейчас недоступна. Как только она снова заработает, файл начнёт скачиваться до открытия этой страницы.",
@@ -183,6 +188,7 @@ const uk: ThanksCopy = {
   badge: { preview: "Завантаження недоступне", download: "Завантаження" },
   state: { started: "Завантаження почалося", preview: "Завантаження зараз недоступне", ready: "Файл готовий до завантаження" },
   title: "Куди надіслати твій ліцензійний ключ?",
+  titleInApp: "Ключ ти забираєш у застосунку",
   body: {
     started: "Файл уже завантажується.",
     preview: "Завантаження зараз недоступне. Щойно воно запрацює, файл почне завантажуватися до відкриття цієї сторінки.",

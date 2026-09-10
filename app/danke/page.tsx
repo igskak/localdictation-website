@@ -42,7 +42,7 @@ export default async function DankePage({ searchParams }: { searchParams: Promis
           <span className="download-check" aria-hidden="true">↓</span>
           <p>{downloadStarted ? c.state.started : previewMode ? c.state.preview : c.state.ready}</p>
         </div>
-        <h1>{c.title}</h1>
+        <h1>{keyByMail ? c.title : c.titleInApp}</h1>
         <p>{downloadStarted ? c.body.started : previewMode ? c.body.preview : c.body.direct} {keyByMail ? c.trade.mail : c.trade.inApp}</p>
         {downloadStarted && <iframe className="download-frame" src={downloadPath} title={c.iframeTitle} aria-hidden="true" tabIndex={-1} />}
         {downloadAvailable && <a className="inline-download" href={downloadPath}>{downloadStarted ? c.inlineDownload.again : c.inlineDownload.now} ↓</a>}

@@ -179,6 +179,9 @@ test("asks for an address only when something can receive it", async () => {
     assert.doesNotMatch(html, /name="email"/);
     assert.doesNotMatch(html, /Wo diktierst du am meisten/);
     assert.doesNotMatch(html, /Trag deine Adresse ein/);
+    // Nor may it ask a question it gives no way to answer.
+    assert.doesNotMatch(html, /Wohin sollen wir deinen Lizenzschlüssel schicken/);
+    assert.match(html, /Deinen Schlüssel holst du in der App/);
     // The trade is still named, and the key still has somewhere to come from.
     assert.match(html, /[Dd]rei Tage/);
     assert.match(html, /dreizehn/);
