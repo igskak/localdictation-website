@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { LegalShell } from "../_components/LegalShell";
 import { analyticsEnabled, analyticsProducts, getAnalyticsConfig } from "../_lib/analytics";
-import { safeLeadEndpoint } from "../_lib/urlPolicy";
 import { posthogCookieMonths } from "../_lib/retention";
 
 export const metadata: Metadata = { title: "Datenschutz · Witness", description: "Datenschutzerklärung für die Website, die App Witness und den Aktivierungsdienst.", robots: { index: false, follow: false } };
@@ -27,7 +26,7 @@ export default function DatenschutzPage() {
     analytics && "in Google Analytics werden Nutzer- und Ereignisdaten nach 14 Monaten gelöscht",
     product && `die Kennung von PostHog läuft nach ${posthogCookieMonths} Monaten ab`,
     product && "die Ereignisse in PostHog löschen wir, sobald sie für diesen Zweck nicht mehr gebraucht werden, spätestens mit der Schließung des Projekts — eine automatische Löschfrist bietet PostHog nicht an, und wir nennen hier keine, die wir nicht einhalten könnten",
-    product && "auf Verlangen löschen wir die zu dir gehörenden Ereignisse, siehe Abschnitt 14",
+    product && "auf Verlangen löschen wir die zu dir gehörenden Ereignisse, siehe Abschnitt 13",
   ].filter((frist): frist is string => Boolean(frist)).join("; ");
   // Was mit Einwilligung überhaupt etwas ablegen darf, in einem Satzteil.
   const speicherer = [analytics && "Google Analytics", ads && "Google Ads", product && "PostHog"]
@@ -35,9 +34,6 @@ export default function DatenschutzPage() {
   const speichererSatz = speicherer.length > 1
     ? `${speicherer.slice(0, -1).join(", ")} und ${speicherer[speicherer.length - 1]}`
     : speicherer[0];
-  // Ohne Endpunkt gibt es kein Formular und damit keine Adresse, die als
-  // Enhanced Conversion übergeben werden könnte.
-  const formular = Boolean(safeLeadEndpoint(process.env.LEAD_ENDPOINT));
   const werkzeuge = analytics && ads
     ? <><strong>Google Analytics 4</strong> und dem <strong>Conversion-Tag von Google Ads</strong></>
     : analytics
@@ -128,9 +124,8 @@ export default function DatenschutzPage() {
     {google && <p>Diese Seite misst mit {werkzeuge}, welche Anzeige und welcher Suchbegriff zu einem Besuch und zu einer angeforderten Lizenz geführt haben. Anbieter ist Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland.</p>}
     {product && <><p>Mit <strong>PostHog</strong> messen wir außerdem, wie diese Seite benutzt wird: über welche Seite du hierher gekommen bist, welche Unterseiten du aufrufst, welche Knöpfe und Links du anklickst, wie weit du liest und ob der Download gestartet ist. Das beantwortet, woran diese Seite scheitert — nicht, wer du bist.</p>
     <p>Anbieter ist die <strong>PostHog, Inc.</strong>, 2261 Market Street #4008, San Francisco, CA 94114, USA, für uns als Auftragsverarbeiter. Die Ereignisse werden in PostHogs <em>EU Cloud</em> in Frankfurt am Main verarbeitet und gespeichert. Die Anfragen laufen nicht direkt dorthin, sondern über <code>witnessmac.com/ingest</code> und damit über unseren eigenen Server: Deine IP-Adresse geben wir dabei weiter, damit das Land bestimmt werden kann, die Cookies dieser Seite dagegen nicht. <strong>Sitzungsaufzeichnungen sind abgeschaltet</strong> — es entsteht kein Video deines Besuchs und keine Aufnahme deiner Mausbewegungen.</p></>}
-    <p><strong>Ohne deine Einwilligung</strong> wird nichts auf deinem Gerät gespeichert und nichts von dort ausgelesen. Gemessen wird trotzdem, aber ohne Wiedererkennung: {google ? "Das Google-Tag sendet gekürzte IP-Adresse, aufgerufene Seite, Gerät und Browser sowie die Klickkennung der Anzeige aus der Adresszeile. " : ""}{product ? "PostHog läuft dann ganz ohne Ablage auf deinem Gerät — die Ereignisse eines Besuchs hängen nur so lange zusammen, wie der Tab offen ist, und beim nächsten Besuch bist du eine unbekannte Person. " : ""}Gemeldet wird dabei, dass die Downloadseite <code>/danke</code> geöffnet wurde{formular ? " und ob dort ein Schlüssel angefordert wurde" : ""}. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO; unser berechtigtes Interesse ist zu wissen, wofür wir Werbung bezahlen und woran diese Seite scheitert. Du kannst dem nach Art. 21 DSGVO widersprechen.</p>
+    <p><strong>Ohne deine Einwilligung</strong> wird nichts auf deinem Gerät gespeichert und nichts von dort ausgelesen. Gemessen wird trotzdem, aber ohne Wiedererkennung: {google ? "Das Google-Tag sendet gekürzte IP-Adresse, aufgerufene Seite, Gerät und Browser sowie die Klickkennung der Anzeige aus der Adresszeile. " : ""}{product ? "PostHog läuft dann ganz ohne Ablage auf deinem Gerät — die Ereignisse eines Besuchs hängen nur so lange zusammen, wie der Tab offen ist, und beim nächsten Besuch bist du eine unbekannte Person. " : ""}Gemeldet wird dabei, dass die Downloadseite <code>/danke</code> geöffnet wurde. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO; unser berechtigtes Interesse ist zu wissen, wofür wir Werbung bezahlen und woran diese Seite scheitert. Du kannst dem nach Art. 21 DSGVO widersprechen.</p>
     <p><strong>Mit deiner Einwilligung</strong> dürfen {speichererSatz} zusätzlich Cookies setzen und auslesen und deine Besuche einander zuordnen{product ? "; PostHog legt seine Kennung unter dem Namen ph_…_posthog in der lokalen Ablage deines Browsers und in einem Cookie desselben Namens ab" : ""}. Rechtsgrundlage ist § 25 Abs. 1 TDDDG für das Speichern auf deinem Gerät und Art. 6 Abs. 1 lit. a DSGVO für die Verarbeitung. Deine Entscheidung liegt in der lokalen Ablage deines Browsers unter <code>witness.consent</code>; ändern kannst du sie jederzeit über <em>Cookie-Einstellungen</em> im Fuß jeder Seite, mit Wirkung für die Zukunft.{product ? " Widerrufst du sie, wird die Kennung von PostHog gelöscht und weiterhin ohne Ablage gemessen." : ""}</p>
-    {formular && <p><strong>Wenn du einen Schlüssel anforderst</strong>, übergibt die Seite deine E-Mail-Adresse als <em>Enhanced Conversion</em>: Das Google-Skript bildet daraus noch in deinem Browser einen Hash, und nur dieser Hash wird gesendet — damit eine Anzeige der Anforderung zugeordnet werden kann, ohne die Adresse selbst zu übermitteln.</p>}
     <p><strong>Was dabei nicht verarbeitet wird</strong>: nichts aus der App. Kein Audio, kein Transkript, kein Wörterbuch, keine Programme, in die du diktierst. Die App enthält keinen dieser Tags, und die Ereignisse aus Abschnitt 4a gehen an unseren eigenen Dienst und nicht an Google{product ? " oder PostHog" : ""}.</p>
     <p><strong>Speicherdauer</strong>: {speicherfristen}.</p>
     <p><strong>Drittland</strong>: {google ? "Google verarbeitet Daten auch in den Vereinigten Staaten. Grundlage sind die Standardvertragsklauseln der Europäischen Kommission und der Angemessenheitsbeschluss zum EU-US Data Privacy Framework, unter dem Google LLC zertifiziert ist. " : ""}{product ? "PostHog speichert die Ereignisse dieser Seite in der Europäischen Union; Mutterkonzern ist die PostHog, Inc. in den Vereinigten Staaten, und Grundlage einer Übermittlung dorthin sind die Standardvertragsklauseln der Europäischen Kommission. " : ""}Ein Zugriff US-amerikanischer Behörden lässt sich nicht ausschließen.</p>
@@ -138,26 +133,21 @@ export default function DatenschutzPage() {
     <p>Sie bindet keine Schriften, Karten oder Videos von fremden Servern ein.</p>
     <p>Sie wird von <strong>Cloudflare</strong> ausgeliefert (Auftragsverarbeiter). Beim Abruf verarbeitet die Infrastruktur die technisch notwendigen Verbindungsdaten — IP-Adresse, Zeitpunkt, angeforderte Adresse, übertragene Datenmenge, Statuscode und User-Agent —, um die Seite auszuliefern und den Betrieb gegen Angriffe abzusichern. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO; das berechtigte Interesse ist der sichere und funktionsfähige Betrieb der Website. Diese Verbindungsdaten werden nicht zu Profilen zusammengeführt und nicht mit anderen Daten verknüpft.</p>
 
-    <h2>9. Das Formular auf /danke</h2>
-    <p>Das Formular ist freiwillig. Der Download und die Installationsanleitung funktionieren ohne es. Es überträgt genau drei Angaben: deine <strong>E-Mail-Adresse</strong>, die <strong>Sprachkennung der Seite</strong> und, wenn du sie auswählst, eine <strong>codierte Angabe dazu, wo du am meisten diktierst</strong>. Es sendet kein Audio, kein Transkript, kein Wörterbuch, keine Zwischenablage und keine Inhalte anderer Programme.</p>
-    <p>Zweck ist der Versand deines Lizenzschlüssels und die Einrichtungshilfe dazu; Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO für die vorvertragliche Maßnahme, die du mit dem Absenden auslöst. Die freiwillige Angabe zum Einsatzbereich verarbeiten wir auf Grundlage deiner Einwilligung nach Art. 6 Abs. 1 lit. a DSGVO, die du jederzeit mit Wirkung für die Zukunft widerrufen kannst. Die Angaben werden gelöscht, sobald der Schlüsselversand abgeschlossen ist und keine Rückfrage mehr offen ist.</p>
-    <p>Empfänger ist der in Abschnitt 5 beschriebene Aktivierungsdienst; weitere Empfänger gibt es nicht, und an Dritte zu Werbezwecken wird nichts weitergegeben. Ist keine Empfängeranbindung konfiguriert, sendet die Oberfläche nichts und sagt dir das auch — dann forderst du den Schlüssel in der App an.</p>
-
-    <h2>10. Das Spracherkennungsmodell</h2>
+    <h2>9. Das Spracherkennungsmodell</h2>
     <p>Beim ersten Start lädt die App das Modell von sich aus aus dem öffentlichen Repository <code>argmaxinc/whisperkit-coreml</code> bei Hugging Face. Dabei erfährt Hugging Face die technischen Verbindungsdaten dieses Abrufs, insbesondere deine IP-Adresse. Es wird nichts hochgeladen, und die Anfrage enthält keine Angabe darüber, wer du bist. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO, weil ohne Modell keine Erkennung möglich ist. Für diesen Abruf gilt die Datenschutzerklärung von Hugging Face.</p>
 
-    <h2>11. Die sieben Ereignisse, die nicht übertragen werden</h2>
+    <h2>10. Die sieben Ereignisse, die nicht übertragen werden</h2>
     <p>Die App baut zehn Ereignisse über den Lizenzverlauf — installiert, Test gestartet, Schlüssel angefordert und so weiter. <strong>Drei davon werden gesendet</strong>; Abschnitt 4a sagt genau welche und genau was darin steht. <strong>Die übrigen sieben werden nicht übertragen</strong>: Sie werden in das lokale Systemprotokoll auf deinem Mac geschrieben und bleiben dort.</p>
     <p>Der Typ, aus dem sie gebaut werden, hat kein Freitextfeld, in das ein Transkript auch versehentlich geraten könnte. Jede weitere Änderung geschieht mit einer neuen Zeile in der Tabelle in Abschnitt 4 und einem Schalter, den du erreichst — nicht stillschweigend.</p>
     <p>Absturzberichte sammeln wir nicht. macOS kann dir anbieten, Apple einen Bericht zu senden; das ist eine Sache zwischen dir und Apple, und diese App liest ihn weder noch fordert sie ihn an.</p>
 
-    <h2>12. Keine automatisierte Entscheidungsfindung</h2>
+    <h2>11. Keine automatisierte Entscheidungsfindung</h2>
     <p>Es findet keine automatisierte Entscheidungsfindung einschließlich Profiling im Sinne von Art. 22 DSGVO statt.</p>
 
-    <h2>13. Übermittlung in Drittländer</h2>
+    <h2>12. Übermittlung in Drittländer</h2>
     <p>Cloudflare, Stripe, Resend, Amazon Web Services, Hugging Face{product ? ", PostHog" : ""} und Google (Gmail, und bei erteilter Einwilligung Analytics und Ads) sind Unternehmen mit Sitz oder Mutterkonzern in den Vereinigten Staaten. Auch wo die Daten in der EU gespeichert werden — bei uns die Lizenztabelle in Cloudflares Region Osteuropa und der Mailversand über Irland —, ist ein Zugriff aus einem Drittland nicht ausgeschlossen. Solche Übermittlungen stützen wir auf die Standardvertragsklauseln der Europäischen Kommission und, soweit der jeweilige Anbieter danach zertifiziert ist, auf den Angemessenheitsbeschluss zum EU-US Data Privacy Framework.</p>
 
-    <h2>14. Deine Rechte</h2>
+    <h2>13. Deine Rechte</h2>
     <ul>
       <li><strong>Auskunft</strong> über die zu dir gespeicherten Daten (Art. 15 DSGVO)</li>
       <li><strong>Berichtigung</strong> unrichtiger Daten (Art. 16 DSGVO)</li>
@@ -170,16 +160,16 @@ export default function DatenschutzPage() {
     <p>Eine E-Mail an <a href="mailto:hallo@witnessmac.com">hallo@witnessmac.com</a> genügt. Es gibt kein Formular und kein Konto, in dem du dich dafür anmelden müsstest.</p>
     <p><strong>Löschung, und was sie bedeutet</strong>: Auf Verlangen wird dein Datensatz im Aktivierungsdienst gelöscht; erhalten bleibt nur eine anonymisierte Bestellzeile, wo eine Rechnung das verlangt. Die Folge ist wichtig, weil sie sich nicht rückgängig machen lässt: Für diese Adresse kann danach kein weiterer Schlüssel mehr ausgestellt werden, ein später ersetzter Mac also nicht mehr aktiviert werden. Schlüssel, die bereits auf deinen Macs sind, arbeiten weiter — sie werden auf dem Mac gegen eine Signatur geprüft, ohne Verbindung.</p>
 
-    <h2>15. Beschwerderecht</h2>
+    <h2>14. Beschwerderecht</h2>
     <p>Du kannst dich bei einer Datenschutzaufsichtsbehörde beschweren. Für uns zuständig ist das tschechische Amt für den Schutz personenbezogener Daten, Úřad pro ochranu osobních údajů, Pplk. Sochora 27, 170 00 Praha 7, <a href="https://uoou.gov.cz" rel="noreferrer">uoou.gov.cz</a>. Du kannst dich auch an die Aufsichtsbehörde deines Wohnsitzes oder deines Arbeitsplatzes wenden.</p>
 
-    <h2>16. Bereitstellungspflicht</h2>
+    <h2>15. Bereitstellungspflicht</h2>
     <p>Du bist nicht verpflichtet, uns Daten bereitzustellen. Ohne E-Mail-Adresse kann jedoch kein Test- oder Lizenzschlüssel ausgestellt und zugestellt werden, weil die Lizenz an diese Adresse gebunden ist; ohne Gerätekennung ließe sich die Zwei-Mac-Grenze nicht durchsetzen.</p>
 
-    <h2>17. Kinder</h2>
+    <h2>16. Kinder</h2>
     <p>Das Produkt richtet sich nicht an Kinder und fragt nichts über das Alter ab.</p>
 
-    <h2>18. Änderungen dieser Erklärung</h2>
+    <h2>17. Änderungen dieser Erklärung</h2>
     <p>Die Tabelle in Abschnitt 4 ist das Versprechen. Sendet eine künftige Version etwas, das nicht darin steht, wird diese Erklärung geändert, <em>bevor</em> jene Version veröffentlicht wird — und die Anfrage der App bleibt genau so weit, wie diese Erklärung reicht.</p>
     <p>Wie sich das auf den Vertrag auswirkt, steht in den <Link href="/agb">Vertrags- und Lizenzbedingungen</Link>.</p>
   </LegalShell>;

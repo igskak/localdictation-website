@@ -1,5 +1,3 @@
-const localBase = new URL("https://witness.invalid");
-
 function trimmed(value: string | null | undefined) {
   const candidate = value?.trim();
   if (!candidate || [...candidate].some((character) => {
@@ -20,21 +18,4 @@ export function safeHttpsUrl(value: string | null | undefined): URL | null {
   } catch {
     return null;
   }
-}
-
-export function safeLeadEndpoint(value: string | null | undefined): string | null {
-  const candidate = trimmed(value);
-  if (!candidate) return null;
-
-  if (candidate.startsWith("/")) {
-    try {
-      const target = new URL(candidate, localBase);
-      if (target.origin !== localBase.origin || target.hash) return null;
-      return `${target.pathname}${target.search}`;
-    } catch {
-      return null;
-    }
-  }
-
-  return safeHttpsUrl(candidate)?.toString() ?? null;
 }

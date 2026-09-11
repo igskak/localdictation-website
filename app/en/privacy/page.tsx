@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { LegalShell } from "../../_components/LegalShell";
 import { analyticsEnabled, analyticsProducts, getAnalyticsConfig } from "../../_lib/analytics";
-import { safeLeadEndpoint } from "../../_lib/urlPolicy";
 import { posthogCookieMonths } from "../../_lib/retention";
 import { legalPaths } from "../../_lib/legal";
 
@@ -26,7 +25,7 @@ export default function PrivacyPage() {
     analytics && "in Google Analytics user and event data is deleted after 14 months",
     product && `PostHog’s identifier expires after ${posthogCookieMonths} months`,
     product && "the events in PostHog are deleted once they are no longer needed for that purpose, and at the latest when the project is closed — PostHog offers no automatic retention period to configure, and we will not state one here that we could not keep",
-    product && "on request we delete the events belonging to you, see section 14",
+    product && "on request we delete the events belonging to you, see section 13",
   ].filter((period): period is string => Boolean(period)).join("; ");
   // What may store anything at all once consent is given, as one phrase.
   const storers = [analytics && "Google Analytics", ads && "Google Ads", product && "PostHog"]
@@ -34,8 +33,6 @@ export default function PrivacyPage() {
   const storerPhrase = storers.length > 1
     ? `${storers.slice(0, -1).join(", ")} and ${storers[storers.length - 1]}`
     : storers[0];
-  // No endpoint means no form, so no address exists to pass as an enhanced conversion.
-  const form = Boolean(safeLeadEndpoint(process.env.LEAD_ENDPOINT));
   const tools = analytics && ads
     ? <><strong>Google Analytics 4</strong> and the <strong>Google Ads conversion tag</strong></>
     : analytics
@@ -127,9 +124,8 @@ export default function PrivacyPage() {
     {google && <p>This page uses {tools} to measure which ad and which search term led to a visit and to a requested licence. The provider is Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Ireland.</p>}
     {product && <><p>With <strong>PostHog</strong> we also measure how this page is used: which page you arrived from, which sub-pages you open, which buttons and links you click, how far you read, and whether the download started. That answers where this page fails — not who you are.</p>
     <p>The provider is <strong>PostHog, Inc.</strong>, 2261 Market Street #4008, San Francisco, CA 94114, USA, acting as a processor for us. The events are processed and stored in PostHog&apos;s <em>EU Cloud</em> in Frankfurt am Main. The requests do not go there directly but through <code>witnessmac.com/ingest</code>, and so through our own server: we pass on your IP address so that the country can be determined, but not this site&apos;s cookies. <strong>Session recording is switched off</strong> — no video of your visit and no recording of your mouse movements is created.</p></>}
-    <p><strong>Without your consent</strong> nothing is stored on your device and nothing is read from it. Measurement still happens, but without recognition: {google ? "the Google tag sends a shortened IP address, the page viewed, device and browser, and the ad click identifier from the address bar. " : ""}{product ? "PostHog then runs with no storage on your device at all — the events of one visit hang together only for as long as the tab is open, and on your next visit you are an unknown person. " : ""}What is reported is that the download page <code>/danke</code> was opened{form ? ", and whether a key was requested there" : ""}. The legal basis is Art. 6(1)(f) GDPR; our legitimate interest is knowing what we are paying for advertising for and where this page fails. You may object under Art. 21 GDPR.</p>
+    <p><strong>Without your consent</strong> nothing is stored on your device and nothing is read from it. Measurement still happens, but without recognition: {google ? "the Google tag sends a shortened IP address, the page viewed, device and browser, and the ad click identifier from the address bar. " : ""}{product ? "PostHog then runs with no storage on your device at all — the events of one visit hang together only for as long as the tab is open, and on your next visit you are an unknown person. " : ""}What is reported is that the download page <code>/danke</code> was opened. The legal basis is Art. 6(1)(f) GDPR; our legitimate interest is knowing what we are paying for advertising for and where this page fails. You may object under Art. 21 GDPR.</p>
     <p><strong>With your consent</strong> {storerPhrase} may additionally set and read cookies and connect your visits to one another{product ? "; PostHog keeps its identifier under the name ph_…_posthog in your browser’s local storage and in a cookie of the same name" : ""}. The legal basis is § 25(1) TDDDG for the storage on your device and Art. 6(1)(a) GDPR for the processing. Your decision sits in your browser&apos;s local storage under <code>witness.consent</code>; you can change it at any time through <em>Cookie settings</em> in the footer of every page, with effect for the future.{product ? " Withdraw it and PostHog’s identifier is deleted, and measurement continues without storage." : ""}</p>
-    {form && <p><strong>When you request a key</strong>, the page passes your e-mail address as an <em>enhanced conversion</em>: the Google script hashes it inside your browser and only that hash is sent, so that an ad can be matched to the request without transmitting the address itself.</p>}
     <p><strong>What is not processed</strong>: anything from the app. No audio, no transcript, no vocabulary, none of the applications you dictate into. The app carries none of these tags, and the events in section 4a go to our own service and not to Google{product ? " or PostHog" : ""}.</p>
     <p><strong>Retention</strong>: {retentions}.</p>
     <p><strong>Third country</strong>: {google ? "Google also processes data in the United States. This rests on the European Commission’s standard contractual clauses and on the adequacy decision for the EU-US Data Privacy Framework, under which Google LLC is certified. " : ""}{product ? "PostHog stores this site’s events in the European Union; its parent company PostHog, Inc. is in the United States, and any transfer there rests on the European Commission’s standard contractual clauses. " : ""}Access by US authorities cannot be ruled out.</p>
@@ -137,26 +133,21 @@ export default function PrivacyPage() {
     <p>It embeds no fonts, maps or videos from third-party servers.</p>
     <p>It is served by <strong>Cloudflare</strong> (processor). When you load a page, the infrastructure processes the technically necessary connection data — IP address, time, requested address, amount of data transferred, status code and user agent — in order to deliver the page and keep the service safe from attack. The legal basis is Art. 6(1)(f) GDPR; the legitimate interest is the secure and functioning operation of the website. This connection data is not combined into profiles and not linked with other data.</p>
 
-    <h2>9. The form on /danke</h2>
-    <p>The form is optional. The download and the installation guide work without it. It transmits exactly three things: your <strong>e-mail address</strong>, the <strong>language of the page</strong>, and, if you pick one, a <strong>coded answer about where you dictate most</strong>. It sends no audio, no transcript, no vocabulary, no clipboard and no content from other applications.</p>
-    <p>The purpose is sending your licence key and the setup help that goes with it; the legal basis is Art. 6(1)(b) GDPR for the pre-contractual step you trigger by submitting. The optional answer about your area of use is processed on the basis of your consent under Art. 6(1)(a) GDPR, which you can withdraw at any time with effect for the future. The entries are deleted once the key has been sent and no question is left open.</p>
-    <p>The recipient is the activation service described in section 5; there are no other recipients, and nothing is passed to third parties for advertising. If no recipient is configured, the form sends nothing and says so — then you ask for the key in the app.</p>
-
-    <h2>10. The speech model</h2>
+    <h2>9. The speech model</h2>
     <p>When you press “Prepare speech model…”, the app fetches the model from the public repository <code>argmaxinc/whisperkit-coreml</code> at Hugging Face. Hugging Face thereby learns the technical connection data of that request, in particular your IP address. Nothing is uploaded, and the request contains nothing about who you are. The legal basis is Art. 6(1)(b) GDPR, because there is no recognition without a model. Hugging Face&apos;s own privacy policy applies to that fetch.</p>
 
-    <h2>11. The seven events that are not transmitted</h2>
+    <h2>10. The seven events that are not transmitted</h2>
     <p>The app builds ten events about the licensing journey — installed, trial started, key requested and so on. <strong>Three of them are sent</strong>, and section 4a says exactly which and exactly what is in them. <strong>The other seven are not transmitted</strong>: they are written to the local system log on your Mac and stay there.</p>
     <p>The type they are built from has no free-text field anywhere, so there is nothing a transcript could end up in even by accident. Any further change happens with a new row in the table in section 4 and a switch you can reach — not quietly.</p>
     <p>We collect no crash reports. macOS may offer to send Apple a report; that is between you and Apple, and this app neither reads it nor asks for it.</p>
 
-    <h2>12. No automated decision-making</h2>
+    <h2>11. No automated decision-making</h2>
     <p>There is no automated decision-making, including profiling, within the meaning of Art. 22 GDPR.</p>
 
-    <h2>13. Transfers to third countries</h2>
+    <h2>12. Transfers to third countries</h2>
     <p>Cloudflare, Stripe, Resend, Amazon Web Services, Hugging Face{product ? ", PostHog" : ""} and Google (Gmail, and where consent is given Analytics and Ads) are companies established in, or with a parent company in, the United States. Even where the data is stored in the EU — for us, the licence table in Cloudflare&apos;s Eastern Europe region and mail delivery through Ireland — access from a third country cannot be ruled out. We base such transfers on the European Commission&apos;s standard contractual clauses and, where the provider concerned is certified under it, on the adequacy decision for the EU-US Data Privacy Framework.</p>
 
-    <h2>14. Your rights</h2>
+    <h2>13. Your rights</h2>
     <ul>
       <li><strong>Access</strong> to the data stored about you (Art. 15 GDPR)</li>
       <li><strong>Rectification</strong> of inaccurate data (Art. 16 GDPR)</li>
@@ -169,16 +160,16 @@ export default function PrivacyPage() {
     <p>An e-mail to <a href="mailto:hallo@witnessmac.com">hallo@witnessmac.com</a> is enough. There is no form and no account you would have to sign into for it.</p>
     <p><strong>Erasure, and what it means</strong>: on request, your record in the activation service is deleted; only an anonymised order row is kept where an invoice requires it. The consequence matters, because it cannot be undone: no further key can be issued for that address, so a Mac you later replace cannot be activated. Keys already on your Macs keep working — they are verified on the Mac, against a signature, with no connection.</p>
 
-    <h2>15. Right to complain</h2>
+    <h2>14. Right to complain</h2>
     <p>You can complain to a data protection supervisory authority. The one responsible for us is the Czech Office for Personal Data Protection, Úřad pro ochranu osobních údajů, Pplk. Sochora 27, 170 00 Praha 7, <a href="https://uoou.gov.cz" rel="noreferrer">uoou.gov.cz</a>. You can also go to the authority where you live or work.</p>
 
-    <h2>16. Whether you have to provide anything</h2>
+    <h2>15. Whether you have to provide anything</h2>
     <p>You are not obliged to give us data. Without an e-mail address, however, no trial or licence key can be issued and delivered, because the licence is bound to that address; without a device identifier, the two-Mac limit could not be enforced.</p>
 
-    <h2>17. Children</h2>
+    <h2>16. Children</h2>
     <p>The product is not directed at children and asks nothing about age.</p>
 
-    <h2>18. Changes to this policy</h2>
+    <h2>17. Changes to this policy</h2>
     <p>The table in section 4 is the promise. If a future version sends something that is not in it, this policy is changed <em>before</em> that version is published — and the app&apos;s request stays exactly as wide as this policy reaches.</p>
     <p>What that means for the contract is in the <Link href={legalPaths.en.terms}>Terms and Licence</Link>.</p>
   </LegalShell>;

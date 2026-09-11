@@ -5,18 +5,21 @@ import "server-only";
  *
  * Nothing here is a default. With no identifiers configured the page renders
  * without a tag, without a banner, and the privacy policy drops the section
- * describing them -- the same shape `DOWNLOAD_URL` and `LEAD_ENDPOINT` already
- * have, and the reason section 8 of `/datenschutz` can keep claiming to be
- * written from the code rather than from an intention.
+ * describing them -- the same shape `DOWNLOAD_URL` already has, and the reason
+ * section 8 of `/datenschutz` can keep claiming to be written from the code
+ * rather than from an intention.
  */
 export type AnalyticsConfig = {
   /** GA4 property, `G-` followed by the property's own characters. */
   measurementId: string | null;
   /** Google Ads conversion account, `AW-` followed by digits. */
   adsConversionId: string | null;
-  /** Label of the lead conversion. Null while nothing can receive a lead. */
-  adsLeadLabel: string | null;
-  /** Label of the download-page conversion: observation only, never a bidding target. */
+  /**
+   * Label of the download-page conversion, and the only conversion this site
+   * reports. There is no lead conversion because there is no lead: the site
+   * hands over a file, and the key is issued inside the app. `docs/GTM.md`
+   * says why that leaves the campaign on manual bidding.
+   */
   adsDownloadLabel: string | null;
   /**
    * PostHog project key, `phc_` followed by the project's own characters.
@@ -39,15 +42,13 @@ function matched(value: string | null | undefined, pattern: RegExp): string | nu
 
 export function getAnalyticsConfig(): AnalyticsConfig {
   const adsConversionId = matched(process.env.ADS_CONVERSION_ID, adsPattern);
-  const adsLeadLabel = matched(process.env.ADS_LEAD_CONVERSION_LABEL, labelPattern);
   const adsDownloadLabel = matched(process.env.ADS_DOWNLOAD_CONVERSION_LABEL, labelPattern);
-  // The account is only worth configuring if at least one label can be
-  // reported against it, and a label without an account reports nowhere.
-  const reportable = Boolean(adsConversionId && (adsLeadLabel || adsDownloadLabel));
+  // The account is only worth configuring if the label can be reported against
+  // it, and a label without an account reports nowhere.
+  const reportable = Boolean(adsConversionId && adsDownloadLabel);
   return {
     measurementId: matched(process.env.GA4_MEASUREMENT_ID, measurementPattern),
     adsConversionId: reportable ? adsConversionId : null,
-    adsLeadLabel: reportable ? adsLeadLabel : null,
     adsDownloadLabel: reportable ? adsDownloadLabel : null,
     posthogKey: matched(process.env.POSTHOG_KEY, posthogPattern),
   };

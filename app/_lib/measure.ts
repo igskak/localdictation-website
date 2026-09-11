@@ -4,15 +4,15 @@
  * Two products measure this page and they measure different things. The Google
  * tag exists so the ad account can be told a conversion happened; PostHog
  * exists so we can see where a reader came from and what they did. Both want
- * to hear about the same two moments, and if the moments were reported from
- * two different places they would drift -- one renamed, one forgotten, and a
- * funnel that disagrees with itself for a reason nobody can find.
+ * to hear about the same moment, and if it were reported from two different
+ * places the two would drift -- one renamed, one forgotten, and a funnel that
+ * disagrees with itself for a reason nobody can find.
  *
  * So the call sites report once, here, and this file fans out. `gtag.ts` and
  * `posthog.ts` stay the two implementations and neither knows about the other.
  */
 
-import { type ConsentChoice, type GtagConfig, denyStorage, grantStorage, loadTags, reportDownload as reportDownloadToGoogle, reportLead as reportLeadToGoogle } from "./gtag";
+import { type ConsentChoice, type GtagConfig, denyStorage, grantStorage, loadTags, readConsent, reportDownload as reportDownloadToGoogle } from "./gtag";
 import { type PosthogConfig, capturePosthog, denyPosthogStorage, grantPosthogStorage, startPosthog } from "./posthog";
 
 export type MeasureConfig = GtagConfig & PosthogConfig;
@@ -36,12 +36,6 @@ export function denyMeasurementStorage(config: MeasureConfig): void {
   denyPosthogStorage(config);
 }
 
-/** The conversion the campaign optimises on. The address reaches Google hashed, and PostHog not at all. */
-export function reportLead(config: MeasureConfig, email: string): void {
-  reportLeadToGoogle(config, email);
-  capturePosthog(config, "lead_created");
-}
-
 /**
  * Reaching the page the file downloads from.
  *
@@ -51,6 +45,16 @@ export function reportLead(config: MeasureConfig, email: string): void {
  * page where the second number grows is a page that is failing quietly.
  */
 export function reportDownload(config: MeasureConfig, mode: DownloadMode, locale: string): void {
+  // Load before reporting, not after. Effects run child-first, so the download
+  // reports itself before the banner at the bottom of the tree has started
+  // anything -- and a queued `event` that reaches gtag.js ahead of the `config`
+  // for its own measurement id is replayed into a tag that is not configured
+  // yet and dropped. The page then sends a `page_view` and nothing else, which
+  // is indistinguishable from a tag that works.
+  //
+  // Idempotent on both sides, so the banner's own call a moment later is a
+  // no-op, and both calls read the same stored answer.
+  startMeasurement(config, readConsent());
   reportDownloadToGoogle(config);
   capturePosthog(config, "download_started", { mode, locale });
 }

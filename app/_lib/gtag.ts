@@ -15,7 +15,6 @@
 export type GtagConfig = {
   measurementId: string | null;
   adsConversionId: string | null;
-  adsLeadLabel: string | null;
   adsDownloadLabel: string | null;
 };
 
@@ -49,11 +48,24 @@ export function writeConsent(choice: ConsentChoice): void {
   }
 }
 
+/**
+ * The shim, and the one line in this file that may not be tidied up.
+ *
+ * `dataLayer.push(arguments)` — the `arguments` object itself, never a rest
+ * parameter collected into an array. gtag.js decides what a queued entry is by
+ * looking at it: an `Arguments` object is a command it replays, an `Array` is a
+ * GTM-style data push it has no use for. The two are indistinguishable in the
+ * console, so the rest-parameter spelling reads like a faithful translation of
+ * Google's snippet and behaves like an off switch — the tag loads, `gtm.load`
+ * fires, and every `consent`, `config` and `event` below is dropped without a
+ * word. It shipped that way, and the GA4 property recorded nothing at all.
+ */
 function ensureGtag(): (...args: unknown[]) => void {
   window.dataLayer = window.dataLayer ?? [];
   if (!window.gtag) {
-    window.gtag = function gtag(...args: unknown[]) {
-      window.dataLayer?.push(args);
+    window.gtag = function gtag() {
+      // eslint-disable-next-line prefer-rest-params
+      window.dataLayer?.push(arguments);
     };
   }
   return window.gtag;
@@ -93,7 +105,9 @@ export function loadTags(config: GtagConfig, consent: ConsentChoice | null): voi
   // signal worth setting here is the one that is not a default -- Ads only
   // ever hears about the single conversion this site reports.
   if (config.measurementId) gtag("config", config.measurementId);
-  if (config.adsConversionId) gtag("config", config.adsConversionId, { allow_enhanced_conversions: true });
+  // No `allow_enhanced_conversions`: that setting existed so a lead's address
+  // could be hashed into the conversion, and there is no address any more.
+  if (config.adsConversionId) gtag("config", config.adsConversionId);
 }
 
 export function grantStorage(): void {
@@ -113,28 +127,6 @@ export function denyStorage(): void {
     ad_personalization: "denied",
     analytics_storage: "denied",
   });
-}
-
-/**
- * The one conversion the campaign optimises on.
- *
- * The address is handed over for enhanced conversions, which hashes it in the
- * browser before it goes anywhere: what reaches Google is a hash, never the
- * address. The caller passes it rather than the tag reading the field, so
- * there is exactly one line in this codebase where a lead becomes a number.
- */
-export function reportLead(config: GtagConfig, email: string): void {
-  // Queue rather than bail. A report can happen before the consent banner has
-  // created the shim -- effects run child-first, and the banner is the last
-  // thing in the tree -- and gtag.js replays whatever is already in dataLayer
-  // when it loads. Reading `window.gtag` here instead lost the event.
-  const gtag = ensureGtag();
-
-  if (config.adsConversionId && config.adsLeadLabel) {
-    gtag("set", "user_data", { email });
-    gtag("event", "conversion", { send_to: `${config.adsConversionId}/${config.adsLeadLabel}` });
-  }
-  if (config.measurementId) gtag("event", "lead_created");
 }
 
 /**

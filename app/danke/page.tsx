@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
-import { ThankYouForm } from "./ThankYouForm";
 import { DownloadLink, DownloadSignal } from "./DownloadSignal";
 import { getDownloadTarget } from "../_lib/download";
-import { safeLeadEndpoint } from "../_lib/urlPolicy";
 import { getAnalyticsConfig } from "../_lib/analytics";
 import { RouteFooter } from "../_components/RouteFooter";
 import { thanksCopy } from "../_data/thanksCopy";
@@ -23,11 +21,7 @@ export default async function DankePage({ searchParams }: { searchParams: Promis
   const locale = parseLocale(params.lang);
   const c = thanksCopy[locale];
   const downloadAvailable = Boolean(getDownloadTarget());
-  const leadEndpoint = safeLeadEndpoint(process.env.LEAD_ENDPOINT);
   const analytics = getAnalyticsConfig();
-  // No endpoint means the address goes nowhere. The page then may not ask for
-  // one, and may not promise a key by mail: the app issues it instead.
-  const keyByMail = Boolean(leadEndpoint);
   const downloadStarted = downloadAvailable && params.download === "auto";
   const previewMode = !downloadAvailable;
   const downloadPath = locale === "de" ? "/download" : `/download?lang=${locale}`;
@@ -44,14 +38,13 @@ export default async function DankePage({ searchParams }: { searchParams: Promis
           <span className="download-check" aria-hidden="true">↓</span>
           <p>{downloadStarted ? c.state.started : previewMode ? c.state.preview : c.state.ready}</p>
         </div>
-        <h1>{keyByMail ? c.title : c.titleInApp}</h1>
-        <p>{downloadStarted ? c.body.started : previewMode ? c.body.preview : c.body.direct} {keyByMail ? c.trade.mail : c.trade.inApp}</p>
+        <h1>{c.title}</h1>
+        <p>{downloadStarted ? c.body.started : previewMode ? c.body.preview : c.body.direct} {c.trade}</p>
         {downloadStarted && <iframe className="download-frame" src={downloadPath} title={c.iframeTitle} aria-hidden="true" tabIndex={-1} />}
         {downloadAvailable && <DownloadLink analytics={analytics} locale={locale} href={downloadPath} label={downloadStarted ? c.inlineDownload.again : c.inlineDownload.now} />}
         <DownloadSignal analytics={analytics} started={downloadStarted} locale={locale} />
         </section>
         <section className="thanks-grid shell">
-        {keyByMail && <ThankYouForm locale={locale} leadEndpoint={leadEndpoint} analytics={analytics} />}
         <aside className="key-card">
           <span>{c.key.label}</span>
           <strong>•••• — •••• — ••••</strong>

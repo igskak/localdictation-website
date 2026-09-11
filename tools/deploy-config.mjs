@@ -33,11 +33,12 @@ const VARS = {
   // then the site loads no tag and both privacy policies say so.
   GA4_MEASUREMENT_ID: "G-CWNBL1TC3B",
   ADS_CONVERSION_ID: "AW-18439722393",
-  // Nothing receives a lead today (`LEAD_ENDPOINT` is unset and the service has
-  // no route for one), so this label reports nothing until that is built. It
-  // stays here because the conversion action exists and will be needed.
-  ADS_LEAD_CONVERSION_LABEL: "8apHCIq59vEcEJmr39hE",
-  // Reaching the download page. Observation only -- never a bidding target.
+  // Reaching the download page, and the only conversion this site reports.
+  // There is no lead conversion: a licence key names a Mac, a browser does not
+  // know which Mac it is, and the address is therefore asked for once, in the
+  // app. `docs/GTM.md` records the decision and what it costs -- this label is
+  // an observation and never a bidding target, so the campaign runs on manual
+  // CPC rather than on a smart strategy fed by a number that means nothing.
   ADS_DOWNLOAD_CONVERSION_LABEL: "yp1TCM6njPMcEJmr39hE",
 
   // Product analytics: where readers came from and what they did on the page,
