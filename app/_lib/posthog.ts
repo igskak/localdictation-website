@@ -84,7 +84,13 @@ export function startPosthog(config: PosthogConfig, consent: ConsentChoice | nul
     persistence: consent === "granted" ? "localStorage+cookie" : "memory",
     cookie_expiration: cookieDays,
     autocapture: true,
-    capture_pageview: true,
+    // `true` would report the page the library booted on and nothing after it:
+    // posthog-js only listens to history changes when this is the string, and
+    // the landing page reaches /danke through a client-side navigation on
+    // purpose (see `_components/LandingPage.tsx` for why it has to). Left at
+    // `true`, that navigation -- the only one the campaign pays for -- would
+    // arrive unannounced.
+    capture_pageview: "history_change",
     capture_pageleave: true,
     disable_session_recording: true,
     // A reader who has not agreed gets no profile built for them: events still

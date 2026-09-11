@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { getDownloadTarget } from "../_lib/download";
 import { landingCopy } from "../_data/landingCopy";
 import { consentCopy } from "../_data/consentCopy";
@@ -107,6 +108,15 @@ export function LandingPage({ locale }: { locale: Locale }) {
   const legalLang = legalLocale(locale);
   const legal = legalPaths[legalLang];
   const downloadAvailable = Boolean(getDownloadTarget());
+  // Reached with `Link` rather than a plain anchor, and that is a measurement
+  // decision rather than a routing one. Before a reader consents PostHog keeps
+  // its identifier in memory only, so a full page load throws away the person,
+  // the session and the ad click identifier the campaign arrived with -- and
+  // /danke, the one page worth paying for, would report an anonymous stranger
+  // referred by this very site. A client-side navigation keeps all three
+  // without writing anything to the reader's device, which is the whole point.
+  // `capture_pageview: "history_change"` in `_lib/posthog.ts` is the other half:
+  // without it these navigations report nothing at all.
   const downloadHref = locale === "de" ? "/danke?download=auto" : `/danke?lang=${locale}&download=auto`;
 
   const softwareSchema = {
@@ -166,9 +176,9 @@ export function LandingPage({ locale }: { locale: Locale }) {
             <p className="hero-lede">{c.hero.lede}</p>
             <p className="audience-line">{c.hero.audience}</p>
             <div className="hero-actions">
-              <a className="button button-primary" href={downloadHref}>
+              <Link className="button button-primary" href={downloadHref}>
                 <span className="download-symbol" aria-hidden="true">↓</span>{c.hero.download}
-              </a>
+              </Link>
             </div>
             <p className="fine-print">
               {c.hero.fine.map((item, index) => <span key={item}>{index > 0 && <i />} {item}</span>)}
@@ -330,7 +340,7 @@ export function LandingPage({ locale }: { locale: Locale }) {
               <ul>{c.pricing.annual.bullets.map((item) => <li key={item}>{item}</li>)}</ul>
             </article>
           </div>
-          <a className="button button-primary pricing-download" href={downloadHref}>{c.pricing.download}</a>
+          <Link className="button button-primary pricing-download" href={downloadHref}>{c.pricing.download}</Link>
           <p className="pricing-footnote">{c.pricing.footnote}</p>
           <p className="cost-compare"><span>{c.pricing.compare.cloud}</span><s>$360</s><i>→</i><span>{c.pricing.compare.product}</span><b>€99</b><small>{c.pricing.compare.asOf}</small></p>
         </section>
@@ -350,7 +360,7 @@ export function LandingPage({ locale }: { locale: Locale }) {
             <p className="section-kicker">09 — {c.final.kicker}</p>
             <h2>{c.final.title}</h2>
             <p>{c.final.body}</p>
-            <a className="button button-primary button-large" href={downloadHref}><span aria-hidden="true">↓</span>{c.final.download}</a>
+            <Link className="button button-primary button-large" href={downloadHref}><span aria-hidden="true">↓</span>{c.final.download}</Link>
             <small>{downloadAvailable ? c.final.ready : c.final.preview}</small>
           </div>
         </section>
