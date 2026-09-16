@@ -51,10 +51,18 @@ test("renders the complete German landing page in the required order", async () 
   assert.match(html, /Für alle, die mehr als eine Sprache benutzen/);
   assert.match(html, /€99/);
   assert.match(html, /€49/);
-  assert.equal((html.match(/<a[^>]+href="\/danke\?download=auto"[^>]*>[\s\S]*?Für Mac laden<\/a>/g) ?? []).length, 3);
+  // Four copies of one download: header, hero, pricing, closing section. The
+  // header copy is the one on screen on a laptop, where the hero's sits
+  // below the fold or under the consent banner.
+  assert.equal((html.match(/<a[^>]+href="\/danke\?download=auto"[^>]*>[\s\S]*?Für Mac laden<\/a>/g) ?? []).length, 4);
+  const header = html.match(/<header class="site-header-wrap[\s\S]*?<\/header>/)?.[0] ?? "";
+  assert.match(header, /<a[^>]+href="\/danke\?download=auto"[^>]*data-cta="header"[^>]*>[\s\S]*?Für Mac laden<\/a>/);
   // One landing, one call to action: the hero offers the download and nothing competing with it.
   const hero = html.match(/<section class="hero[\s\S]*?<\/section>/)?.[0] ?? "";
   assert.equal((hero.match(/class="button/g) ?? []).length, 1, "hero must hold exactly one CTA");
+  // The campaign buys `spracherkennung` and `sprache zu text`; the page has to say both.
+  assert.match(html, /<title>[^<]*Spracherkennung für den Mac[^<]*<\/title>/);
+  assert.match(hero, /Sprache zu Text/);
   assert.match(html, /nicht öffentlich dokumentiert/);
   assert.match(html, /Die vollständige Datenschutzerklärung lesen/);
   assert.match(html, /UI-Prototyp/);
@@ -83,6 +91,10 @@ test("renders the English variant and reciprocal language links", async () => {
   assert.match(enHtml, /<html lang="en">/i);
   assert.match(enHtml, /Dictate instead of typing/);
   assert.match(enHtml, /Everything stays on your Mac/);
+  // The English ad group buys `speech to text` and `voice to text`.
+  assert.match(enHtml, /<title>[^<]*Speech to text for Mac[^<]*<\/title>/);
+  assert.match(enHtml, /Voice to text app for Mac/);
+  assert.match(enHtml, /<header class="site-header-wrap[\s\S]*?href="\/danke\?lang=en&amp;download=auto"[^>]*data-cta="header"[\s\S]*?<\/header>/);
   assert.match(enHtml, /UI prototype/);
   assert.match(enHtml, /€14,000/);
   assert.match(enHtml, /German/);

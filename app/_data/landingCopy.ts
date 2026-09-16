@@ -42,7 +42,7 @@ const de: LandingCopy = {
     { label: "Preis", href: "#preis" },
   ],
   hero: {
-    eyebrow: "Lokale Diktier-App für macOS",
+    eyebrow: "Diktier-App für den Mac · Sprache zu Text, lokal",
     title: "Diktieren statt tippen.",
     titleMuted: "Alles bleibt auf deinem Mac.",
     lede: "Drück den Hotkey, sprich — nach einer kurzen Prüfung landet der fertige Text dort, wo dein Cursor steht. Ohne Cloud-Verarbeitung, ohne Benutzerkonto, einmal zahlen statt monatlich.",
@@ -182,7 +182,7 @@ const en: LandingCopy = {
     { label: "Pricing", href: "#preis" },
   ],
   hero: {
-    eyebrow: "Local dictation app for macOS",
+    eyebrow: "Voice to text app for Mac · runs offline",
     title: "Dictate instead of typing.",
     titleMuted: "Everything stays on your Mac.",
     lede: "Press the hotkey and speak. After a quick check, finished text appears exactly where your cursor is. No cloud processing, no user account, and a one-time purchase instead of another monthly bill.",

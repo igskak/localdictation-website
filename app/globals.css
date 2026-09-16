@@ -642,6 +642,46 @@ h1 span { color: #95958e; }
 }
 
 .site-root .hero-copy { align-self: center; }
+
+/* The header's copy of the download button. It is smaller than the hero's so
+   the header stays a header. Phones hide it: there the header is only the brand
+   and four round switches, and the hero's button is the first thing below
+   them. */
+.site-root .header-download { padding: 9px 16px; font-size: 13px; }
+.header-download .download-symbol { font-size: 15px; }
+
+/* With the button, the right-hand side of the header needs about 350px. Below
+   1100px the centred anchor links run into it. They only jump down a page that
+   scrolls anyway, so they give way to the download, as they already do below
+   820px. */
+@media (max-width: 1100px) {
+  .site-root .site-nav { display: none; }
+  .site-root .site-header { grid-template-columns: 1fr auto; }
+  .site-root .header-actions { grid-column: 2; }
+}
+
+@media (max-width: 720px) {
+  .site-root .header-download { display: none; }
+}
+
+/* A laptop screen is where the hero's button got lost. The copy above it is
+   about 640px tall, and a 13-inch MacBook has roughly 790px of browser
+   window. After the header and a top consent banner that leaves under 600px,
+   and the same happens under a bottom banner at 860px. Two changes lift the
+   button back into view on short screens: the headline is sized by the
+   screen's height as well as its width, and the copy starts at the top
+   instead of being centred against the 625px product demo. Stacked layouts
+   (1050px and narrower) keep their own rules. */
+@media (min-width: 1051px) and (max-height: 940px) {
+  .site-root .hero { padding-block: 36px 72px; }
+  .site-root .hero-copy { align-self: start; }
+  .site-root .hero h1 { font-size: clamp(46px, min(5.15vw, 7svh), 78px); }
+  .site-root .hero .eyebrow { margin-bottom: 20px; }
+  .site-root .hero-lede { margin-top: 22px; }
+  .site-root .audience-line { margin-top: 16px; }
+  .site-root .hero-actions { margin-top: 24px; }
+}
+
 .site-root .hero-lede { color: color-mix(in srgb, var(--ink) 80%, transparent); }
 .site-root h1 span { color: var(--muted); }
 .site-root .audience-line { color: var(--muted); }

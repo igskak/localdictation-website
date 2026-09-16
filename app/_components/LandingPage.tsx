@@ -164,6 +164,15 @@ export function LandingPage({ locale }: { locale: Locale }) {
                 <a className="language-switch" key={item} href={localeHome(item)} hrefLang={item}>{localeLabels[item]}</a>
               ))}
             </nav>
+            {/* The same download as the hero's, so it is still one offer. It is
+                here because the hero's button sits about 700px down the page,
+                and on a 13- or 14-inch MacBook a consent banner takes the top
+                or bottom of what is left. Most ad visitors who left within
+                seconds never had a download button on screen. The sticky
+                header is visible at every height. */}
+            <Link className="button button-primary header-download" href={downloadHref} data-cta="header">
+              <span className="download-symbol" aria-hidden="true">↓</span>{c.hero.download}
+            </Link>
           </div>
         </div>
       </header>
@@ -176,7 +185,7 @@ export function LandingPage({ locale }: { locale: Locale }) {
             <p className="hero-lede">{c.hero.lede}</p>
             <p className="audience-line">{c.hero.audience}</p>
             <div className="hero-actions">
-              <Link className="button button-primary" href={downloadHref}>
+              <Link className="button button-primary" href={downloadHref} data-cta="hero">
                 <span className="download-symbol" aria-hidden="true">↓</span>{c.hero.download}
               </Link>
             </div>
@@ -340,7 +349,7 @@ export function LandingPage({ locale }: { locale: Locale }) {
               <ul>{c.pricing.annual.bullets.map((item) => <li key={item}>{item}</li>)}</ul>
             </article>
           </div>
-          <Link className="button button-primary pricing-download" href={downloadHref}>{c.pricing.download}</Link>
+          <Link className="button button-primary pricing-download" href={downloadHref} data-cta="pricing">{c.pricing.download}</Link>
           <p className="pricing-footnote">{c.pricing.footnote}</p>
           <p className="cost-compare"><span>{c.pricing.compare.cloud}</span><s>$360</s><i>→</i><span>{c.pricing.compare.product}</span><b>€99</b><small>{c.pricing.compare.asOf}</small></p>
         </section>
@@ -360,7 +369,7 @@ export function LandingPage({ locale }: { locale: Locale }) {
             <p className="section-kicker">09 — {c.final.kicker}</p>
             <h2>{c.final.title}</h2>
             <p>{c.final.body}</p>
-            <Link className="button button-primary button-large" href={downloadHref}><span aria-hidden="true">↓</span>{c.final.download}</Link>
+            <Link className="button button-primary button-large" href={downloadHref} data-cta="final"><span aria-hidden="true">↓</span>{c.final.download}</Link>
             <small>{downloadAvailable ? c.final.ready : c.final.preview}</small>
           </div>
         </section>

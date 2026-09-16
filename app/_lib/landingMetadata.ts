@@ -2,15 +2,22 @@ import type { Metadata } from "next";
 import { alternateLanguages, localeHome, openGraphLocales, type Locale } from "./locale";
 import { requestOrigin } from "./requestOrigin";
 
+// The German and English titles name what the paid campaign buys:
+// `spracherkennung` and `sprache zu text`, `speech to text` and `voice to text`
+// (docs/GTM.md). Part of how Google rates a landing page is whether it talks
+// about the search that brought the reader. On 2026-09-16 it rated this page
+// "below average" for all five keywords, and the English page never said
+// "voice to text" at all. Russian and Ukrainian are not advertised and keep
+// their own lines.
 const meta: Record<Locale, { title: string; description: string; imageAlt: string }> = {
   de: {
-    title: "Witness — Diktieren, ohne deine Daten zu teilen",
-    description: "Lokale Diktier-App für Apple Silicon. Deutsch und Englisch mischen, unsichere Stellen prüfen und Text direkt am Cursor einsetzen.",
+    title: "Witness — Spracherkennung für den Mac, ohne Cloud",
+    description: "Sprache zu Text am Mac: lokale Diktier-App für Apple Silicon. Deutsch und Englisch mischen, unsichere Stellen prüfen, Text direkt am Cursor einsetzen.",
     imageAlt: "Witness zeigt einen markierten Betrag vor dem Einfügen",
   },
   en: {
-    title: "Witness — Dictate without sharing your data",
-    description: "Private dictation for Apple silicon. Mix English and German, review uncertain passages, and insert text at your cursor.",
+    title: "Witness — Speech to text for Mac, private and offline",
+    description: "Voice to text for Apple silicon Macs, processed on the device. Mix English and German, review uncertain passages, and insert text at your cursor.",
     imageAlt: "Witness highlights an amount for review before insertion",
   },
   ru: {
