@@ -650,11 +650,12 @@ h1 span { color: #95958e; }
 .site-root .header-download { padding: 9px 16px; font-size: 13px; }
 .header-download .download-symbol { font-size: 15px; }
 
-/* With the button, the right-hand side of the header needs about 350px. Below
-   1100px the centred anchor links run into it. They only jump down a page that
+/* With the button, the right-hand side of the header needs about 420px -- the
+   button now names the trial rather than the file, which is longer. Below
+   1180px the centred anchor links run into it. They only jump down a page that
    scrolls anyway, so they give way to the download, as they already do below
    820px. */
-@media (max-width: 1100px) {
+@media (max-width: 1180px) {
   .site-root .site-nav { display: none; }
   .site-root .site-header { grid-template-columns: 1fr auto; }
   .site-root .header-actions { grid-column: 2; }

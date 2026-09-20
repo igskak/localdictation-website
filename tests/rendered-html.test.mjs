@@ -54,9 +54,12 @@ test("renders the complete German landing page in the required order", async () 
   // Four copies of one download: header, hero, pricing, closing section. The
   // header copy is the one on screen on a laptop, where the hero's sits
   // below the fold or under the consent banner.
-  assert.equal((html.match(/<a[^>]+href="\/danke\?download=auto"[^>]*>[\s\S]*?Für Mac laden<\/a>/g) ?? []).length, 4);
+  assert.equal((html.match(/<a[^>]+href="\/danke\?download=auto"[^>]*>[\s\S]*?Für Mac kostenlos testen<\/a>/g) ?? []).length, 4);
   const header = html.match(/<header class="site-header-wrap[\s\S]*?<\/header>/)?.[0] ?? "";
-  assert.match(header, /<a[^>]+href="\/danke\?download=auto"[^>]*data-cta="header"[^>]*>[\s\S]*?Für Mac laden<\/a>/);
+  assert.match(header, /<a[^>]+href="\/danke\?download=auto"[^>]*data-cta="header"[^>]*>[\s\S]*?Für Mac kostenlos testen<\/a>/);
+  // The button says what it gives, and the price says it again next to the price:
+  // three of ten Mac visitors from the ads opened the pricing section and left.
+  assert.match(html, /13 Tage kostenlos, ohne Kreditkarte/);
   // One landing, one call to action: the hero offers the download and nothing competing with it.
   const hero = html.match(/<section class="hero[\s\S]*?<\/section>/)?.[0] ?? "";
   assert.equal((hero.match(/class="button/g) ?? []).length, 1, "hero must hold exactly one CTA");
