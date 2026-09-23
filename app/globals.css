@@ -748,6 +748,29 @@ h1 span { color: #95958e; }
 .trust-grid > span:first-child { border-left: 1px solid var(--line); }
 .trust-grid b { color: var(--success); font-size: 10px; }
 
+/* A row of its own under the four promises rather than a fifth cell: the grid
+   is four equal text columns, and a 250px image in one of them would set the
+   column width for the other three. */
+.trust-badge {
+  display: flex;
+  justify-content: center;
+  padding-block: 20px 24px;
+  border-top: 1px solid var(--line);
+}
+.product-hunt-badge {
+  display: inline-flex;
+  border-radius: 10px;
+  transition: opacity 140ms ease;
+}
+.product-hunt-badge:hover { opacity: 0.86; }
+.product-hunt-badge:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+.product-hunt-badge img { display: block; width: 250px; height: auto; }
+/* The page opens dark and the checkbox switches it to light; the badge follows
+   in Product Hunt's own two colour schemes rather than being recoloured. */
+.product-hunt-badge .badge-light { display: none; }
+.site-root:has(.theme-checkbox:checked) .product-hunt-badge .badge-dark { display: none; }
+.site-root:has(.theme-checkbox:checked) .product-hunt-badge .badge-light { display: block; }
+
 .section { padding-block: clamp(64px, 6vw, 88px); }
 .section-intro { max-width: 720px; }
 

@@ -24,6 +24,32 @@ The legal texts exist in **German and English**, and `app/_lib/legal.ts` is the 
 
 Neither language is a translation of record that overrides the other: each applies to purchases made in it, and both pages say so. That is deliberate. A clause making one version prevail over the one a consumer actually read is the kind of term that gets struck out. The consequence is that **the two sets have to keep saying the same thing** — a test compares the claims a disagreement would be expensive in, and it is not a substitute for reading both when either changes.
 
+## The Product Hunt badge
+
+The trust strip carries the Product Hunt badge in all four locales, loaded from
+`api.producthunt.com` rather than copied into `public/`. That is deliberate: the
+badge draws its own vote count, and it rewrites itself from `FIND US ON` to
+`FEATURED ON` after the launch. A local copy would freeze whichever number it
+was fetched on and need a deploy to move.
+
+Two themes, swapped in CSS with the rest of the page: `theme=dark` for the dark
+scheme and **`theme=neutral`** — not `theme=light` — for the light one. Their
+light badge is drawn in Product Hunt coral (`#FF6154`), which lands a shade off
+this page's own accent (`#bd3e27`) sitting right beside it; `neutral` is slate
+on white and `dark` carries no coral at all.
+
+No `t=` cache-buster, although Product Hunt's snippet ships one. Their response
+is `cache-control: public, max-age=14400`, so the count is at most four hours
+stale; the parameter would only cost every visitor a fresh request.
+
+**This is the one third-party request the site makes.** Product Hunt sees each
+visitor's IP on page load, and the response sets a Cloudflare `__cf_bm` cookie
+in their own domain. Both `/datenschutz` and `/en/privacy` say so — under
+"Diese Website" / "This website" — and a test fails if either page stops naming
+Product Hunt. If that trade ever stops being worth a badge, put the two SVGs in
+`public/`, point the `src`s at them, and delete the paragraph from both
+policies.
+
 ## Local development
 
 Requires Node.js `>=22.13.0`.

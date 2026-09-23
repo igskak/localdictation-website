@@ -200,6 +200,50 @@ export function LandingPage({ locale }: { locale: Locale }) {
           <div className="shell trust-grid">
             {c.trust.map((item, index) => <span key={item}><b aria-hidden="true">{index === 0 ? "●" : "✓"}</b>{item}</span>)}
           </div>
+          {/* Loaded from Product Hunt rather than copied into `public/`, so the
+              vote count on the badge is the live one and the badge turns itself
+              into "FEATURED ON" after the launch without a deploy. The cost is
+              that api.producthunt.com sees every visitor's IP on page load,
+              before the consent banner has been answered -- /datenschutz has to
+              say so. No `t=` cache-buster: it would defeat caching without
+              making the count any fresher.
+
+              `neutral` rather than `light` for the light scheme: Product Hunt's
+              light badge is drawn in their coral (#FF6154), which sits a shade
+              off the page's own accent (#bd3e27) right next to it. Their dark
+              badge carries no coral at all, so it stays as it is. CSS picks one
+              of the two, which is why both carry an empty alt and the
+              accessible name sits on the link. */}
+          <div className="shell trust-badge">
+            <a
+              className="product-hunt-badge"
+              href="https://www.producthunt.com/products/witness-for-mac?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-witness-for-mac"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={c.ui.productHunt}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                className="badge-dark"
+                src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1258517&theme=dark"
+                alt=""
+                width={250}
+                height={54}
+                loading="lazy"
+                decoding="async"
+              />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                className="badge-light"
+                src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1258517&theme=neutral"
+                alt=""
+                width={250}
+                height={54}
+                loading="lazy"
+                decoding="async"
+              />
+            </a>
+          </div>
         </aside>
 
         <section className="section process-section shell" id="funktion" data-section="S3">

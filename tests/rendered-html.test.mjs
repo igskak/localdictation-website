@@ -87,6 +87,37 @@ test("renders the complete German landing page in the required order", async () 
   );
 });
 
+test("carries the live Product Hunt badge on every locale, in the two neutral themes", async () => {
+  const pages = await Promise.all(["/", "/en", "/ru", "/uk"].map(async (path) => [path, await (await render(path)).text()]));
+  for (const [path, html] of pages) {
+    const strip = html.match(/<aside class="trust-strip[\s\S]*?<\/aside>/)?.[0] ?? "";
+    assert.match(strip, /href="https:\/\/www\.producthunt\.com\/products\/witness-for-mac\?embed=true(&amp;|&)utm_source=badge-featured/, path);
+    assert.match(strip, /rel="noopener noreferrer"/, path);
+    // Loaded from Product Hunt so the vote count is the live one, and so the
+    // badge becomes "FEATURED ON" after the launch without a deploy. A copy in
+    // `public/` would freeze whatever number it was fetched on.
+    const sources = [...strip.matchAll(/<img[^>]+src="([^"]+)"/g)].map((match) => match[1].replaceAll("&amp;", "&"));
+    assert.equal(sources.length, 2, path);
+    for (const source of sources) {
+      assert.match(source, /^https:\/\/api\.producthunt\.com\/widgets\/embed-image\/v1\/featured\.svg\?post_id=1258517&theme=/, path);
+      // A cache-buster would refetch the badge on every view without making the
+      // count any fresher than the response Product Hunt already serves.
+      assert.doesNotMatch(source, /[?&]t=/, path);
+    }
+    // Their `light` badge is drawn in Product Hunt coral, a shade off the
+    // page's own accent sitting next to it; `dark` and `neutral` are the two
+    // that carry no coral at all.
+    assert.deepEqual(sources.map((source) => source.split("theme=")[1]), ["dark", "neutral"], path);
+    // The two images are one badge; the accessible name belongs to the link.
+    assert.equal((strip.match(/alt=""/g) ?? []).length, 2, path);
+    assert.match(strip, /aria-label="[^"]*Product Hunt[^"]*"/, path);
+  }
+  // The badge makes the landing page call a third party on load. Both policies
+  // have to name it, or the page and the policy disagree.
+  const policies = await Promise.all([render("/datenschutz"), render("/en/privacy")].map(async (pending) => (await pending).text()));
+  for (const html of policies) assert.match(html, /Product Hunt/);
+});
+
 test("renders the English variant and reciprocal language links", async () => {
   const [deResponse, enResponse, unrelatedResponse] = await Promise.all([render("/"), render("/en"), render("/enough")]);
   const [deHtml, enHtml, unrelatedHtml] = await Promise.all([deResponse.text(), enResponse.text(), unrelatedResponse.text()]);

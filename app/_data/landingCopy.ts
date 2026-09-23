@@ -31,7 +31,7 @@ export type LandingCopy = {
   faq: { title: string; lede: string; items: { q: string; a: string }[] };
   final: { kicker: string; title: string; body: string; download: string; ready: string; preview: string };
   footer: { tagline: string; legalNav: string; agb: string; impressum: string; datenschutz: string; widerruf: string; lizenzen: string; kontakt: string };
-  ui: { skip: string; theme: string; mainNav: string; languageNav: string; promises: string };
+  ui: { skip: string; theme: string; mainNav: string; languageNav: string; promises: string; productHunt: string };
 };
 
 const de: LandingCopy = {
@@ -171,7 +171,7 @@ const de: LandingCopy = {
     tagline: "Lokale Diktier-Software für Menschen, die Unsicherheit lieber sehen als übersehen.",
     legalNav: "Rechtliche Links", agb: "AGB", impressum: "Impressum", datenschutz: "Datenschutz", widerruf: "Widerruf", lizenzen: "Lizenzen", kontakt: "Kontakt",
   },
-  ui: { skip: "Zum Inhalt", theme: "Farbschema wechseln", mainNav: "Hauptnavigation", languageNav: "Sprache wählen", promises: "Produktversprechen" },
+  ui: { skip: "Zum Inhalt", theme: "Farbschema wechseln", mainNav: "Hauptnavigation", languageNav: "Sprache wählen", promises: "Produktversprechen", productHunt: "Witness für Mac auf Product Hunt ansehen" },
 };
 
 const en: LandingCopy = {
@@ -311,7 +311,7 @@ const en: LandingCopy = {
     tagline: "Local dictation for people who would rather see uncertainty than miss it.",
     legalNav: "Legal links", agb: "Terms", impressum: "Legal notice", datenschutz: "Privacy", widerruf: "Cancellation", lizenzen: "Licences", kontakt: "Contact",
   },
-  ui: { skip: "Skip to content", theme: "Switch colour scheme", mainNav: "Main navigation", languageNav: "Choose language", promises: "Product promises" },
+  ui: { skip: "Skip to content", theme: "Switch colour scheme", mainNav: "Main navigation", languageNav: "Choose language", promises: "Product promises", productHunt: "See Witness for Mac on Product Hunt" },
 };
 
 const ru: LandingCopy = {
@@ -451,7 +451,7 @@ const ru: LandingCopy = {
     tagline: "Локальный диктовщик для тех, кто предпочитает видеть неуверенность, а не пропускать её.",
     legalNav: "Юридические страницы", agb: "Условия (EN)", impressum: "Импрессум (EN)", datenschutz: "Приватность (EN)", widerruf: "Право отказа (EN)", lizenzen: "Лицензии (EN)", kontakt: "Контакт",
   },
-  ui: { skip: "К содержимому", theme: "Сменить тему", mainNav: "Основная навигация", languageNav: "Выбор языка", promises: "Обещания продукта" },
+  ui: { skip: "К содержимому", theme: "Сменить тему", mainNav: "Основная навигация", languageNav: "Выбор языка", promises: "Обещания продукта", productHunt: "Witness for Mac на Product Hunt" },
 };
 
 const uk: LandingCopy = {
@@ -591,7 +591,7 @@ const uk: LandingCopy = {
     tagline: "Локальний диктувальник для тих, хто радше побачить непевність, ніж пропустить її.",
     legalNav: "Юридичні сторінки", agb: "Умови (EN)", impressum: "Імпресум (EN)", datenschutz: "Приватність (EN)", widerruf: "Право на відмову (EN)", lizenzen: "Ліцензії (EN)", kontakt: "Контакт",
   },
-  ui: { skip: "До вмісту", theme: "Змінити тему", mainNav: "Основна навігація", languageNav: "Вибір мови", promises: "Обіцянки продукту" },
+  ui: { skip: "До вмісту", theme: "Змінити тему", mainNav: "Основна навігація", languageNav: "Вибір мови", promises: "Обіцянки продукту", productHunt: "Witness for Mac на Product Hunt" },
 };
 
 export const landingCopy: Record<Locale, LandingCopy> = { de, en, ru, uk };
