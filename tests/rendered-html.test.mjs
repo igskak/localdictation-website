@@ -628,6 +628,44 @@ test("rejects malformed forwarded values without failing metadata rendering", as
   assert.doesNotMatch(html, /attacker\.example|javascript:/i);
 });
 
+// witnessmac.com and www.witnessmac.com are both bound to the worker, and the
+// canonical, the hreflang set and the sitemap are all built from the host that
+// asked. Without this redirect each host published a self-canonicalising copy
+// of the site and Google indexed pages under both.
+test("redirects www to the apex, keeping the path and the query", async () => {
+  const response = await render("/vergleich/wispr-flow-alternative?ref=producthunt", {}, "https://www.witnessmac.com");
+  assert.equal(response.status, 301);
+  assert.equal(response.headers.get("location"), "https://witnessmac.com/vergleich/wispr-flow-alternative?ref=producthunt");
+  assert.equal(response.headers.get("strict-transport-security"), "max-age=31536000");
+});
+
+test("redirects the crawler's own routes on www as well", async () => {
+  for (const path of ["/", "/en", "/sitemap.xml", "/robots.txt"]) {
+    const response = await render(path, {}, "https://www.witnessmac.com");
+    assert.equal(response.status, 301, path);
+    assert.equal(response.headers.get("location"), `https://witnessmac.com${path === "/" ? "/" : path}`, path);
+  }
+});
+
+test("serves the apex rather than redirecting it to itself", async () => {
+  const response = await render("/", {}, "https://witnessmac.com");
+  assert.equal(response.status, 200);
+});
+
+// The redirect reads the host the request arrived on and never the forwarded
+// header, which any caller may write: taking `www.` off an attacker's value
+// would hand them an open redirect. Metadata still derives from the forwarded
+// host, by the decision the two tests above record -- a canonical that is wrong
+// for one caller costs nothing, a redirect sends a reader somewhere else.
+test("ignores a forwarded www host rather than redirecting off-site", async () => {
+  const response = await render("/", {
+    host: "safe.example",
+    "x-forwarded-host": "www.attacker.example",
+  });
+  assert.equal(response.status, 200);
+  assert.equal(response.headers.get("location"), null);
+});
+
 test("keeps legal metadata route-specific and non-indexable", async () => {
   const expected = new Map([
     ["/impressum", "Anbieterkennzeichnung und rechtliche Hinweise"],
