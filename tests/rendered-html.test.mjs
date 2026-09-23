@@ -87,6 +87,32 @@ test("renders the complete German landing page in the required order", async () 
   );
 });
 
+test("scopes the no-storage promise to the measurement tools, because the badge is not one", async () => {
+  // The badge loads an image from api.producthunt.com, and that response sets a
+  // Cloudflare __cf_bm cookie whatever the reader answers here -- before they
+  // have answered at all. An unqualified "nothing is stored" in the banner
+  // would be a promise the page breaks 700px further down, so each locale has
+  // to say whose storage it is talking about. The banner is client-only and
+  // never reaches the server HTML, so this reads the copy where it is written.
+  const copy = await readFile(new URL("app/_data/consentCopy.ts", projectRoot), "utf8");
+  const scoped = [
+    ["de", "speichern diese Dienste nichts auf deinem Ger\u00e4t", "wird nichts gespeichert"],
+    ["en", "these services store nothing on your device", "decline and nothing is stored"],
+    ["ru", "\u044d\u0442\u0438 \u0441\u0435\u0440\u0432\u0438\u0441\u044b \u043d\u0438\u0447\u0435\u0433\u043e \u043d\u0435 \u0441\u043e\u0445\u0440\u0430\u043d\u044f\u044e\u0442", "\u043f\u0440\u0438 \u043e\u0442\u043a\u0430\u0437\u0435 \u043d\u0438\u0447\u0435\u0433\u043e \u043d\u0435 \u0441\u043e\u0445\u0440\u0430\u043d\u044f\u0435\u0442\u0441\u044f"],
+    ["uk", "\u0446\u0456 \u0441\u0435\u0440\u0432\u0456\u0441\u0438 \u043d\u0456\u0447\u043e\u0433\u043e \u043d\u0435 \u0437\u0431\u0435\u0440\u0456\u0433\u0430\u044e\u0442\u044c", "\u0437\u0430 \u0432\u0456\u0434\u043c\u043e\u0432\u0438 \u043d\u0456\u0447\u043e\u0433\u043e \u043d\u0435 \u0437\u0431\u0435\u0440\u0456\u0433\u0430\u0454\u0442\u044c\u0441\u044f"],
+  ];
+  for (const [locale, required, forbidden] of scoped) {
+    assert.ok(copy.includes(required), `the ${locale} banner must scope the promise: ${required}`);
+    assert.ok(!copy.includes(forbidden), `the ${locale} banner must not promise more than it keeps: ${forbidden}`);
+  }
+  // Section 8 of both policies makes the same promise, and names the exception.
+  for (const route of ["/datenschutz", "/en/privacy"]) {
+    const html = await (await render(route)).text();
+    assert.doesNotMatch(html, /(Einwilligung<\/strong> wird nichts auf deinem|consent<\/strong> nothing is stored on your)/, route);
+    assert.match(html, /Product Hunt/, route);
+  }
+});
+
 test("carries the live Product Hunt badge on every locale, in the two neutral themes", async () => {
   const pages = await Promise.all(["/", "/en", "/ru", "/uk"].map(async (path) => [path, await (await render(path)).text()]));
   for (const [path, html] of pages) {

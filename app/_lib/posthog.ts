@@ -114,8 +114,8 @@ export function grantPosthogStorage(config: PosthogConfig): void {
  *
  * `set_config` alone would only stop writing. A reader who agreed yesterday
  * and refuses today would keep an identifier on their device, and section 8
- * says plainly that a refusal means nothing is stored -- so the two keys
- * PostHog writes under this project are deleted here, by name.
+ * says plainly that after a refusal these tools store nothing -- so the two
+ * keys PostHog writes under this project are deleted here, by name.
  */
 export function denyPosthogStorage(config: PosthogConfig): void {
   const key = config.posthogKey;

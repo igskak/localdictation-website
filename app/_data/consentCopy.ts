@@ -35,7 +35,7 @@ export type ConsentCopy = {
 export const consentCopy: Record<Locale, ConsentCopy> = {
   de: {
     title: "Dürfen wir Cookies für die Messung setzen?",
-    body: (tools) => `Dafür werden Daten von ${tools} verarbeitet, auch in den USA. Stimmst du zu, dürfen Cookies auf deinem Gerät gespeichert werden; lehnst du ab, wird nichts gespeichert und die Messung bleibt anonym.`,
+    body: (tools) => `Dafür werden Daten von ${tools} verarbeitet, auch in den USA. Stimmst du zu, dürfen Cookies auf deinem Gerät gespeichert werden; lehnst du ab, speichern diese Dienste nichts auf deinem Gerät und die Messung bleibt anonym.`,
     reassurance: "Was du in Witness diktierst, ist davon in keinem Fall berührt — das verlässt deinen Mac nicht.",
     tools: { analytics: "Google Analytics", ads: "Google Ads", product: "PostHog" },
     and: "und",
@@ -47,7 +47,7 @@ export const consentCopy: Record<Locale, ConsentCopy> = {
   },
   en: {
     title: "May we set cookies for measurement?",
-    body: (tools) => `Data is processed for that by ${tools}, including in the United States. Agree and cookies may be stored on your device; decline and nothing is stored and the measurement stays anonymous.`,
+    body: (tools) => `Data is processed for that by ${tools}, including in the United States. Agree and cookies may be stored on your device; decline and these services store nothing on your device and the measurement stays anonymous.`,
     reassurance: "What you dictate in Witness is untouched either way — it does not leave your Mac.",
     tools: { analytics: "Google Analytics", ads: "Google Ads", product: "PostHog" },
     and: "and",
@@ -59,7 +59,7 @@ export const consentCopy: Record<Locale, ConsentCopy> = {
   },
   ru: {
     title: "Можно ставить cookies для измерений?",
-    body: (tools) => `Для этого данные обрабатываются сервисами ${tools}, в том числе в США. Согласие разрешает хранить cookies на вашем устройстве; при отказе ничего не сохраняется, а измерение остаётся анонимным.`,
+    body: (tools) => `Для этого данные обрабатываются сервисами ${tools}, в том числе в США. Согласие разрешает хранить cookies на вашем устройстве; при отказе эти сервисы ничего не сохраняют на вашем устройстве, а измерение остаётся анонимным.`,
     reassurance: "То, что вы диктуете в Witness, это не затрагивает ни при каком выборе — оно не покидает ваш Mac.",
     tools: { analytics: "Google Analytics", ads: "Google Ads", product: "PostHog" },
     and: "и",
@@ -71,7 +71,7 @@ export const consentCopy: Record<Locale, ConsentCopy> = {
   },
   uk: {
     title: "Можна ставити cookies для вимірювань?",
-    body: (tools) => `Для цього дані обробляються сервісами ${tools}, зокрема у США. Згода дозволяє зберігати cookies на вашому пристрої; за відмови нічого не зберігається, а вимірювання залишається анонімним.`,
+    body: (tools) => `Для цього дані обробляються сервісами ${tools}, зокрема у США. Згода дозволяє зберігати cookies на вашому пристрої; за відмови ці сервіси нічого не зберігають на вашому пристрої, а вимірювання залишається анонімним.`,
     reassurance: "Те, що ви диктуєте у Witness, це не зачіпає за жодного вибору — воно не залишає ваш Mac.",
     tools: { analytics: "Google Analytics", ads: "Google Ads", product: "PostHog" },
     and: "і",
