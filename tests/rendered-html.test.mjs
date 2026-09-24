@@ -276,8 +276,13 @@ test("serves the legal pages, and no longer calls any of them a draft", async ()
     ["/en/privacy", /written from the code, not from an intention/],
     ["/en/licences", /Witness stands on other people/],
   ]);
-  for (const [routes, stamp, counterparts] of [[legalRoutes, /Stand: 5\. September 2026/, legalRoutesEn], [legalRoutesEn, /Last updated: 5 September 2026/, legalRoutes]]) {
+  const updatedPages = new Set(["/agb", "/datenschutz", "/lizenzen", "/en/terms", "/en/privacy", "/en/licences"]);
+  for (const [routes, counterparts] of [[legalRoutes, legalRoutesEn], [legalRoutesEn, legalRoutes]]) {
     for (const [index, route] of routes.entries()) {
+      const date = updatedPages.has(route) ? "24" : "5";
+      const stamp = route.startsWith("/en/")
+        ? new RegExp(`Last updated: ${date} September 2026`)
+        : new RegExp(`Stand: ${date}\\. September 2026`);
       const response = await render(route);
       assert.equal(response.status, 200, route);
       const html = await response.text();

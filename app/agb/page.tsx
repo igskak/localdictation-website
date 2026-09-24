@@ -9,7 +9,7 @@ export default function AGBPage() {
     page="terms"
     eyebrow="Rechtliches"
     title="Vertrags- und Lizenzbedingungen"
-    updated="5. September 2026"
+    updated="24. September 2026"
     notice={<><b>Diese Bedingungen beschreiben das Produkt, das tatsächlich verkauft wird.</b> Sie sind vollständig formuliert und nicht als Entwurf gedacht, ersetzen aber keine anwaltliche Prüfung. Maßgeblich ist die Fassung, die beim Abschluss deines Kaufs galt.</>}
   >
     <h2>1. Anbieter und Geltungsbereich</h2>
@@ -74,7 +74,7 @@ export default function AGBPage() {
     <p>Nach Ablauf pausieren neue Diktierungen. Die App, deine Einstellungen und dein Wörterbuch bleiben auf deinem Mac.</p>
 
     <h2>9. Updates und Systemvoraussetzungen</h2>
-    <p>Witness aktualisiert sich nicht selbst. Neue Versionen stehen auf witnessmac.com zum Download bereit.</p>
+    <p>In den Einstellungen kannst du mit „Auf Updates prüfen“ nach einer neuen Version suchen. Ist eine verfügbar, kann Witness sie nach deiner Bestätigung laden, prüfen, installieren und neu starten. Im Hintergrund sucht oder installiert die App keine Updates. Neue Versionen stehen auch auf witnessmac.com zum Download bereit.</p>
     <p>Gegenüber Verbrauchern stellen wir während des Zeitraums, für den die Lizenz gilt, die Aktualisierungen bereit, die erforderlich sind, um die Vertragsmäßigkeit des Produkts zu erhalten — bei der Lifetime-Lizenz für die gekaufte Hauptversion. Wir informieren über solche Aktualisierungen; installierst du sie nicht, haften wir nicht für Mängel, die allein daraus folgen.</p>
     <p>Es gelten die Systemvoraussetzungen, die zum Zeitpunkt deines Kaufs genannt waren: Apple Silicon und macOS 14.4 oder neuer. Ändert Apple das Betriebssystem so, dass eine Anpassung nötig wird, nehmen wir sie im Rahmen des vorstehenden Absatzes vor.</p>
 

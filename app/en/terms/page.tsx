@@ -13,7 +13,7 @@ export default function TermsPage() {
     page="terms"
     eyebrow="Legal"
     title="Terms and Licence"
-    updated="5 September 2026"
+    updated="24 September 2026"
     notice={<><b>This English text applies to purchases made in English.</b> The German text at <Link href={legalPaths.de.terms}>/agb</Link> applies to purchases made in German. They say the same thing; if you find a place where they do not, tell us — you are entitled to rely on the one you read. Neither replaces advice from a lawyer, and the version that applies to you is the one that was current when you bought.</>}
   >
     <h2>1. Who we are, and what these terms cover</h2>
@@ -78,7 +78,7 @@ export default function TermsPage() {
     <p>When it ends, new dictations pause. The app, your settings and your vocabulary stay on your Mac.</p>
 
     <h2>9. Updates and system requirements</h2>
-    <p>Witness does not update itself. New versions are available for download at witnessmac.com.</p>
+    <p>In Settings, you can press “Check for updates” to ask for a new version. If one is available, Witness can download, verify, install and relaunch it after you confirm. It does not check or install in the background. New versions are also available at witnessmac.com.</p>
     <p>For consumers, we provide, for as long as the licence runs, the updates needed to keep the product in conformity with the contract — for a lifetime licence, for the major version you bought. We tell you about such updates; if you do not install them, we are not liable for defects that follow from that alone.</p>
     <p>The system requirements that apply are the ones stated when you bought: Apple silicon and macOS 14.4 or newer. If Apple changes the operating system so that an adjustment becomes necessary, we make it within the paragraph above.</p>
 

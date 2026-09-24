@@ -12,7 +12,7 @@ export default function LizenzenPage() {
     page="licences"
     eyebrow="Rechtliches"
     title="Lizenzen Dritter"
-    updated="5. September 2026"
+    updated="24. September 2026"
     notice={<><b>Witness steht auf fremder Arbeit.</b> Diese Seite nennt sie beim Namen. Die Lizenzbedingungen der jeweiligen Komponente gehen für diese Komponente unseren <Link href="/agb">Vertrags- und Lizenzbedingungen</Link> vor.</>}
   >
     <h2>In der App</h2>
@@ -22,9 +22,11 @@ export default function LizenzenPage() {
         <tbody>
           <tr><td>WhisperKit 1.1.0<br /><a href="https://github.com/argmaxinc/WhisperKit" rel="noreferrer">github.com/argmaxinc/WhisperKit</a></td><td>argmax, inc. (2024)</td><td>MIT</td></tr>
           <tr><td>Swift Argument Parser 1.8.2<br /><a href="https://github.com/apple/swift-argument-parser" rel="noreferrer">github.com/apple/swift-argument-parser</a></td><td>Apple Inc. und die Swift-Projekt-Autoren</td><td>Apache-2.0</td></tr>
+          <tr><td>Sparkle 2.10.0<br /><a href="https://github.com/sparkle-project/Sparkle" rel="noreferrer">github.com/sparkle-project/Sparkle</a></td><td>Andy Matuschak und Mitwirkende; weitere Hinweise liegen der App bei</td><td>MIT und beigefügte Hinweise</td></tr>
         </tbody>
       </table>
     </div>
+    <p>Die vollständige Sparkle-Lizenz und die Hinweise für mitgelieferte Bestandteile liegen auch unter <code>Witness.app/Contents/Resources/Sparkle-LICENSE.txt</code>.</p>
 
     <h2>Die Spracherkennungsmodelle</h2>
     <p>Die Modelle sind nicht Teil des Downloads. Die App lädt sie beim ersten Einrichten aus dem öffentlichen Repository <code>argmaxinc/whisperkit-coreml</code> bei Hugging Face; das ist der einzige Netzwerkzugriff, der dafür nötig ist.</p>

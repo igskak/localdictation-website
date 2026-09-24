@@ -43,7 +43,7 @@ export default function PrivacyPage() {
     page="privacy"
     eyebrow="Privacy"
     title="Clear limits on your data"
-    updated="5 September 2026"
+    updated="24 September 2026"
     notice={<><b>This policy is written from the code, not from an intention.</b> Every line describes what the app and the service actually do today. If a future version ever sends something new, this says so before that version is published. The German text is at <Link href={legalPaths.de.privacy}>/datenschutz</Link>.</>}
   >
     <h2>1. Controller</h2>
@@ -53,7 +53,7 @@ export default function PrivacyPage() {
     <h2>2. The short version</h2>
     <p>Nothing you dictate leaves your Mac. Not the audio, not the transcript, not the processed text, not your vocabulary, not the names of the applications you dictate into, and nothing derived from any of them. There is no product account, no sign-in and no analytics software <strong>in the app</strong>.</p>
     <p><strong>This website is a different matter, and the two are placed side by side deliberately.</strong> This product&apos;s promise is about the app on your Mac, not about this page: it is a sales page, we pay for people to find it, and a sales page may measure who visits it. What this page actually does today is in section 8.</p>
-    <p>Three things can leave the app, and each of them only after you press something. They are in section 4.</p>
+    <p>The app also makes a network request when you press “Check for updates”; it downloads an update only after you choose to install it. The complete list is in section 4.</p>
 
     <h2>3. What stays on your Mac</h2>
     <p>Speech recognition runs in the app, against a model on your disk. Audio is held in memory for the length of one utterance and discarded when the next begins or when you close the review. It is never written to disk.</p>
@@ -69,10 +69,13 @@ export default function PrivacyPage() {
           <tr><td>Your e-mail address and a device identifier</td><td>You press “Send me a key”</td><td>Our activation service at <code>api.witnessmac.com</code></td><td>Issuing a licence key for this Mac</td></tr>
           <tr><td>A licence key you already hold</td><td>You press “Remove from this Mac”</td><td>The same service</td><td>Freeing one of the two Macs your licence covers</td></tr>
           <tr><td>Three events about the trial, each with an app version, a macOS major and minor version, and a random number made at install</td><td>A trial starts, the app asks for an e-mail address, or it puts the prices on screen — unless you switch this off</td><td>The same service</td><td>Counting how many people reach the wall and how many get past it</td></tr>
+          <tr><td>An HTTPS request for the update catalogue; the request URL, IP address and User-Agent, which identifies Witness, its version and Sparkle&apos;s version</td><td>You press “Check for updates” in Settings</td><td>GitHub, which hosts the release catalogue</td><td>Finding a newer signed version</td></tr>
+          <tr><td>An HTTPS request for the signed update file; the requested URL, IP address and User-Agent</td><td>You confirm the offered update</td><td>GitHub, which hosts the release file</td><td>Downloading the version you chose to install</td></tr>
         </tbody>
       </table>
     </div>
-    <p>That is the complete list. There is no fifth row. The activation request has exactly two fields — <code>email</code> and <code>device</code> — and an automated test fails the moment a third is added. That is how this page stays true.</p>
+    <p>That is the complete list. The activation request has exactly two fields — <code>email</code> and <code>device</code> — and an automated test fails the moment a third is added. Update requests send no audio, dictated text, vocabulary, licence key, e-mail address or app content. Automatic update checks, automatic installation and Sparkle system profiling are disabled.</p>
+    <p><strong>Update request retention:</strong> we do not receive or store GitHub&apos;s request logs. GitHub may retain IP addresses and request metadata under its <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" rel="noreferrer">privacy statement</a>; it does not publish a fixed retention period for these requests. Sparkle stores its local update state on your Mac until you remove the app&apos;s preferences.</p>
     <p>The device identifier is a salted SHA-256 of your Mac&apos;s hardware identifier, truncated to 128 bits. It cannot be turned back into a serial number, it applies only to this app, and it matches nothing outside it. It exists so that a licence covers two Macs rather than any number of them.</p>
     <p>The connection is HTTPS. An endpoint without encryption makes the app report itself as unconfigured rather than send an address in the clear, and no build has a setting that relaxes that.</p>
     <p>The declaration you make in the app before a checkout opens — that the key be delivered immediately, and that this gives up the right of withdrawal — is <strong>not</strong> transmitted. It is recorded in the local system log on your Mac and nowhere else.</p>

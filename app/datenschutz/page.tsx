@@ -43,7 +43,7 @@ export default function DatenschutzPage() {
     page="privacy"
     eyebrow="Datenschutz"
     title="Klare Grenzen für deine Daten"
-    updated="5. September 2026"
+    updated="24. September 2026"
     notice={<><b>Diese Erklärung ist aus dem Code geschrieben, nicht aus einer Absicht.</b> Jede Zeile beschreibt, was die App und der Dienst heute tatsächlich tun. Sendet eine künftige Version etwas Neues, steht es hier, bevor diese Version veröffentlicht wird.</>}
   >
     <h2>1. Verantwortlicher</h2>
@@ -53,7 +53,7 @@ export default function DatenschutzPage() {
     <h2>2. Die kurze Fassung</h2>
     <p>Nichts, was du diktierst, verlässt deinen Mac. Nicht das Audio, nicht das Transkript, nicht der aufbereitete Text, nicht dein Wörterbuch, nicht die Namen der Programme, in die du diktierst, und nichts, was daraus abgeleitet wird. Es gibt kein Produktkonto, keine Anmeldung und keine Analyse-Software <strong>in der App</strong>.</p>
     <p><strong>Diese Website ist eine andere Sache, und das steht hier bewusst nebeneinander.</strong> Das Versprechen dieses Produkts gilt der App auf deinem Mac, nicht dieser Seite: Sie ist eine Verkaufsseite, wir bezahlen dafür, dass Menschen sie finden, und eine Verkaufsseite darf messen, wer sie besucht. Was diese Seite heute tatsächlich tut, steht in Abschnitt 8.</p>
-    <p>Drei Dinge können die App verlassen, und jedes davon erst, nachdem du etwas gedrückt hast. Sie stehen in Abschnitt 4.</p>
+    <p>Wenn du in den Einstellungen „Auf Updates prüfen“ drückst, stellt die App ebenfalls eine Netzwerkanfrage. Ein Update lädt sie erst, nachdem du die Installation bestätigt hast. Die vollständige Liste steht in Abschnitt 4.</p>
 
     <h2>3. Was auf deinem Mac bleibt</h2>
     <p>Die Spracherkennung läuft in der App, gegen ein Modell auf deiner Festplatte. Audio wird für die Dauer einer Äußerung im Arbeitsspeicher gehalten und verworfen, wenn die nächste beginnt oder du die Prüfung schließt. Es wird nicht auf die Festplatte geschrieben.</p>
@@ -69,10 +69,13 @@ export default function DatenschutzPage() {
           <tr><td>Deine E-Mail-Adresse und eine Gerätekennung</td><td>Du drückst „Schlüssel anfordern“</td><td>Unser Aktivierungsdienst unter <code>api.witnessmac.com</code></td><td>Ausstellen eines Lizenzschlüssels für diesen Mac</td></tr>
           <tr><td>Ein Lizenzschlüssel, den du bereits hast</td><td>Du drückst „Von diesem Mac entfernen“</td><td>Derselbe Dienst</td><td>Freigeben eines der zwei Geräte, die deine Lizenz abdeckt</td></tr>
           <tr><td>Drei Ereignisse über den Test, jeweils mit App-Version, macOS-Haupt- und Nebenversion und einer bei der Installation erzeugten Zufallszahl</td><td>Ein Test beginnt, die App fragt nach einer E-Mail-Adresse, oder sie zeigt die Preise — sofern du das nicht abschaltest</td><td>Derselbe Dienst</td><td>Zählen, wie viele Menschen an die Grenze stoßen und wie viele darüber hinauskommen</td></tr>
+          <tr><td>Eine HTTPS-Anfrage nach dem Update-Katalog; angefragte URL, IP-Adresse und User-Agent mit dem Namen und der Version von Witness und der Sparkle-Version</td><td>Du drückst in den Einstellungen „Auf Updates prüfen“</td><td>GitHub als Host des Veröffentlichungskatalogs</td><td>Eine neuere signierte Version finden</td></tr>
+          <tr><td>Eine HTTPS-Anfrage nach der signierten Update-Datei; angefragte URL, IP-Adresse und User-Agent</td><td>Du bestätigst das angebotene Update</td><td>GitHub als Host der Veröffentlichungsdatei</td><td>Die zur Installation gewählte Version laden</td></tr>
         </tbody>
       </table>
     </div>
-    <p>Das ist die vollständige Liste. Es gibt keine fünfte Zeile. Die Aktivierungsanfrage hat genau zwei Felder — <code>email</code> und <code>device</code> —, und ein automatischer Test schlägt fehl, sobald ein drittes hinzukäme. So bleibt diese Seite wahr.</p>
+    <p>Das ist die vollständige Liste. Die Aktivierungsanfrage hat genau zwei Felder — <code>email</code> und <code>device</code> —, und ein automatischer Test schlägt fehl, sobald ein drittes hinzukäme. Update-Anfragen enthalten weder Audio noch diktierten Text, Wörterbuch, Lizenzschlüssel, E-Mail-Adresse oder Inhalte anderer Apps. Automatische Update-Suchen, automatische Installationen und Sparkle-Systemprofile sind abgeschaltet.</p>
+    <p><strong>Speicherdauer der Update-Anfragen:</strong> Wir erhalten oder speichern keine Anfrageprotokolle von GitHub. GitHub kann IP-Adressen und Anfrage-Metadaten gemäß seiner <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" rel="noreferrer">Datenschutzerklärung</a> speichern; für diese Anfragen veröffentlicht GitHub keine feste Löschfrist. Sparkle speichert seinen lokalen Update-Status auf deinem Mac, bis du die Einstellungen der App entfernst.</p>
     <p>Die Gerätekennung ist ein auf 128 Bit gekürzter, gesalzener SHA-256-Wert der Hardware-Kennung deines Macs. Sie lässt sich nicht in eine Seriennummer zurückrechnen, gilt nur für diese App und passt zu nichts außerhalb davon. Sie existiert, damit eine Lizenz zwei Macs abdeckt statt beliebig viele.</p>
     <p>Die Verbindung ist HTTPS. Ein Endpunkt ohne Verschlüsselung führt dazu, dass die App sich als nicht konfiguriert meldet, statt eine Adresse im Klartext zu senden; eine Einstellung, die das lockert, gibt es in keinem Build.</p>
     <p>Die Erklärung, die du in der App abgibst, bevor ein Bezahlvorgang öffnet — dass der Schlüssel sofort geliefert wird und du dadurch dein Widerrufsrecht verlierst —, wird <strong>nicht</strong> übertragen. Sie wird in das lokale Systemprotokoll auf deinem Mac geschrieben und sonst nirgends.</p>
