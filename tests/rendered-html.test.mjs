@@ -808,6 +808,30 @@ test("renders English comparisons and guides in English, with no German chrome",
   }
 });
 
+test("puts the title, description and canonical in <head> for every visitor", async () => {
+  // Until 27.09 only bots on the framework's short list (Bingbot, Twitterbot)
+  // got them there; everyone else, Googlebot and the AI crawlers included, got
+  // them streamed into a hidden <div> in <body>.
+  const agents = [
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36",
+    "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)",
+    "Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; GPTBot/1.1; +https://openai.com/gptbot)",
+    "Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; ClaudeBot/1.0; +claudebot@anthropic.com)",
+    "Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; PerplexityBot/1.0; +https://perplexity.ai/perplexitybot)",
+  ];
+  for (const route of ["/", "/en", "/vergleich", "/vergleich/mac-diktierfunktion"]) {
+    for (const agent of agents) {
+      const html = await (await render(route, { "user-agent": agent })).text();
+      const head = html.slice(0, html.indexOf("</head>"));
+      const label = `${route} as ${agent.match(/(Chrome|Googlebot|GPTBot|ClaudeBot|PerplexityBot)/)[1]}`;
+      assert.match(head, /<title>[^<]+<\/title>/, label);
+      assert.match(head, /<meta name="description" content="[^"]+"/, label);
+      assert.match(head, /<link rel="canonical" href="[^"]+"/, label);
+      assert.doesNotMatch(html, /<div hidden id="S:\d+">/, label);
+    }
+  }
+});
+
 test("links every landing page to the hub and each comparison", async () => {
   // Until 27.09 no page linked here, so Google knew the comparisons only from
   // the sitemap and had indexed none of them.
