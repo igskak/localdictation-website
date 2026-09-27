@@ -1,4 +1,4 @@
-import { comparisonSlugs } from "../_data/comparisons";
+import { comparisonPaths } from "../_data/comparisons";
 
 const paths = [
   "/",
@@ -6,8 +6,8 @@ const paths = [
   "/ru",
   "/uk",
   "/vergleich",
-  ...comparisonSlugs.map((slug) => `/vergleich/${slug}`),
-] as const;
+  ...comparisonPaths(),
+];
 
 function xml(request: Request) {
   const origin = new URL(request.url).origin;

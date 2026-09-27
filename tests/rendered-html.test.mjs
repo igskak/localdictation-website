@@ -24,6 +24,10 @@ const comparisonPaths = [
   "/vergleich/macwhisper-alternative",
   "/vergleich/diktiersoftware-mac-dsgvo",
 ];
+// English pages are read from the data, so the first one is tested the moment
+// it is added: none exists yet, and a hand list would stay empty after it did.
+const { comparisonPaths: allComparisonPaths } = await import("../app/_data/comparisons.ts");
+const englishComparisonPaths = allComparisonPaths().filter((path) => path.startsWith("/en/"));
 
 async function render(path = "/", headers = {}, origin = "http://localhost") {
   const workerUrl = new URL("../dist/server/index.js", import.meta.url);
@@ -325,7 +329,7 @@ test("serves the legal pages, and no longer calls any of them a draft", async ()
   // them here is how one of them kept its "Private Vorschau" row through a
   // sweep that had already passed.
   const { comparisonSlugs } = await import("../app/_data/comparisons.ts");
-  const routes = ["/", "/en", "/ru", "/uk", "/vergleich", ...comparisonSlugs.map((slug) => `/vergleich/${slug}`)];
+  const routes = ["/", "/en", "/ru", "/uk", "/vergleich", ...comparisonSlugs.map((slug) => `/vergleich/${slug}`), ...englishComparisonPaths];
   for (const route of routes) {
     const html = await (await render(route)).text();
     assert.doesNotMatch(html, /Vorschau|private preview|превью|прев'ю|\bMVP\b|\bLaunch\b|запуску|planned/i, route);
@@ -710,6 +714,7 @@ test("serves host-consistent crawl files containing only indexable landing route
     "https://preview.example/ru",
     "https://preview.example/uk",
     ...comparisonPaths.map((path) => `https://preview.example${path}`),
+    ...englishComparisonPaths.map((path) => `https://preview.example${path}`),
   ]);
   assert.doesNotMatch(sitemap, /danke|impressum|datenschutz|widerruf|agb|lizenzen|download/);
   assert.doesNotMatch(sitemap, /\/en\/(terms|cancellation|privacy|legal-notice|licences)/);
@@ -758,6 +763,49 @@ test("answers the roundup search on the hub with one dated, sourced table", asyn
   const faq = scripts.find((entry) => entry["@type"] === "FAQPage");
   assert.equal(faq.mainEntity.length, [...html.matchAll(/<h3>[^<]+\?<\/h3>/g)].length);
   assert.ok(scripts.some((entry) => entry["@type"] === "CollectionPage"));
+});
+
+test("renders English comparisons and guides in English, with no German chrome", async () => {
+  // Both dictionaries must name the same things, or an English page renders an
+  // empty label where the German one has text.
+  const { comparisonChrome } = await import("../app/_data/comparisonChrome.ts");
+  assert.deepEqual(Object.keys(comparisonChrome.en).sort(), Object.keys(comparisonChrome.de).sort());
+  assert.doesNotMatch(JSON.stringify(comparisonChrome.en), /\u2014/, "no long dashes in the English chrome");
+
+  // hreflang only counts when both pages name each other.
+  const { comparisonsIn } = await import("../app/_data/comparisons.ts");
+  const everyPage = [...comparisonsIn("de"), ...comparisonsIn("en")];
+  for (const page of everyPage.filter((entry) => entry.translation)) {
+    const other = everyPage.find((entry) => entry.path === page.translation);
+    assert.equal(other?.translation, page.path, `${page.path} <-> ${page.translation}`);
+  }
+
+  // A slug with no page is a 404, not an empty template.
+  for (const route of ["/en/compare/does-not-exist", "/en/guides/does-not-exist"]) {
+    assert.equal((await render(route)).status, 404, route);
+  }
+
+  const englishHome = await (await render("/en")).text();
+  for (const route of englishComparisonPaths) {
+    const response = await render(route, {
+      "x-forwarded-host": "preview.example",
+      "x-forwarded-proto": "https",
+    }, "https://preview.example");
+    const html = await response.text();
+    assert.equal(response.status, 200, route);
+    assert.match(html, /<html lang="en">/i, route);
+    assert.match(html, new RegExp(`<link rel="canonical" href="https://preview\\.example${route}"`, "i"), route);
+    assert.match(html, /<meta property="og:locale" content="en_GB"/i, route);
+    assert.match(html, /"inLanguage":"en"/, route);
+    assert.match(html, /Official sources/, route);
+    assert.match(html, /href="\/danke\?lang=en&amp;download=auto"/, route);
+    // A comparison says so where a rival's feature is undocumented; a guide may compare nothing.
+    if (route.startsWith("/en/compare/")) assert.match(html, /not publicly documented/, route);
+    assert.doesNotMatch(html, /Startseite|Offizielle Quellen|Für Mac laden|Fakten geprüft|Rechtliche Links|href="\/agb"/, route);
+    assert.doesNotMatch(html, /\u2014/, `${route}: no long dashes`);
+    // The German pages went unlinked for weeks; an English one may not.
+    assert.match(englishHome, new RegExp(`<a href="${route}"`), `/en -> ${route}`);
+  }
 });
 
 test("links every landing page to the hub and each comparison", async () => {
