@@ -16,6 +16,7 @@ const legalRoutes = ["/agb", "/widerruf", "/datenschutz", "/impressum", "/lizenz
 const legalRoutesEn = ["/en/terms", "/en/cancellation", "/en/privacy", "/en/legal-notice", "/en/licences"];
 const comparisonPaths = [
   "/vergleich",
+  "/vergleich/mac-diktierfunktion",
   "/vergleich/wispr-flow-alternative",
   "/vergleich/superwhisper-alternative",
   "/vergleich/sprecho-alternative",
@@ -727,7 +728,7 @@ test("renders the source-dated comparison hub and every required AEO route", asy
     assert.match(html, new RegExp(`<link rel="canonical" href="https://preview\\.example${route}"`, "i"), route);
     assert.doesNotMatch(html, /<meta name="robots" content="noindex/i, route);
     if (route !== "/vergleich") {
-      assert.match(html, /\d{1,2}\. August 2026/, route);
+      assert.match(html, /\d{1,2}\. (?:August|September) 2026/, route);
       assert.match(html, /Offizielle Quellen/, route);
       assert.doesNotMatch(html, /(?:og:image|twitter:image|\/og\.png)/i, route);
       assert.match(html, /nicht öffentlich dokumentiert/, route);
@@ -737,7 +738,7 @@ test("renders the source-dated comparison hub and every required AEO route", asy
 
 test("links every landing page to the hub and each comparison", async () => {
   // Until 27.09 no page linked here, so Google knew the comparisons only from
-  // the sitemap and had indexed none of the six.
+  // the sitemap and had indexed none of them.
   for (const route of ["/", "/en", "/ru", "/uk"]) {
     const html = await (await render(route)).text();
     for (const path of comparisonPaths) {
