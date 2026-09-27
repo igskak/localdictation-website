@@ -240,7 +240,8 @@
   letter-spacing: 0.08em;
 }
 
-.comparisonCard h2 {
+.comparisonCard h2,
+.comparisonCard h3 {
   margin: 26px 0 0;
   font-size: clamp(25px, 3vw, 34px);
   font-weight: 520;
@@ -313,6 +314,7 @@
 }
 
 .tableSection h2,
+.hubCards h2,
 .contentSection h2,
 .faq h2,
 .sources h2,
@@ -702,4 +704,42 @@
   .comparisonCard a span {
     transition: none;
   }
+}
+
+/* The hub's roundup table: seven apps across, so it scrolls earlier, and the
+   highlight follows the Witness row instead of the second column. */
+.hubTable table {
+  min-width: 1040px;
+}
+
+.hubTable tbody th {
+  width: 15%;
+  color: var(--ink);
+}
+
+.hubTable tbody th a {
+  color: inherit;
+}
+
+.hubTable tbody td:nth-child(2) {
+  color: inherit;
+  background: none;
+}
+
+.hubTable tbody tr.ownRow th,
+.hubTable tbody tr.ownRow td {
+  background: rgba(255, 104, 70, 0.035);
+}
+
+.hubCards {
+  border-top: 1px solid var(--line);
+  padding-top: 42px;
+}
+
+.hubCards h2 {
+  margin-bottom: 28px;
+}
+
+.contentSection > p > a {
+  color: var(--ink);
 }

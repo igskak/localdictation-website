@@ -736,6 +736,30 @@ test("renders the source-dated comparison hub and every required AEO route", asy
   }
 });
 
+test("answers the roundup search on the hub with one dated, sourced table", async () => {
+  // Since 27.09 /vergleich is the page for "Diktier-App Mac" (docs/seo/BACKLOG.md,
+  // item 5), so it carries the same promises as a single comparison.
+  const html = await (await render("/vergleich")).text();
+  const table = html.match(/<table>([\s\S]*?)<\/table>/)?.[1] ?? "";
+  const apps = [...table.matchAll(/<th scope="row"><a href="([^"]+)">([^<]+)<\/a>/g)].map((match) => [match[2], match[1]]);
+  assert.deepEqual(apps.map(([app]) => app), ["macOS-Diktierfunktion", "MacWhisper", "Sprecho", "Superwhisper", "VoiceInk", "Wispr Flow", "Witness"]);
+  for (const [app, href] of apps) {
+    if (app !== "Witness") assert.ok(comparisonPaths.includes(href), `${app} -> ${href}`);
+  }
+  assert.match(html, /<title>[^<]{1,60}<\/title>/);
+  assert.match(html, /27\. September 2026/);
+  assert.match(html, /Offizielle Quellen/);
+  assert.match(html, /nicht öffentlich dokumentiert/);
+  assert.match(html, /Witness ist unser eigenes Produkt/);
+  // The cards quote the older comparisons' descriptions, which are theirs to fix.
+  const ownText = html.replace(/<script[\s\S]*?<\/script>/g, "").replace(/aria-labelledby="einzelvergleiche"[\s\S]*?<\/section>/, "");
+  assert.doesNotMatch(ownText, /\u2014/);
+  const scripts = [...html.matchAll(/<script type="application\/ld\+json">([^<]+)<\/script>/g)].flatMap((match) => JSON.parse(match[1]));
+  const faq = scripts.find((entry) => entry["@type"] === "FAQPage");
+  assert.equal(faq.mainEntity.length, [...html.matchAll(/<h3>[^<]+\?<\/h3>/g)].length);
+  assert.ok(scripts.some((entry) => entry["@type"] === "CollectionPage"));
+});
+
 test("links every landing page to the hub and each comparison", async () => {
   // Until 27.09 no page linked here, so Google knew the comparisons only from
   // the sitemap and had indexed none of them.
