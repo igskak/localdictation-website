@@ -1,4 +1,5 @@
 export const comparisonSlugs = [
+  "mac-diktierfunktion",
   "wispr-flow-alternative",
   "superwhisper-alternative",
   "sprecho-alternative",
@@ -878,7 +879,170 @@ const dsgvo: ComparisonPageData = {
   ],
 };
 
+const macDictationSources: ComparisonSource[] = [
+  {
+    id: "apple-dictate",
+    title: "Nachrichten und Dokumente auf dem Mac diktieren",
+    publisher: "Apple",
+    url: "https://support.apple.com/de-de/guide/mac-help/mh40584/mac",
+  },
+  {
+    id: "apple-commands",
+    title: "Befehle für das Diktieren von Text auf dem Mac",
+    publisher: "Apple",
+    url: "https://support.apple.com/de-de/guide/mac-help/mh40695/mac",
+  },
+  {
+    id: "apple-trouble",
+    title: "Diktierfunktion auf dem Mac funktioniert nicht wie erwartet",
+    publisher: "Apple",
+    url: "https://support.apple.com/de-de/guide/mac-help/mchlc480652b/mac",
+  },
+  {
+    id: "apple-privacy",
+    title: "Siri, Diktierfunktion & Datenschutz",
+    publisher: "Apple",
+    url: "https://www.apple.com/legal/privacy/data/de/ask-siri-dictation/",
+  },
+];
+
+// The built-in feature is local too, so this page cannot sell locality. What it
+// can say, sourced, is where Apple's own help draws its lines, and that Witness
+// checks before inserting while macOS underlines ambiguous words afterwards.
+const macDictation: ComparisonPageData = {
+  slug: "mac-diktierfunktion",
+  path: "/vergleich/mac-diktierfunktion",
+  eyebrow: "Mac-Diktierfunktion oder App",
+  title: "Diktierfunktion am Mac: einschalten, richtig nutzen und wissen, wann eine App mehr bringt",
+  metaTitle: "Diktierfunktion am Mac: einschalten, Befehle, Grenzen",
+  description:
+    "So schaltest du die Diktierfunktion am Mac ein, diktierst Satzzeichen und behebst Probleme. Dazu: wann eine App wie Witness mehr bringt. Stand macOS 27.",
+  updatedIso: "2026-09-27",
+  updatedLabel: "27. September 2026",
+  directAnswer: {
+    text: "Die Diktierfunktion schaltest du unter Menü „Apple“ > „Systemeinstellungen“ > „Tastatur“ ein. Danach setzt du den Cursor in eine beliebige App und drückst die Mikrofontaste, deinen Kurzbefehl für die Diktierfunktion oder wählst „Bearbeiten“ > „Diktat starten“. Für Notizen und kurze Nachrichten reicht das eingebaute Werkzeug oft aus. Eine App wie Witness lohnt sich, wenn in deinen Texten Zahlen, Namen oder Verneinungen stimmen müssen und du diese Stellen vor dem Einfügen prüfen willst.",
+    sources: ["apple-dictate", "local-product"],
+  },
+  table: {
+    caption: "macOS-Diktierfunktion und Witness im Überblick",
+    headers: ["Kriterium", "Witness", "macOS-Diktierfunktion"],
+    rows: [
+      ["Preis", "Nach 13 Testtagen €99 lebenslang oder €49/Jahr", "In macOS enthalten"],
+      ["Verarbeitung", "Inhalte immer lokal auf dem Mac", "Allgemeine Textdiktate lokal, wenn die Tastatureinstellungen es anzeigen; sonst auf Apple-Servern"],
+      ["Starten", "Eigener Hotkey", "Mikrofontaste, Kurzbefehl oder „Bearbeiten“ > „Diktat starten“"],
+      ["Sprachen", "Aus 100 ankreuzen; DE, EN, RU, UK end-to-end gemessen", "Mehrere Sprachen einstellbar; Wechsel per Klick auf das Sprachkürzel oder mit der Globus-Taste"],
+      ["Unsichere Stellen", "Vor dem Einfügen markiert: Zahlen, Daten, Namen, Verneinungen, Wörterbuchbegriffe", "Nicht eindeutiger Text wird blau unterstrichen, Alternativen per Klick"],
+      ["Originalton einer Stelle anhören", "Bei markierten Stellen mit Zeitmarken, aus dem Arbeitsspeicher", "Nicht öffentlich dokumentiert"],
+      ["Voraussetzung", "Apple Silicon, macOS 14.4 oder neuer", "Nicht in allen Sprachen oder Regionen verfügbar, Umfang variiert"],
+    ],
+  },
+  sections: [
+    {
+      title: "So schaltest du die Diktierfunktion ein",
+      paragraphs: [
+        {
+          text: "Die Diktierfunktion ist Teil von macOS und muss nur einmal eingeschaltet werden. Apple beschreibt den Weg in der Mac-Hilfe für macOS 27 und ältere Versionen:",
+          sources: ["apple-dictate"],
+        },
+      ],
+      bullets: [
+        { text: "Menü „Apple“ > „Systemeinstellungen“ öffnen und in der Seitenleiste auf „Tastatur“ klicken.", sources: ["apple-dictate"] },
+        { text: "Unter „Diktierfunktion“ den Schalter einschalten. Im Einblendmenü „Kurzbefehl“ legst du fest, mit welcher Taste das Diktat startet.", sources: ["apple-dictate"] },
+        { text: "Weitere Sprachen fügst du in denselben Einstellungen hinzu. Beim Diktieren wechselst du per Klick auf das Sprachkürzel neben dem Zeiger oder mit der Globus-Taste.", sources: ["apple-dictate"] },
+        { text: "Zum Diktieren den Cursor an die gewünschte Stelle setzen, dann Mikrofontaste, Kurzbefehl oder „Bearbeiten“ > „Diktat starten“. Beenden mit Esc, der Mikrofontaste oder dem Kurzbefehl.", sources: ["apple-dictate"] },
+      ],
+    },
+    {
+      title: "Satzzeichen, Absätze und Emoji per Sprache",
+      paragraphs: [
+        {
+          text: "In unterstützten Sprachen setzt die Diktierfunktion Kommas, Punkte und Fragezeichen automatisch; die automatische Interpunktion lässt sich in den Einstellungen abschalten. Satzzeichen kannst du auch beim Namen nennen, etwa „Ausrufezeichen“. „Neue Zeile“ entspricht einem Zeilenumbruch, „neuer Absatz“ zwei Zeilenumbrüchen. Emoji diktierst du über ihren Namen, zum Beispiel „Herz-Emoji“.",
+          sources: ["apple-dictate", "apple-commands"],
+        },
+        {
+          text: "Die vollständige Befehlsliste führt Apple auf einer eigenen Hilfeseite, darunter Formatierungen wie „Ziffer“ oder „Tabulatortaste“ und Sonderzeichen wie das At-Zeichen.",
+          sources: ["apple-commands"],
+        },
+      ],
+    },
+    {
+      title: "Wenn die Diktierfunktion nicht funktioniert",
+      paragraphs: [
+        {
+          text: "Ein häufiger Grund für ein scheinbar abgebrochenes Diktat ist eine Pause: Laut Apple stoppt die Diktierfunktion automatisch, wenn 30 Sekunden lang keine Sprache erkannt wird. Die Textlänge selbst ist nicht begrenzt. Für andere Fälle nennt Apples Fehlerhilfe diese Punkte:",
+          sources: ["apple-dictate", "apple-trouble"],
+        },
+      ],
+      bullets: [
+        { text: "Sprache und Region der Diktierfunktion passen zu dem, was du sprichst.", sources: ["apple-trouble"] },
+        { text: "Der Kurzbefehl ist gesetzt und kollidiert nicht mit einem anderen.", sources: ["apple-trouble"] },
+        { text: "Die Mikrofonquelle in den Tastatureinstellungen ist das Mikrofon, das du benutzt; ohne eingebautes Mikrofon braucht der Mac ein externes.", sources: ["apple-dictate", "apple-trouble"] },
+        { text: "Für einige Funktionen ist eine Netzwerkverbindung nötig.", sources: ["apple-trouble"] },
+        { text: "Deutlich und in normaler Lautstärke sprechen, Hintergrundgeräusche vermeiden, in lauter Umgebung ein Headset nutzen und das Mikrofon nicht verdecken.", sources: ["apple-trouble"] },
+      ],
+    },
+    {
+      title: "Wo die eingebaute Diktierfunktion lokal bleibt",
+      paragraphs: [
+        {
+          text: "Ob deine Diktate auf dem Mac bleiben, zeigt macOS in den Tastatureinstellungen unter „Diktierfunktion“ an. Das gilt laut Apple für allgemeine Textdiktate wie Nachrichten und Notizen, nicht für Diktate in Suchfeldern. Andernfalls wird alles Diktierte an Apple-Server gesendet und dort verarbeitet. Audiodaten speichert Apple nur, wenn du „Siri & Diktierfunktion verbessern“ zustimmst.",
+          sources: ["apple-dictate", "apple-privacy"],
+        },
+        {
+          text: "Witness verarbeitet Audio, Transkript und Wörterbuch immer auf dem Mac. Das Audio liegt nur im Arbeitsspeicher und wird nach Diktat und Prüfung verworfen. Netzwerkzugriffe gibt es für Aktivierung, Lizenz und Updates, nicht für Inhalte.",
+          sources: ["local-product"],
+        },
+      ],
+    },
+    {
+      title: "Wann eine Diktier-App mehr bringt",
+      paragraphs: [
+        {
+          text: "Die Diktierfunktion schreibt direkt in den Text und unterstreicht nicht eindeutige Wörter blau; ein Klick zeigt Alternativen. Das hilft bei ähnlich klingenden Wörtern, etwa „läuten“ statt „Leuten“. Ein Nachhören des Originaltons einzelner Stellen ist in Apples Mac-Hilfe nicht öffentlich dokumentiert.",
+          sources: ["apple-dictate"],
+        },
+        {
+          text: "Witness setzt früher an. Bevor der Text im Dokument landet, markiert es Zahlen, Datumsangaben, Eigennamen, Verneinungen und Begriffe aus deinem Wörterbuch. Daneben stehen das Rohtranskript und, bei Stellen mit Zeitmarken, der kurze Originalton zum Nachhören. Erst nach deiner Bestätigung wird am Cursor eingefügt. Das ist langsamer als direktes Diktieren und lohnt sich bei E-Mails, Tickets und Dokumenten, in denen ein falsches Datum oder ein verlorenes „nicht“ teuer wird.",
+          sources: ["local-product"],
+        },
+        {
+          text: "Einen gemeinsamen, veröffentlichten Genauigkeitstest beider Werkzeuge gibt es nicht. Deshalb behaupten wir keine bessere Erkennung, sondern beschreiben den anderen Ablauf.",
+          sources: ["local-product"],
+        },
+      ],
+    },
+  ],
+  verdict: {
+    text: "Fazit: Die eingebaute Diktierfunktion ist kostenlos, schnell eingeschaltet und für kurze Texte oft genug. Witness ist für Texte gedacht, in denen einzelne Wörter zählen: Es zeigt Zahlen, Namen und Verneinungen zur Prüfung, bevor sie im Dokument stehen, und hält die Inhalte dabei immer auf dem Mac.",
+    sources: ["apple-dictate", "local-product"],
+  },
+  faqs: [
+    {
+      question: "Wie schalte ich die Diktierfunktion am Mac ein?",
+      answer: "Menü „Apple“ > „Systemeinstellungen“ > „Tastatur“, dann unter „Diktierfunktion“ den Schalter einschalten. Im Einblendmenü „Kurzbefehl“ wählst du die Taste zum Starten.",
+    },
+    {
+      question: "Mit welcher Taste starte ich das Diktat?",
+      answer: "Mit der Mikrofontaste, falls dein Mac eine in der Funktionstastenreihe hat, mit dem in den Tastatureinstellungen gewählten Kurzbefehl oder über „Bearbeiten“ > „Diktat starten“.",
+    },
+    {
+      question: "Warum hört die Diktierfunktion von selbst auf?",
+      answer: "macOS beendet das Diktat automatisch, wenn 30 Sekunden lang keine Sprache erkannt wird. Die Länge des diktierten Textes ist laut Apple nicht begrenzt.",
+    },
+    {
+      question: "Funktioniert die Diktierfunktion ohne Internet?",
+      answer: "Für allgemeine Textdiktate kann macOS auf dem Gerät arbeiten. Ob das bei dir so ist, steht in den Tastatureinstellungen unter „Diktierfunktion“. Einige Funktionen brauchen laut Apple eine Netzwerkverbindung.",
+    },
+    {
+      question: "Ist Witness genauer als die Diktierfunktion?",
+      answer: "Dafür gibt es keinen gemeinsamen, veröffentlichten Test. Witness unterscheidet sich im Ablauf: Es markiert riskante Stellen vor dem Einfügen, statt direkt in den Text zu schreiben.",
+    },
+  ],
+  sources: [localSource, ...macDictationSources],
+};
+
 export const comparisons: Record<ComparisonSlug, ComparisonPageData> = {
+  "mac-diktierfunktion": macDictation,
   "wispr-flow-alternative": wispr,
   "superwhisper-alternative": superwhisper,
   "sprecho-alternative": sprecho,

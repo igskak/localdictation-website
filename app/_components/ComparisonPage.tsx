@@ -14,6 +14,7 @@ import { requestOrigin } from "../_lib/requestOrigin";
 import styles from "./ComparisonPage.module.css";
 
 const comparisonLabels: Record<ComparisonSlug, string> = {
+  "mac-diktierfunktion": "Mac-Diktierfunktion",
   "wispr-flow-alternative": "Wispr Flow",
   "superwhisper-alternative": "Superwhisper",
   "sprecho-alternative": "Sprecho",
@@ -352,7 +353,7 @@ export async function ComparisonHub() {
       ? { iso: entry.updatedIso ?? comparisonUpdatedIso, label: entry.updatedLabel ?? comparisonUpdatedLabel }
       : latest), { iso: comparisonUpdatedIso, label: comparisonUpdatedLabel });
   const canonical = new URL("/vergleich", origin).toString();
-  const title = "Diktier-Apps für den Mac: sechs nachvollziehbare Vergleiche";
+  const title = "Diktier-Apps für den Mac: nachvollziehbare Vergleiche mit Quellen";
   const description =
     "Offizielle Quellen statt Genauigkeitsversprechen: Vergleiche Datenfluss, Plattformen, Sprachen, Kontrolle und Kosten von Witness und etablierten Diktier-Apps.";
   const schema = JSON.stringify({
