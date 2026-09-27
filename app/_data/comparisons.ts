@@ -10,6 +10,18 @@ export const comparisonSlugs = [
 
 export type ComparisonSlug = (typeof comparisonSlugs)[number];
 
+/**
+ * English pages, in the order the page footer lists them. Empty until the first
+ * one is written: the template exists first so that page is data only
+ * (docs/seo/BACKLOG.md, item 2). A page lives under `/en/compare/<slug>` or
+ * `/en/guides/<slug>`, whichever its `path` names.
+ */
+export const englishComparisonSlugs = [] as const;
+
+export type EnglishComparisonSlug = (typeof englishComparisonSlugs)[number];
+
+export type ComparisonLocale = "de" | "en";
+
 export type ComparisonSource = {
   id: string;
   title: string;
@@ -33,9 +45,7 @@ export type ComparisonFaq = {
   answer: string;
 };
 
-export type ComparisonPageData = {
-  slug: ComparisonSlug;
-  path: `/vergleich/${ComparisonSlug}`;
+type PageFields = {
   eyebrow: string;
   title: string;
   metaTitle: string;
@@ -55,6 +65,30 @@ export type ComparisonPageData = {
   sources: ComparisonSource[];
 };
 
+/**
+ * `locale` decides the page's chrome, its `lang`, its Open Graph locale and its
+ * JSON-LD language. German is the default, so the pages written before English
+ * existed need no field. An English page states its own check date: the shared
+ * one is a German label.
+ */
+export type ComparisonPageData =
+  | (PageFields & {
+      locale?: "de";
+      slug: ComparisonSlug;
+      path: `/vergleich/${ComparisonSlug}`;
+      /** The English version of this page, when there is one. */
+      translation?: `/en/${"compare" | "guides"}/${EnglishComparisonSlug}`;
+    })
+  | (PageFields & {
+      locale: "en";
+      slug: EnglishComparisonSlug;
+      path: `/en/${"compare" | "guides"}/${EnglishComparisonSlug}`;
+      updatedIso: string;
+      updatedLabel: string;
+      /** The German version of this page, when there is one. */
+      translation?: `/vergleich/${ComparisonSlug}`;
+    });
+
 export const comparisonUpdatedIso = "2026-08-18";
 export const comparisonUpdatedLabel = "18. August 2026";
 
@@ -63,6 +97,14 @@ const localSource: ComparisonSource = {
   title: "Witness Produktseite und Produktstatus",
   publisher: "Witness",
   url: "/",
+};
+
+/** The same source for English pages. Exported because no English page exists yet to use it here. */
+export const localSourceEn: ComparisonSource = {
+  id: "local-product",
+  title: "Witness product page",
+  publisher: "Witness",
+  url: "/en",
 };
 
 const wisprSources: ComparisonSource[] = [
@@ -1050,3 +1092,22 @@ export const comparisons: Record<ComparisonSlug, ComparisonPageData> = {
   "macwhisper-alternative": macwhisper,
   "diktiersoftware-mac-dsgvo": dsgvo,
 };
+
+export const englishComparisons: Record<EnglishComparisonSlug, ComparisonPageData> = {};
+
+/** Every page in one locale, in footer order. */
+export function comparisonsIn(locale: ComparisonLocale): ComparisonPageData[] {
+  return locale === "de"
+    ? comparisonSlugs.map((slug) => comparisons[slug])
+    : englishComparisonSlugs.map((slug) => englishComparisons[slug]);
+}
+
+/** Every indexable comparison path, German first. The sitemap and the tests read this. */
+export function comparisonPaths(): string[] {
+  return [...comparisonsIn("de"), ...comparisonsIn("en")].map((entry) => entry.path);
+}
+
+/** The English page at this path, for the dynamic `/en/compare` and `/en/guides` routes. */
+export function englishComparisonAt(path: string): ComparisonPageData | undefined {
+  return comparisonsIn("en").find((entry) => entry.path === path);
+}
