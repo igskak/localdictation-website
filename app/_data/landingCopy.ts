@@ -21,7 +21,7 @@ export type LandingCopy = {
     tags: { german: string; english: string; all: string }; note: string;
   };
   features: { kicker: string; title: string; lede: string; items: { symbol: string; title: string; body: string }[] };
-  comparison: { kicker: string; title: string; tableLabel: string; caption: string; featureHead: string; rows: string[][]; note: string; sources: string };
+  comparison: { kicker: string; title: string; tableLabel: string; caption: string; featureHead: string; rows: string[][]; note: string; sources: string; more: string; moreAll: string };
   pricing: {
     kicker: string; title: string; lede: string;
     lifetime: { name: string; badge: string; vat: string; body: string; bullets: string[] };
@@ -133,6 +133,8 @@ const de: LandingCopy = {
     ],
     note: "Wenn du Whisper selbst einrichten möchtest, sind Open-Source-Tools eine gute Wahl. Witness ist für alle, die stattdessen direkt arbeiten wollen — fertig eingerichtet, mit eigener Sprachauswahl, Verifikation und erreichbarem Support.",
     sources: "Offizielle Quellen, geprüft am 18.08.2026:",
+    more: "Ausführliche Vergleiche mit Quellen:",
+    moreAll: "Alle Vergleiche",
   },
   pricing: {
     kicker: "Preis",
@@ -273,6 +275,8 @@ const en: LandingCopy = {
     ],
     note: "If you enjoy configuring Whisper yourself, open-source tools are a good choice. Witness is for people who would rather get straight to work — configured, with verification and reachable support.",
     sources: "Official sources, checked 18 Aug 2026:",
+    more: "Detailed, sourced comparisons (in German):",
+    moreAll: "All comparisons",
   },
   pricing: {
     kicker: "Pricing",
@@ -413,6 +417,8 @@ const ru: LandingCopy = {
     ],
     note: "Если тебе нравится настраивать Whisper самому, open-source — хороший выбор. Witness для тех, кто вместо этого хочет сразу работать: всё настроено, языки выбираешь сам, есть проверка и живая поддержка.",
     sources: "Официальные источники, проверено 18.08.2026:",
+    more: "Подробные сравнения с источниками (на немецком):",
+    moreAll: "Все сравнения",
   },
   pricing: {
     kicker: "Цена",
@@ -553,6 +559,8 @@ const uk: LandingCopy = {
     ],
     note: "Якщо тобі подобається налаштовувати Whisper самому, open-source — гарний вибір. Witness для тих, хто натомість хоче одразу працювати: усе налаштовано, мови вибираєш сам, є перевірка та жива підтримка.",
     sources: "Офіційні джерела, перевірено 18.08.2026:",
+    more: "Докладні порівняння з джерелами (німецькою):",
+    moreAll: "Усі порівняння",
   },
   pricing: {
     kicker: "Ціна",

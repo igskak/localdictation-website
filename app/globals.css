@@ -1023,7 +1023,8 @@ h1 span { color: #95958e; }
 }
 
 .privacy-disclosure a,
-.comparison-note a {
+.comparison-note a,
+.comparison-more a {
   color: var(--ink);
   text-decoration: underline;
   text-decoration-color: var(--line-strong);
@@ -1109,6 +1110,9 @@ h1 span { color: #95958e; }
 .comparison-note { display: grid; grid-template-columns: 1fr auto; gap: 48px; align-items: end; margin-top: 26px; }
 .comparison-note p { max-width: 760px; margin: 0; color: var(--muted); font-size: 12px; line-height: 1.55; }
 .comparison-note span { max-width: 400px; color: var(--faint); font-size: 9px; line-height: 1.55; text-align: right; }
+.comparison-more { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 18px; margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--line); font-size: 12px; line-height: 1.55; }
+.comparison-more p { margin: 0; color: var(--muted); }
+.comparison-more ul { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 0; padding: 0; list-style: none; }
 
 .pricing-intro { margin-inline: auto; text-align: center; }
 .pricing-intro > p:not(.section-kicker) { margin-inline: auto; }

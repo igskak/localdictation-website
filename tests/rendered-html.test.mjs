@@ -735,6 +735,17 @@ test("renders the source-dated comparison hub and every required AEO route", asy
   }
 });
 
+test("links every landing page to the hub and each comparison", async () => {
+  // Until 27.09 no page linked here, so Google knew the comparisons only from
+  // the sitemap and had indexed none of the six.
+  for (const route of ["/", "/en", "/ru", "/uk"]) {
+    const html = await (await render(route)).text();
+    for (const path of comparisonPaths) {
+      assert.match(html, new RegExp(`<a href="${path}" hreflang="de">`, "i"), `${route} -> ${path}`);
+    }
+  }
+});
+
 test("keeps visible FAQ, offer data, and structured data in parity", async () => {
   for (const route of ["/", "/en"]) {
     const response = await render(route);
