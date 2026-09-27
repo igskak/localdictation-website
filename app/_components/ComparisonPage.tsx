@@ -3,10 +3,8 @@ import Link from "next/link";
 import { Fragment } from "react";
 import { comparisonChrome, type ComparisonChrome } from "../_data/comparisonChrome";
 import {
-  comparisonSlugs,
   comparisonUpdatedIso,
   comparisonUpdatedLabel,
-  comparisons,
   comparisonsIn,
   type CitedCopy,
   type ComparisonPageData,
@@ -75,33 +73,6 @@ export async function comparisonMetadata(data: ComparisonPageData): Promise<Meta
       description: data.description,
       images: [],
     },
-  };
-}
-
-export async function comparisonHubMetadata(): Promise<Metadata> {
-  const origin = await requestOrigin();
-  const canonical = new URL("/vergleich", origin).toString();
-  const image = new URL("/og.png", origin).toString();
-  const title = "Diktier-Apps für den Mac im Vergleich | Witness";
-  const description =
-    "Quellenbasierte Vergleiche von Witness, Wispr Flow, Superwhisper, Sprecho und VoiceInk — mit Datenfluss, Sprachen, Preisen und Produktstatus.";
-
-  return {
-    metadataBase: origin,
-    title,
-    description,
-    alternates: { canonical },
-    robots: { index: true, follow: true },
-    openGraph: {
-      type: "website",
-      locale: "de_DE",
-      url: canonical,
-      siteName: "Witness",
-      title,
-      description,
-      images: [{ url: image, width: 1200, height: 630, alt: "Witness für den Mac" }],
-    },
-    twitter: { card: "summary_large_image", title, description, images: [image] },
   };
 }
 
@@ -370,97 +341,6 @@ export async function ComparisonPage({ data }: { data: ComparisonPageData }) {
           {chrome.legal.map((link) => (
             <Link href={link.href} key={link.href}>{link.label}</Link>
           ))}
-        </nav>
-      </footer>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: schema }} />
-    </div>
-  );
-}
-
-export async function ComparisonHub() {
-  const origin = await requestOrigin();
-  const newest = comparisonSlugs
-    .map((slug) => comparisons[slug])
-    .reduce((latest, entry) => ((entry.updatedIso ?? comparisonUpdatedIso) > latest.iso
-      ? { iso: entry.updatedIso ?? comparisonUpdatedIso, label: entry.updatedLabel ?? comparisonUpdatedLabel }
-      : latest), { iso: comparisonUpdatedIso, label: comparisonUpdatedLabel });
-  const canonical = new URL("/vergleich", origin).toString();
-  const title = "Diktier-Apps für den Mac: nachvollziehbare Vergleiche mit Quellen";
-  const description =
-    "Offizielle Quellen statt Genauigkeitsversprechen: Vergleiche Datenfluss, Plattformen, Sprachen, Kontrolle und Kosten von Witness und etablierten Diktier-Apps.";
-  const schema = JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "CollectionPage",
-    name: title,
-    description,
-    inLanguage: "de-DE",
-    url: canonical,
-    dateModified: newest.iso,
-    mainEntity: {
-      "@type": "ItemList",
-      numberOfItems: comparisonSlugs.length,
-      itemListElement: comparisonSlugs.map((slug, index) => ({
-        "@type": "ListItem",
-        position: index + 1,
-        name: comparisons[slug].eyebrow,
-        url: new URL(comparisons[slug].path, origin).toString(),
-      })),
-    },
-  }).replace(/</g, "\\u003c");
-
-  return (
-    <div className={styles.page}>
-      <a className={styles.skipLink} href="#vergleich-inhalt">Zum Inhalt</a>
-      <header className={styles.header}>
-        <Link className={styles.brand} href="/" aria-label="Witness Startseite">
-          <span className={styles.brandMark} aria-hidden="true"><i /><i /><i /><i /><i /></span>
-          Witness
-        </Link>
-        <Link className={styles.headerLink} href="/">Zur Produktseite <span aria-hidden="true">↗</span></Link>
-      </header>
-      <main id="vergleich-inhalt">
-        <div className={styles.article}>
-          <nav className={styles.breadcrumbs} aria-label="Brotkrümelnavigation">
-            <Link href="/">Startseite</Link>
-            <span aria-hidden="true">/</span>
-            <span aria-current="page">Vergleiche</span>
-          </nav>
-          <header className={`${styles.hero} ${styles.hubHero}`}>
-            <p className={styles.eyebrow}>Quellenbasierte Vergleiche</p>
-            <h1>{title}</h1>
-            <p className={styles.hubLede}>{description}</p>
-            <div className={styles.freshness}>
-              <span className={styles.statusDot} aria-hidden="true" />
-              <span>Zuletzt geprüft am <time dateTime={newest.iso}>{newest.label}</time>; jeder Vergleich trägt sein eigenes Abrufdatum.</span>
-            </div>
-          </header>
-          <section className={styles.cardGrid} aria-label="Alle Vergleiche">
-            {comparisonSlugs.map((slug, index) => {
-              const comparison = comparisons[slug];
-              return (
-                <article className={styles.comparisonCard} key={slug}>
-                  <span>{String(index + 1).padStart(2, "0")}</span>
-                  <h2>{comparison.eyebrow}</h2>
-                  <p>{comparison.description}</p>
-                  <Link href={comparison.path}>Vergleich lesen <span aria-hidden="true">→</span></Link>
-                </article>
-              );
-            })}
-          </section>
-          <aside className={styles.previewNote} aria-label="Redaktioneller Standard">
-            <strong>Unser Standard:</strong> Preise bleiben in Originalwährung. Aussagen stammen aus offiziellen Quellen,
-            tragen ein Abrufdatum und unterscheiden zwischen lokal, optionaler Cloud und zwingender Cloud. Wo eine
-            Funktion nicht belegt ist, steht „nicht öffentlich dokumentiert“.
-          </aside>
-        </div>
-      </main>
-      <footer className={styles.footer}>
-        <span>© {new Date().getFullYear()} Witness</span>
-        <nav aria-label="Rechtliche Links">
-          <Link href="/agb">AGB</Link>
-          <Link href="/widerruf">Widerruf</Link>
-          <Link href="/datenschutz">Datenschutz</Link>
-          <Link href="/impressum">Impressum</Link>
         </nav>
       </footer>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: schema }} />

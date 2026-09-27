@@ -1,4 +1,4 @@
-import { ComparisonHub, comparisonHubMetadata } from "../_components/ComparisonPage";
+import { ComparisonHub, comparisonHubMetadata } from "../_components/ComparisonHub";
 
 export const dynamic = "force-dynamic";
 
