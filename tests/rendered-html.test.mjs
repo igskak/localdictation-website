@@ -752,10 +752,15 @@ test("answers the roundup search on the hub with one dated, sourced table", asyn
     if (app !== "Witness") assert.ok(comparisonPaths.includes(href), `${app} -> ${href}`);
   }
   assert.match(html, /<title>[^<]{1,60}<\/title>/);
-  assert.match(html, /27\. September 2026/);
+  assert.match(html, /30\. September 2026/);
   assert.match(html, /Offizielle Quellen/);
   assert.match(html, /nicht öffentlich dokumentiert/);
   assert.match(html, /Witness ist unser eigenes Produkt/);
+  // Since 30.09 the hub argues for Witness: the check before insertion is a
+  // column, the sections ask for the trial, and the verdict recommends Witness.
+  assert.match(table, /Prüfung vor dem Einfügen/);
+  assert.ok([...html.matchAll(/href="\/danke\?download=auto"/g)].length >= 3);
+  assert.match(html, /ist Witness unsere Empfehlung/);
   // The cards quote the older comparisons' descriptions, which are theirs to fix.
   const ownText = html.replace(/<script[\s\S]*?<\/script>/g, "").replace(/aria-labelledby="einzelvergleiche"[\s\S]*?<\/section>/, "");
   assert.doesNotMatch(ownText, /\u2014/);

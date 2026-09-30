@@ -2,10 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { comparisonSlugs, comparisons, type CitedCopy } from "../_data/comparisons";
 import {
+  hubCtaHref,
   hubDescription,
   hubDirectAnswer,
   hubFaqs,
   hubMetaTitle,
+  hubNotFor,
   hubRows,
   hubSections,
   hubSources,
@@ -153,7 +155,8 @@ export async function ComparisonHub() {
 
           <aside className={styles.previewNote} aria-label="Offenlegung">
             <strong>Offenlegung:</strong> Witness ist unser eigenes Produkt. Die Tabelle beginnt mit der kostenlosen
-            Diktierfunktion von macOS, danach folgen die Apps alphabetisch.
+            Diktierfunktion von macOS, danach folgen die Apps alphabetisch. Die Auswahl der Kriterien und die Empfehlung
+            sind unsere Einschätzung, die Fakten zu den anderen Apps stammen aus deren offiziellen Seiten.
           </aside>
 
           <section className={styles.tableSection} aria-labelledby="vergleich-tabelle">
@@ -178,10 +181,10 @@ export async function ComparisonHub() {
                         <Citations sources={row.sources} />
                       </th>
                       <td>{row.processing}</td>
+                      <td>{row.check}</td>
                       <td>{row.platforms}</td>
                       <td>{row.free}</td>
                       <td>{row.price}</td>
-                      <td>{row.fit}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -202,6 +205,11 @@ export async function ComparisonHub() {
                     <Link href={section.link.href}>{section.link.label} <span aria-hidden="true">→</span></Link>
                   </p>
                 ) : null}
+                {section.cta ? (
+                  <p>
+                    <Link href={hubCtaHref}>{section.cta} <span aria-hidden="true">↓</span></Link>
+                  </p>
+                ) : null}
               </section>
             ))}
           </div>
@@ -209,11 +217,12 @@ export async function ComparisonHub() {
           <section className={styles.verdict} aria-labelledby="fazit">
             <div>
               <span className={styles.answerLabel}>Entscheidungshilfe</span>
-              <h2 id="fazit">Zwei Fragen statt einer Rangliste</h2>
+              <h2 id="fazit">Unsere Empfehlung</h2>
               <Cited copy={hubVerdict} />
+              <Cited copy={hubNotFor} />
             </div>
-            <Link className={styles.primaryButton} href="/danke?download=auto">
-              Witness für Mac laden <span aria-hidden="true">↓</span>
+            <Link className={styles.primaryButton} href={hubCtaHref}>
+              13 Tage kostenlos testen <span aria-hidden="true">↓</span>
             </Link>
           </section>
 
