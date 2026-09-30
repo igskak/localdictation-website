@@ -43,7 +43,7 @@ export default function DatenschutzPage() {
     page="privacy"
     eyebrow="Datenschutz"
     title="Klare Grenzen für deine Daten"
-    updated="24. September 2026"
+    updated="30. September 2026"
     notice={<><b>Diese Erklärung ist aus dem Code geschrieben, nicht aus einer Absicht.</b> Jede Zeile beschreibt, was die App und der Dienst heute tatsächlich tun. Sendet eine künftige Version etwas Neues, steht es hier, bevor diese Version veröffentlicht wird.</>}
   >
     <h2>1. Verantwortlicher</h2>
@@ -68,7 +68,7 @@ export default function DatenschutzPage() {
           <tr><td>Eine Anfrage nach dem Spracherkennungsmodell</td><td>Beim ersten Start automatisch, und bei jedem späteren Start, bei dem das Modell fehlt</td><td>Hugging Face, der Host des Modells</td><td>Abruf einer statischen Datei. Nur in eine Richtung — es wird nichts hochgeladen</td></tr>
           <tr><td>Deine E-Mail-Adresse und eine Gerätekennung</td><td>Du drückst „Schlüssel anfordern“</td><td>Unser Aktivierungsdienst unter <code>api.witnessmac.com</code></td><td>Ausstellen eines Lizenzschlüssels für diesen Mac</td></tr>
           <tr><td>Ein Lizenzschlüssel, den du bereits hast</td><td>Du drückst „Von diesem Mac entfernen“</td><td>Derselbe Dienst</td><td>Freigeben eines der zwei Geräte, die deine Lizenz abdeckt</td></tr>
-          <tr><td>Drei Ereignisse über den Test, jeweils mit App-Version, macOS-Haupt- und Nebenversion und einer bei der Installation erzeugten Zufallszahl</td><td>Ein Test beginnt, die App fragt nach einer E-Mail-Adresse, oder sie zeigt die Preise — sofern du das nicht abschaltest</td><td>Derselbe Dienst</td><td>Zählen, wie viele Menschen an die Grenze stoßen und wie viele darüber hinauskommen</td></tr>
+          <tr><td>Neun Ereignisse über die Einrichtung und den Test, jeweils mit App-Version, macOS-Haupt- und Nebenversion und einer bei der Installation erzeugten Zufallszahl</td><td>Die App wird zum ersten Mal gestartet, das Sprachmodell beginnt zu laden, ist da oder scheitert, ein Tastendruck trifft noch auf das Warten, das Mikrofon wird abgelehnt, ein Test beginnt, die App fragt nach einer E-Mail-Adresse, oder sie zeigt die Preise — sofern du das nicht abschaltest</td><td>Derselbe Dienst</td><td>Zählen, wie viele Installationen überhaupt bis zum ersten Diktat kommen, und wie viele Menschen an der Grenze aufhören</td></tr>
           <tr><td>Eine HTTPS-Anfrage nach dem Update-Katalog; angefragte URL, IP-Adresse und User-Agent mit dem Namen und der Version von Witness und der Sparkle-Version</td><td>Du drückst in den Einstellungen „Auf Updates prüfen“</td><td>GitHub als Host des Veröffentlichungskatalogs</td><td>Eine neuere signierte Version finden</td></tr>
           <tr><td>Eine HTTPS-Anfrage nach der signierten Update-Datei; angefragte URL, IP-Adresse und User-Agent</td><td>Du bestätigst das angebotene Update</td><td>GitHub als Host der Veröffentlichungsdatei</td><td>Die zur Installation gewählte Version laden</td></tr>
         </tbody>
@@ -80,18 +80,36 @@ export default function DatenschutzPage() {
     <p>Die Verbindung ist HTTPS. Ein Endpunkt ohne Verschlüsselung führt dazu, dass die App sich als nicht konfiguriert meldet, statt eine Adresse im Klartext zu senden; eine Einstellung, die das lockert, gibt es in keinem Build.</p>
     <p>Die Erklärung, die du in der App abgibst, bevor ein Bezahlvorgang öffnet — dass der Schlüssel sofort geliefert wird und du dadurch dein Widerrufsrecht verlierst —, wird <strong>nicht</strong> übertragen. Sie wird in das lokale Systemprotokoll auf deinem Mac geschrieben und sonst nirgends.</p>
 
-    <h2>4a. Die drei Produktereignisse, Feld für Feld</h2>
-    <p>Die App baut zehn Ereignisse über den Lizenzverlauf. <strong>Drei davon werden gesendet</strong> — <code>trial_started</code>, <code>activation_requested</code> und <code>paywall_shown</code>. Die übrigen sieben werden in das lokale Systemprotokoll auf deinem Mac geschrieben und gehen nirgendwohin.</p>
+    <h2>4a. Die neun Produktereignisse, Feld für Feld</h2>
+    <p>Die App baut fünfzehn Ereignisse über die Einrichtung und den Lizenzverlauf. <strong>Neun davon werden gesendet</strong>. Die übrigen sechs werden in das lokale Systemprotokoll auf deinem Mac geschrieben und gehen nirgendwohin.</p>
+    <div className="legal-table">
+      <table>
+        <thead><tr><th>Ereignis</th><th>Wann</th></tr></thead>
+        <tbody>
+          <tr><td><code>installed</code></td><td>Beim ersten Start, einmal</td></tr>
+          <tr><td><code>model_download_started</code></td><td>Ein Start beginnt, das Spracherkennungsmodell zu laden</td></tr>
+          <tr><td><code>model_ready</code></td><td>Das Modell ist zum ersten Mal benutzbar, mit der Wartezeit als eine von vier Spannen</td></tr>
+          <tr><td><code>model_failed</code></td><td>Es kam nicht an, mit <code>network</code>, <code>storage</code> oder <code>other</code></td></tr>
+          <tr><td><code>dictation_blocked_by_model</code></td><td>Du hältst das Tastenkürzel, während das Modell noch unterwegs ist</td></tr>
+          <tr><td><code>microphone_denied</code></td><td>macOS hat nach dem Mikrofon gefragt und die Antwort war nein</td></tr>
+          <tr><td><code>trial_started</code></td><td>Dein erstes erfolgreiches Diktat</td></tr>
+          <tr><td><code>activation_requested</code></td><td>Du drückst „Schlüssel anfordern“</td></tr>
+          <tr><td><code>paywall_shown</code></td><td>Die App zeigt die Preise, mit dem Grund dafür</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><strong>Die sechs Ereignisse zur Einrichtung werden pro Installation genau einmal gesendet, nie ein zweites Mal.</strong> Das ist eine Zusage darüber, wofür sich diese Zeilen nicht verwenden lassen, und kein Detail: Das Sprachmodell wird bei jedem Start geladen, ein Ereignis pro Start wäre deshalb kein Schritt in einer Zählung, sondern eine Aufzeichnung darüber, wann dieser Mac benutzt wird. Dasselbe gilt für ein abgelehntes Mikrofon, das die App bei jedem Wechsel in den Vordergrund neu liest. Die App merkt sich deshalb auf deinem Mac, welche der sechs sie schon gesendet hat, und sendet beim zweiten Mal nichts.</p>
     <p>Jede Nachricht besteht aus genau dem hier und aus nichts sonst:</p>
     <pre><code>{'{"app_version":"0.4.0","event":"trial_started","install_id":"<eine zufällige UUID>","system_version":"15.0"}'}</code></pre>
-    <p><code>paywall_shown</code> trägt ein weiteres Feld, <code>qualifier</code>, dessen Wert eines von vier festen Wörtern ist und beschreibt, warum die Preise gezeigt wurden. Ein sechstes Feld gibt es nicht, und ein automatischer Test schlägt fehl, wenn eines hinzukäme, ohne dass diese Seite es benennt.</p>
+    <p>Drei Ereignisse tragen ein weiteres Feld, <code>qualifier</code>, jeweils aus einer eigenen festen Wortliste: <code>paywall_shown</code> eines von vier Wörtern dafür, warum die Preise gezeigt wurden; <code>model_ready</code> eines von <code>underOneMinute</code>, <code>underFiveMinutes</code>, <code>underFifteenMinutes</code> und <code>overFifteenMinutes</code>; <code>model_failed</code> eines von <code>network</code>, <code>storage</code> und <code>other</code>. <strong>Eine Wartezeit wird als Spanne gesendet und nie als Anzahl von Sekunden</strong>, und ein Fehlschlag trägt weder einen Dateinamen noch einen Pfad noch eine Meldung des Systems. Ein sechstes Feld gibt es nicht, und ein automatischer Test schlägt fehl, wenn eines hinzukäme, ohne dass diese Seite es benennt.</p>
     <ul>
       <li><strong><code>install_id</code></strong> ist ein Zufallswert, der einmal bei der Installation erzeugt wird. Er ist aus nichts abgeleitet — nicht aus diesem Mac, nicht aus dir, nicht aus deiner Lizenz — und lässt sich deshalb weder mit der Gerätekennung oben noch mit deiner E-Mail-Adresse noch mit irgendetwas außerhalb dieses Produkts verbinden.</li>
       <li><strong><code>app_version</code></strong> und <strong><code>system_version</code></strong> sind, was sie sagen. Die macOS-Version nur als Haupt- und Nebenversion, weil eine seltene Build-Nummer ein Identifikator wäre.</li>
       <li><strong><code>event</code></strong> und <strong><code>qualifier</code></strong> stammen aus festen Listen in der App, und der Dienst weist alles zurück, was nicht darin steht. Nichts von dem, was du diktierst, ist darin, und nichts könnte es sein: Es gibt fünf Felder, und keines davon kann ein gesprochenes Wort tragen.</li>
     </ul>
-    <p><strong>Abschalten</strong>: Einstellungen → Privatsphäre, ein Schalter, der bei der Installation eingeschaltet ist. Der Erststart-Bildschirm sagt das, bevor das erste dieser Ereignisse überhaupt entstehen kann. Ausgeschaltet wird keines der drei gesendet, und sonst ändert sich nichts an der App.</p>
-    <p><strong>Rechtsgrundlage</strong>: Art. 6 Abs. 1 lit. f DSGVO. Unser berechtigtes Interesse ist zu wissen, an welcher Stelle Menschen ein Produkt nicht weiter benutzen, für das wir Geld verlangen; abgewogen gegen eine Kennung, die bewusst nicht mit dir verknüpfbar ist, und eine Nachricht, die keine Inhalte tragen kann. Du kannst jederzeit mit dem Schalter oben widersprechen — ohne Folgen für den Test, die Lizenz oder das Diktieren.</p>
+    <p><strong>Abschalten</strong>: Einstellungen → Privatsphäre, ein Schalter, der bei der Installation eingeschaltet ist. Ausgeschaltet wird keines der neun gesendet, und sonst ändert sich nichts an der App.</p>
+    <p>Zwei davon können entstehen, bevor du den Satz darüber gelesen hast, und das gehört hierher: <code>installed</code> entsteht beim ersten Start, <code>model_download_started</code>, sobald die App das Sprachmodell zu laden beginnt — ebenfalls bei diesem ersten Start. Der Erststart-Bildschirm trägt den Satz und erscheint in derselben Minute, aber er erscheint <em>neben</em> diesen beiden Ereignissen und nicht davor. Die anderen sieben folgen jeweils etwas, das du getan hast.</p>
+    <p><strong>Rechtsgrundlage</strong>: Art. 6 Abs. 1 lit. f DSGVO. Unser berechtigtes Interesse ist zu wissen, ob eine Installation überhaupt bis zum ersten Diktat kommt und an welcher Stelle Menschen ein Produkt nicht weiter benutzen, für das wir Geld verlangen; abgewogen gegen eine Kennung, die bewusst nicht mit dir verknüpfbar ist, eine Nachricht, die keine Inhalte tragen kann, und je Installation genau ein Ereignis pro Tatsache. Du kannst jederzeit mit dem Schalter oben widersprechen — ohne Folgen für den Test, die Lizenz oder das Diktieren.</p>
     <p><strong>Speicherdauer</strong>: 90 Tage, danach werden die Zeilen gelöscht. Für diese Ereignisse wird keine IP-Adresse gespeichert.</p>
 
     <h2>5. Der Aktivierungsdienst</h2>
@@ -141,8 +159,8 @@ export default function DatenschutzPage() {
     <h2>9. Das Spracherkennungsmodell</h2>
     <p>Beim ersten Start lädt die App das Modell von sich aus aus dem öffentlichen Repository <code>argmaxinc/whisperkit-coreml</code> bei Hugging Face. Dabei erfährt Hugging Face die technischen Verbindungsdaten dieses Abrufs, insbesondere deine IP-Adresse. Es wird nichts hochgeladen, und die Anfrage enthält keine Angabe darüber, wer du bist. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO, weil ohne Modell keine Erkennung möglich ist. Für diesen Abruf gilt die Datenschutzerklärung von Hugging Face.</p>
 
-    <h2>10. Die sieben Ereignisse, die nicht übertragen werden</h2>
-    <p>Die App baut zehn Ereignisse über den Lizenzverlauf — installiert, Test gestartet, Schlüssel angefordert und so weiter. <strong>Drei davon werden gesendet</strong>; Abschnitt 4a sagt genau welche und genau was darin steht. <strong>Die übrigen sieben werden nicht übertragen</strong>: Sie werden in das lokale Systemprotokoll auf deinem Mac geschrieben und bleiben dort.</p>
+    <h2>10. Die sechs Ereignisse, die nicht übertragen werden</h2>
+    <p>Die App baut fünfzehn Ereignisse über die Einrichtung und den Lizenzverlauf. <strong>Neun davon werden gesendet</strong>; Abschnitt 4a sagt genau welche und genau was darin steht. <strong>Die übrigen sechs werden nicht übertragen</strong> — darunter eine erfolgreiche Aktivierung und ein angenommener Lizenzschlüssel, die der Dienst ohnehin aus der Anfrage kennt, die sie auslöst. Sie werden in das lokale Systemprotokoll auf deinem Mac geschrieben und bleiben dort.</p>
     <p>Der Typ, aus dem sie gebaut werden, hat kein Freitextfeld, in das ein Transkript auch versehentlich geraten könnte. Jede weitere Änderung geschieht mit einer neuen Zeile in der Tabelle in Abschnitt 4 und einem Schalter, den du erreichst — nicht stillschweigend.</p>
     <p>Absturzberichte sammeln wir nicht. macOS kann dir anbieten, Apple einen Bericht zu senden; das ist eine Sache zwischen dir und Apple, und diese App liest ihn weder noch fordert sie ihn an.</p>
 

@@ -90,9 +90,9 @@ const de: LandingCopy = {
     facts: [
       { title: "Kein Benutzerkonto", body: "E-Mail nur für den Lizenzschlüssel. Kein Profil, kein Passwort." },
       { title: "Kein AVV für Diktatinhalte", body: "Wir übertragen oder verarbeiten deine Sprachinhalte nicht in deinem Auftrag." },
-      { title: "Netzwerkzugriffe offengelegt", body: "Modell einmal laden, Schlüssel holen, Mac freigeben — dazu drei Ereignisse über den Test, abschaltbar." },
+      { title: "Netzwerkzugriffe offengelegt", body: "Modell einmal laden, Schlüssel holen, Mac freigeben — dazu neun Ereignisse über Einrichtung und Test, abschaltbar." },
     ],
-    disclosure: "Nie übertragen werden Audio, Transkripte, Wörterbuch, Zwischenablage, Inhalte anderer Apps oder markierte Risikofragmente. Auf Knopfdruck sendet die App dreierlei: die Anfrage nach dem Spracherkennungsmodell, deine E-Mail-Adresse mit einer Gerätekennung für den Lizenzschlüssel und diesen Schlüssel zurück, wenn du einen Mac freigibst. Dazu kommen drei Ereignisse über den Testverlauf — Test begonnen, Schlüssel angefordert, Preise gezeigt —, jedes mit App-Version, macOS-Version und einer bei der Installation erzeugten Zufallskennung und sonst nichts; abzuschalten unter Einstellungen → Privatsphäre.",
+    disclosure: "Nie übertragen werden Audio, Transkripte, Wörterbuch, Zwischenablage, Inhalte anderer Apps oder markierte Risikofragmente. Die App sendet dreierlei: die Anfrage nach dem Spracherkennungsmodell beim ersten Start, deine E-Mail-Adresse mit einer Gerätekennung für den Lizenzschlüssel und diesen Schlüssel zurück, wenn du einen Mac freigibst. Dazu kommen neun Ereignisse über Einrichtung und Testverlauf — installiert, Modell wird geladen, Modell da oder gescheitert, Tastendruck ins Warten, Mikrofon abgelehnt, Test begonnen, Schlüssel angefordert, Preise gezeigt —, jedes mit App-Version, macOS-Version und einer bei der Installation erzeugten Zufallskennung und sonst nichts; abzuschalten unter Einstellungen → Privatsphäre.",
     disclosureLink: "Die vollständige Datenschutzerklärung lesen",
   },
   languages: {
@@ -232,9 +232,9 @@ const en: LandingCopy = {
     facts: [
       { title: "No user account", body: "Email only for the licence key. No profile or password." },
       { title: "No DPA for dictation content", body: "We neither transmit nor process your speech content on your behalf." },
-      { title: "Network access disclosed", body: "Fetch the model once, get a key, release a Mac — plus three events about the trial, which you can switch off." },
+      { title: "Network access disclosed", body: "Fetch the model once, get a key, release a Mac — plus nine events about setup and the trial, which you can switch off." },
     ],
-    disclosure: "Audio, transcripts, vocabulary, clipboard data, other app content, and highlighted risk fragments are never transmitted. Three things go out when you press something: the request for the speech model, your email address with a device identifier to get a licence key, and that key back when you release a Mac. Three events about the trial go with them — trial started, key requested, offers shown — each carrying an app version, a macOS version and a random identifier made at install, and nothing else; Settings → Privacy turns them off.",
+    disclosure: "Audio, transcripts, vocabulary, clipboard data, other app content, and highlighted risk fragments are never transmitted. Three things go out: the request for the speech model when the app first starts, your email address with a device identifier to get a licence key, and that key back when you release a Mac. Nine events about setup and the trial go with them — installed, model fetching, model ready or failed, a press into the wait, microphone refused, trial started, key requested, offers shown — each carrying an app version, a macOS version and a random identifier made at install, and nothing else; Settings → Privacy turns them off.",
     disclosureLink: "Read the full privacy policy",
   },
   languages: {
@@ -374,9 +374,9 @@ const ru: LandingCopy = {
     facts: [
       { title: "Без аккаунта", body: "Почта нужна только для лицензионного ключа. Ни профиля, ни пароля." },
       { title: "Без AVV для содержимого диктовок", body: "Мы не передаём и не обрабатываем твою речь по твоему поручению." },
-      { title: "Сетевые обращения раскрыты", body: "Один раз скачать модель, получить ключ, освободить Mac — плюс три события о триале, которые выключаются." },
+      { title: "Сетевые обращения раскрыты", body: "Один раз скачать модель, получить ключ, освободить Mac — плюс девять событий о настройке и триале, которые выключаются." },
     ],
-    disclosure: "Никогда не передаются: аудио, транскрипты, словарь, буфер обмена, содержимое других приложений и подсвеченные рискованные фрагменты. По нажатию приложение отправляет три вещи: запрос модели распознавания, почту с идентификатором устройства ради лицензионного ключа и этот же ключ обратно, когда ты освобождаешь Mac. Вместе с ними уходят три события о триале — триал начался, запрошен ключ, показаны цены, — в каждом только версия приложения, версия macOS и случайный идентификатор, созданный при установке; выключаются в Настройках → Приватность.",
+    disclosure: "Никогда не передаются: аудио, транскрипты, словарь, буфер обмена, содержимое других приложений и подсвеченные рискованные фрагменты. Приложение отправляет три вещи: запрос модели распознавания при первом запуске, почту с идентификатором устройства ради лицензионного ключа и этот же ключ обратно, когда ты освобождаешь Mac. Вместе с ними уходят девять событий о настройке и триале — установлено, модель пошла качаться, модель готова или не смогла, нажатие попало в ожидание, микрофон отклонён, триал начался, запрошен ключ, показаны цены, — в каждом только версия приложения, версия macOS и случайный идентификатор, созданный при установке; выключаются в Настройках → Приватность.",
     disclosureLink: "Прочитать полную политику конфиденциальности (на английском)",
   },
   languages: {
@@ -516,9 +516,9 @@ const uk: LandingCopy = {
     facts: [
       { title: "Без облікового запису", body: "Пошта потрібна лише для ліцензійного ключа. Ні профілю, ні пароля." },
       { title: "Без AVV для вмісту диктувань", body: "Ми не передаємо і не обробляємо твоє мовлення за твоїм дорученням." },
-      { title: "Мережеві звернення розкрито", body: "Один раз завантажити модель, отримати ключ, звільнити Mac — плюс три події про тріал, які вимикаються." },
+      { title: "Мережеві звернення розкрито", body: "Один раз завантажити модель, отримати ключ, звільнити Mac — плюс дев’ять подій про налаштування і тріал, які вимикаються." },
     ],
-    disclosure: "Ніколи не передаються: аудіо, транскрипти, словник, буфер обміну, вміст інших застосунків і підсвічені ризиковані фрагменти. За натисканням застосунок надсилає три речі: запит моделі розпізнавання, пошту з ідентифікатором пристрою заради ліцензійного ключа і цей самий ключ назад, коли ти звільняєш Mac. Разом із ними йдуть три події про тріал — тріал почався, запитано ключ, показано ціни, — у кожній лише версія застосунку, версія macOS і випадковий ідентифікатор, створений під час встановлення; вимикаються в Налаштуваннях → Приватність.",
+    disclosure: "Ніколи не передаються: аудіо, транскрипти, словник, буфер обміну, вміст інших застосунків і підсвічені ризиковані фрагменти. Застосунок надсилає три речі: запит моделі розпізнавання, коли застосунок стартує вперше, пошту з ідентифікатором пристрою заради ліцензійного ключа і цей самий ключ назад, коли ти звільняєш Mac. Разом із ними йдуть дев’ять подій про налаштування і тріал — встановлено, модель почала завантажуватися, модель готова або не змогла, натискання потрапило в очікування, мікрофон відхилено, тріал почався, запитано ключ, показано ціни, — у кожній лише версія застосунку, версія macOS і випадковий ідентифікатор, створений під час встановлення; вимикаються в Налаштуваннях → Приватність.",
     disclosureLink: "Прочитати повну політику конфіденційності (англійською)",
   },
   languages: {

@@ -43,7 +43,7 @@ export default function PrivacyPage() {
     page="privacy"
     eyebrow="Privacy"
     title="Clear limits on your data"
-    updated="24 September 2026"
+    updated="30 September 2026"
     notice={<><b>This policy is written from the code, not from an intention.</b> Every line describes what the app and the service actually do today. If a future version ever sends something new, this says so before that version is published. The German text is at <Link href={legalPaths.de.privacy}>/datenschutz</Link>.</>}
   >
     <h2>1. Controller</h2>
@@ -68,7 +68,7 @@ export default function PrivacyPage() {
           <tr><td>A request for the speech model</td><td>At first launch, automatically, and any later launch where the model is missing</td><td>Hugging Face, the model&apos;s host</td><td>Fetching a static file. One way — nothing is uploaded</td></tr>
           <tr><td>Your e-mail address and a device identifier</td><td>You press “Send me a key”</td><td>Our activation service at <code>api.witnessmac.com</code></td><td>Issuing a licence key for this Mac</td></tr>
           <tr><td>A licence key you already hold</td><td>You press “Remove from this Mac”</td><td>The same service</td><td>Freeing one of the two Macs your licence covers</td></tr>
-          <tr><td>Three events about the trial, each with an app version, a macOS major and minor version, and a random number made at install</td><td>A trial starts, the app asks for an e-mail address, or it puts the prices on screen — unless you switch this off</td><td>The same service</td><td>Counting how many people reach the wall and how many get past it</td></tr>
+          <tr><td>Nine events about setup and the trial, each with an app version, a macOS major and minor version, and a random number made at install</td><td>The app is opened for the first time, the speech model starts arriving, arrives or fails, a press finds it still arriving, the microphone is refused, a trial starts, the app asks for an e-mail address, or it puts the prices on screen — unless you switch this off</td><td>The same service</td><td>Counting how many installations ever reach a first dictation, and how many people stop at the wall</td></tr>
           <tr><td>An HTTPS request for the update catalogue; the request URL, IP address and User-Agent, which identifies Witness, its version and Sparkle&apos;s version</td><td>You press “Check for updates” in Settings</td><td>GitHub, which hosts the release catalogue</td><td>Finding a newer signed version</td></tr>
           <tr><td>An HTTPS request for the signed update file; the requested URL, IP address and User-Agent</td><td>You confirm the offered update</td><td>GitHub, which hosts the release file</td><td>Downloading the version you chose to install</td></tr>
         </tbody>
@@ -80,18 +80,36 @@ export default function PrivacyPage() {
     <p>The connection is HTTPS. An endpoint without encryption makes the app report itself as unconfigured rather than send an address in the clear, and no build has a setting that relaxes that.</p>
     <p>The declaration you make in the app before a checkout opens — that the key be delivered immediately, and that this gives up the right of withdrawal — is <strong>not</strong> transmitted. It is recorded in the local system log on your Mac and nowhere else.</p>
 
-    <h2>4a. The three product events, field by field</h2>
-    <p>Witness builds ten events about the licensing funnel. <strong>Three of them are sent</strong> — <code>trial_started</code>, <code>activation_requested</code> and <code>paywall_shown</code>. The other seven are written to the local system log on your Mac and go nowhere.</p>
+    <h2>4a. The nine product events, field by field</h2>
+    <p>Witness builds fifteen events about setting itself up and about the licensing funnel. <strong>Nine of them are sent.</strong> The other six are written to the local system log on your Mac and go nowhere.</p>
+    <div className="legal-table">
+      <table>
+        <thead><tr><th>Event</th><th>Sent when</th></tr></thead>
+        <tbody>
+          <tr><td><code>installed</code></td><td>The first launch, once</td></tr>
+          <tr><td><code>model_download_started</code></td><td>A launch starts fetching the speech model</td></tr>
+          <tr><td><code>model_ready</code></td><td>The model is usable for the first time, with the wait as one of four buckets</td></tr>
+          <tr><td><code>model_failed</code></td><td>It did not arrive, with <code>network</code>, <code>storage</code> or <code>other</code></td></tr>
+          <tr><td><code>dictation_blocked_by_model</code></td><td>You hold the hotkey while the model is still arriving</td></tr>
+          <tr><td><code>microphone_denied</code></td><td>macOS asked for the microphone and the answer was no</td></tr>
+          <tr><td><code>trial_started</code></td><td>Your first successful dictation</td></tr>
+          <tr><td><code>activation_requested</code></td><td>You press “Send me a key”</td></tr>
+          <tr><td><code>paywall_shown</code></td><td>The app puts the prices on screen, with the reason it did</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><strong>The six about setup are sent once for each installation, ever, and never a second time.</strong> That is a promise about what these rows cannot be used for rather than a detail: the speech model is loaded at every launch, so an event per launch would not be a step in a count at all — it would be a record of when this Mac is used. The same goes for a refused microphone, which the app re-reads every time it comes forward. So the app remembers on your Mac which of the six it has already sent, and sends nothing the second time.</p>
     <p>Each message is exactly this, and nothing else:</p>
     <pre><code>{'{"app_version":"0.4.0","event":"trial_started","install_id":"<a random UUID>","system_version":"15.0"}'}</code></pre>
-    <p><code>paywall_shown</code> adds one more field, <code>qualifier</code>, whose value is one of four fixed words describing why the prices were shown. There is no sixth field, and an automated test fails if one is added without this page naming it.</p>
+    <p>Three events add one more field, <code>qualifier</code>, each from its own fixed set of words: <code>paywall_shown</code> one of four describing why the prices were shown; <code>model_ready</code> one of <code>underOneMinute</code>, <code>underFiveMinutes</code>, <code>underFifteenMinutes</code> and <code>overFifteenMinutes</code>; <code>model_failed</code> one of <code>network</code>, <code>storage</code> and <code>other</code>. <strong>A wait is sent as a bucket and never as a number of seconds</strong>, and a failure carries no filename, no path, and no message from the system. There is no sixth field, and an automated test fails if one is added without this page naming it.</p>
     <ul>
       <li><strong><code>install_id</code></strong> is a random value created once, when you install the app. It is derived from nothing — not from this Mac, not from you, not from your licence — so it cannot be joined to the device identifier above, to your e-mail address, or to anything outside this product.</li>
       <li><strong><code>app_version</code></strong> and <strong><code>system_version</code></strong> are what they say. The macOS version is major and minor only, because a rare build number is an identifier.</li>
       <li><strong><code>event</code></strong> and <strong><code>qualifier</code></strong> are drawn from fixed lists in the app, and the service refuses anything outside them. Nothing you dictate is in this and nothing could be: there are five fields and none of them can hold a word you said.</li>
     </ul>
-    <p><strong>Turning it off</strong>: Settings → Privacy, one switch, which is on when you install the app. The first-run screen says so before the first of these events can happen. Off means none of the three is sent, and nothing else about the app changes.</p>
-    <p><strong>Legal basis</strong>: Art. 6(1)(f) GDPR. Our legitimate interest is knowing where people stop using a product we are asking them to pay for; the interest is weighed against an identifier that is deliberately unlinkable to you and a message that cannot carry content. You can object at any time with the switch above, with no consequence for the trial, the licence, or dictation.</p>
+    <p><strong>Turning it off</strong>: Settings → Privacy, one switch, which is on when you install the app. Off means none of the nine is sent, and nothing else about the app changes.</p>
+    <p>Two of them can happen before you have read the sentence that discloses them, and saying so belongs here: <code>installed</code> happens at the first launch, and <code>model_download_started</code> as soon as the app begins fetching the speech model, which is that same first launch. The first-run screen carries the sentence and appears in the same minute, but it appears <em>beside</em> those two events rather than before them. The other seven each follow something you did.</p>
+    <p><strong>Legal basis</strong>: Art. 6(1)(f) GDPR. Our legitimate interest is knowing whether an installation ever reaches a first dictation, and where people stop using a product we are asking them to pay for; the interest is weighed against an identifier that is deliberately unlinkable to you, a message that cannot carry content, and exactly one event per fact per installation. You can object at any time with the switch above, with no consequence for the trial, the licence, or dictation.</p>
     <p><strong>Retention</strong>: 90 days, then the rows are deleted. No IP address is stored for these events.</p>
 
     <h2>5. The activation service</h2>
@@ -139,10 +157,10 @@ export default function PrivacyPage() {
     <p>It is served by <strong>Cloudflare</strong> (processor). When you load a page, the infrastructure processes the technically necessary connection data — IP address, time, requested address, amount of data transferred, status code and user agent — in order to deliver the page and keep the service safe from attack. The legal basis is Art. 6(1)(f) GDPR; the legitimate interest is the secure and functioning operation of the website. This connection data is not combined into profiles and not linked with other data.</p>
 
     <h2>9. The speech model</h2>
-    <p>When you press “Prepare speech model…”, the app fetches the model from the public repository <code>argmaxinc/whisperkit-coreml</code> at Hugging Face. Hugging Face thereby learns the technical connection data of that request, in particular your IP address. Nothing is uploaded, and the request contains nothing about who you are. The legal basis is Art. 6(1)(b) GDPR, because there is no recognition without a model. Hugging Face&apos;s own privacy policy applies to that fetch.</p>
+    <p>At the first launch the app fetches the model by itself, from the public repository <code>argmaxinc/whisperkit-coreml</code> at Hugging Face. Hugging Face thereby learns the technical connection data of that request, in particular your IP address. Nothing is uploaded, and the request contains nothing about who you are. The legal basis is Art. 6(1)(b) GDPR, because there is no recognition without a model. Hugging Face&apos;s own privacy policy applies to that fetch.</p>
 
-    <h2>10. The seven events that are not transmitted</h2>
-    <p>The app builds ten events about the licensing journey — installed, trial started, key requested and so on. <strong>Three of them are sent</strong>, and section 4a says exactly which and exactly what is in them. <strong>The other seven are not transmitted</strong>: they are written to the local system log on your Mac and stay there.</p>
+    <h2>10. The six events that are not transmitted</h2>
+    <p>The app builds fifteen events about setting itself up and about the licensing journey. <strong>Nine of them are sent</strong>, and section 4a says exactly which and exactly what is in them. <strong>The other six are not transmitted</strong> — among them a successful activation and an accepted licence key, which the service already knows from the request that causes them. They are written to the local system log on your Mac and stay there.</p>
     <p>The type they are built from has no free-text field anywhere, so there is nothing a transcript could end up in even by accident. Any further change happens with a new row in the table in section 4 and a switch you can reach — not quietly.</p>
     <p>We collect no crash reports. macOS may offer to send Apple a report; that is between you and Apple, and this app neither reads it nor asks for it.</p>
 

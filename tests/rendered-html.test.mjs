@@ -281,10 +281,21 @@ test("serves the legal pages, and no longer calls any of them a draft", async ()
     ["/en/privacy", /written from the code, not from an intention/],
     ["/en/licences", /Witness stands on other people/],
   ]);
-  const updatedPages = new Set(["/agb", "/datenschutz", "/lizenzen", "/en/terms", "/en/privacy", "/en/licences"]);
+  // The day each document last changed, by route rather than by a rule: the
+  // two policies moved when the app started measuring its own setup, and a
+  // stamp that stays put while the text under it changes is the failure this
+  // asserts against. Everything unlisted still carries the 5 September set.
+  const updatedOn = new Map([
+    ["/agb", "24"],
+    ["/lizenzen", "24"],
+    ["/en/terms", "24"],
+    ["/en/licences", "24"],
+    ["/datenschutz", "30"],
+    ["/en/privacy", "30"],
+  ]);
   for (const [routes, counterparts] of [[legalRoutes, legalRoutesEn], [legalRoutesEn, legalRoutes]]) {
     for (const [index, route] of routes.entries()) {
-      const date = updatedPages.has(route) ? "24" : "5";
+      const date = updatedOn.get(route) ?? "5";
       const stamp = route.startsWith("/en/")
         ? new RegExp(`Last updated: ${date} September 2026`)
         : new RegExp(`Stand: ${date}\\. September 2026`);
@@ -370,11 +381,21 @@ test("states the business model the same way in the legal text and on the landin
   for (const recipient of ["Cloudflare", "Stripe", "Resend", "Hugging Face", "api.witnessmac.com"]) {
     assert.ok(datenschutz.includes(recipient), `the privacy policy must name ${recipient}`);
   }
-  assert.match(datenschutz, /Die übrigen sieben werden nicht übertragen/);
-  // The three that do leave have to be named, and the way to stop them with
+  assert.match(datenschutz, /Die übrigen sechs werden nicht übertragen/);
+  // The nine that do leave have to be named, and the way to stop them with
   // them. A policy that lists a transmission without its off switch is the
   // failure this assertion exists to catch.
-  for (const event of ["trial_started", "activation_requested", "paywall_shown"]) {
+  for (const event of [
+    "installed",
+    "model_download_started",
+    "model_ready",
+    "model_failed",
+    "dictation_blocked_by_model",
+    "microphone_denied",
+    "trial_started",
+    "activation_requested",
+    "paywall_shown",
+  ]) {
     assert.ok(datenschutz.includes(event), `the privacy policy must name the ${event} event`);
   }
   assert.match(datenschutz, /Einstellungen → Privatsphäre/);
@@ -399,18 +420,22 @@ test("states the business model the same way in the legal text and on the landin
 });
 
 test("the landing page tells the same truth about product events as the policy", async () => {
-  // It did not, for a release. Section 4a of both policies described the three
-  // events the app sends while the sales page in all four languages still said
-  // they were built and never sent -- the false half being the half that sells.
+  // It did not, for a release. Section 4a of both policies described the events
+  // the app sends while the sales page in all four languages still said they
+  // were built and never sent -- the false half being the half that sells.
   // A promise about what leaves a Mac may not be looser on the page that is
   // trying to talk somebody into installing it than in the document nobody
   // reads, so each locale asserts both halves: that the events are named, and
   // that the old denial cannot come back.
+  //
+  // The count is part of what is asserted. It went from three to nine when the
+  // app started measuring the stretch between a download and a first dictation,
+  // and a page still saying three would be understating what leaves.
   const claims = {
-    "/": { says: /drei Ereignisse über den Test/, switch: /Einstellungen → Privatsphäre/, denies: /nicht gesendet|Mehr sendet die App nicht/ },
-    "/en": { says: /three events about the trial/i, switch: /Settings → Privacy/, denies: /not sent|sends nothing else/ },
-    "/ru": { says: /три события о триале/, switch: /Настройках → Приватность/, denies: /не отправляются|не отправляет ничего/ },
-    "/uk": { says: /три події про тріал/, switch: /Налаштуваннях → Приватність/, denies: /не надсилає нічого|не надсилаються/ },
+    "/": { says: /neun Ereignisse über Einrichtung und Test/, switch: /Einstellungen → Privatsphäre/, denies: /nicht gesendet|Mehr sendet die App nicht|drei Ereignisse/ },
+    "/en": { says: /nine events about setup and the trial/i, switch: /Settings → Privacy/, denies: /not sent|sends nothing else|three events about the trial/ },
+    "/ru": { says: /девять событий о настройке и триале/, switch: /Настройках → Приватность/, denies: /не отправляются|не отправляет ничего|три события о триале/ },
+    "/uk": { says: /дев’ять подій про налаштування і тріал/, switch: /Налаштуваннях → Приватність/, denies: /не надсилає нічого|не надсилаються|три події про тріал/ },
   };
 
   for (const [route, claim] of Object.entries(claims)) {
@@ -440,8 +465,20 @@ test("the English legal set says the same thing as the German one", async () => 
   for (const recipient of ["Cloudflare", "Stripe", "Resend", "Hugging Face", "api.witnessmac.com"]) {
     assert.ok(privacy.includes(recipient), `the English privacy policy must name ${recipient}`);
   }
-  assert.match(privacy, /The other seven are not transmitted/);
-  for (const event of ["trial_started", "activation_requested", "paywall_shown"]) {
+  assert.match(privacy, /The other six are not transmitted/);
+  // Every name that goes on a wire, because a policy that lists eight of nine
+  // is a policy with an undisclosed event in it.
+  for (const event of [
+    "installed",
+    "model_download_started",
+    "model_ready",
+    "model_failed",
+    "dictation_blocked_by_model",
+    "microphone_denied",
+    "trial_started",
+    "activation_requested",
+    "paywall_shown",
+  ]) {
     assert.ok(privacy.includes(event), `the English privacy policy must name the ${event} event`);
   }
   assert.match(privacy, /Settings → Privacy/);
