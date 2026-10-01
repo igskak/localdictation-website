@@ -249,7 +249,7 @@ export function LandingPage({ locale }: { locale: Locale }) {
 
         <section className="section process-section shell" id="funktion" data-section="S3">
           <div className="section-intro">
-            <p className="section-kicker">01 — {c.process.kicker}</p>
+            <p className="section-kicker">01 / {c.process.kicker}</p>
             <h2>{c.process.title}</h2>
             <p>{c.process.lede}</p>
           </div>
@@ -269,7 +269,7 @@ export function LandingPage({ locale }: { locale: Locale }) {
         <section className="section verification-section" id="verifikation" data-section="S4">
           <div className="shell verification-layout">
             <div className="verification-copy">
-              <p className="section-kicker">02 — {c.verification.kicker}</p>
+              <p className="section-kicker">02 / {c.verification.kicker}</p>
               <h2>{c.verification.title}</h2>
               <p className="section-lede">{c.verification.lede}</p>
               <p>{c.verification.body}</p>
@@ -284,7 +284,7 @@ export function LandingPage({ locale }: { locale: Locale }) {
         <section className="section privacy-section shell" id="datenschutz" data-section="S5">
           <div className="privacy-panel">
             <div className="privacy-copy">
-              <p className="section-kicker">03 — {c.privacy.kicker}</p>
+              <p className="section-kicker">03 / {c.privacy.kicker}</p>
               <h2>{c.privacy.title}</h2>
               <p className="section-lede">{c.privacy.lede}</p>
               <p>{c.privacy.body}</p>
@@ -317,7 +317,7 @@ export function LandingPage({ locale }: { locale: Locale }) {
         <section className="section language-section" id="sprachen" data-section="S6">
           <div className="shell language-layout">
             <div className="section-intro">
-              <p className="section-kicker">04 — {c.languages.kicker}</p>
+              <p className="section-kicker">04 / {c.languages.kicker}</p>
               <h2>{c.languages.title}</h2>
               <p>{c.languages.body}</p>
               <div className="language-pills">
@@ -336,7 +336,7 @@ export function LandingPage({ locale }: { locale: Locale }) {
 
         <section className="section features-section shell" id="funktionen" data-section="S7">
           <div className="section-intro section-intro-row">
-            <div><p className="section-kicker">05 — {c.features.kicker}</p><h2>{c.features.title}</h2></div>
+            <div><p className="section-kicker">05 / {c.features.kicker}</p><h2>{c.features.title}</h2></div>
             <p>{c.features.lede}</p>
           </div>
           <div className="features-grid">
@@ -347,7 +347,7 @@ export function LandingPage({ locale }: { locale: Locale }) {
         <section className="section comparison-section" id="vergleich" data-section="S8">
           <div className="shell">
             <div className="section-intro">
-              <p className="section-kicker">06 — {c.comparison.kicker}</p>
+              <p className="section-kicker">06 / {c.comparison.kicker}</p>
               <h2>{c.comparison.title}</h2>
             </div>
             {/* The overflow region must be focusable so keyboard users can scroll the wide table. */}
@@ -387,7 +387,7 @@ export function LandingPage({ locale }: { locale: Locale }) {
 
         <section className="section pricing-section shell" id="preis" data-section="S9">
           <div className="section-intro pricing-intro">
-            <p className="section-kicker">07 — {c.pricing.kicker}</p>
+            <p className="section-kicker">07 / {c.pricing.kicker}</p>
             <h2>{c.pricing.title}</h2>
             <p>{c.pricing.lede}</p>
           </div>
@@ -413,7 +413,7 @@ export function LandingPage({ locale }: { locale: Locale }) {
 
         <section className="section faq-section" id="faq" data-section="S10">
           <div className="shell faq-layout">
-            <div className="section-intro faq-intro"><p className="section-kicker">08 — FAQ</p><h2>{c.faq.title}</h2><p>{c.faq.lede}</p></div>
+            <div className="section-intro faq-intro"><p className="section-kicker">08 / FAQ</p><h2>{c.faq.title}</h2><p>{c.faq.lede}</p></div>
             <div className="faq-list">
               {c.faq.items.map((item, index) => <details key={item.q} open={index === 0}><summary><span>{item.q}</span><i aria-hidden="true">+</i></summary><p>{item.a}</p></details>)}
             </div>
@@ -423,7 +423,7 @@ export function LandingPage({ locale }: { locale: Locale }) {
         <section className="final-cta shell" id="start" data-section="S11">
           <div className="final-cta-inner">
             <div className="final-wave" aria-hidden="true"><Waveform /><Waveform /><Waveform /></div>
-            <p className="section-kicker">09 — {c.final.kicker}</p>
+            <p className="section-kicker">09 / {c.final.kicker}</p>
             <h2>{c.final.title}</h2>
             <p>{c.final.body}</p>
             <Link className="button button-primary button-large" href={downloadHref} data-cta="final"><span aria-hidden="true">↓</span>{c.final.download}</Link>

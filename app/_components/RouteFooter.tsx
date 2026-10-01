@@ -9,7 +9,7 @@ import type { Locale } from "../_lib/locale";
 /**
  * The legal links, in the language the reader is being sold to in.
  *
- * German for the German site, English everywhere else — including the Russian
+ * German for the German site, English everywhere else, including the Russian
  * and Ukrainian pages, whose readers have no set of their own and are better
  * served by a text they can read than by the one the contract was drafted in.
  * Every page linked here carries a switch to the other language.

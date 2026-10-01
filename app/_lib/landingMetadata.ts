@@ -11,22 +11,22 @@ import { requestOrigin } from "./requestOrigin";
 // their own lines.
 const meta: Record<Locale, { title: string; description: string; imageAlt: string }> = {
   de: {
-    title: "Witness — Spracherkennung für den Mac, ohne Cloud",
+    title: "Witness: Spracherkennung für den Mac, ohne Cloud",
     description: "Sprache zu Text am Mac: lokale Diktier-App für Apple Silicon. Deutsch und Englisch mischen, unsichere Stellen prüfen, Text direkt am Cursor einsetzen.",
     imageAlt: "Witness zeigt einen markierten Betrag vor dem Einfügen",
   },
   en: {
-    title: "Witness — Speech to text for Mac, private and offline",
+    title: "Witness: Speech to text for Mac, private and offline",
     description: "Voice to text for Apple silicon Macs, processed on the device. Mix English and German, review uncertain passages, and insert text at your cursor.",
     imageAlt: "Witness highlights an amount for review before insertion",
   },
   ru: {
-    title: "Witness — диктовка без передачи твоих данных",
+    title: "Witness: диктовка без передачи твоих данных",
     description: "Локальная диктовка для Mac на Apple Silicon. Мешай русский с английским, проверяй неуверенные места и вставляй готовый текст прямо под курсор.",
     imageAlt: "Witness подсвечивает сумму для проверки до вставки",
   },
   uk: {
-    title: "Witness — диктування без передавання твоїх даних",
+    title: "Witness: диктування без передавання твоїх даних",
     description: "Локальне диктування для Mac на Apple Silicon. Змішуй українську з англійською, перевіряй непевні місця та вставляй готовий текст просто під курсор.",
     imageAlt: "Witness підсвічує суму для перевірки до вставлення",
   },

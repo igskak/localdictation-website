@@ -6,7 +6,7 @@ import { ConsentGate } from "./_components/ConsentGate";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Witness — Diktieren, ohne deine Daten zu teilen",
+  title: "Witness: Diktieren, ohne deine Daten zu teilen",
   description:
     "Lokale Spracherkennung für den Mac. Diktiere auf Deutsch und Englisch, prüfe unsichere Stellen und behalte Audio und Text auf deinem Gerät.",
   applicationName: "Witness",

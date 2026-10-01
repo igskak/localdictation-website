@@ -47,12 +47,12 @@ export default async function DankePage({ searchParams }: { searchParams: Promis
         <section className="thanks-grid shell">
         <aside className="key-card">
           <span>{c.key.label}</span>
-          <strong>•••• — •••• — ••••</strong>
+          <strong>•••• - •••• - ••••</strong>
           <p>{c.key.note}</p>
         </aside>
         </section>
         <section className="install-section shell" id="installation">
-        <div className="install-intro"><span>01—03</span><h2>{c.install.title}</h2></div>
+        <div className="install-intro"><span>01-03</span><h2>{c.install.title}</h2></div>
         <div className="install-grid">
           {c.install.steps.map((step, index) => (
             <article key={step.title}><b>{`0${index + 1}`}</b><h3>{step.title}</h3><p>{step.body}</p></article>
