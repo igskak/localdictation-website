@@ -1186,7 +1186,7 @@ const wisprFlowAlternatives: ComparisonPageData = {
       ],
     },
     {
-      title: "The free local alternatives are genuinely good",
+      title: "Where the free local options get you",
       paragraphs: [
         {
           text: "Four of them cost nothing and keep audio on the machine. Spokenly runs Whisper and Parakeet models offline for $0 forever with no word cap. MacParakeet is free under GPL-3.0, supports 98 languages, needs no account, no sign-up and no email, and requires macOS 14.2 or newer on Apple Silicon. FluidVoice is free forever under GPLv3 with no paid tier and states that your voice never leaves your Mac. Superwhisper has a free tier that allows unlimited dictation with any local Whisper model, and says that nothing you dictate leaves your device on that plan.",
@@ -1197,7 +1197,7 @@ const wisprFlowAlternatives: ComparisonPageData = {
           sources: ["apple-dictation-en"],
         },
         {
-          text: "If your reason for leaving Flow was the cloud, the account or the price, you can stop reading here and install one of those. That is an honest outcome of this comparison, and it is why this page lists them first.",
+          text: "So if the cloud, the account or the weekly word cap was your whole reason for leaving Flow, that part is solved several times over, and some of it for free. All of these keep the audio on the machine. What none of them settle is the question in the next section, and it is the one that decides whether you can use dictation on work other people act on.",
           sources: ["local-product"],
         },
       ],
@@ -1240,14 +1240,14 @@ const wisprFlowAlternatives: ComparisonPageData = {
           sources: ["wispr-plans", "voiceink-product", "macwhisper-product", "local-product"],
         },
         {
-          text: "What the difference buys is the check before insertion. One wrong amount in a quote, one dropped not in an email to a client, and the gap between free and €99 stops being the interesting number. If your dictation is mostly notes and messages, take a free one with a clear conscience. If it goes into documents other people act on, the €99 is the cheaper mistake.",
+          text: "What the difference buys is the check before insertion. One wrong amount in a quote, one dropped not in an email to a client, and the gap between free and €99 stops being the interesting number. For notes and messages that gap is real and the free apps are enough. For documents other people act on, the €99 is the cheaper mistake, and the 13-day trial is the full version with no account.",
           sources: ["local-product"],
         },
       ],
     },
   ],
   verdict: {
-    text: "What we recommend: if you are leaving Wispr Flow only because of the cloud, the account or the price, install Spokenly, MacParakeet or FluidVoice today and pay nothing. If you dictate into documents where a number, a name or a negation has to be right, and you want to see the uncertain spots before the text lands rather than after someone else finds them, Witness is the alternative built for that. It runs on Apple Silicon with macOS 14.4 or newer, costs €99 once, and the 13-day trial is the full version with no account. Wispr Flow remains the better fit if you need the same interface on Windows, iPhone and Android.",
+    text: "What we recommend: every app on this page runs recognition on the Mac, so whichever one you pick, the cloud question is answered. The question worth another minute is what happens when recognition gets a word wrong, because that is the failure you do not see. If you dictate into documents where a figure, a date, a name or a negation has to be right, Witness is the alternative built for exactly that: the risky spots are marked before the text lands, you can replay the audio behind a marked one, and a hotkey shows the raw transcript. Apple Silicon with macOS 14.4 or newer, €99 once for two Macs, and the 13-day trial is the full version with no account. Wispr Flow stays the better fit if you need the same interface on Windows, iPhone and Android.",
     sources: ["spokenly-pricing", "macparakeet-product", "fluidvoice-product", "local-product"],
   },
   faqs: [
