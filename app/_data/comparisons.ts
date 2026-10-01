@@ -848,7 +848,7 @@ const dsgvo: ComparisonPageData = {
   description:
     "Mac-Diktiersoftware nach nachvollziehbaren Datenschutzkriterien vergleichen: lokal, EU-Cloud, US-Cloud, AVV, Konten und Inhaltsprüfung. Stand Oktober 2026.",
   directAnswer: {
-    text: "Die kurze Antwort: Für möglichst wenig Inhaltsübertragung sind vollständig lokal konfigurierte Lösungen wie Witness, VoiceInk oder Superwhisper naheliegend. Sprecho verarbeitet Audio und Transkripte in einer deutschen beziehungsweise EU-Cloud und bietet dafür einen AVV. Wispr Flow ist laut eigener Dokumentation eine US-gehostete Cloud-SaaS. Welche Option im konkreten Betrieb DSGVO-konform ist, bleibt eine rechtliche und organisatorische Einzelfallprüfung.",
+    text: "Die kurze Antwort: Wenn deine Diktate personenbezogene Daten enthalten, ist die entscheidende Frage nicht, wer den stärksten DSGVO-Claim macht, sondern wie viele Inhalte das Gerät überhaupt verlassen. Witness überträgt Diktatinhalte nicht: Audio, Transkript, Wörterbuch und Inhalte der Ziel-App bleiben auf dem Mac, und es gibt keinen Cloud-Schalter, der das versehentlich ändert. VoiceInk und Superwhisper können ebenfalls lokal arbeiten, bieten aber optionale Cloud-Modelle an, sodass der tatsächliche Datenweg dort an der Konfiguration hängt. Sprecho verarbeitet Audio und Transkripte in einer deutschen beziehungsweise EU-Cloud und bietet dafür einen AVV. Wispr Flow beschreibt sich in der eigenen Dokumentation als Cloud-Dienst, der Kundendaten in den USA verarbeitet und speichert. Diese Seite ist keine Rechtsberatung: Ob ein konkreter Einsatz DSGVO-konform ist, hängt zusätzlich von Zweck, Daten und Organisation ab.",
     sources: ["local-product", "voiceink-product", "super-security", "sprecho-dpa", "wispr-security", "gdpr"],
   },
   table: {
@@ -928,7 +928,7 @@ const dsgvo: ComparisonPageData = {
     },
   ],
   verdict: {
-    text: "Fazit: Die beste Mac-Diktiersoftware für sensible Inhalte ist nicht automatisch die App mit dem stärksten DSGVO-Claim. Entscheidend sind der reale Datenfluss, optionale Cloud-Schalter, Verträge, organisatorische Regeln und der Umgang mit Erkennungsfehlern. Witness minimiert den Inhaltsdatenfluss und ist als signierte, von Apple notarisierte App verfügbar.",
+    text: "Unsere Empfehlung: Wenn in deinen Diktaten personenbezogene Daten vorkommen und du auf einem Apple-Silicon-Mac arbeitest, nimm Witness. Diktatinhalte werden nicht übertragen, es gibt keinen Cloud-Schalter, der sich falsch stellen lässt, und die zweite Hälfte des Problems ist mitgedacht: Zahlen, Namen, Daten und Verneinungen stehen vor dem Einfügen zur Freigabe, denn einen Erkennungsfehler in einer Akte bemerkt sonst niemand. Ein AVV für Inhaltsverarbeitung ist nicht vorgesehen, weil keine Inhalte im Auftrag verarbeitet werden; für Lizenz, Zahlung und Updates nennt die Datenschutzerklärung Empfänger, Rechtsgrundlage und Aufbewahrung. Das ersetzt keine rechtliche Prüfung: Auch lokale Software entbindet eine Organisation nicht von eigenen Pflichten. 13 Tage lassen sich kostenlos testen, ohne Konto.",
     sources: ["gdpr", "local-product"],
   },
   faqs: [
@@ -1092,7 +1092,7 @@ const macDictation: ComparisonPageData = {
     },
   ],
   verdict: {
-    text: "Fazit: Die eingebaute Diktierfunktion ist kostenlos, schnell eingeschaltet und für kurze Texte oft genug. Witness ist für Texte gedacht, in denen einzelne Wörter zählen: Es zeigt Zahlen, Namen und Verneinungen zur Prüfung, bevor sie im Dokument stehen, und hält die Inhalte dabei immer auf dem Mac.",
+    text: "Unsere Empfehlung: Schalte die eingebaute Diktierfunktion ein, lerne die Satzzeichen-Befehle und behalte sie für Notizen und kurze Nachrichten. Dafür ist sie kostenlos und gut genug. Sobald diktierter Text in Dokumente geht, auf die sich andere verlassen, also Angebote, Mandantenpost, Akten, Tickets, ist Witness die passende Wahl: Zahlen, Datumsangaben, Eigennamen und Verneinungen werden vor dem Einfügen markiert, den Originalton einer markierten Stelle kannst du nachhören, und die Inhalte bleiben auf dem Mac. 13 Tage lassen sich kostenlos testen, ohne Konto.",
     sources: ["apple-dictate", "local-product"],
   },
   faqs: [
