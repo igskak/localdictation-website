@@ -2,6 +2,14 @@
 
 Очередь тем для контентного агента, порядок его работы описан в `docs/seo/CONTENT_AGENT.md`. Берётся верхний пункт со статусом `todo`, одна страница на PR. Порядок пересобирает еженедельный монитор, когда в Search Console появляются запросы, по которым мы уже показываемся на 2–3 странице выдачи.
 
+Порядок пересобран 01.10.2026 в пользу английского. Основание, из замера того же дня (`witness-seo/reports/2026-10-01.md`):
+
+- Органика не ограничена географией вообще: `proxy.ts` выбирает язык по пути, никакой гео-логики нет, hreflang отдаёт de, en, ru, uk с `x-default` на немецком. Деление у нас по языку, а не по стране, и это правильная гранулярность: покупатель, цена и доставка одни и те же в любой стране.
+- Реклама ограничена жёстко: кампания `Witness — DE — Kategorie — Suche` таргетирует одну Германию, за 30 дней 2 493 показа и 165 кликов, 100% из DE. Английская группа внутри той же Германии забирает треть кликов (670 показов, 52 клика) по CPC 1,65 € против 1,58 € у немецкой, то есть англоязычный спрос реален даже там, где мы его не покупаем целенаправленно.
+- Перекос в работах, не в географии: немецких страниц восемь, английских ноль. Маршруты `/en/compare/[slug]` и `/en/guides/[slug]` и тип `EnglishComparisonSlug` стоят с PR #4, `englishComparisons` пустой объект. Английские кластеры в этом бэклоге крупнее немецких: около 5 800/мес у п. 4 против около 1 900/мес у самой большой немецкой темы.
+
+Из этого правило на ближайшие недели: английские страницы идут первыми, немецкая переподача ниже, и рекламу в US не открывать, пока английских страниц нет, иначе клики придут на `/en` без страницы под запрос.
+
 Источники спроса:
 - **Semrush**, базы `de` и `us`, 27.09.2026 (объём в месяц и KD). Первичный ресёрч 07–09.09 лежит в `docs/GTM.md` §4 репозитория приложения.
 - **Реклама**: реальные поисковые запросы кампании Witness, 10–27.09.2026, показы за 17 дней. Это не объём рынка, а доказательство, что так ищут.
@@ -19,15 +27,20 @@
 
 Semrush (базы `de` и `us`) перепроверен 27.09.2026. Объём в месяц, KD в скобках.
 
+Номер в первой колонке это стабильный идентификатор пункта, порядок строк это очередь. Сверху вниз.
+
 | # | Статус | Страница (путь) | Язык | Целевые запросы | Спрос | Почему сейчас |
 |---|---|---|---|---|---|---|
-| 2а | в работе: хаб в PR #9, дальше `/vergleich/mac-diktierfunktion` | Пересборка опубликованных страниц: свежие факты и продающая подача. По одной странице на PR: хаб `/vergleich`, `/vergleich/mac-diktierfunktion`, `/vergleich/wispr-flow-alternative`, остальные пять сравнений, таблица сравнения на главных | DE, EN, RU, UK | как у страниц | как у страниц | Страницы написаны нейтрально, как справочник: Witness там один из равных, а местами текст сам отправляет к конкуренту («nimm MacWhisper», «nicht die günstigste Wahl»). Переподать по разделу «Подача» в `CONTENT_AGENT.md`. Заодно факты, найденные при сборке PR #5 (27.09): у Sprecho Free на 2 000 слов в неделю и Pro €12,99 в месяц, у Superwhisper Free с неограниченным локальным диктатом. Каждую цифру заново сверить с официальной страницей и обновить дату проверки |
-| 3 | todo | Best Wispr Flow alternatives for Mac (`/en/compare/wispr-flow-alternatives`) | EN | wispr flow alternative, wispr flow alternatives, wispr flow alternative mac | us: 260 (15) + 260 (9) + 20; de: 320 (26) | Самый низкий KD среди коммерческих запросов. В топе r/macapps и подборки конкурентов (letterly, saner, toolfinder, eesel, tryvoiceink, weesper). Здесь ранжируется формат подборки |
-| 4 | todo | How to use dictation on Mac, and when an app is better (`/en/guides/mac-dictation`) | EN | how to use dictation on mac, speech to text mac, dictation on mac, mac dictation, voice to text mac, dictation mac, mac dictation not working | us: 2 400 (35) + 1 300 (26) + 720 (33) + 480 (29) + 390 (28) + 210 (27) + 260 (18): около 5 800/мес | Английский двойник п. 1 и самый большой кластер в бэклоге. В топе справка Apple, университет Мельбурна, тред r/macapps «Mac dictation still sucks» |
-| 6 | todo | Diktieren mit KI (`/vergleich/ki-spracherkennung`) | DE | ki spracherkennung, diktieren mit ki | 390 (41) + 20 | Здесь рекламируется Wispr Flow. KD выше, поэтому после п. 1 и 5 |
+| 3 | todo, брать первым | Best Wispr Flow alternatives for Mac (`/en/compare/wispr-flow-alternatives`) | EN | wispr flow alternative, wispr flow alternatives, wispr flow alternative mac | us: 260 (15) + 260 (9) + 20; de: 320 (26) | Первая английская страница, и самый низкий KD среди коммерческих запросов: домену трёх недель без внешних ссылок больше ничего из топа не достать. В топе r/macapps и подборки конкурентов (letterly, saner, toolfinder, eesel, tryvoiceink, weesper), здесь ранжируется формат подборки. Проверено 01.10: по этому запросу нас нет в топ-20 ни в `us`, ни в `de` |
+| 2б | todo | Переподача `/vergleich/sprecho-alternative` | DE | sprecho, sprecho alternative | свежей цифры Semrush нет, факт из GSC: 4 показа за 7 дней к 01.10 | Единственная наша страница с небрендовыми показами, позиция 16 по «sprecho alternative» на 01.10. Одна переподача по разделу «Подача» отделяет её от первой страницы, поэтому она идёт выше остальной немецкой пересборки. Факты сверить заново: у Sprecho Free на 2 000 слов в неделю и Pro €12,99 в месяц (проверено 27.09) |
+| 4 | todo | How to use dictation on Mac, and when an app is better (`/en/guides/mac-dictation`) | EN | how to use dictation on mac, speech to text mac, dictation on mac, mac dictation, voice to text mac, dictation mac, mac dictation not working | us: 2 400 (35) + 1 300 (26) + 720 (33) + 480 (29) + 390 (28) + 210 (27) + 260 (18): около 5 800/мес | Самый большой кластер в бэклоге, английский двойник уже опубликованной `/vergleich/mac-diktierfunktion`. KD 26–35, в топе справка Apple, университет Мельбурна и тред r/macapps «Mac dictation still sucks»: это игра на месяцы, поэтому начинать её надо сейчас, а не после немецкой пересборки |
+| 9 | todo | Why dictation silently drops words, and how to catch it (`/en/guides/dictation-missed-words`) | EN | dictation missing words, whisper hallucination | whisper hallucination 20, остальное без данных | Не ради трафика, а ради ссылок и AI-цитирования: ровно та боль, вокруг которой построен Witness (тред Theo, 4 100 лайков у ответа про пропущенные слова). Поднят выше немецких страниц, потому что ссылки ставит англоязычная аудитория: на 01.10 внешних упоминаний у нас три, и ни одного живого обзора |
+| 2а | в работе, остаток | Пересборка остальных опубликованных страниц: свежие факты и продающая подача. По одной странице на PR: `/vergleich/mac-diktierfunktion`, `/vergleich/wispr-flow-alternative`, остальные четыре сравнения, таблица сравнения на главных | DE, EN, RU, UK | как у страниц | как у страниц | Хаб `/vergleich` сделан в PR #9, смержен 30.09, страница Sprecho вынесена в п. 2б. Остальное ниже английских страниц: это работа на конверсию трафика, который уже есть, а не выход на рынок, которого у нас нет. Страницы написаны нейтрально, как справочник: Witness там один из равных, а местами текст сам отправляет к конкуренту («nimm MacWhisper», «nicht die günstigste Wahl»). Переподать по разделу «Подача» в `CONTENT_AGENT.md`, у Superwhisper заодно сверить Free с неограниченным локальным диктатом (проверено 27.09) |
+| 6 | todo | Diktieren mit KI (`/vergleich/ki-spracherkennung`) | DE | ki spracherkennung, diktieren mit ki | 390 (41) + 20 | Здесь рекламируется Wispr Flow. KD 41, самый высокий в очереди, поэтому последним из тем со спросом |
 | 7 | todo | Spokenly-Alternative (`/vergleich/spokenly-alternative`) | DE | spokenly | de: 210 (36); us: 1 600 (32), но «spokenly alternative» всего 10 | Спрос почти весь навигационный. Страница нужна скорее для AI-ответов и честного ответа «почему платить, если есть бесплатное», чем ради трафика |
 | 8 | todo | FluidVoice und MacParakeet: Open-Source-Diktier-Apps (`/vergleich/open-source-diktier-apps-mac`) | DE | fluidvoice, macparakeet | de: 140; us: 90; macparakeet 0 | Бесплатные open-source конкуренты растут. Одна страница на обоих |
-| 9 | todo | Why dictation silently drops words, and how to catch it (`/en/guides/dictation-missed-words`) | EN | dictation missing words, whisper hallucination | whisper hallucination 20, остальное без данных | Не ради трафика, а ради ссылок и AI-цитирования: ровно та боль, вокруг которой построен Witness (тред Theo, 4 100 лайков у ответа про пропущенные слова) |
+
+Техническое для первой английской страницы: `englishComparisons` в `app/_data/comparisons.ts` на 01.10 пустой объект, поэтому п. 3 добавляет первую запись в `englishComparisonSlugs` и проверяет то, что до него никто не проверял на живой странице: попадание пути в `comparisonPaths()` и в `sitemap.xml`, навигацию по siblings в `ComparisonPage`, hreflang через `translation` к немецкому двойнику, ссылку с `/en`.
 
 ## Не писать
 
@@ -35,7 +48,7 @@ Semrush (базы `de` и `us`) перепроверен 27.09.2026. Объём 
 - `text zu sprache` и `text to speech`: обратная задача.
 - `spracheingabe` без «mac»: ищут, как включить Gboard и голосовой ввод Windows.
 - `whisper`, `whisper ai`: слой лидера, Wispr Flow держит первые позиции.
-- Русские и украинские запросы про диктовку на Mac: Semrush не нашёл данных ни в базе `ru`, ни в `ua` (27.09). Вернуться, если в Search Console появятся показы на `/ru` или `/uk`.
+- Русские и украинские запросы про диктовку на Mac: Semrush не нашёл данных ни в базе `ru`, ни в `ua` (27.09). Условие возврата («появятся показы на `/ru` или `/uk`») формально сработало 01.10: `/uk` 4 показа, `/ru` 2. Но в таблице запросов за те же 7 дней нет ни одного русского или украинского запроса, все 11 показов сверх «sprecho» анонимизированы, а по странам Украина дала 1 показ. Доказательства спроса это не даёт, правило остаётся. Условие уточнено: вернуться, когда в таблице запросов появится русский или украинский запрос, а не когда страница наберёт показы.
 - Диктовка в Word на Mac: «word diktieren mac» и варианты по 20. Большой «diktierfunktion word» (1 300) почти целиком про Windows и Office.
 - Юристы и DSGVO отдельной страницей: «diktiersoftware anwalt» 20. Тема уже закрыта страницей `/vergleich/diktiersoftware-mac-dsgvo`.
 
@@ -48,3 +61,6 @@ Semrush (базы `de` и `us`) перепроверен 27.09.2026. Объём 
 | 27.09.2026 | Diktierfunktion am Mac: einschalten, nutzen, Grenzen (`/vergleich/mac-diktierfunktion`), около 1 900/мес. Индексация запрошена 27.09 | PR #3, `2178cb7` |
 | 27.09.2026 | Английский шаблон для сравнений и гайдов (`/en/compare/…`, `/en/guides/…`) | PR #4, `736dfd4` |
 | 27.09.2026 | Хаб `/vergleich` как подборка «Diktier-Apps für den Mac 2026», около 1 300/мес. Индексация не запрошена: запросить вместе с PR #9 | PR #5, `ad86ca5` |
+| 30.09.2026 | Раздел «Подача» в `CONTENT_AGENT.md`: страница продаёт Witness в границах §6 UWG | PR #7, `9013027` |
+| 30.09.2026 | Переподача хаба `/vergleich`: первый шаг п. 2а | PR #9, `b30b3a2` |
+| 01.10.2026 | Очередь пересобрана в пользу английского: п. 3, 4 и 9 выше немецкой пересборки. Основание в шапке файла и в `witness-seo/reports/2026-10-01.md` | этот PR |
