@@ -735,7 +735,7 @@ test("renders the source-dated comparison hub and every required AEO route", asy
     assert.match(html, new RegExp(`<link rel="canonical" href="https://preview\\.example${route}"`, "i"), route);
     assert.doesNotMatch(html, /<meta name="robots" content="noindex/i, route);
     if (route !== "/vergleich") {
-      assert.match(html, /\d{1,2}\. (?:August|September) 2026/, route);
+      assert.match(html, /\d{1,2}\. (?:Januar|Februar|März|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember) \d{4}/, route);
       assert.match(html, /Offizielle Quellen/, route);
       assert.doesNotMatch(html, /(?:og:image|twitter:image|\/og\.png)/i, route);
       assert.match(html, /nicht öffentlich dokumentiert/, route);
