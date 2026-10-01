@@ -275,7 +275,7 @@ const en: LandingCopy = {
     ],
     note: "If you enjoy configuring Whisper yourself, open-source tools are a good choice. Witness is for people who would rather get straight to work — configured, with verification and reachable support.",
     sources: "Official sources, checked 18 Aug 2026:",
-    more: "Detailed, sourced comparisons (in German):",
+    more: "Detailed, sourced comparisons:",
     moreAll: "All comparisons",
   },
   pricing: {

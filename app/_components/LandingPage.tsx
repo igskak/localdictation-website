@@ -6,7 +6,7 @@ import { analyticsEnabled, getAnalyticsConfig } from "../_lib/analytics";
 import { ConsentReopenLink } from "./ConsentGate";
 import { localeHome, localeLabels, locales, type Locale } from "../_lib/locale";
 import { legalLocale, legalPaths } from "../_lib/legal";
-import { comparisonSlugs, comparisons } from "../_data/comparisons";
+import { comparisonSlugs, comparisons, englishComparisonSlugs, englishComparisons } from "../_data/comparisons";
 
 const waveHeights = [7, 13, 20, 10, 25, 16, 28, 12, 20, 8, 15, 6];
 
@@ -371,11 +371,14 @@ export function LandingPage({ locale }: { locale: Locale }) {
                 <a href="https://tryvoiceink.com/pricing">VoiceInk</a>
               </span>
             </div>
-            {/* The detailed pages are German only, so they carry hrefLang on every locale. */}
+            {/* English pages come first on /en; the German ones say so in the link. */}
             <nav className="comparison-more" aria-label={c.comparison.more}>
               <p>{c.comparison.more}</p>
               <ul>
-                {comparisonSlugs.map((slug) => <li key={slug}><a href={comparisons[slug].path} hrefLang="de">{comparisons[slug].eyebrow}</a></li>)}
+                {locale === "en"
+                  ? englishComparisonSlugs.map((slug) => <li key={slug}><a href={englishComparisons[slug].path} hrefLang="en">{englishComparisons[slug].eyebrow}</a></li>)
+                  : null}
+                {comparisonSlugs.map((slug) => <li key={slug}><a href={comparisons[slug].path} hrefLang="de">{comparisons[slug].eyebrow}{locale === "en" ? " (in German)" : ""}</a></li>)}
                 <li><a href="/vergleich" hrefLang="de">{c.comparison.moreAll}</a></li>
               </ul>
             </nav>
