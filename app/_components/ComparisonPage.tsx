@@ -23,6 +23,8 @@ const comparisonLabels: Record<ComparisonSlug | EnglishComparisonSlug, string> =
   "voiceink-vs-witness": "VoiceInk",
   "macwhisper-alternative": "MacWhisper",
   "diktiersoftware-mac-dsgvo": "Mac & DSGVO",
+  "wispr-flow-alternatives": "Wispr Flow alternatives",
+  "mac-dictation": "Mac dictation guide",
 };
 
 function localeOf(data: ComparisonPageData) {
