@@ -398,6 +398,7 @@ export function LandingPage({ locale }: { locale: Locale }) {
             <article className="price-card">
               <div className="price-top"><span>{c.pricing.annual.name}</span></div>
               <div className="price"><sup>€</sup>49 <small>{c.pricing.annual.vat}</small></div>
+              <p className="price-per-month">{c.pricing.annual.perMonth}</p>
               <p>{c.pricing.annual.body}</p>
               <ul>{c.pricing.annual.bullets.map((item) => <li key={item}>{item}</li>)}</ul>
             </article>

@@ -56,6 +56,8 @@ test("renders the complete German landing page in the required order", async () 
   assert.match(html, /Für alle, die mehr als eine Sprache benutzen/);
   assert.match(html, /€99/);
   assert.match(html, /€49/);
+  // The annual price also as a monthly figure: €49 / 12, never rounded down.
+  assert.match(html, /€4,08 im Monat, jährlich abgerechnet/);
   // Four copies of one download: header, hero, pricing, closing section. The
   // header copy is the one on screen on a laptop, where the hero's sits
   // below the fold or under the consent banner.
