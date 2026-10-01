@@ -23,9 +23,12 @@ const comparisonPaths = [
   "/vergleich/voiceink-vs-witness",
   "/vergleich/macwhisper-alternative",
   "/vergleich/diktiersoftware-mac-dsgvo",
+  "/vergleich/ki-spracherkennung",
 ];
-// English pages are read from the data, so the first one is tested the moment
-// it is added: none exists yet, and a hand list would stay empty after it did.
+// The German list is written out by hand on purpose: it is the expected
+// inventory, so a page that silently disappears from the data fails here.
+// English pages are read from the data instead, which is how the first one
+// got tested the moment it was added.
 const { comparisonPaths: allComparisonPaths } = await import("../app/_data/comparisons.ts");
 const englishComparisonPaths = allComparisonPaths().filter((path) => path.startsWith("/en/"));
 
