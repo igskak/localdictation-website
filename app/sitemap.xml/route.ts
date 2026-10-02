@@ -1,4 +1,4 @@
-import { comparisonPaths } from "../_data/comparisons";
+import { comparisonLastmod, comparisonPaths, comparisonUpdatedIso } from "../_data/comparisons";
 
 const paths = [
   "/",
@@ -11,9 +11,13 @@ const paths = [
 
 function xml(request: Request) {
   const origin = new URL(request.url).origin;
+  const lastmod = comparisonLastmod();
   const urls = paths.map((path) => {
     const priority = path === "/" ? "1.0" : ["/en", "/ru", "/uk"].includes(path) ? "0.9" : path === "/vergleich" ? "0.8" : "0.7";
-    return `  <url><loc>${origin}${path === "/" ? "" : path}</loc><changefreq>weekly</changefreq><priority>${priority}</priority></url>`;
+    // The landing pages and the hub carry the comparison table, so the date its
+    // facts were last checked is also the date their content last changed.
+    const changed = lastmod.get(path) ?? comparisonUpdatedIso;
+    return `  <url><loc>${origin}${path === "/" ? "" : path}</loc><lastmod>${changed}</lastmod><changefreq>weekly</changefreq><priority>${priority}</priority></url>`;
   }).join("\n");
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`;
 }
