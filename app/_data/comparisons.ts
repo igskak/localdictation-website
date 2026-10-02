@@ -6,6 +6,7 @@ export const comparisonSlugs = [
   "voiceink-vs-witness",
   "macwhisper-alternative",
   "diktiersoftware-mac-dsgvo",
+  "ki-spracherkennung",
 ] as const;
 
 export type ComparisonSlug = (typeof comparisonSlugs)[number];
@@ -16,7 +17,7 @@ export type ComparisonSlug = (typeof comparisonSlugs)[number];
  * (docs/seo/BACKLOG.md, item 2). A page lives under `/en/compare/<slug>` or
  * `/en/guides/<slug>`, whichever its `path` names.
  */
-export const englishComparisonSlugs = ["wispr-flow-alternatives", "mac-dictation"] as const;
+export const englishComparisonSlugs = ["wispr-flow-alternatives", "mac-dictation", "dictation-missed-words"] as const;
 
 export type EnglishComparisonSlug = (typeof englishComparisonSlugs)[number];
 
@@ -847,7 +848,7 @@ const dsgvo: ComparisonPageData = {
   description:
     "Mac-Diktiersoftware nach nachvollziehbaren Datenschutzkriterien vergleichen: lokal, EU-Cloud, US-Cloud, AVV, Konten und Inhaltsprüfung. Stand Oktober 2026.",
   directAnswer: {
-    text: "Die kurze Antwort: Für möglichst wenig Inhaltsübertragung sind vollständig lokal konfigurierte Lösungen wie Witness, VoiceInk oder Superwhisper naheliegend. Sprecho verarbeitet Audio und Transkripte in einer deutschen beziehungsweise EU-Cloud und bietet dafür einen AVV. Wispr Flow ist laut eigener Dokumentation eine US-gehostete Cloud-SaaS. Welche Option im konkreten Betrieb DSGVO-konform ist, bleibt eine rechtliche und organisatorische Einzelfallprüfung.",
+    text: "Die kurze Antwort: Wenn deine Diktate personenbezogene Daten enthalten, ist die entscheidende Frage nicht, wer den stärksten DSGVO-Claim macht, sondern wie viele Inhalte das Gerät überhaupt verlassen. Witness überträgt Diktatinhalte nicht: Audio, Transkript, Wörterbuch und Inhalte der Ziel-App bleiben auf dem Mac, und es gibt keinen Cloud-Schalter, der das versehentlich ändert. VoiceInk und Superwhisper können ebenfalls lokal arbeiten, bieten aber optionale Cloud-Modelle an, sodass der tatsächliche Datenweg dort an der Konfiguration hängt. Sprecho verarbeitet Audio und Transkripte in einer deutschen beziehungsweise EU-Cloud und bietet dafür einen AVV. Wispr Flow beschreibt sich in der eigenen Dokumentation als Cloud-Dienst, der Kundendaten in den USA verarbeitet und speichert. Diese Seite ist keine Rechtsberatung: Ob ein konkreter Einsatz DSGVO-konform ist, hängt zusätzlich von Zweck, Daten und Organisation ab.",
     sources: ["local-product", "voiceink-product", "super-security", "sprecho-dpa", "wispr-security", "gdpr"],
   },
   table: {
@@ -927,7 +928,7 @@ const dsgvo: ComparisonPageData = {
     },
   ],
   verdict: {
-    text: "Fazit: Die beste Mac-Diktiersoftware für sensible Inhalte ist nicht automatisch die App mit dem stärksten DSGVO-Claim. Entscheidend sind der reale Datenfluss, optionale Cloud-Schalter, Verträge, organisatorische Regeln und der Umgang mit Erkennungsfehlern. Witness minimiert den Inhaltsdatenfluss und ist als signierte, von Apple notarisierte App verfügbar.",
+    text: "Unsere Empfehlung: Wenn in deinen Diktaten personenbezogene Daten vorkommen und du auf einem Apple-Silicon-Mac arbeitest, nimm Witness. Diktatinhalte werden nicht übertragen, es gibt keinen Cloud-Schalter, der sich falsch stellen lässt, und die zweite Hälfte des Problems ist mitgedacht: Zahlen, Namen, Daten und Verneinungen stehen vor dem Einfügen zur Freigabe, denn einen Erkennungsfehler in einer Akte bemerkt sonst niemand. Ein AVV für Inhaltsverarbeitung ist nicht vorgesehen, weil keine Inhalte im Auftrag verarbeitet werden; für Lizenz, Zahlung und Updates nennt die Datenschutzerklärung Empfänger, Rechtsgrundlage und Aufbewahrung. Das ersetzt keine rechtliche Prüfung: Auch lokale Software entbindet eine Organisation nicht von eigenen Pflichten. 13 Tage lassen sich kostenlos testen, ohne Konto.",
     sources: ["gdpr", "local-product"],
   },
   faqs: [
@@ -1091,7 +1092,7 @@ const macDictation: ComparisonPageData = {
     },
   ],
   verdict: {
-    text: "Fazit: Die eingebaute Diktierfunktion ist kostenlos, schnell eingeschaltet und für kurze Texte oft genug. Witness ist für Texte gedacht, in denen einzelne Wörter zählen: Es zeigt Zahlen, Namen und Verneinungen zur Prüfung, bevor sie im Dokument stehen, und hält die Inhalte dabei immer auf dem Mac.",
+    text: "Unsere Empfehlung: Schalte die eingebaute Diktierfunktion ein, lerne die Satzzeichen-Befehle und behalte sie für Notizen und kurze Nachrichten. Dafür ist sie kostenlos und gut genug. Sobald diktierter Text in Dokumente geht, auf die sich andere verlassen, also Angebote, Mandantenpost, Akten, Tickets, ist Witness die passende Wahl: Zahlen, Datumsangaben, Eigennamen und Verneinungen werden vor dem Einfügen markiert, den Originalton einer markierten Stelle kannst du nachhören, und die Inhalte bleiben auf dem Mac. 13 Tage lassen sich kostenlos testen, ohne Konto.",
     sources: ["apple-dictate", "local-product"],
   },
   faqs: [
@@ -1140,6 +1141,160 @@ const appleGuideEn: ComparisonSource[] = [
     url: "https://support.apple.com/guide/mac-help/mchlc480652b/mac",
   },
 ];
+
+/** Primary sources on why recognition invents or drops words, for the English guide. */
+const recognitionLimitsEn: ComparisonSource[] = [
+  {
+    id: "whisper-card",
+    title: "Whisper model card, Limitations and biases",
+    publisher: "OpenAI",
+    url: "https://github.com/openai/whisper/blob/main/model-card.md",
+  },
+  {
+    id: "careless-whisper",
+    title: "Careless Whisper: Speech-to-Text Hallucination Harms (ACM FAccT 2024)",
+    publisher: "Koenecke, Choi, Mei, Schellmann, Sloane",
+    url: "https://arxiv.org/abs/2402.08021",
+  },
+];
+
+/** Primärquellen zu den Grenzen der Erkennung, für die KI-Seite. */
+const kiSources: ComparisonSource[] = [
+  {
+    id: "whisper-card-de",
+    title: "Whisper model card, Limitations and biases",
+    publisher: "OpenAI",
+    url: "https://github.com/openai/whisper/blob/main/model-card.md",
+  },
+  {
+    id: "careless-whisper-de",
+    title: "Careless Whisper: Speech-to-Text Hallucination Harms (ACM FAccT 2024)",
+    publisher: "Koenecke, Choi, Mei, Schellmann, Sloane",
+    url: "https://arxiv.org/abs/2402.08021",
+  },
+];
+
+const kiSpracherkennung: ComparisonPageData = {
+  slug: "ki-spracherkennung",
+  path: "/vergleich/ki-spracherkennung",
+  updatedIso: "2026-10-01",
+  updatedLabel: "1. Oktober 2026",
+  eyebrow: "Diktieren mit KI",
+  title: "Diktieren mit KI: was dahintersteckt und woran du die Unterschiede erkennst",
+  metaTitle: "Diktieren mit KI: Was wirklich dahintersteckt",
+  description:
+    "KI-Spracherkennung erklärt: wie sie arbeitet, warum sie Wörter erfindet und was Cloud von lokal unterscheidet. Mit Quellen, Stand Oktober 2026.",
+  directAnswer: {
+    text: "Die kurze Antwort: „KI-Spracherkennung“ meint heute bei fast allen Anbietern dieselbe Art von Modell. Es transkribiert nicht nur, es sagt Sprache voraus, und genau daraus entsteht die eigentliche Schwäche: Wenn die Aufnahme unklar ist, lässt das Modell keine Lücke, sondern schreibt die wahrscheinlichsten Wörter hin. OpenAI schreibt das in der Whisper-Modellkarte selbst, und eine begutachtete Studie fand in rund 1 % der untersuchten Transkripte ganze Sätze, die im Audio überhaupt nicht vorkamen. Unterscheiden musst du Anbieter deshalb nicht nach dem Wort KI, sondern nach zwei Fragen: Wo läuft die Erkennung, und was zeigt dir das Programm, wenn es unsicher war.",
+    sources: ["whisper-card-de", "careless-whisper-de"],
+  },
+  table: {
+    caption: "Die zwei Fragen, an denen sich KI-Diktierprogramme unterscheiden",
+    headers: ["Kriterium", "Witness", "Typische KI-Diktier-Cloud"],
+    rows: [
+      ["Wo die Erkennung läuft", "Lokal auf Apple Silicon", "Auf Servern des Anbieters, bei Wispr Flow in den USA"],
+      ["Konto", "Kein Produktkonto vorgesehen", "Anmeldung erforderlich, etwa bei Wispr Flow"],
+      ["Was die KI mit dem Text macht", "Konservative Bereinigung, per Hotkey umkehrbar", "Glättung, Grammatikkorrektur, Umformulierung"],
+      ["Unsichere Stellen", "Zahlen, Daten, Namen, Verneinungen und Wörterbuchbegriffe vor dem Einfügen markiert", "Nicht öffentlich dokumentiert"],
+      ["Originalton nachhören", "Bei markierten Stellen, aus dem Arbeitsspeicher", "Nicht öffentlich dokumentiert"],
+      ["Kosten", "€99 einmalig oder €49/Jahr, zwei Macs", "Abo, bei Wispr Flow Pro $144 im Jahr"],
+    ],
+  },
+  sections: [
+    {
+      title: "Was „KI“ bei Spracherkennung wirklich bedeutet",
+      paragraphs: [
+        {
+          text: "Ein heutiges Spracherkennungsmodell ordnet nicht Laut für Laut Buchstaben zu. Es schätzt, welche Wortfolge zu dem Gehörten am besten passt, und bezieht dabei mit ein, was sprachlich wahrscheinlich ist. Deshalb klingt das Ergebnis flüssig, auch wenn die Aufnahme es nicht war. Dasselbe Prinzip steckt in den meisten Produkten, die mit KI werben, egal ob sie lokal oder in der Cloud rechnen.",
+          sources: ["whisper-card-de"],
+        },
+        {
+          text: "Die Kehrseite steht in der Modellkarte von OpenAI: Die Vorhersagen können Text enthalten, der im Audio gar nicht gesprochen wurde, und die Architektur neigt zusätzlich dazu, Textstellen zu wiederholen. Das ist keine Macke eines einzelnen Anbieters, sondern eine Eigenschaft dieser Modellklasse.",
+          sources: ["whisper-card-de"],
+        },
+      ],
+    },
+    {
+      title: "Wie oft die KI etwas erfindet",
+      paragraphs: [
+        {
+          text: "Die belastbarste öffentliche Zahl stammt aus „Careless Whisper“, vorgestellt 2024 auf der ACM-Konferenz für Fairness, Accountability and Transparency. In rund 1 % der untersuchten Transkripte standen ganze erfundene Formulierungen oder Sätze, die im zugrunde liegenden Audio in keiner Form vorkamen. 38 % dieser Halluzinationen enthielten ausdrücklich schädliche Inhalte, etwa erfundene Zusammenhänge oder vorgetäuschte Autorität.",
+          sources: ["careless-whisper-de"],
+        },
+        {
+          text: "Ein Prozent klingt wenig, bis man zählt, wie viele Diktate ein Arbeitstag enthält. Und es verteilt sich ungleich: Die Studie fand mehr Halluzinationen bei Sprechenden mit längeren Sprechpausen, einem häufigen Symptom bei Aphasie. Die Modellkarte nennt aus demselben Grund ungleiche Qualität über Sprachen, Akzente und Dialekte hinweg.",
+          sources: ["careless-whisper-de", "whisper-card-de"],
+        },
+      ],
+    },
+    {
+      title: "Lokal rechnen ändert den Weg, nicht das Modell",
+      paragraphs: [
+        {
+          text: "Das gehört hierher, obwohl wir lokale Verarbeitung verkaufen: Wenn die Erkennung auf deinem Mac läuft, verlässt das Audio das Gerät nicht. Am Verhalten des Modells bei undeutlicher Aufnahme ändert das nichts. Ein lokales Modell verschluckt ein „nicht“ genauso wie ein Modell in der Cloud. Lokal heißt vertraulich, nicht fehlerfrei.",
+          sources: ["whisper-card-de", "local-product"],
+        },
+        {
+          text: "Trotzdem ist der Unterschied real, nur an anderer Stelle: Wispr Flow beschreibt sich in der eigenen Dokumentation als Cloud-Dienst, der Kundendaten in den USA verarbeitet und speichert, und verlangt bei der Einrichtung ein Konto. Was du diktierst, geht dort also zur Erkennung hinaus. Bei Witness bleibt es auf dem Mac, und für Aktivierung, Lizenz und Updates gehen nur offengelegte Nicht-Inhaltsdaten hinaus.",
+          sources: ["wispr-security", "wispr-setup", "local-product"],
+        },
+      ],
+    },
+    {
+      title: "KI-Glättung macht Fehler schwerer sichtbar",
+      paragraphs: [
+        {
+          text: "Fast alle KI-Diktierprogramme bieten heute einen zweiten Durchgang an: Grammatik korrigieren, Füllwörter entfernen, Satzzeichen setzen, den Text in sauberes Deutsch bringen. Für viele Texte willst du genau das. Nur entfernt dieser Durchgang auch die Spuren. Zögern, ein halb wiederholtes Wort, ein schiefer Satzbau sind die Dinge, bei denen man stutzt und noch einmal liest.",
+          sources: ["local-product"],
+        },
+        {
+          text: "Je glatter der Text, desto weniger fällt auf, dass der Betrag unterwegs ein anderer geworden ist. Witness bereinigt deshalb konservativ und umkehrbar: Ein Hotkey zeigt das unveränderte Rohtranskript, damit nachvollziehbar bleibt, was das Programm geändert hat.",
+          sources: ["local-product"],
+        },
+      ],
+    },
+    {
+      title: "Woran du ein brauchbares KI-Diktat erkennst",
+      paragraphs: [
+        {
+          text: "Vier Punkte, und sie sind konkret. Werden die Stellen markiert, an denen ein Fehler die Bedeutung ändert, also Zahlen, Datumsangaben, Eigennamen, Verneinungen und eigene Fachbegriffe? Kommst du an das unveränderte Rohtranskript? Kannst du den Originalton einer markierten Stelle nachhören, statt den Text nur noch einmal zu lesen? Und bestimmst du selbst, welche Sprachen überhaupt in Frage kommen? Bei den geprüften öffentlichen Seiten der großen KI-Diktier-Clouds ist eine automatische Risiko- oder Confidence-Markierung auf Fragmentebene nicht öffentlich dokumentiert. Das ist keine Aussage darüber, wie gut sie erkennen, und kein Genauigkeitsvergleich: Es heißt nur, dass wir diese eine Funktion nicht als belegten Gleichstand eintragen können.",
+          sources: ["local-product", "wispr-security"],
+        },
+        {
+          text: "Witness ist um diese vier gebaut: markierte Risikostellen vor dem Einfügen, Rohtranskript per Hotkey, Nachhören des kurzen Fragments aus dem Arbeitsspeicher, und du kreuzt aus 100 Sprachen an, welche vorkommen. Deutsch, Englisch, Russisch und Ukrainisch sind end-to-end gemessen; bei den übrigen bleiben sprachabhängig kalibrierte Markierungen aus, statt zu raten. Eine bessere Erkennung behaupten wir dabei nicht: Es gibt keinen gemeinsamen veröffentlichten Benchmark, der die Programme belastbar ordnet. 13 Tage lassen sich kostenlos testen, ohne Konto.",
+          sources: ["local-product"],
+        },
+      ],
+    },
+  ],
+  verdict: {
+    text: "Unsere Empfehlung: Lass dich nicht vom Wort KI leiten, es steckt überall dasselbe Prinzip dahinter. Entscheide nach den zwei Fragen, die wirklich auseinandergehen. Wenn deine Diktate Inhalte enthalten, die den Mac nicht verlassen sollen, und darin regelmäßig Zahlen, Namen oder Fristen vorkommen, ist Witness die passende Wahl: einmal €99 statt eines Abos, kein Konto, und die unsicheren Stellen stehen vor dem Einfügen zur Freigabe. Eine Cloud-Lösung wie Wispr Flow bleibt sinnvoll, wenn du dieselbe Oberfläche auf Windows, iPhone und Android brauchst.",
+    sources: ["wispr-security", "local-product"],
+  },
+  faqs: [
+    {
+      question: "Was ist KI-Spracherkennung?",
+      answer: "Ein Modell, das aus einer Aufnahme die wahrscheinlichste Wortfolge vorhersagt, statt Laute einzeln zuzuordnen. Deshalb klingt das Ergebnis flüssig, und deshalb kann es Text enthalten, der so nicht gesprochen wurde.",
+    },
+    {
+      question: "Erfindet KI-Diktat wirklich Wörter?",
+      answer: "Ja, und die Hersteller dokumentieren es. Die Whisper-Modellkarte von OpenAI nennt Vorhersagen, die im Audio nicht gesprochen wurden. Eine Studie auf der ACM FAccT 2024 fand in rund 1 % der Transkripte vollständig erfundene Formulierungen.",
+    },
+    {
+      question: "Ist lokale KI-Spracherkennung genauer als die Cloud?",
+      answer: "Das lässt sich öffentlich nicht belegen. Lokal entscheidet darüber, wo das Audio verarbeitet wird, nicht darüber, wie das Modell bei undeutlicher Aufnahme reagiert. Einen gemeinsamen Benchmark, der die Programme nach Genauigkeit ordnet, gibt es nicht.",
+    },
+    {
+      question: "Diktieren mit KI ohne Cloud, geht das auf dem Mac?",
+      answer: "Ja. Die Erkennung läuft auf Apple Silicon schnell genug für laufendes Diktat. Witness verarbeitet Audio, Transkript und Wörterbuch lokal; das Audio bleibt standardmäßig nur im Arbeitsspeicher.",
+    },
+    {
+      question: "Worauf sollte ich bei einem KI-Diktierprogramm achten?",
+      answer: "Wo die Erkennung läuft, ob ein Konto nötig ist, ob riskante Stellen vor dem Einfügen markiert werden, ob du an das unveränderte Rohtranskript kommst und ob du die Sprachauswahl selbst bestimmst.",
+    },
+  ],
+  sources: [localSource, ...kiSources, wisprSources[0], wisprSources[3]],
+};
 
 const wisprFlowAlternatives: ComparisonPageData = {
   locale: "en",
@@ -1416,6 +1571,146 @@ const macDictationGuide: ComparisonPageData = {
   sources: [localSourceEn, ...appleGuideEn],
 };
 
+const missedWords: ComparisonPageData = {
+  locale: "en",
+  slug: "dictation-missed-words",
+  path: "/en/guides/dictation-missed-words",
+  updatedIso: "2026-10-01",
+  updatedLabel: "1 October 2026",
+  eyebrow: "Dictation that drops words",
+  title: "Why dictation silently drops words, and how to catch it",
+  metaTitle: "Why Dictation Drops Words | Witness",
+  description:
+    "Dictation does not fail loudly: it drops a negation or changes a figure and leaves the sentence readable. What the research shows, and how to catch it.",
+  directAnswer: {
+    text: "The short answer: dictation does not fail loudly. Speech recognition predicts language as much as it transcribes it, so when the audio is unclear it does not leave a gap, it writes the most probable words instead. OpenAI states this plainly in the Whisper model card: the predictions may include texts that are not actually spoken in the audio input. A peer-reviewed study of Whisper transcriptions found that roughly 1% contained entire hallucinated phrases or sentences which did not exist in any form in the underlying audio. The failure you need to catch is not the garbled sentence, because you already notice that one. It is the clean sentence where a figure, a date, a name or the word not came out different and the text still reads perfectly.",
+    sources: ["whisper-card", "careless-whisper"],
+  },
+  table: {
+    caption: "How dictation fails, and why the quiet failures are the expensive ones",
+    headers: ["What goes wrong", "What you see on screen", "What it can cost"],
+    rows: [
+      ["A negation disappears", "A fluent sentence with the opposite meaning", "An approval where you dictated a refusal"],
+      ["A figure comes out different", "A plausible number in the right place", "The wrong amount in a quote or an invoice"],
+      ["A date shifts", "A valid date, just not the one you said", "A deadline nobody notices until it passes"],
+      ["A name is normalised to a common one", "A name that looks right", "The wrong person in a record"],
+      ["The model writes a phrase you never said", "Text with no basis in the audio at all", "A statement attributed to someone who never made it"],
+      ["Text repeats in a loop", "An obviously broken paragraph", "Little, because this is the one you do catch"],
+    ],
+  },
+  sections: [
+    {
+      title: "Recognition guesses, and a guess reads like a fact",
+      paragraphs: [
+        {
+          text: "A speech model does not hand back silence when it cannot make out a word. It is trained to produce the most likely sequence of words, so an unclear passage comes out as fluent text rather than as a gap or a question mark. OpenAI documents this in the Whisper model card under limitations: the predictions may include texts that are not actually spoken in the audio input, which the card calls hallucination, and the sequence-to-sequence architecture also makes the model prone to generating repetitive texts.",
+          sources: ["whisper-card"],
+        },
+        {
+          text: "That is why the dangerous error is the tidy one. A mangled sentence announces itself. A sentence that reads perfectly but says 14,000 instead of 40,000, or drops a single not, gives you nothing to notice. You reread your own dictation, it matches what you meant to say, and you send it.",
+          sources: ["whisper-card"],
+        },
+      ],
+    },
+    {
+      title: "How often this happens, and to whom",
+      paragraphs: [
+        {
+          text: "The best public measurement comes from Careless Whisper, presented at the ACM conference on Fairness, Accountability and Transparency in 2024. Across the transcriptions the authors studied, roughly 1% contained entire hallucinated phrases or sentences which did not exist in any form in the underlying audio, and 38% of those hallucinations included explicit harms such as perpetuating violence, making up inaccurate associations or implying false authority.",
+          sources: ["careless-whisper"],
+        },
+        {
+          text: "One percent sounds survivable until you count what a working day contains. It also is not spread evenly. The same study found hallucinations occurred disproportionately for speakers with longer stretches of non-vocal time, a common symptom of aphasia, which means the people least able to proofread the output are the ones getting the most invented text. OpenAI's own card reports uneven performance across languages, accents and dialects for the same underlying reason.",
+          sources: ["careless-whisper", "whisper-card"],
+        },
+      ],
+    },
+    {
+      title: "Running it locally does not make it immune",
+      paragraphs: [
+        {
+          text: "This is worth saying clearly, because local dictation is often sold as the safe option and we sell local dictation. Keeping recognition on your own machine changes where the audio goes. It does not change how the model behaves when the audio is unclear. An offline model drops a negation exactly the same way a cloud model does, and a private mistake is still a mistake.",
+          sources: ["whisper-card"],
+        },
+        {
+          text: "So the honest question is not which app recognises speech most accurately. There is no shared published benchmark with identical hardware, recordings and post-processing that would let anyone rank dictation apps on accuracy, and we do not claim to win such a comparison. The question is what the app shows you when it was unsure.",
+          sources: ["local-product"],
+        },
+      ],
+    },
+    {
+      title: "Automatic cleanup removes the evidence",
+      paragraphs: [
+        {
+          text: "Most dictation tools now add a polishing pass: grammar fixed, filler words removed, punctuation inserted, the whole thing smoothed into prose. For most writing that is exactly what you want. It also deletes the tells. Hesitation, a half-repeated word, an odd clause, these are the things that make you stop and reread, and a cleanup pass is designed to remove precisely them.",
+          sources: ["local-product"],
+        },
+        {
+          text: "That is the trade nobody mentions: the smoother the output, the less chance you have of spotting that the amount changed on the way in. If a tool rewrites your sentence, you want to be able to see the untouched version next to it.",
+          sources: ["local-product"],
+        },
+      ],
+    },
+    {
+      title: "What you can do today, with no new software",
+      paragraphs: [
+        {
+          text: "macOS already helps more than people realise. Ambiguous text is underlined in blue, and clicking the underlined word offers alternatives, so those marks are worth looking for rather than scrolling past. Beyond that, three habits catch most of it: read every number and date out of the screen rather than from memory, search the text for not, no and never before sending anything consequential, and dictate names and figures in short separate passes instead of inside long sentences.",
+          sources: ["apple-dictate-en"],
+        },
+        {
+          text: "None of that scales to a full working day, which is the real problem. Proofreading your own dictation word by word costs more time than the dictation saved, so in practice people stop doing it after the first week and the errors go out unseen.",
+          sources: ["local-product"],
+        },
+      ],
+    },
+    {
+      title: "What catching it reliably requires",
+      paragraphs: [
+        {
+          text: "Four things, and they are specific. Mark the categories where an error changes meaning rather than flagging general uncertainty: figures, dates, proper names, negations and your own terminology. Keep the unmodified raw transcript available, so you can see what the cleanup changed. Let the person hear the short piece of audio behind a marked spot, because reading the text again cannot tell you what you actually said. And narrow the set of languages the model may choose from, so a word is not rendered into a language you were not speaking.",
+          sources: ["local-product"],
+        },
+        {
+          text: "Witness is built around those four. The risky categories are marked before the text is inserted, a hotkey shows the raw transcript, a marked fragment can be played back from memory, and you tick which of 100 languages you actually speak instead of letting the model guess per segment. German, English, Russian and Ukrainian are measured end to end, from recognition through cleanup to every risk marking; for the other languages, markings that need per-language calibration stay off rather than guessing. Everything runs on an Apple Silicon Mac and the audio is not written to disk. The trial is 13 days of the full version with no account.",
+          sources: ["local-product"],
+        },
+      ],
+    },
+  ],
+  verdict: {
+    text: "What we recommend: treat the clean sentence as the one to check, not the garbled one. Turn on the built-in dictation, learn to look for the blue underlines, and read figures and dates off the screen before anything consequential leaves your hands. If you dictate all day into documents other people act on, that discipline will not hold, and then the thing worth paying for is an app that marks the risky spots for you and can still show you the raw transcript and the original audio. That is what Witness does, and it is the only reason to choose it over the free local alternatives.",
+    sources: ["apple-dictate-en", "local-product"],
+  },
+  faqs: [
+    {
+      question: "Why does dictation leave out words like not?",
+      answer: "Because the model predicts the most probable sequence of words rather than reporting that it was unsure. A short unstressed word carries little acoustic signal, so it is the first thing to go, and the sentence left behind is still grammatical. That is what makes it hard to notice.",
+    },
+    {
+      question: "What is a speech-to-text hallucination?",
+      answer: "Text in the transcript that was never spoken. OpenAI's Whisper model card states that predictions may include texts that are not actually spoken in the audio input. A 2024 study at ACM FAccT found roughly 1% of the transcriptions it examined contained entire hallucinated phrases or sentences absent from the audio.",
+    },
+    {
+      question: "How often does Whisper hallucinate?",
+      answer: "In the Careless Whisper study, roughly 1% of transcriptions contained entirely hallucinated phrases, and 38% of those hallucinations included explicit harms. Rates were higher for speakers with longer non-vocal stretches, a common symptom of aphasia.",
+    },
+    {
+      question: "Does offline or local dictation avoid the problem?",
+      answer: "No. Local processing changes where your audio goes, not how the model behaves when the audio is unclear. An offline model drops a negation the same way a cloud model does.",
+    },
+    {
+      question: "How can I tell whether dictation changed a number?",
+      answer: "Read it off the screen rather than from memory, and keep a way back to the original. A tool that shows the unmodified raw transcript and can replay the audio behind a particular spot answers the question directly; without one, the only method is proofreading every figure.",
+    },
+    {
+      question: "Is any dictation app more accurate than the others?",
+      answer: "Nobody can answer that from public evidence. There is no shared published benchmark with identical hardware, recordings and post-processing covering these apps, so any accuracy ranking, including one in our favour, would be unfounded.",
+    },
+  ],
+  sources: [localSourceEn, ...recognitionLimitsEn, appleGuideEn[0]],
+};
+
 export const comparisons: Record<ComparisonSlug, ComparisonPageData> = {
   "mac-diktierfunktion": macDictation,
   "wispr-flow-alternative": wispr,
@@ -1424,11 +1719,13 @@ export const comparisons: Record<ComparisonSlug, ComparisonPageData> = {
   "voiceink-vs-witness": voiceInk,
   "macwhisper-alternative": macwhisper,
   "diktiersoftware-mac-dsgvo": dsgvo,
+  "ki-spracherkennung": kiSpracherkennung,
 };
 
 export const englishComparisons: Record<EnglishComparisonSlug, ComparisonPageData> = {
   "wispr-flow-alternatives": wisprFlowAlternatives,
   "mac-dictation": macDictationGuide,
+  "dictation-missed-words": missedWords,
 };
 
 /** Every page in one locale, in footer order. */
