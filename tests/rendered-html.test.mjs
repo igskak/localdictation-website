@@ -721,6 +721,14 @@ test("serves host-consistent crawl files containing only indexable landing route
     ...comparisonPaths.map((path) => `https://preview.example${path}`),
     ...englishComparisonPaths.map((path) => `https://preview.example${path}`),
   ]);
+  // Google uses lastmod and ignores changefreq and priority. Without it the
+  // sitemap said nothing when seven pages were rewritten on one day.
+  const entries = [...sitemap.matchAll(/<url>.*?<\/url>/gs)].map((match) => match[0]);
+  for (const entry of entries) {
+    assert.match(entry, /<lastmod>\d{4}-\d{2}-\d{2}<\/lastmod>/, entry);
+  }
+  const dated = entries.find((entry) => entry.includes("/en/guides/dictation-missed-words"));
+  assert.match(dated, /<lastmod>2026-10-01<\/lastmod>/, "a page's own check date is its lastmod");
   assert.doesNotMatch(sitemap, /danke|impressum|datenschutz|widerruf|agb|lizenzen|download/);
   assert.doesNotMatch(sitemap, /\/en\/(terms|cancellation|privacy|legal-notice|licences)/);
 });

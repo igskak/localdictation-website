@@ -1735,6 +1735,20 @@ export function comparisonsIn(locale: ComparisonLocale): ComparisonPageData[] {
     : englishComparisonSlugs.map((slug) => englishComparisons[slug]);
 }
 
+/**
+ * The date each page last had its facts checked, which is also the last time its
+ * text changed: every re-check edits the page. Google uses `lastmod` and ignores
+ * `changefreq` and `priority`, so without this the sitemap told it nothing when
+ * seven pages were rewritten on one day.
+ */
+export function comparisonLastmod(): Map<string, string> {
+  const out = new Map<string, string>();
+  for (const entry of [...comparisonsIn("de"), ...comparisonsIn("en")]) {
+    out.set(entry.path, entry.updatedIso ?? comparisonUpdatedIso);
+  }
+  return out;
+}
+
 /** Every indexable comparison path, German first. The sitemap and the tests read this. */
 export function comparisonPaths(): string[] {
   return [...comparisonsIn("de"), ...comparisonsIn("en")].map((entry) => entry.path);
