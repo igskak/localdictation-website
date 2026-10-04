@@ -31,6 +31,9 @@ export type LandingCopy = {
   faq: { title: string; lede: string; items: { q: string; a: string }[] };
   final: { kicker: string; title: string; body: string; download: string; ready: string; preview: string };
   footer: { tagline: string; legalNav: string; agb: string; impressum: string; datenschutz: string; widerruf: string; lizenzen: string; kontakt: string };
+  // Shown only to readers who came through a partner's link. {code}, {percent}, {date},
+  // {lifetime}, {annual} and {annualFull} are filled in by PartnerOffer.
+  partnerOffer: { title: string; body: string; copy: string; copied: string; buyLead: string; lifetime: string; annual: string; ended: string };
   ui: { skip: string; theme: string; mainNav: string; languageNav: string; promises: string; productHunt: string };
 };
 
@@ -172,6 +175,16 @@ const de: LandingCopy = {
   footer: {
     tagline: "Lokale Diktier-Software für Menschen, die Unsicherheit lieber sehen als übersehen.",
     legalNav: "Rechtliche Links", agb: "AGB", impressum: "Impressum", datenschutz: "Datenschutz", widerruf: "Widerruf", lizenzen: "Lizenzen", kontakt: "Kontakt",
+  },
+  partnerOffer: {
+    title: "{percent} % Rabatt mit dem Code {code}",
+    body: "Lade Witness herunter und teste es 13 Tage kostenlos. Wenn du kaufst, gib den Code im Bezahlfenster ein. Gültig bis {date}.",
+    copy: "Code kopieren",
+    copied: "Kopiert",
+    buyLead: "Schon getestet?",
+    lifetime: "Lifetime für {lifetime}",
+    annual: "Jahreslizenz: erstes Jahr {annual}, danach {annualFull} pro Jahr",
+    ended: "Der Rabatt mit dem Code {code} ist am {date} abgelaufen.",
   },
   ui: { skip: "Zum Inhalt", theme: "Farbschema wechseln", mainNav: "Hauptnavigation", languageNav: "Sprache wählen", promises: "Produktversprechen", productHunt: "Witness für Mac auf Product Hunt ansehen" },
 };
@@ -315,6 +328,16 @@ const en: LandingCopy = {
     tagline: "Local dictation for people who would rather see uncertainty than miss it.",
     legalNav: "Legal links", agb: "Terms", impressum: "Legal notice", datenschutz: "Privacy", widerruf: "Cancellation", lizenzen: "Licences", kontakt: "Contact",
   },
+  partnerOffer: {
+    title: "{percent}% off with code {code}",
+    body: "Download Witness and try it free for 13 days. When you buy, enter the code at checkout. Valid until {date}.",
+    copy: "Copy code",
+    copied: "Copied",
+    buyLead: "Already tried it?",
+    lifetime: "Lifetime for {lifetime}",
+    annual: "Annual licence: {annual} for the first year, then {annualFull} a year",
+    ended: "The {code} discount ended on {date}.",
+  },
   ui: { skip: "Skip to content", theme: "Switch colour scheme", mainNav: "Main navigation", languageNav: "Choose language", promises: "Product promises", productHunt: "See Witness for Mac on Product Hunt" },
 };
 
@@ -457,6 +480,16 @@ const ru: LandingCopy = {
     tagline: "Локальный диктовщик для тех, кто предпочитает видеть неуверенность, а не пропускать её.",
     legalNav: "Юридические страницы", agb: "Условия (EN)", impressum: "Импрессум (EN)", datenschutz: "Приватность (EN)", widerruf: "Право отказа (EN)", lizenzen: "Лицензии (EN)", kontakt: "Контакт",
   },
+  partnerOffer: {
+    title: "−{percent}% по коду {code}",
+    body: "Скачай Witness и попробуй 13 дней бесплатно. Когда решишь купить, введи код в окне оплаты. Код действует до {date} включительно.",
+    copy: "Скопировать код",
+    copied: "Скопировано",
+    buyLead: "Уже попробовал?",
+    lifetime: "Навсегда за {lifetime}",
+    annual: "Лицензия на год: первый год {annual}, дальше {annualFull} в год",
+    ended: "Скидка по коду {code} действовала до {date} и уже закончилась.",
+  },
   ui: { skip: "К содержимому", theme: "Сменить тему", mainNav: "Основная навигация", languageNav: "Выбор языка", promises: "Обещания продукта", productHunt: "Witness for Mac на Product Hunt" },
 };
 
@@ -598,6 +631,16 @@ const uk: LandingCopy = {
   footer: {
     tagline: "Локальний диктувальник для тих, хто радше побачить непевність, ніж пропустить її.",
     legalNav: "Юридичні сторінки", agb: "Умови (EN)", impressum: "Імпресум (EN)", datenschutz: "Приватність (EN)", widerruf: "Право на відмову (EN)", lizenzen: "Ліцензії (EN)", kontakt: "Контакт",
+  },
+  partnerOffer: {
+    title: "−{percent}% за кодом {code}",
+    body: "Завантаж Witness і спробуй 13 днів безкоштовно. Коли вирішиш купити, введи код у вікні оплати. Код діє до {date} включно.",
+    copy: "Скопіювати код",
+    copied: "Скопійовано",
+    buyLead: "Уже спробував?",
+    lifetime: "Назавжди за {lifetime}",
+    annual: "Ліцензія на рік: перший рік {annual}, далі {annualFull} на рік",
+    ended: "Знижка за кодом {code} діяла до {date} і вже закінчилася.",
   },
   ui: { skip: "До вмісту", theme: "Змінити тему", mainNav: "Основна навігація", languageNav: "Вибір мови", promises: "Обіцянки продукту", productHunt: "Witness for Mac на Product Hunt" },
 };

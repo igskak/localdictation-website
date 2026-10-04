@@ -1504,3 +1504,65 @@ body { padding-bottom: var(--consent-height, 0px); }
      on the way up. Park it below instead. */
   .site-header-wrap { top: var(--consent-height, 0px); }
 }
+
+/* Partner discount, shown only to readers who arrived with a partner's ?ref=. */
+.partner-offer {
+  max-width: 600px;
+  margin-top: 26px;
+  padding: 16px 18px;
+  border: 1px solid var(--line-strong);
+  border-left: 2px solid var(--accent);
+  border-radius: 12px;
+  background: var(--accent-soft);
+}
+
+.partner-offer p {
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.partner-offer .partner-offer-title,
+.partner-offer-ended p {
+  margin: 0;
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.partner-offer-code {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.partner-offer-code code {
+  padding: 6px 11px;
+  border: 1px dashed var(--accent);
+  border-radius: 8px;
+  color: var(--ink);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 17px;
+  letter-spacing: 0.06em;
+  user-select: all;
+}
+
+.partner-offer-code button {
+  padding: 7px 12px;
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  background: transparent;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.partner-offer-code button:hover { border-color: var(--accent); }
+
+.partner-offer-buy a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}

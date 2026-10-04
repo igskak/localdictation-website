@@ -4,6 +4,7 @@ import { landingCopy } from "../_data/landingCopy";
 import { consentCopy } from "../_data/consentCopy";
 import { analyticsEnabled, getAnalyticsConfig } from "../_lib/analytics";
 import { ConsentReopenLink } from "./ConsentGate";
+import { PartnerOffer } from "./PartnerOffer";
 import { localeHome, localeLabels, locales, type Locale } from "../_lib/locale";
 import { legalLocale, legalPaths } from "../_lib/legal";
 import { comparisonSlugs, comparisons, englishComparisonSlugs, englishComparisons } from "../_data/comparisons";
@@ -193,6 +194,7 @@ export function LandingPage({ locale }: { locale: Locale }) {
             <p className="fine-print">
               {c.hero.fine.map((item, index) => <span key={item}>{index > 0 && <i />} {item}</span>)}
             </p>
+            <PartnerOffer locale={locale} />
           </div>
           <ProductDemo locale={locale} />
         </section>
