@@ -11,7 +11,7 @@ export default function LegalNoticePage() {
     page="imprint"
     eyebrow="Legal"
     title="Legal notice"
-    updated="5 September 2026"
+    updated="4 October 2026"
     notice={<><b>Provider details complete.</b> The details on this page are complete and current. Who sells is here; what is sold is in the <Link href={legalPaths.en.terms}>Terms and Licence</Link>.</>}
   >
     <h2>Provider</h2>
@@ -24,7 +24,7 @@ export default function LegalNoticePage() {
     <h2>Responsible for the content</h2>
     <p>Ihor Skakovskyi, address as above.</p>
     <h2>Sale and invoicing</h2>
-    <p>The checkout runs through Stripe, which acts as merchant of record in its own name on this sale, issues the invoice and remits the VAT. The licence contract for using Witness is with the provider named above.</p>
+    <p>The checkout runs through Stripe as payment service provider. The seller and the party issuing the invoice is the provider named above. They are not a VAT payer in the Czech Republic (nejsem plátce DPH) and therefore have no VAT identification number; no VAT is shown on the invoice. The licence contract for using Witness is with the provider named above.</p>
     <h2>Dispute resolution</h2>
     <p>The body responsible for out-of-court resolution of consumer disputes is the Czech Trade Inspection Authority (Česká obchodní inspekce), <a href="https://coi.gov.cz/informace-o-adr/" rel="noreferrer">coi.gov.cz/informace-o-adr</a>. We also take complaints directly, at the contact address above.</p>
   </LegalShell>;

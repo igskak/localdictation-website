@@ -286,13 +286,16 @@ test("serves the legal pages, and no longer calls any of them a draft", async ()
     ["/en/privacy", /written from the code, not from an intention/],
     ["/en/licences", /Witness stands on other people/],
   ]);
-  const updatedPages = new Set(["/agb", "/datenschutz", "/lizenzen", "/en/terms", "/en/privacy", "/en/licences"]);
+  const updatedPages = new Set(["/lizenzen", "/en/licences"]);
+  // On 4 October the privacy pages gained the partner-discount cookie, and the
+  // terms, imprint and privacy pages stopped calling Stripe the merchant of record.
+  const privacyPages = new Set(["/agb", "/impressum", "/datenschutz", "/en/terms", "/en/legal-notice", "/en/privacy"]);
   for (const [routes, counterparts] of [[legalRoutes, legalRoutesEn], [legalRoutesEn, legalRoutes]]) {
     for (const [index, route] of routes.entries()) {
-      const date = updatedPages.has(route) ? "24" : "5";
+      const [date, month, monthDe] = privacyPages.has(route) ? ["4", "October", "Oktober"] : [updatedPages.has(route) ? "24" : "5", "September", "September"];
       const stamp = route.startsWith("/en/")
-        ? new RegExp(`Last updated: ${date} September 2026`)
-        : new RegExp(`Stand: ${date}\\. September 2026`);
+        ? new RegExp(`Last updated: ${date} ${month} 2026`)
+        : new RegExp(`Stand: ${date}\\. ${monthDe} 2026`);
       const response = await render(route);
       assert.equal(response.status, 200, route);
       const html = await response.text();
@@ -314,8 +317,8 @@ test("serves the legal pages, and no longer calls any of them a draft", async ()
 
   // Deliberately absent. A Czech natural person's DIČ is built from their
   // birth number, so publishing it publishes that; Czech disclosure duty asks
-  // for the name, the seat and the IČO, and Stripe is the merchant of record
-  // a buyer's invoice comes from anyway.
+  // for the name, the seat and the IČO, and the imprint says why there is no
+  // VAT id: the provider is not a VAT payer.
   assert.doesNotMatch(impressum, /DIČ|CZ686026225/);
 
   // Removed on purpose: a 30-day guarantee was promised on every locale of the
@@ -356,7 +359,7 @@ test("states the business model the same way in the legal text and on the landin
   const agb = await (await render("/agb")).text();
   // The four things a buyer pays for, in the document that has to bind us to
   // them: the two prices, the two Macs, the trial, and what "lifetime" means.
-  for (const claim of ["€99", "€49", "zwei von ihr genutzte Macs", "ersten drei Tage ab deiner ersten erfolgreichen Diktierung", "Version 1", "Merchant of Record", "tschechisches Recht"]) {
+  for (const claim of ["€99", "€49", "zwei von ihr genutzte Macs", "ersten drei Tage ab deiner ersten erfolgreichen Diktierung", "Version 1", "Zahlungsdienstleister", "nejsem plátce DPH", "tschechisches Recht"]) {
     assert.ok(agb.includes(claim), `the terms must state ${claim}`);
   }
   // "Lifetime" is a version, not a duration, and the terms must say so rather
@@ -431,7 +434,7 @@ test("the English legal set says the same thing as the German one", async () => 
   // translation: two buyers then have two different contracts and neither
   // knows it. These are the claims a disagreement would be expensive in.
   const terms = await (await render("/en/terms")).text();
-  for (const claim of ["€99", "€49", "up to two Macs they use", "first three days from your first successful dictation", "version 1 today", "merchant of record", "Czech law"]) {
+  for (const claim of ["€99", "€49", "up to two Macs they use", "first three days from your first successful dictation", "version 1 today", "payment service provider", "nejsem plátce DPH", "Czech law"]) {
     assert.ok(terms.includes(claim), `the English terms must state ${claim}`);
   }
   assert.match(terms, /future major version \(2\.0\) is a new product/);
@@ -999,5 +1002,17 @@ test("forwards the analytics prefix to PostHog's EU region, without the cookie j
     assert.equal(seen.length, 2, "/ingested is a page, not the analytics prefix");
   } finally {
     globalThis.fetch = realFetch;
+  }
+});
+
+test("no page calls Stripe the merchant of record or promises VAT in the price", async () => {
+  // The links the app opens since October have Managed Payments off: the
+  // provider sells, invoices, and is not a VAT payer. A page that still says
+  // otherwise tells a buyer who the seller is wrongly.
+  const routes = [...legalRoutes, ...legalRoutesEn, "/", "/en", "/ru", "/uk"];
+  for (const route of routes) {
+    const html = await (await render(route)).text();
+    assert.doesNotMatch(html, /merchant of record/i, route);
+    assert.doesNotMatch(html, /inkl\. MwSt|einschließlich der gesetzlichen Umsatzsteuer|incl\. VAT|including statutory VAT|включая НДС|включно з ПДВ/i, route);
   }
 });

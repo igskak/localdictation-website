@@ -9,7 +9,7 @@ export default function AGBPage() {
     page="terms"
     eyebrow="Rechtliches"
     title="Vertrags- und Lizenzbedingungen"
-    updated="24. September 2026"
+    updated="4. Oktober 2026"
     notice={<><b>Diese Bedingungen beschreiben das Produkt, das tatsächlich verkauft wird.</b> Sie sind vollständig formuliert und nicht als Entwurf gedacht, ersetzen aber keine anwaltliche Prüfung. Maßgeblich ist die Fassung, die beim Abschluss deines Kaufs galt.</>}
   >
     <h2>1. Anbieter und Geltungsbereich</h2>
@@ -38,8 +38,8 @@ export default function AGBPage() {
 
     <h2>4. Vertragsschluss, Preise und Zahlung</h2>
     <p>Die Darstellung der Lizenzen auf dieser Website und im Fenster der App ist kein bindendes Angebot, sondern eine Aufforderung zur Bestellung. Der Vertrag kommt zustande, wenn du den Bezahlvorgang abschließt und die Zahlung bestätigt wird.</p>
-    <p>Der Bezahlvorgang läuft über <strong>Stripe</strong>. Stripe tritt bei diesem Verkauf als Händler im eigenen Namen auf (Merchant of Record): Stripe wickelt die Zahlung ab, stellt die Rechnung und führt die Umsatzsteuer ab. Für den Zahlungsvorgang gelten daher zusätzlich die Bedingungen von Stripe. <strong>Der Lizenzvertrag über die Nutzung von Witness kommt mit uns zustande</strong>, und für ihn gelten diese Bedingungen. Wir sehen keine Kartendaten.</p>
-    <p>Die Preise betragen <strong>€99 einmalig</strong> für die Lifetime-Lizenz und <strong>€49 pro Jahr</strong> für die Jahreslizenz, jeweils einschließlich der gesetzlichen Umsatzsteuer. Welche Zahlungsarten verfügbar sind, zeigt der Bezahlvorgang vor dem Abschluss an. Die Rechnung erhältst du per E-Mail.</p>
+    <p>Der Bezahlvorgang läuft über <strong>Stripe</strong> als Zahlungsdienstleister: Stripe nimmt die Zahlung entgegen und leitet sie an uns weiter. Für den Zahlungsvorgang gelten zusätzlich die Bedingungen von Stripe. <strong>Der Lizenzvertrag über die Nutzung von Witness kommt mit uns zustande</strong>; wir sind Verkäufer und Rechnungssteller, und für den Vertrag gelten diese Bedingungen. Wir sehen keine Kartendaten.</p>
+    <p>Die Preise betragen <strong>€99 einmalig</strong> für die Lifetime-Lizenz und <strong>€49 pro Jahr</strong> für die Jahreslizenz, jeweils als Endpreis. Wir sind in Tschechien kein Umsatzsteuerzahler (nejsem plátce DPH): Umsatzsteuer wird auf die Preise nicht aufgeschlagen und auf der Rechnung nicht ausgewiesen. Welche Zahlungsarten verfügbar sind, zeigt der Bezahlvorgang vor dem Abschluss an. Die Rechnung erhältst du per E-Mail.</p>
 
     <h2>5. Lieferung und Aktivierung</h2>
     <p>Nach bestätigter Zahlung stellen wir für den Mac, an dem du aktivierst, einen signierten Lizenzschlüssel aus und senden ihn an die beim Kauf angegebene E-Mail-Adresse. Die Lieferung erfolgt unmittelbar, in der Regel innerhalb weniger Minuten.</p>

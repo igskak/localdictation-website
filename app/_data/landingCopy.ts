@@ -31,6 +31,9 @@ export type LandingCopy = {
   faq: { title: string; lede: string; items: { q: string; a: string }[] };
   final: { kicker: string; title: string; body: string; download: string; ready: string; preview: string };
   footer: { tagline: string; legalNav: string; agb: string; impressum: string; datenschutz: string; widerruf: string; lizenzen: string; kontakt: string };
+  // Shown only to readers who came through a partner's link. {code}, {percent},
+  // {date} and {annualFull} are filled in by PartnerOffer.
+  partnerOffer: { title: string; body: string; remembered: string; buyLead: string; firstYear: string; ended: string };
   ui: { skip: string; theme: string; mainNav: string; languageNav: string; promises: string; productHunt: string };
 };
 
@@ -140,8 +143,8 @@ const de: LandingCopy = {
     kicker: "Preis",
     title: "Einmal zahlen. Für immer nutzen.",
     lede: "Weniger tippen. Nichts verlässt deinen Mac. Und keine monatliche Abbuchung, die du irgendwann zu kündigen vergisst.",
-    lifetime: { name: "Lifetime", badge: "Empfohlen", vat: "inkl. MwSt.", body: "Einmal zahlen, dauerhaft nutzen.", bullets: ["2 Macs", "Alle Updates von Version 1"] },
-    annual: { name: "Jahreslizenz", vat: "inkl. MwSt. / Jahr", perMonth: "€4,08 im Monat, jährlich abgerechnet", body: "Ein Jahr nutzen, danach kündbar.", bullets: ["2 Macs", "Alle Updates im Zeitraum"] },
+    lifetime: { name: "Lifetime", badge: "Empfohlen", vat: "Endpreis", body: "Einmal zahlen, dauerhaft nutzen.", bullets: ["2 Macs", "Alle Updates von Version 1"] },
+    annual: { name: "Jahreslizenz", vat: "Endpreis / Jahr", perMonth: "€4,08 im Monat, jährlich abgerechnet", body: "Ein Jahr nutzen, danach kündbar.", bullets: ["2 Macs", "Alle Updates im Zeitraum"] },
     download: "Für Mac kostenlos testen",
     footnote: "13 Tage kostenlos, ohne Kreditkarte. Erst testen, dann entscheiden. Gekauft wird in der App nach dem Test. Verfügbare Zahlungsmethoden werden vor dem Checkout bestätigt.",
     compare: { cloud: "2 Jahre Cloud", product: "Witness Lifetime", asOf: "Stand: August 2026" },
@@ -172,6 +175,14 @@ const de: LandingCopy = {
   footer: {
     tagline: "Lokale Diktier-Software für Menschen, die Unsicherheit lieber sehen als übersehen.",
     legalNav: "Rechtliche Links", agb: "AGB", impressum: "Impressum", datenschutz: "Datenschutz", widerruf: "Widerruf", lizenzen: "Lizenzen", kontakt: "Kontakt",
+  },
+  partnerOffer: {
+    title: "{percent} % Rabatt mit dem Code {code}",
+    body: "Lade Witness zuerst herunter und teste es 13 Tage kostenlos. Wenn der Test endet und du kaufst, gib {code} auf der Bezahlseite ein. Gültig bis {date}.",
+    remembered: "Dieser Browser merkt sich den Rabatt: Öffnest du die Bezahlseite auf diesem Mac aus der App, ist der Code schon eingetragen.",
+    buyLead: "Schon getestet? Mit Rabatt kaufen:",
+    firstYear: "im ersten Jahr, danach {annualFull}",
+    ended: "Der Rabatt mit dem Code {code} ist am {date} abgelaufen.",
   },
   ui: { skip: "Zum Inhalt", theme: "Farbschema wechseln", mainNav: "Hauptnavigation", languageNav: "Sprache wählen", promises: "Produktversprechen", productHunt: "Witness für Mac auf Product Hunt ansehen" },
 };
@@ -282,8 +293,8 @@ const en: LandingCopy = {
     kicker: "Pricing",
     title: "Pay once. Keep using it.",
     lede: "Type less. Nothing leaves your Mac. And no monthly charge you eventually forget to cancel.",
-    lifetime: { name: "Lifetime", badge: "Recommended", vat: "incl. VAT", body: "Pay once and keep using it.", bullets: ["2 Macs", "All version 1 updates"] },
-    annual: { name: "Annual licence", vat: "incl. VAT / year", perMonth: "€4.08 a month, billed yearly", body: "Use it for one year, then cancel.", bullets: ["2 Macs", "All updates during your term"] },
+    lifetime: { name: "Lifetime", badge: "Recommended", vat: "final price", body: "Pay once and keep using it.", bullets: ["2 Macs", "All version 1 updates"] },
+    annual: { name: "Annual licence", vat: "final price / year", perMonth: "€4.08 a month, billed yearly", body: "Use it for one year, then cancel.", bullets: ["2 Macs", "All updates during your term"] },
     download: "Try free on your Mac",
     footnote: "13 days free, no credit card. Try it first, then decide. Purchase happens in the app after your trial. Payment methods will be confirmed before checkout.",
     compare: { cloud: "2 years of cloud", product: "Witness Lifetime", asOf: "As of August 2026" },
@@ -314,6 +325,14 @@ const en: LandingCopy = {
   footer: {
     tagline: "Local dictation for people who would rather see uncertainty than miss it.",
     legalNav: "Legal links", agb: "Terms", impressum: "Legal notice", datenschutz: "Privacy", widerruf: "Cancellation", lizenzen: "Licences", kontakt: "Contact",
+  },
+  partnerOffer: {
+    title: "{percent}% off with code {code}",
+    body: "Download Witness first and try it free for 13 days. When the trial ends and you buy, enter {code} on the payment page. Valid until {date}.",
+    remembered: "This browser remembers the discount: open the payment page from the app on this Mac and the code is already filled in.",
+    buyLead: "Already tried it? Buy with the discount:",
+    firstYear: "for the first year, then {annualFull}",
+    ended: "The {code} discount ended on {date}.",
   },
   ui: { skip: "Skip to content", theme: "Switch colour scheme", mainNav: "Main navigation", languageNav: "Choose language", promises: "Product promises", productHunt: "See Witness for Mac on Product Hunt" },
 };
@@ -424,8 +443,8 @@ const ru: LandingCopy = {
     kicker: "Цена",
     title: "Заплати один раз. Пользуйся всегда.",
     lede: "Меньше печатаешь. Ничего не уходит с твоего Mac. И никакого ежемесячного списания, которое однажды забудешь отменить.",
-    lifetime: { name: "Навсегда", badge: "Рекомендуем", vat: "включая НДС", body: "Платишь один раз, пользуешься бессрочно.", bullets: ["2 Mac", "Все обновления версии 1"] },
-    annual: { name: "Лицензия на год", vat: "включая НДС / год", perMonth: "€4,08 в месяц при оплате за год", body: "Год пользуешься, дальше можно не продлевать.", bullets: ["2 Mac", "Все обновления в течение срока"] },
+    lifetime: { name: "Навсегда", badge: "Рекомендуем", vat: "итоговая цена", body: "Платишь один раз, пользуешься бессрочно.", bullets: ["2 Mac", "Все обновления версии 1"] },
+    annual: { name: "Лицензия на год", vat: "итоговая цена / год", perMonth: "€4,08 в месяц при оплате за год", body: "Год пользуешься, дальше можно не продлевать.", bullets: ["2 Mac", "Все обновления в течение срока"] },
     download: "Скачать для Mac",
     footnote: "Сначала попробуй, потом решай. Покупка происходит в приложении после теста. Способы оплаты подтвердим до оформления.",
     compare: { cloud: "2 года облака", product: "Witness навсегда", asOf: "На август 2026" },
@@ -456,6 +475,14 @@ const ru: LandingCopy = {
   footer: {
     tagline: "Локальный диктовщик для тех, кто предпочитает видеть неуверенность, а не пропускать её.",
     legalNav: "Юридические страницы", agb: "Условия (EN)", impressum: "Импрессум (EN)", datenschutz: "Приватность (EN)", widerruf: "Право отказа (EN)", lizenzen: "Лицензии (EN)", kontakt: "Контакт",
+  },
+  partnerOffer: {
+    title: "−{percent}% по коду {code}",
+    body: "Сначала скачай Witness и попробуй 13 дней бесплатно. Когда триал закончится и ты решишь купить, введи {code} на странице оплаты. Код действует до {date} включительно.",
+    remembered: "Этот браузер запомнил скидку: если откроешь оплату из приложения на этом Mac, код подставится сам.",
+    buyLead: "Уже попробовал? Купить со скидкой:",
+    firstYear: "за первый год, дальше {annualFull}",
+    ended: "Скидка по коду {code} действовала до {date} и уже закончилась.",
   },
   ui: { skip: "К содержимому", theme: "Сменить тему", mainNav: "Основная навигация", languageNav: "Выбор языка", promises: "Обещания продукта", productHunt: "Witness for Mac на Product Hunt" },
 };
@@ -566,8 +593,8 @@ const uk: LandingCopy = {
     kicker: "Ціна",
     title: "Заплати один раз. Користуйся завжди.",
     lede: "Менше друкуєш. Нічого не йде з твого Mac. І жодного щомісячного списання, яке колись забудеш скасувати.",
-    lifetime: { name: "Назавжди", badge: "Рекомендуємо", vat: "включно з ПДВ", body: "Платиш один раз, користуєшся безстроково.", bullets: ["2 Mac", "Усі оновлення версії 1"] },
-    annual: { name: "Ліцензія на рік", vat: "включно з ПДВ / рік", perMonth: "€4,08 на місяць при оплаті за рік", body: "Рік користуєшся, далі можна не продовжувати.", bullets: ["2 Mac", "Усі оновлення протягом строку"] },
+    lifetime: { name: "Назавжди", badge: "Рекомендуємо", vat: "остаточна ціна", body: "Платиш один раз, користуєшся безстроково.", bullets: ["2 Mac", "Усі оновлення версії 1"] },
+    annual: { name: "Ліцензія на рік", vat: "остаточна ціна / рік", perMonth: "€4,08 на місяць при оплаті за рік", body: "Рік користуєшся, далі можна не продовжувати.", bullets: ["2 Mac", "Усі оновлення протягом строку"] },
     download: "Завантажити для Mac",
     footnote: "Спершу спробуй, потім вирішуй. Купівля відбувається в застосунку після тесту. Способи оплати підтвердимо до оформлення.",
     compare: { cloud: "2 роки хмари", product: "Witness назавжди", asOf: "Станом на серпень 2026" },
@@ -598,6 +625,14 @@ const uk: LandingCopy = {
   footer: {
     tagline: "Локальний диктувальник для тих, хто радше побачить непевність, ніж пропустить її.",
     legalNav: "Юридичні сторінки", agb: "Умови (EN)", impressum: "Імпресум (EN)", datenschutz: "Приватність (EN)", widerruf: "Право на відмову (EN)", lizenzen: "Ліцензії (EN)", kontakt: "Контакт",
+  },
+  partnerOffer: {
+    title: "−{percent}% за кодом {code}",
+    body: "Спершу завантаж Witness і спробуй 13 днів безкоштовно. Коли тріал закінчиться і ти вирішиш купити, введи {code} на сторінці оплати. Код діє до {date} включно.",
+    remembered: "Цей браузер запам’ятав знижку: якщо відкриєш оплату із застосунку на цьому Mac, код підставиться сам.",
+    buyLead: "Уже спробував? Купити зі знижкою:",
+    firstYear: "за перший рік, далі {annualFull}",
+    ended: "Знижка за кодом {code} діяла до {date} і вже закінчилася.",
   },
   ui: { skip: "До вмісту", theme: "Змінити тему", mainNav: "Основна навігація", languageNav: "Вибір мови", promises: "Обіцянки продукту", productHunt: "Witness for Mac на Product Hunt" },
 };

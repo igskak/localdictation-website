@@ -4,6 +4,7 @@ import { landingCopy } from "../_data/landingCopy";
 import { consentCopy } from "../_data/consentCopy";
 import { analyticsEnabled, getAnalyticsConfig } from "../_lib/analytics";
 import { ConsentReopenLink } from "./ConsentGate";
+import { PartnerOffer, PartnerPrice } from "./PartnerOffer";
 import { localeHome, localeLabels, locales, type Locale } from "../_lib/locale";
 import { legalLocale, legalPaths } from "../_lib/legal";
 import { comparisonSlugs, comparisons, englishComparisonSlugs, englishComparisons } from "../_data/comparisons";
@@ -193,6 +194,7 @@ export function LandingPage({ locale }: { locale: Locale }) {
             <p className="fine-print">
               {c.hero.fine.map((item, index) => <span key={item}>{index > 0 && <i />} {item}</span>)}
             </p>
+            <PartnerOffer locale={locale} />
           </div>
           <ProductDemo locale={locale} />
         </section>
@@ -394,14 +396,13 @@ export function LandingPage({ locale }: { locale: Locale }) {
           <div className="pricing-grid">
             <article className="price-card price-primary">
               <div className="price-top"><span>{c.pricing.lifetime.name}</span><b>{c.pricing.lifetime.badge}</b></div>
-              <div className="price"><sup>€</sup>99 <small>{c.pricing.lifetime.vat}</small></div>
+              <PartnerPrice plan="lifetime" locale={locale} vat={c.pricing.lifetime.vat} />
               <p>{c.pricing.lifetime.body}</p>
               <ul>{c.pricing.lifetime.bullets.map((item) => <li key={item}>{item}</li>)}</ul>
             </article>
             <article className="price-card">
               <div className="price-top"><span>{c.pricing.annual.name}</span></div>
-              <div className="price"><sup>€</sup>49 <small>{c.pricing.annual.vat}</small></div>
-              <p className="price-per-month">{c.pricing.annual.perMonth}</p>
+              <PartnerPrice plan="annual" locale={locale} vat={c.pricing.annual.vat} perMonth={c.pricing.annual.perMonth} />
               <p>{c.pricing.annual.body}</p>
               <ul>{c.pricing.annual.bullets.map((item) => <li key={item}>{item}</li>)}</ul>
             </article>

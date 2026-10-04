@@ -43,7 +43,7 @@ export default function PrivacyPage() {
     page="privacy"
     eyebrow="Privacy"
     title="Clear limits on your data"
-    updated="24 September 2026"
+    updated="4 October 2026"
     notice={<><b>This policy is written from the code, not from an intention.</b> Every line describes what the app and the service actually do today. If a future version ever sends something new, this says so before that version is published. The German text is at <Link href={legalPaths.de.privacy}>/datenschutz</Link>.</>}
   >
     <h2>1. Controller</h2>
@@ -116,7 +116,7 @@ export default function PrivacyPage() {
     <p>The licence key itself is not stored. It is reproduced from the fields above when you ask for it again — which is also why asking twice gives you the same key rather than a second one.</p>
 
     <h2>6. Payment</h2>
-    <p>The checkout runs at <strong>Stripe</strong>, which acts as merchant of record in its own name on this sale and issues the invoice. Stripe is an independent controller for the payment processing; Stripe&apos;s own privacy policy applies.</p>
+    <p>The checkout runs at <strong>Stripe</strong> as payment service provider; we issue the invoice, through Stripe. Stripe is an independent controller for the payment processing; Stripe&apos;s own privacy policy applies.</p>
     <p>The app opens no payment page of its own and sees no card details: the buy buttons hand a URL to your browser. To our activation service, Stripe passes the address you bought with and identifiers for the order. The legal basis is Art. 6(1)(b) GDPR.</p>
 
     <h2>7. E-mail</h2>
@@ -135,6 +135,7 @@ export default function PrivacyPage() {
     <p><strong>Third country</strong>: {google ? "Google also processes data in the United States. This rests on the European Commission’s standard contractual clauses and on the adequacy decision for the EU-US Data Privacy Framework, under which Google LLC is certified. " : ""}{product ? "PostHog stores this site’s events in the European Union; its parent company PostHog, Inc. is in the United States, and any transfer there rests on the European Commission’s standard contractual clauses. " : ""}Access by US authorities cannot be ruled out.</p>
     </> : <p>This website currently loads <strong>no analytics, advertising or tracking scripts</strong> and sets <strong>no cookies</strong>. There is therefore no consent banner either: there would be nothing to consent to.</p>}
     <p><strong>One image from a third-party server</strong>: the trust strip on the home page carries the <strong>Product Hunt</strong> badge. It is not hosted by us but loaded from <code>api.producthunt.com</code>, so that the vote count on it is the current one. Your browser fetches it as the page loads; Product Hunt thereby learns the connection data of that request — IP address, time, browser, and the page it was requested from — and sets one Cloudflare cookie (<code>__cf_bm</code>, roughly half an hour) to fend off automated requests. The provider is Product Hunt, Inc. in the United States; their privacy policy applies, and access by authorities there cannot be ruled out. The legal basis is Art. 6(1)(f) GDPR; our legitimate interest is to show the product&apos;s rating where it was given. You may object under Art. 21 GDPR. The badge measures nothing, does not recognise you, and learns nothing about your visit beyond that single request.</p>
+    <p><strong>A discount through a partner&apos;s link</strong>: if you open this site through the link of a partner we have agreed a discount code with (for example <code>?ref=tamara</code>), it sets the cookie <code>witness_offer</code>. It holds the partner&apos;s name only, no identifier, and expires when the offer ends. When you later open the payment page from the app, the way there runs through <code>witnessmac.com/buy</code>: our server reads the cookie and fills the code in on Stripe&apos;s payment page for you. Stripe thereby learns which code was used, exactly as if you had typed it, and that is what decides what the partner receives from us. The cookie is not used to measure your visit. The legal basis is § 25(2) no. 2 TDDDG, because the discount you opened the site with cannot reach the payment page without it, and Art. 6(1)(b) GDPR. You can delete it in your browser at any time; you then type the code on the payment page yourself.</p>
     <p>Apart from that, the site embeds no fonts, maps or videos from third-party servers.</p>
     <p>It is served by <strong>Cloudflare</strong> (processor). When you load a page, the infrastructure processes the technically necessary connection data — IP address, time, requested address, amount of data transferred, status code and user agent — in order to deliver the page and keep the service safe from attack. The legal basis is Art. 6(1)(f) GDPR; the legitimate interest is the secure and functioning operation of the website. This connection data is not combined into profiles and not linked with other data.</p>
 
