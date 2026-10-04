@@ -286,13 +286,15 @@ test("serves the legal pages, and no longer calls any of them a draft", async ()
     ["/en/privacy", /written from the code, not from an intention/],
     ["/en/licences", /Witness stands on other people/],
   ]);
-  const updatedPages = new Set(["/agb", "/datenschutz", "/lizenzen", "/en/terms", "/en/privacy", "/en/licences"]);
+  const updatedPages = new Set(["/agb", "/lizenzen", "/en/terms", "/en/licences"]);
+  // The privacy pages gained the partner-discount cookie on 4 October.
+  const privacyPages = new Set(["/datenschutz", "/en/privacy"]);
   for (const [routes, counterparts] of [[legalRoutes, legalRoutesEn], [legalRoutesEn, legalRoutes]]) {
     for (const [index, route] of routes.entries()) {
-      const date = updatedPages.has(route) ? "24" : "5";
+      const [date, month, monthDe] = privacyPages.has(route) ? ["4", "October", "Oktober"] : [updatedPages.has(route) ? "24" : "5", "September", "September"];
       const stamp = route.startsWith("/en/")
-        ? new RegExp(`Last updated: ${date} September 2026`)
-        : new RegExp(`Stand: ${date}\\. September 2026`);
+        ? new RegExp(`Last updated: ${date} ${month} 2026`)
+        : new RegExp(`Stand: ${date}\\. ${monthDe} 2026`);
       const response = await render(route);
       assert.equal(response.status, 200, route);
       const html = await response.text();

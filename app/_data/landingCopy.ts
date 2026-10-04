@@ -31,9 +31,9 @@ export type LandingCopy = {
   faq: { title: string; lede: string; items: { q: string; a: string }[] };
   final: { kicker: string; title: string; body: string; download: string; ready: string; preview: string };
   footer: { tagline: string; legalNav: string; agb: string; impressum: string; datenschutz: string; widerruf: string; lizenzen: string; kontakt: string };
-  // Shown only to readers who came through a partner's link. {code}, {percent}, {date},
-  // {lifetime}, {annual} and {annualFull} are filled in by PartnerOffer.
-  partnerOffer: { title: string; body: string; copy: string; copied: string; buyLead: string; lifetime: string; annual: string; ended: string };
+  // Shown only to readers who came through a partner's link. {code}, {percent},
+  // {date} and {annualFull} are filled in by PartnerOffer.
+  partnerOffer: { title: string; body: string; remembered: string; buyLead: string; firstYear: string; ended: string };
   ui: { skip: string; theme: string; mainNav: string; languageNav: string; promises: string; productHunt: string };
 };
 
@@ -178,12 +178,10 @@ const de: LandingCopy = {
   },
   partnerOffer: {
     title: "{percent} % Rabatt mit dem Code {code}",
-    body: "Lade Witness herunter und teste es 13 Tage kostenlos. Wenn du kaufst, gib den Code im Bezahlfenster ein. Gültig bis {date}.",
-    copy: "Code kopieren",
-    copied: "Kopiert",
-    buyLead: "Schon getestet?",
-    lifetime: "Lifetime für {lifetime}",
-    annual: "Jahreslizenz: erstes Jahr {annual}, danach {annualFull} pro Jahr",
+    body: "Lade Witness zuerst herunter und teste es 13 Tage kostenlos. Wenn der Test endet und du kaufst, gib {code} auf der Bezahlseite ein. Gültig bis {date}.",
+    remembered: "Dieser Browser merkt sich den Rabatt: Öffnest du die Bezahlseite auf diesem Mac aus der App, ist der Code schon eingetragen.",
+    buyLead: "Schon getestet? Mit Rabatt kaufen:",
+    firstYear: "im ersten Jahr, danach {annualFull}",
     ended: "Der Rabatt mit dem Code {code} ist am {date} abgelaufen.",
   },
   ui: { skip: "Zum Inhalt", theme: "Farbschema wechseln", mainNav: "Hauptnavigation", languageNav: "Sprache wählen", promises: "Produktversprechen", productHunt: "Witness für Mac auf Product Hunt ansehen" },
@@ -330,12 +328,10 @@ const en: LandingCopy = {
   },
   partnerOffer: {
     title: "{percent}% off with code {code}",
-    body: "Download Witness and try it free for 13 days. When you buy, enter the code at checkout. Valid until {date}.",
-    copy: "Copy code",
-    copied: "Copied",
-    buyLead: "Already tried it?",
-    lifetime: "Lifetime for {lifetime}",
-    annual: "Annual licence: {annual} for the first year, then {annualFull} a year",
+    body: "Download Witness first and try it free for 13 days. When the trial ends and you buy, enter {code} on the payment page. Valid until {date}.",
+    remembered: "This browser remembers the discount: open the payment page from the app on this Mac and the code is already filled in.",
+    buyLead: "Already tried it? Buy with the discount:",
+    firstYear: "for the first year, then {annualFull}",
     ended: "The {code} discount ended on {date}.",
   },
   ui: { skip: "Skip to content", theme: "Switch colour scheme", mainNav: "Main navigation", languageNav: "Choose language", promises: "Product promises", productHunt: "See Witness for Mac on Product Hunt" },
@@ -482,12 +478,10 @@ const ru: LandingCopy = {
   },
   partnerOffer: {
     title: "−{percent}% по коду {code}",
-    body: "Скачай Witness и попробуй 13 дней бесплатно. Когда решишь купить, введи код в окне оплаты. Код действует до {date} включительно.",
-    copy: "Скопировать код",
-    copied: "Скопировано",
-    buyLead: "Уже попробовал?",
-    lifetime: "Навсегда за {lifetime}",
-    annual: "Лицензия на год: первый год {annual}, дальше {annualFull} в год",
+    body: "Сначала скачай Witness и попробуй 13 дней бесплатно. Когда триал закончится и ты решишь купить, введи {code} на странице оплаты. Код действует до {date} включительно.",
+    remembered: "Этот браузер запомнил скидку: если откроешь оплату из приложения на этом Mac, код подставится сам.",
+    buyLead: "Уже попробовал? Купить со скидкой:",
+    firstYear: "за первый год, дальше {annualFull}",
     ended: "Скидка по коду {code} действовала до {date} и уже закончилась.",
   },
   ui: { skip: "К содержимому", theme: "Сменить тему", mainNav: "Основная навигация", languageNav: "Выбор языка", promises: "Обещания продукта", productHunt: "Witness for Mac на Product Hunt" },
@@ -634,12 +628,10 @@ const uk: LandingCopy = {
   },
   partnerOffer: {
     title: "−{percent}% за кодом {code}",
-    body: "Завантаж Witness і спробуй 13 днів безкоштовно. Коли вирішиш купити, введи код у вікні оплати. Код діє до {date} включно.",
-    copy: "Скопіювати код",
-    copied: "Скопійовано",
-    buyLead: "Уже спробував?",
-    lifetime: "Назавжди за {lifetime}",
-    annual: "Ліцензія на рік: перший рік {annual}, далі {annualFull} на рік",
+    body: "Спершу завантаж Witness і спробуй 13 днів безкоштовно. Коли тріал закінчиться і ти вирішиш купити, введи {code} на сторінці оплати. Код діє до {date} включно.",
+    remembered: "Цей браузер запам’ятав знижку: якщо відкриєш оплату із застосунку на цьому Mac, код підставиться сам.",
+    buyLead: "Уже спробував? Купити зі знижкою:",
+    firstYear: "за перший рік, далі {annualFull}",
     ended: "Знижка за кодом {code} діяла до {date} і вже закінчилася.",
   },
   ui: { skip: "До вмісту", theme: "Змінити тему", mainNav: "Основна навігація", languageNav: "Вибір мови", promises: "Обіцянки продукту", productHunt: "Witness for Mac на Product Hunt" },

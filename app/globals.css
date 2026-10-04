@@ -1505,7 +1505,8 @@ body { padding-bottom: var(--consent-height, 0px); }
   .site-header-wrap { top: var(--consent-height, 0px); }
 }
 
-/* Partner discount, shown only to readers who arrived with a partner's ?ref=. */
+/* Partner discount, shown only to readers who arrived with a partner's ?ref=
+   or with the cookie that link left. */
 .partner-offer {
   max-width: 600px;
   margin-top: 26px;
@@ -1517,7 +1518,7 @@ body { padding-bottom: var(--consent-height, 0px); }
 }
 
 .partner-offer p {
-  margin: 12px 0 0;
+  margin: 10px 0 0;
   color: var(--muted);
   font-size: 14px;
   line-height: 1.5;
@@ -1527,42 +1528,59 @@ body { padding-bottom: var(--consent-height, 0px); }
 .partner-offer-ended p {
   margin: 0;
   color: var(--ink);
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
 }
 
-.partner-offer-code {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px;
-  margin-top: 12px;
-}
-
-.partner-offer-code code {
-  padding: 6px 11px;
+.partner-code {
+  padding: 1px 7px;
   border: 1px dashed var(--accent);
-  border-radius: 8px;
+  border-radius: 6px;
   color: var(--ink);
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: 17px;
-  letter-spacing: 0.06em;
-  user-select: all;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
 }
 
-.partner-offer-code button {
-  padding: 7px 12px;
-  border: 1px solid var(--line-strong);
-  border-radius: 8px;
-  background: transparent;
-  font-size: 13px;
-  cursor: pointer;
-}
+.partner-offer .partner-offer-remembered { font-size: 13px; }
 
-.partner-offer-code button:hover { border-color: var(--accent); }
+.partner-offer-buy {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
 
 .partner-offer-buy a {
   color: var(--ink);
   text-decoration: underline;
+  text-decoration-color: var(--line-strong);
   text-underline-offset: 3px;
+}
+
+.partner-offer-buy a:hover { text-decoration-color: var(--accent); }
+
+.partner-offer-buy s,
+.price-was {
+  color: var(--faint);
+  font-weight: 400;
+  text-decoration-thickness: 1.5px;
+}
+
+.price-was {
+  align-self: flex-end;
+  margin: 0 10px 6px 0;
+  font-size: 26px;
+  letter-spacing: -0.03em;
+}
+
+.price-card > .price-code {
+  min-height: 0;
+  margin-top: 10px;
+  color: var(--accent);
+  font-size: 13px;
 }
