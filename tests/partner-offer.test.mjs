@@ -12,8 +12,8 @@ const {
   partnerOffers,
 } = await import("../app/_data/partnerOffers.ts");
 
-const lifetimeLink = "https://buy.stripe.com/4gMeVd20c3xs58g8oads401";
-const annualLink = "https://buy.stripe.com/cNidR97kw6JEeIQ33Qds402";
+const lifetimeLink = "https://buy.stripe.com/9B614n34g2toeIQcEqds403";
+const annualLink = "https://buy.stripe.com/6oU00j7kwd826ck7k6ds404";
 const october = Date.parse("2026-10-04T12:00:00+02:00");
 const january = Date.parse("2027-01-01T00:00:00+01:00");
 
@@ -31,10 +31,10 @@ test("an unknown or missing ref shows nothing", () => {
   assert.equal(offerForRef("__proto__"), null);
 });
 
-test("TAMARA30 runs to the end of 2026, Prague time, the same second Stripe stops it", () => {
+test("TAMARA30 runs to the end of 2026, Prague time, the same minute Stripe stops it", () => {
   const offer = partnerOffers.tamara;
-  assert.equal(Date.parse(offer.endsAt) / 1000, 1798757999);
-  assert.equal(offerHasEnded(offer, Date.parse("2026-12-31T23:59:58+01:00")), false);
+  assert.equal(Date.parse(offer.endsAt) / 1000, 1798757940);
+  assert.equal(offerHasEnded(offer, Date.parse("2026-12-31T23:58:59+01:00")), false);
   assert.equal(offerHasEnded(offer, january), true);
 });
 

@@ -10,19 +10,23 @@
 export type PartnerOffer = { partner: string; code: string; percentOff: number; endsAt: string };
 
 export const partnerOffers: Record<string, PartnerOffer> = {
-  // Stripe: promotion code TAMARA30, expires_at 1798757999.
-  tamara: { partner: "tamara", code: "TAMARA30", percentOff: 30, endsAt: "2026-12-31T23:59:59+01:00" },
+  // Stripe: coupon UWYM1LLF, promotion code TAMARA30, first orders only, expires
+  // 31 Dec 22:59 UTC (expires_at 1798757940), the minute Stripe's picker allows.
+  tamara: { partner: "tamara", code: "TAMARA30", percentOff: 30, endsAt: "2026-12-31T23:59:00+01:00" },
 };
 
 export type Plan = "lifetime" | "annual";
 
 export const listPrices: Record<Plan, number> = { lifetime: 99, annual: 49 };
 
-// The two Payment Links the app used to open directly, from StoreFront.swift in
-// the app repo. The app now opens /buy, which ends on one of these.
+// The Payment Links /buy ends on, created 4 October 2026 with Managed Payments
+// off and "Allow promotion codes" on (plink_1UMoAXHOSgmME2jEGRo93fS9 and
+// plink_1UMoBpHOSgmME2jEg37Jl8QG). The two made on 4 September (Managed
+// Payments on, `…ds401` and `…ds402`) still exist for builds that open them
+// directly; they take no promotion codes.
 const checkoutLinks: Record<Plan, string> = {
-  lifetime: "https://buy.stripe.com/4gMeVd20c3xs58g8oads401",
-  annual: "https://buy.stripe.com/cNidR97kw6JEeIQ33Qds402",
+  lifetime: "https://buy.stripe.com/9B614n34g2toeIQcEqds403",
+  annual: "https://buy.stripe.com/6oU00j7kwd826ck7k6ds404",
 };
 
 /**
