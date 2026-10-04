@@ -116,7 +116,7 @@ export default function PrivacyPage() {
     <p>The licence key itself is not stored. It is reproduced from the fields above when you ask for it again — which is also why asking twice gives you the same key rather than a second one.</p>
 
     <h2>6. Payment</h2>
-    <p>The checkout runs at <strong>Stripe</strong>, which acts as merchant of record in its own name on this sale and issues the invoice. Stripe is an independent controller for the payment processing; Stripe&apos;s own privacy policy applies.</p>
+    <p>The checkout runs at <strong>Stripe</strong> as payment service provider; we issue the invoice, through Stripe. Stripe is an independent controller for the payment processing; Stripe&apos;s own privacy policy applies.</p>
     <p>The app opens no payment page of its own and sees no card details: the buy buttons hand a URL to your browser. To our activation service, Stripe passes the address you bought with and identifiers for the order. The legal basis is Art. 6(1)(b) GDPR.</p>
 
     <h2>7. E-mail</h2>

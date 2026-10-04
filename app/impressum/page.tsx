@@ -9,7 +9,7 @@ export default function ImpressumPage() {
     page="imprint"
     eyebrow="Rechtliches"
     title="Impressum"
-    updated="5. September 2026"
+    updated="4. Oktober 2026"
     notice={<><b>Anbieterangaben vollständig.</b> Die Angaben auf dieser Seite sind vollständig und aktuell. Wer verkauft, steht hier; was verkauft wird, steht in den <Link href="/agb">Vertrags- und Lizenzbedingungen</Link>.</>}
   >
     <h2>Anbieter</h2>
@@ -22,7 +22,7 @@ export default function ImpressumPage() {
     <h2>Verantwortlich für den Inhalt</h2>
     <p>Ihor Skakovskyi, Anschrift wie oben.</p>
     <h2>Verkauf und Rechnung</h2>
-    <p>Der Bezahlvorgang läuft über Stripe, das bei diesem Verkauf als Händler im eigenen Namen auftritt (Merchant of Record), die Rechnung stellt und die Umsatzsteuer abführt. Der Lizenzvertrag über die Nutzung von Witness kommt mit dem oben genannten Anbieter zustande.</p>
+    <p>Der Bezahlvorgang läuft über Stripe als Zahlungsdienstleister. Verkäufer und Rechnungssteller ist der oben genannte Anbieter. Er ist in Tschechien kein Umsatzsteuerzahler (nejsem plátce DPH) und hat deshalb keine Umsatzsteuer-Identifikationsnummer; auf der Rechnung wird keine Umsatzsteuer ausgewiesen. Der Lizenzvertrag über die Nutzung von Witness kommt mit dem oben genannten Anbieter zustande.</p>
     <h2>Streitbeilegung</h2>
     <p>Zuständige Stelle für die außergerichtliche Beilegung von Verbraucherstreitigkeiten ist die Tschechische Handelsinspektion (Česká obchodní inspekce), <a href="https://coi.gov.cz/informace-o-adr/" rel="noreferrer">coi.gov.cz/informace-o-adr</a>. Beschwerden nehmen wir auch direkt unter der Kontaktadresse oben entgegen.</p>
   </LegalShell>;

@@ -116,7 +116,7 @@ export default function DatenschutzPage() {
     <p>Der Lizenzschlüssel selbst wird nicht gespeichert. Er wird aus den Feldern oben neu erzeugt, wenn du ihn erneut anforderst — deshalb bekommst du beim zweiten Mal denselben Schlüssel und keinen zweiten.</p>
 
     <h2>6. Zahlung</h2>
-    <p>Der Bezahlvorgang läuft bei <strong>Stripe</strong>, das bei diesem Verkauf als Händler im eigenen Namen auftritt (Merchant of Record) und die Rechnung stellt. Für die Zahlungsabwicklung ist Stripe eigenständig verantwortlich; es gilt die Datenschutzerklärung von Stripe.</p>
+    <p>Der Bezahlvorgang läuft bei <strong>Stripe</strong> als Zahlungsdienstleister; die Rechnung stellen wir aus, über Stripe. Für die Zahlungsabwicklung ist Stripe eigenständig verantwortlich; es gilt die Datenschutzerklärung von Stripe.</p>
     <p>Die App öffnet selbst keine Bezahlseite und sieht keine Kartendaten: Die Kaufknöpfe übergeben eine Adresse an deinen Browser. An unseren Aktivierungsdienst gibt Stripe die Adresse weiter, mit der du gekauft hast, sowie Kennungen der Bestellung. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO.</p>
 
     <h2>7. E-Mail</h2>

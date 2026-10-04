@@ -13,7 +13,7 @@ export default function TermsPage() {
     page="terms"
     eyebrow="Legal"
     title="Terms and Licence"
-    updated="24 September 2026"
+    updated="4 October 2026"
     notice={<><b>This English text applies to purchases made in English.</b> The German text at <Link href={legalPaths.de.terms}>/agb</Link> applies to purchases made in German. They say the same thing; if you find a place where they do not, tell us — you are entitled to rely on the one you read. Neither replaces advice from a lawyer, and the version that applies to you is the one that was current when you bought.</>}
   >
     <h2>1. Who we are, and what these terms cover</h2>
@@ -42,8 +42,8 @@ export default function TermsPage() {
 
     <h2>4. How the contract is made, prices, and payment</h2>
     <p>Showing the licences on this website and in the app is an invitation to order, not a binding offer. The contract is made when you complete the payment and it is confirmed.</p>
-    <p>Payment runs through <strong>Stripe</strong>. On this sale Stripe acts as merchant of record in its own name: it takes the payment, issues the invoice and remits the VAT, so Stripe&apos;s own terms apply to the payment as well. <strong>The licence contract for using Witness is with us</strong>, and these terms govern it. We never see a card number.</p>
-    <p>The prices are <strong>€99 once</strong> for the lifetime licence and <strong>€49 per year</strong> for the annual licence, each including statutory VAT. The checkout shows which payment methods are available before you finish. You receive the invoice by e-mail.</p>
+    <p>Payment runs through <strong>Stripe</strong> as payment service provider: Stripe takes the payment and passes it on to us, so Stripe&apos;s own terms apply to the payment as well. <strong>The licence contract for using Witness is with us</strong>; we are the seller and issue the invoice, and these terms govern the contract. We never see a card number.</p>
+    <p>The prices are <strong>€99 once</strong> for the lifetime licence and <strong>€49 per year</strong> for the annual licence, each as a final price. We are not a VAT payer in the Czech Republic (nejsem plátce DPH): no VAT is added to the prices or shown on the invoice. The checkout shows which payment methods are available before you finish. You receive the invoice by e-mail.</p>
 
     <h2>5. Delivery and activation</h2>
     <p>Once the payment is confirmed we issue a signed licence key for the Mac you activate from and send it to the e-mail address you bought with. Delivery is immediate, normally within a few minutes.</p>
