@@ -290,9 +290,14 @@ test("serves the legal pages, and no longer calls any of them a draft", async ()
   // On 4 October the privacy pages gained the partner-discount cookie, and the
   // terms, imprint and privacy pages stopped calling Stripe the merchant of record.
   const privacyPages = new Set(["/agb", "/impressum", "/datenschutz", "/en/terms", "/en/legal-notice", "/en/privacy"]);
+  // On 5 October the two privacy policies gained the six setup events and the
+  // passing of all nine on to PostHog; the other legal pages did not change.
+  const funnelPages = new Set(["/datenschutz", "/en/privacy"]);
   for (const [routes, counterparts] of [[legalRoutes, legalRoutesEn], [legalRoutesEn, legalRoutes]]) {
     for (const [index, route] of routes.entries()) {
-      const [date, month, monthDe] = privacyPages.has(route) ? ["4", "October", "Oktober"] : [updatedPages.has(route) ? "24" : "5", "September", "September"];
+      const [date, month, monthDe] = funnelPages.has(route)
+        ? ["5", "October", "Oktober"]
+        : privacyPages.has(route) ? ["4", "October", "Oktober"] : [updatedPages.has(route) ? "24" : "5", "September", "September"];
       const stamp = route.startsWith("/en/")
         ? new RegExp(`Last updated: ${date} ${month} 2026`)
         : new RegExp(`Stand: ${date}\\. ${monthDe} 2026`);
@@ -378,11 +383,14 @@ test("states the business model the same way in the legal text and on the landin
   for (const recipient of ["Cloudflare", "Stripe", "Resend", "Hugging Face", "api.witnessmac.com"]) {
     assert.ok(datenschutz.includes(recipient), `the privacy policy must name ${recipient}`);
   }
-  assert.match(datenschutz, /Die übrigen sieben werden nicht übertragen/);
-  // The three that do leave have to be named, and the way to stop them with
+  assert.match(datenschutz, /Die übrigen sechs werden nicht übertragen/);
+  // The nine that do leave have to be named, and the way to stop them with
   // them. A policy that lists a transmission without its off switch is the
   // failure this assertion exists to catch.
-  for (const event of ["trial_started", "activation_requested", "paywall_shown"]) {
+  for (const event of [
+    "installed", "model_download_started", "model_ready", "model_failed", "dictation_blocked_by_model",
+    "microphone_denied", "trial_started", "activation_requested", "paywall_shown",
+  ]) {
     assert.ok(datenschutz.includes(event), `the privacy policy must name the ${event} event`);
   }
   assert.match(datenschutz, /Einstellungen → Privatsphäre/);
@@ -415,10 +423,10 @@ test("the landing page tells the same truth about product events as the policy",
   // reads, so each locale asserts both halves: that the events are named, and
   // that the old denial cannot come back.
   const claims = {
-    "/": { says: /drei Ereignisse über den Test/, switch: /Einstellungen → Privatsphäre/, denies: /nicht gesendet|Mehr sendet die App nicht/ },
-    "/en": { says: /three events about the trial/i, switch: /Settings → Privacy/, denies: /not sent|sends nothing else/ },
-    "/ru": { says: /три события о триале/, switch: /Настройках → Приватность/, denies: /не отправляются|не отправляет ничего/ },
-    "/uk": { says: /три події про тріал/, switch: /Налаштуваннях → Приватність/, denies: /не надсилає нічого|не надсилаються/ },
+    "/": { says: /neun Ereignisse über Einrichtung und Test/, switch: /Einstellungen → Privatsphäre/, denies: /nicht gesendet|Mehr sendet die App nicht/ },
+    "/en": { says: /nine events about setup and the trial/i, switch: /Settings → Privacy/, denies: /not sent|sends nothing else/ },
+    "/ru": { says: /девять событий о настройке и триале/, switch: /Настройках → Приватность/, denies: /не отправляются|не отправляет ничего/ },
+    "/uk": { says: /дев'ять подій про налаштування і тріал/, switch: /Налаштуваннях → Приватність/, denies: /не надсилає нічого|не надсилаються/ },
   };
 
   for (const [route, claim] of Object.entries(claims)) {
@@ -448,8 +456,11 @@ test("the English legal set says the same thing as the German one", async () => 
   for (const recipient of ["Cloudflare", "Stripe", "Resend", "Hugging Face", "api.witnessmac.com"]) {
     assert.ok(privacy.includes(recipient), `the English privacy policy must name ${recipient}`);
   }
-  assert.match(privacy, /The other seven are not transmitted/);
-  for (const event of ["trial_started", "activation_requested", "paywall_shown"]) {
+  assert.match(privacy, /The other six are not transmitted/);
+  for (const event of [
+    "installed", "model_download_started", "model_ready", "model_failed", "dictation_blocked_by_model",
+    "microphone_denied", "trial_started", "activation_requested", "paywall_shown",
+  ]) {
     assert.ok(privacy.includes(event), `the English privacy policy must name the ${event} event`);
   }
   assert.match(privacy, /Settings → Privacy/);
