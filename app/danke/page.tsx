@@ -22,7 +22,11 @@ export default async function DankePage({ searchParams }: { searchParams: Promis
   const c = thanksCopy[locale];
   const downloadAvailable = Boolean(getDownloadTarget());
   const analytics = getAnalyticsConfig();
-  const downloadStarted = downloadAvailable && params.download === "auto";
+  // `auto` fetches the file from this page; `started` means the click that led
+  // here already did (see `_components/DownloadOnClick.tsx`). Both read as a
+  // download that has begun.
+  const downloadMode = params.download === "started" ? "click" : "auto";
+  const downloadStarted = downloadAvailable && (params.download === "auto" || params.download === "started");
   const previewMode = !downloadAvailable;
   const downloadPath = locale === "de" ? "/download" : `/download?lang=${locale}`;
 
@@ -40,9 +44,9 @@ export default async function DankePage({ searchParams }: { searchParams: Promis
         </div>
         <h1>{c.title}</h1>
         <p>{downloadStarted ? c.body.started : previewMode ? c.body.preview : c.body.direct} {c.trade}</p>
-        {downloadStarted && <iframe className="download-frame" src={downloadPath} title={c.iframeTitle} aria-hidden="true" tabIndex={-1} />}
+        {downloadStarted && downloadMode === "auto" && <iframe className="download-frame" src={downloadPath} title={c.iframeTitle} aria-hidden="true" tabIndex={-1} />}
         {downloadAvailable && <DownloadLink analytics={analytics} locale={locale} href={downloadPath} label={downloadStarted ? c.inlineDownload.again : c.inlineDownload.now} />}
-        <DownloadSignal analytics={analytics} started={downloadStarted} locale={locale} />
+        <DownloadSignal analytics={analytics} started={downloadStarted} mode={downloadMode} locale={locale} />
         </section>
         <section className="thanks-grid shell">
         <aside className="key-card">
