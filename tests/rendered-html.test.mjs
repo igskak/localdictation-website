@@ -907,6 +907,15 @@ test("keeps download routing index-safe and fails to an honest localized page", 
   try {
     const startedPageHtml = await (await render("/danke?download=auto")).text();
     assert.match(startedPageHtml, /<iframe[^>]+aria-hidden="true"[^>]+tabindex="-1"/i);
+
+    // The button click already fetched the file, so this one must not fetch it
+    // a second time, and the link to start it again stays.
+    const clickedPageHtml = await (await render("/danke?download=started")).text();
+    assert.doesNotMatch(clickedPageHtml, /<iframe/i);
+    assert.match(clickedPageHtml, /<a class="inline-download" href="\/download"/);
+    const startedState = startedPageHtml.match(/<div class="download-confirmation">[\s\S]*?<\/div>/)?.[0];
+    assert.ok(startedState);
+    assert.ok(clickedPageHtml.includes(startedState));
   } finally {
     if (original === undefined) delete process.env.DOWNLOAD_URL;
     else process.env.DOWNLOAD_URL = original;

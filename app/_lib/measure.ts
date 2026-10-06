@@ -18,7 +18,7 @@ import { type PosthogConfig, capturePosthog, denyPosthogStorage, grantPosthogSto
 export type MeasureConfig = GtagConfig & PosthogConfig;
 
 /** How the reader got to the file: the download that starts itself, or the link that starts it again. */
-export type DownloadMode = "auto" | "link";
+export type DownloadMode = "auto" | "click" | "link";
 
 /** Loads both, in whatever state the reader's answer leaves them. Idempotent in both. */
 export function startMeasurement(config: MeasureConfig, consent: ConsentChoice | null): void {

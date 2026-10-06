@@ -3,6 +3,7 @@ import { headers } from "next/headers";
 import { parseLocale } from "./_lib/locale";
 import { analyticsEnabled, getAnalyticsConfig } from "./_lib/analytics";
 import { ConsentGate } from "./_components/ConsentGate";
+import { DownloadOnClick } from "./_components/DownloadOnClick";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -26,6 +27,7 @@ export default async function RootLayout({
     <html lang={locale}>
       <body>
         {children}
+        <DownloadOnClick />
         {analyticsEnabled(analytics) && <ConsentGate config={analytics} locale={locale} />}
       </body>
     </html>
