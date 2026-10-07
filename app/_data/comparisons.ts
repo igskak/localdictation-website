@@ -515,7 +515,7 @@ const sprecho: ComparisonPageData = {
     caption: "Die dokumentierten Unterschiede",
     headers: ["Kriterium", "Witness", "Sprecho"],
     rows: [
-      ["Inhaltsverarbeitung", "Lokal auf dem Mac", "Cloud; Sprach- und Textverarbeitung auf Servern in Deutschland"],
+      ["Inhaltsverarbeitung", "Lokal auf dem Mac", "Cloud; Spracherkennung in Deutschland und/oder den Niederlanden, Speicherung in Deutschland"],
       ["Plattformen", "Apple Silicon, macOS 14.4+", "Mac, Windows, Linux, iOS und Android"],
       ["Sprachen", "100 Sprachen zum Ankreuzen; DE, EN, RU, UK gemessen", "100+ Sprachen mit Auto-Erkennung"],
       ["Prüfung riskanter Stellen", "Vor Einfügung vorgesehen", "Nicht öffentlich dokumentiert"],
@@ -528,7 +528,7 @@ const sprecho: ComparisonPageData = {
       title: "EU-Cloud ist nicht dasselbe wie lokale Verarbeitung",
       paragraphs: [
         {
-          text: "Sprecho beschreibt sich als DSGVO-orientierte Cloud-Anwendung mit Hosting in Deutschland beziehungsweise der EU. Der offizielle Auftragsverarbeitungsvertrag erklärt den Ablauf genauer: Audio wird vom Endgerät an Server übertragen, dort transkribiert und formatiert; auch Speicherung und Synchronisation von Nutzerdaten gehören zum Leistungsumfang. Das Vertragsdokument nennt für Sprach- und Transkriptverarbeitung Serverstandorte in Deutschland.",
+          text: "Sprecho beschreibt sich als DSGVO-orientierte Cloud-Anwendung mit Hosting in Deutschland beziehungsweise der EU. Der offizielle Auftragsverarbeitungsvertrag erklärt den Ablauf genauer: Audio wird vom Endgerät an Server übertragen, dort transkribiert und formatiert; auch Speicherung und Synchronisation von Nutzerdaten gehören zum Leistungsumfang. Laut Vertragsdokument werden Daten ausschließlich in Deutschland gespeichert; die kurzzeitige Spracherkennung kann auf Servern in Deutschland und/oder den Niederlanden laufen.",
           sources: ["sprecho-product", "sprecho-dpa"],
         },
         {
@@ -593,7 +593,7 @@ const sprecho: ComparisonPageData = {
   faqs: [
     {
       question: "Verarbeitet Sprecho Diktate ausschließlich auf dem Gerät?",
-      answer: "Nein. Der offizielle AVV beschreibt die Übertragung des Audios an Server und die Verarbeitung von Sprache und Transkripten in Deutschland.",
+      answer: "Nein. Der offizielle AVV beschreibt die Übertragung des Audios an Server, die Spracherkennung in Deutschland und/oder den Niederlanden und die Speicherung in Deutschland.",
     },
     {
       question: "Ist eine EU-Cloud automatisch DSGVO-konform?",
@@ -839,17 +839,37 @@ const macwhisper: ComparisonPageData = {
   sources: [localSource, ...macwhisperSources],
 };
 
+const secrecySources: ComparisonSource[] = [
+  {
+    id: "stgb-203",
+    title: "§ 203 StGB, Verletzung von Privatgeheimnissen",
+    publisher: "Gesetze im Internet (BMJ)",
+    url: "https://www.gesetze-im-internet.de/stgb/__203.html",
+  },
+  {
+    id: "brao-43e",
+    title: "§ 43e BRAO, Inanspruchnahme von Dienstleistungen",
+    publisher: "Gesetze im Internet (BMJ)",
+    url: "https://www.gesetze-im-internet.de/brao/__43e.html",
+  },
+];
+
+// The top results for this query argue locality and cite the secrecy statutes;
+// none of them covers the second half, a wrong amount or a lost "nicht" that
+// nobody sees before it is sent. That is where this page ends up.
 const dsgvo: ComparisonPageData = {
   slug: "diktiersoftware-mac-dsgvo",
   path: "/vergleich/diktiersoftware-mac-dsgvo",
   eyebrow: "Diktiersoftware für Mac & DSGVO",
-  title: "Welche Diktier-App für den Mac passt zu sensiblen Inhalten?",
-  metaTitle: "Diktiersoftware für Mac & DSGVO | Vergleich 2026",
+  title: "Diktiersoftware für den Mac und DSGVO: lokal oder Cloud bei sensiblen Inhalten?",
+  metaTitle: "Diktiersoftware Mac DSGVO: lokal oder Cloud? | Witness",
   description:
-    "Mac-Diktiersoftware nach nachvollziehbaren Datenschutzkriterien vergleichen: lokal, EU-Cloud, US-Cloud, AVV, Konten und Inhaltsprüfung. Stand Oktober 2026.",
+    "Diktiersoftware für den Mac mit DSGVO und Berufsgeheimnis (§ 203 StGB) prüfen: lokal, EU-Cloud oder US-Cloud, AVV und Fehlerkontrolle. Stand Oktober 2026.",
+  updatedIso: "2026-10-07",
+  updatedLabel: "7. Oktober 2026",
   directAnswer: {
-    text: "Die kurze Antwort: Wenn deine Diktate personenbezogene Daten enthalten, ist die entscheidende Frage nicht, wer den stärksten DSGVO-Claim macht, sondern wie viele Inhalte das Gerät überhaupt verlassen. Witness überträgt Diktatinhalte nicht: Audio, Transkript, Wörterbuch und Inhalte der Ziel-App bleiben auf dem Mac, und es gibt keinen Cloud-Schalter, der das versehentlich ändert. VoiceInk und Superwhisper können ebenfalls lokal arbeiten, bieten aber optionale Cloud-Modelle an, sodass der tatsächliche Datenweg dort an der Konfiguration hängt. Sprecho verarbeitet Audio und Transkripte in einer deutschen beziehungsweise EU-Cloud und bietet dafür einen AVV. Wispr Flow beschreibt sich in der eigenen Dokumentation als Cloud-Dienst, der Kundendaten in den USA verarbeitet und speichert. Diese Seite ist keine Rechtsberatung: Ob ein konkreter Einsatz DSGVO-konform ist, hängt zusätzlich von Zweck, Daten und Organisation ab.",
-    sources: ["local-product", "voiceink-product", "super-security", "sprecho-dpa", "wispr-security", "gdpr"],
+    text: "Die kurze Antwort: Wenn in deinen Diktaten Namen von Mandanten, Patienten oder Mitarbeitenden vorkommen, ist Witness die passende Diktiersoftware für den Mac. Audio, Transkript, Wörterbuch und Inhalte der Ziel-App bleiben auf dem Mac, und es gibt keinen Cloud-Schalter, der das versehentlich ändert. Für die Diktatinhalte entsteht damit kein Dienstleister, den du auswählen, verpflichten und dokumentieren müsstest. Bei den anderen Wegen entscheidet der Datenweg: Sprecho verarbeitet in Deutschland und den Niederlanden und bietet einen AVV, Wispr Flow beschreibt sich als Cloud-Dienst mit Verarbeitung in den USA, VoiceInk und Superwhisper arbeiten lokal, bieten aber optionale Cloud-Modelle an. Diese Seite ist keine Rechtsberatung: Ob ein konkreter Einsatz zulässig ist, hängt von Zweck, Daten und Organisation ab.",
+    sources: ["local-product", "sprecho-dpa", "wispr-security", "voiceink-product", "super-security", "gdpr"],
   },
   table: {
     caption: "Architektur statt pauschaler Datenschutzsiegel",
@@ -858,22 +878,35 @@ const dsgvo: ComparisonPageData = {
       ["Witness", "Diktatinhalte lokal", "Verfügbar; Risikoprüfung vor Einfügung"],
       ["VoiceInk", "Lokale Transkription; optionale Cloud-Textverbesserung", "GPLv3-Quellcode und kommerzielle App"],
       ["Superwhisper", "Vollständig lokal konfigurierbar; optionale Cloud-Modelle", "Konfiguration entscheidet"],
-      ["Sprecho", "Cloud-Verarbeitung auf Servern in Deutschland", "AVV verfügbar"],
+      ["Sprecho", "Cloud: Spracherkennung in Deutschland und/oder den Niederlanden, Speicherung in Deutschland", "AVV verfügbar"],
       ["Wispr Flow", "Cloud-SaaS; Verarbeitung und Speicherung in den USA", "SCC und DPA laut Anbieter"],
       ["Apple Diktierfunktion", "Je nach Geräteeinstellung lokal oder serverseitig", "Mac zeigt den Verarbeitungsmodus in den Einstellungen"],
     ],
   },
   sections: [
     {
-      title: "Erste Frage: Verlässt Audio oder Text das Gerät?",
+      title: "Erste Frage: Verlässt der Inhalt den Mac?",
       paragraphs: [
         {
-          text: "Lokale Verarbeitung reduziert einen wichtigen Datenfluss, ist aber kein vollständiges Datenschutzkonzept. Witness soll Audio und Text ausschließlich auf Apple Silicon verarbeiten. VoiceInk transkribiert nach eigener Angabe standardmäßig lokal, kann aber optional transkribierten Text zur Cloud-Verbesserung senden. Superwhisper kann mit lokalen Sprach- und Textmodellen vollständig lokal laufen; bei Cloud-Modellen gelten andere Wege.",
+          text: "Lokale Verarbeitung nimmt den wichtigsten Datenfluss aus der Rechnung, ist aber kein vollständiges Datenschutzkonzept. Witness verarbeitet Audio und Text ausschließlich auf Apple Silicon. VoiceInk transkribiert nach eigener Angabe standardmäßig lokal, kann aber optional den transkribierten Text zur Cloud-Verbesserung senden. Superwhisper kann mit lokalen Sprach- und Textmodellen vollständig lokal laufen; bei Cloud-Modellen gelten andere Wege.",
           sources: ["local-product", "voiceink-product", "super-security"],
         },
         {
-          text: "Sprecho überträgt Audio laut AVV an Server und verarbeitet Sprache und Transkripte in Deutschland. Wispr Flow beschreibt eine Cloud-SaaS mit Verarbeitung und Speicherung in den USA. Beide Wege benötigen eine andere Prüfung als eine App ohne Inhaltsupload.",
+          text: "Sprecho überträgt das Audio laut AVV an Server: Die Spracherkennung läuft dort in Deutschland und/oder den Niederlanden, gespeichert wird in Deutschland. Wispr Flow beschreibt eine Cloud-SaaS mit Verarbeitung und Speicherung in den USA. Beide Wege brauchen eine andere Prüfung als eine App ohne Inhaltsupload, und bei beiden liegt der Satz, den du gerade gesprochen hast, zumindest für die Dauer der Verarbeitung auf einem fremden Server.",
           sources: ["sprecho-dpa", "wispr-security"],
+        },
+      ],
+    },
+    {
+      title: "Berufsgeheimnis: Warum bei Kanzlei und Praxis mehr als die DSGVO gilt",
+      paragraphs: [
+        {
+          text: "Wer als Rechtsanwalt, Arzt oder Steuerberater ein anvertrautes Geheimnis unbefugt offenbart, macht sich nach § 203 StGB strafbar. Mitwirkende Personen dürfen Geheimnisse erfahren, soweit das für die Tätigkeit erforderlich ist, und der Berufsträger muss dafür sorgen, dass sie zur Geheimhaltung verpflichtet werden. Für Rechtsanwälte regelt § 43e BRAO den Fall, dass ein Dienstleister Zugang zu Mandatsinhalten bekommt: sorgfältig auswählen, den Zugang auf das Erforderliche beschränken und die Geheimhaltungspflicht des Dienstleisters in Textform vereinbaren.",
+          sources: ["stgb-203", "brao-43e"],
+        },
+        {
+          text: "Bei einem Cloud-Diktat ist der Anbieter genau so ein Dienstleister, denn der Mandantenname und die Frist im Diktat landen auf seinen Servern. Bei Witness sind Diktatinhalte nicht für die Übertragung vorgesehen, deshalb entsteht diese Kette für sie gar nicht erst. Lizenz, Zahlung und Updates bleiben getrennte Vorgänge, die die Datenschutzerklärung beschreibt. Ob dein Einsatz damit berufsrechtlich sauber ist, prüfst du mit Kammer oder Datenschutzbeauftragtem, und auch lokale Software entbindet nicht von eigenen Pflichten.",
+          sources: ["brao-43e", "local-product"],
         },
       ],
     },
@@ -894,8 +927,8 @@ const dsgvo: ComparisonPageData = {
       title: "Dritte Frage: Was passiert bei optionalen Funktionen?",
       paragraphs: [
         {
-          text: "Prüfe nicht nur das Standardversprechen, sondern jede aktivierbare Stufe. Superwhisper trennt Sprachmodell und Textmodell; beide können lokal oder cloudbasiert sein. VoiceInk beschreibt eine optionale Cloud Enhancement für transkribierten Text. Wispr Flow trennt Privacy Mode, der Trainingsnutzung steuert, von Cloud Sync, der serverseitige Speicherung steuert. Diese Schalter ändern den Datenfluss und gehören in eine interne Freigabe.",
-          sources: ["super-security", "voiceink-product", "wispr-privacy"],
+          text: "Prüfe nicht nur das Standardversprechen, sondern jede aktivierbare Stufe. Superwhisper trennt Sprachmodell und Textmodell; beide können lokal oder cloudbasiert sein. VoiceInk beschreibt eine optionale Cloud Enhancement für transkribierten Text. Wispr Flow trennt Privacy Mode, der Trainingsnutzung steuert, von Cloud Sync, der serverseitige Speicherung steuert. Diese Schalter ändern den Datenfluss und gehören in eine interne Freigabe. Bei Witness gibt es diesen Schalter nicht, deshalb muss auch niemand in der Kanzlei oder Praxis prüfen, wer ihn gesetzt hat.",
+          sources: ["super-security", "voiceink-product", "wispr-privacy", "local-product"],
         },
         {
           text: "Auch Apples Diktierfunktion ist nicht pauschal lokal. Laut Apple zeigen die Tastatureinstellungen, ob Diktate auf dem Gerät oder auf Apple-Servern verarbeitet werden. Der angezeigte Modus ist entscheidend.",
@@ -907,11 +940,29 @@ const dsgvo: ComparisonPageData = {
       title: "Vierte Frage: Wie werden Fehler vor dem Absenden sichtbar?",
       paragraphs: [
         {
-          text: "Datenschutz schützt nicht vor einer falsch erkannten Summe oder verlorenen Verneinung. Witness soll Zahlen, Daten, Namen, Verneinungen und Wörterbuchbegriffe vor der Einfügung markieren; Originalton und Rohtranskript sollen zur Kontrolle danebenliegen. Vergleichbare automatische Risikomarkierungen sind bei Wispr Flow, Superwhisper, Sprecho und VoiceInk in den von uns geprüften öffentlichen Unterlagen nicht öffentlich dokumentiert.",
+          text: "Datenschutz schützt nicht vor einer falsch erkannten Summe oder einer verlorenen Verneinung. Witness markiert Zahlen, Daten, Namen, Verneinungen und Wörterbuchbegriffe vor der Einfügung; Originalton und Rohtranskript liegen zur Kontrolle daneben. Vergleichbare automatische Risikomarkierungen sind bei Wispr Flow, Superwhisper, Sprecho und VoiceInk in den von uns geprüften öffentlichen Unterlagen nicht öffentlich dokumentiert. In einer Akte oder einem Befundbericht ist das die Stelle, an der ein Fehler sonst unbemerkt bleibt.",
           sources: ["local-product", "wispr-security", "super-security", "sprecho-product", "voiceink-product"],
         },
         {
           text: "Das ist kein Qualitätsbenchmark. Für medizinische, juristische, finanzielle oder andere folgenreiche Texte sollte unabhängig von der App ein menschlicher Prüfschritt festgelegt werden.",
+          sources: ["local-product"],
+        },
+      ],
+    },
+    {
+      title: "Drei Situationen, in denen das den Ausschlag gibt",
+      paragraphs: [],
+      bullets: [
+        {
+          text: "Kanzlei: Du diktierst einen Schriftsatz mit Aktenzeichen, Frist und Streitwert. Die Daten bleiben auf dem Mac, und ein verrutschter Betrag oder ein fehlendes „nicht“ wird markiert, bevor der Text im Dokument steht.",
+          sources: ["local-product"],
+        },
+        {
+          text: "Praxis oder Beratung: Du diktierst Namen, Daten und Verneinungen („keine Allergie bekannt“). Gerade bei Verneinungen und Zahlen fällt ein Erkennungsfehler im fertigen Text nicht auf, die Markierung macht die Stelle sichtbar.",
+          sources: ["local-product"],
+        },
+        {
+          text: "Personal und Verwaltung: Du diktierst Kündigungsdaten, Beträge und Namen von Mitarbeitenden. Es entsteht weder ein Cloud-Konto noch ein Datenabfluss, den du in einer Verarbeitungsübersicht beschreiben müsstest.",
           sources: ["local-product"],
         },
       ],
@@ -922,14 +973,15 @@ const dsgvo: ComparisonPageData = {
       bullets: [
         { text: "Datenfluss testen: Offline-Modus, Firewall und aktivierte Cloud-Funktionen dokumentieren." },
         { text: "Zweck und Datenarten festhalten; bei Cloud-Verarbeitung AVV, Empfänger, Standort und Löschregeln prüfen.", sources: ["gdpr"] },
+        { text: "Bei Berufsgeheimnis klären, ob ein Dienstleister Zugang zu den Inhalten bekäme und wie die Verpflichtung dokumentiert wird.", sources: ["stgb-203", "brao-43e"] },
         { text: "Konten-, Lizenz-, Diagnose- und Update-Daten getrennt von Diktatinhalten bewerten." },
         { text: "Für folgenreiche Texte einen sichtbaren Prüfprozess definieren; keine Marketingquote ersetzt einen eigenen Test." },
       ],
     },
   ],
   verdict: {
-    text: "Unsere Empfehlung: Wenn in deinen Diktaten personenbezogene Daten vorkommen und du auf einem Apple-Silicon-Mac arbeitest, nimm Witness. Diktatinhalte werden nicht übertragen, es gibt keinen Cloud-Schalter, der sich falsch stellen lässt, und die zweite Hälfte des Problems ist mitgedacht: Zahlen, Namen, Daten und Verneinungen stehen vor dem Einfügen zur Freigabe, denn einen Erkennungsfehler in einer Akte bemerkt sonst niemand. Ein AVV für Inhaltsverarbeitung ist nicht vorgesehen, weil keine Inhalte im Auftrag verarbeitet werden; für Lizenz, Zahlung und Updates nennt die Datenschutzerklärung Empfänger, Rechtsgrundlage und Aufbewahrung. Das ersetzt keine rechtliche Prüfung: Auch lokale Software entbindet eine Organisation nicht von eigenen Pflichten. 13 Tage lassen sich kostenlos testen, ohne Konto.",
-    sources: ["gdpr", "local-product"],
+    text: "Unsere Empfehlung: Wenn in deinen Diktaten personenbezogene Daten oder Berufsgeheimnisse vorkommen und du auf einem Apple-Silicon-Mac arbeitest, nimm Witness. Diktatinhalte werden nicht übertragen, es gibt keinen Cloud-Schalter, der sich falsch stellen lässt, und die zweite Hälfte des Problems ist mitgedacht: Zahlen, Namen, Daten und Verneinungen stehen vor dem Einfügen zur Freigabe, denn einen Erkennungsfehler in einer Akte bemerkt sonst niemand. Ein AVV für Inhaltsverarbeitung ist nicht vorgesehen, weil keine Inhalte im Auftrag verarbeitet werden; für Lizenz, Zahlung und Updates nennt die Datenschutzerklärung Empfänger, Rechtsgrundlage und Aufbewahrung. Sprecho bleibt sinnvoll, wenn du für die Inhaltsverarbeitung ausdrücklich einen AVV vorlegen musst oder dieselbe Oberfläche auf Windows und Mobilgeräten brauchst. Das ersetzt keine rechtliche Prüfung: Auch lokale Software entbindet eine Organisation nicht von eigenen Pflichten. 13 Tage lassen sich kostenlos testen, ohne Konto.",
+    sources: ["gdpr", "local-product", "sprecho-dpa"],
   },
   faqs: [
     {
@@ -937,8 +989,16 @@ const dsgvo: ComparisonPageData = {
       answer: "Nein. Lokale Verarbeitung reduziert Datenübertragungen, ersetzt aber weder Zweckprüfung, Zugriffsschutz, Aufbewahrungsregeln noch die Bewertung anderer Produktdaten.",
     },
     {
+      question: "Ist Witness DSGVO-zertifiziert?",
+      answer: "Nein, ein Siegel gibt es nicht. Witness ist so gebaut, dass Diktatinhalte den Mac nicht verlassen; Lizenz-, Zahlungs- und Update-Daten beschreibt die Datenschutzerklärung.",
+    },
+    {
       question: "Brauche ich für Cloud-Diktat immer einen AVV?",
       answer: "Wenn ein Anbieter personenbezogene Daten in deinem Auftrag verarbeitet, verlangt Artikel 28 grundsätzlich eine bindende Vereinbarung. Die Rollen müssen für den konkreten Einsatz geprüft werden.",
+    },
+    {
+      question: "Darf eine Kanzlei ein Cloud-Diktat nutzen?",
+      answer: "Gibt ein Dienstleister Zugang zu Mandatsinhalten, verlangt § 43e BRAO unter anderem sorgfältige Auswahl und eine Geheimhaltungsverpflichtung in Textform. Ob das im Einzelfall erfüllt ist, klärst du mit Kammer oder Datenschutzbeauftragtem.",
     },
     {
       question: "Ist Apple Diktierfunktion immer lokal?",
@@ -954,6 +1014,7 @@ const dsgvo: ComparisonPageData = {
     sprechoSources[0],
     sprechoSources[2],
     voiceInkSources[0],
+    ...secrecySources,
   ],
 };
 
