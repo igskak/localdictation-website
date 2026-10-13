@@ -55,7 +55,7 @@ test("renders the complete German landing page in the required order", async () 
   assert.equal(response.headers.get("strict-transport-security"), "max-age=31536000");
   assert.equal(response.headers.get("permissions-policy"), "camera=(), geolocation=(), microphone=()");
   assert.match(html, /Diktieren statt tippen/);
-  assert.match(html, /Unsichere Zahlen und Namen markiert/);
+  assert.match(html, /Mit Hinweis, wo ein zweiter Blick lohnt/);
   // Most ad visitors searched for the built-in "Diktierfunktion". The hero has
   // to answer it, and point at the comparison that carries the sources.
   assert.match(html, /Und die Diktierfunktion vom Mac\?/);
@@ -167,7 +167,7 @@ test("renders the English variant and reciprocal language links", async () => {
   assert.equal(enResponse.status, 200);
   assert.match(enHtml, /<html lang="en">/i);
   assert.match(enHtml, /Dictate instead of typing/);
-  assert.match(enHtml, /Uncertain numbers and names flagged/);
+  assert.match(enHtml, /With a nudge where a second look pays off/);
   assert.match(enHtml, /<a class="built-in-link" href="\/en\/guides\/mac-dictation">Comparison with sources<\/a>/);
   // The English ad group buys `speech to text` and `voice to text`.
   assert.match(enHtml, /<title>[^<]*Speech to text for Mac[^<]*<\/title>/);
@@ -191,7 +191,7 @@ test("renders the Russian and Ukrainian variants with their own languages and re
   assert.equal(ruResponse.status, 200);
   assert.match(ruHtml, /<html lang="ru">/i);
   assert.match(ruHtml, /Диктуй, а не печатай/);
-  assert.match(ruHtml, /Сомнительные числа и имена отмечены/);
+  assert.match(ruHtml, /И подсказка, где стоит перепроверить/);
   assert.match(ruHtml, /14 000 €/);
   // The Russian page leads with the language its reader actually speaks, ticked.
   assert.match(ruHtml, /class="active">Русский/);
@@ -201,7 +201,7 @@ test("renders the Russian and Ukrainian variants with their own languages and re
   assert.equal(ukResponse.status, 200);
   assert.match(ukHtml, /<html lang="uk">/i);
   assert.match(ukHtml, /Диктуй, а не друкуй/);
-  assert.match(ukHtml, /Сумнівні числа й імена позначені/);
+  assert.match(ukHtml, /І підказка, де варто перевірити/);
   assert.match(ukHtml, /class="active">Українська/);
   assert.match(ukHtml, /href="\/danke\?lang=uk&amp;download=auto"/i);
 
