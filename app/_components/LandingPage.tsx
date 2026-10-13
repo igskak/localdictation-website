@@ -5,6 +5,7 @@ import { consentCopy } from "../_data/consentCopy";
 import { analyticsEnabled, getAnalyticsConfig } from "../_lib/analytics";
 import { ConsentReopenLink } from "./ConsentGate";
 import { PartnerOffer, PartnerPrice } from "./PartnerOffer";
+import { TryableDemo } from "./TryableDemo";
 import { localeHome, localeLabels, locales, type Locale } from "../_lib/locale";
 import { legalLocale, legalPaths } from "../_lib/legal";
 import { comparisonSlugs, comparisons, englishComparisonSlugs, englishComparisons } from "../_data/comparisons";
@@ -120,6 +121,9 @@ export function LandingPage({ locale }: { locale: Locale }) {
   // `capture_pageview: "history_change"` in `_lib/posthog.ts` is the other half:
   // without it these navigations report nothing at all.
   const downloadHref = locale === "de" ? "/danke?download=auto" : `/danke?lang=${locale}&download=auto`;
+  // The sourced comparison with the built-in dictation, behind the hero's
+  // answer to it. Only German and English have one.
+  const builtInHref = locale === "de" ? comparisons["mac-diktierfunktion"].path : locale === "en" ? englishComparisons["mac-dictation"].path : undefined;
 
   const softwareSchema = {
     "@context": "https://schema.org",
@@ -185,7 +189,10 @@ export function LandingPage({ locale }: { locale: Locale }) {
             <div className="eyebrow"><span className="status-dot" />{c.hero.eyebrow}</div>
             <h1>{c.hero.title} <span>{c.hero.titleMuted}</span></h1>
             <p className="hero-lede">{c.hero.lede}</p>
-            <p className="audience-line">{c.hero.audience}</p>
+            <p className="audience-line">
+              {c.hero.builtIn}
+              {c.hero.builtInLink && builtInHref && <> <a className="built-in-link" href={builtInHref}>{c.hero.builtInLink}</a></>}
+            </p>
             <div className="hero-actions">
               <Link className="button button-primary" href={downloadHref} data-cta="hero">
                 <span className="download-symbol" aria-hidden="true">↓</span>{c.hero.download}
@@ -196,7 +203,9 @@ export function LandingPage({ locale }: { locale: Locale }) {
             </p>
             <PartnerOffer locale={locale} />
           </div>
-          <ProductDemo locale={locale} />
+          <TryableDemo hint={c.demo.tryHint} cta={c.hero.download} href={downloadHref}>
+            <ProductDemo locale={locale} />
+          </TryableDemo>
         </section>
 
         <aside className="trust-strip" id="vertrauen" data-section="S2" aria-label={c.ui.promises}>

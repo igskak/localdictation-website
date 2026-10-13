@@ -2,14 +2,23 @@ import type { Locale } from "../_lib/locale";
 
 export type LandingCopy = {
   nav: { label: string; href: string }[];
-  hero: { eyebrow: string; title: string; titleMuted: string; lede: string; audience: string; download: string; fine: string[] };
-  trust: string[];
+  hero: {
+    eyebrow: string; title: string; titleMuted: string; lede: string;
+    // The answer to "why not the Mac's own dictation", which most ad visitors
+    // already have. builtInLink labels the sourced comparison; ru and uk have
+    // no such page, so they carry no link.
+    builtIn: string; builtInLink?: string;
+    download: string; fine: string[];
+  };
   demo: {
     windowTitle: string; send: string; to: string; toValue: string; subject: string; subjectValue: string;
     greeting: string; before: string; middle: string; after: string; amount: string;
     rawLabel: string; rawBefore: string; rawMiddle: string;
     state: string; checks: string; riskLabel: string; play: string; stageNote: string; prototypeNote: string;
+    // Shown after a click on the hero animation, which readers take for the app.
+    tryHint: string;
   };
+  trust: string[];
   process: { kicker: string; title: string; lede: string; steps: { number: string; title: string; body: string }[]; link: string };
   verification: { kicker: string; title: string; lede: string; body: string; points: string[] };
   privacy: {
@@ -47,9 +56,10 @@ const de: LandingCopy = {
   hero: {
     eyebrow: "Diktier-App für den Mac · Sprache zu Text, lokal",
     title: "Diktieren statt tippen.",
-    titleMuted: "Alles bleibt auf deinem Mac.",
-    lede: "Drück den Hotkey, sprich. Nach einer kurzen Prüfung landet der fertige Text dort, wo dein Cursor steht. Ohne Cloud-Verarbeitung, ohne Benutzerkonto, einmal zahlen statt monatlich.",
-    audience: "Für alle, die mehr als eine Sprache benutzen und sie in einem Satz mischen.",
+    titleMuted: "Zahlen und Namen vorher geprüft.",
+    lede: "Drück ⌥ Space und sprich, gern Deutsch und Englisch gemischt. Witness setzt den Text am Cursor ein und zeigt dir vorher Beträge, Daten, Namen und Verneinungen. Alles läuft auf deinem Mac.",
+    builtIn: "Und die Diktierfunktion vom Mac? Sie unterstreicht nicht eindeutige Wörter erst im fertigen Text, die Sprache wechselst du per Globus-Taste.",
+    builtInLink: "Vergleich mit Quellen",
     download: "Für Mac kostenlos testen",
     fine: ["13 Tage voller Funktionsumfang", "3 Tage ohne E-Mail, dann Schlüssel per Mail", "Apple Silicon", "macOS 14.4+", "keine Kreditkarte"],
   },
@@ -60,6 +70,7 @@ const de: LandingCopy = {
     rawLabel: "Roh-Transkript · vor der Einfügung", rawBefore: "Review mit ", rawMiddle: " · Budget ",
     state: "Diktat prüfen", checks: "Stellen", riskLabel: "Bitte prüfen", play: "Original anhören",
     stageNote: "UI-Prototyp · drücken, sprechen, einsetzen",
+    tryHint: "Das ist eine Animation. Ausprobieren kannst du es in der App, 13 Tage kostenlos.",
     prototypeNote: "Animierte Darstellung der Oberfläche · keine Bildschirmaufnahme des Programms",
   },
   process: {
@@ -197,9 +208,10 @@ const en: LandingCopy = {
   hero: {
     eyebrow: "Voice to text app for Mac · runs offline",
     title: "Dictate instead of typing.",
-    titleMuted: "Everything stays on your Mac.",
-    lede: "Press the hotkey and speak. After a quick check, finished text appears exactly where your cursor is. No cloud processing, no user account, and a one-time purchase instead of another monthly bill.",
-    audience: "For people who use more than one language and mix them in the same sentence.",
+    titleMuted: "Numbers and names checked first.",
+    lede: "Press ⌥ Space and speak, English and German mixed if you like. Witness puts the text at your cursor and first shows you amounts, dates, names and negations. Everything runs on your Mac.",
+    builtIn: "What about the Mac's built-in dictation? It underlines ambiguous words only once they are in your text, and you switch languages with the Globe key.",
+    builtInLink: "Comparison with sources",
     download: "Try free on your Mac",
     fine: ["13-day full trial", "3 days without an email, then a key by mail", "Apple silicon", "macOS 14.4+", "no credit card"],
   },
@@ -210,6 +222,7 @@ const en: LandingCopy = {
     rawLabel: "Raw transcript · before insertion", rawBefore: "Review with ", rawMiddle: " · budget ",
     state: "Review dictation", checks: "checks", riskLabel: "Check this", play: "Play original",
     stageNote: "UI prototype · press, speak, insert",
+    tryHint: "This is an animation. You can try the real thing in the app, free for 13 days.",
     prototypeNote: "Animated illustration of the interface · not a screen capture of the app",
   },
   process: {
@@ -347,9 +360,9 @@ const ru: LandingCopy = {
   hero: {
     eyebrow: "Локальная диктовка для macOS",
     title: "Диктуй, а не печатай.",
-    titleMuted: "Всё остаётся на твоём Mac.",
-    lede: "Нажми хоткей и говори. После короткой проверки готовый текст появится там, где стоит курсор. Без обработки в облаке, без аккаунта, платишь один раз вместо ежемесячной подписки.",
-    audience: "Для тех, кто использует больше одного языка и мешает их в одном предложении.",
+    titleMuted: "Числа и имена проверены заранее.",
+    lede: "Нажми ⌥ Space и говори, можно вперемешку с английским. Witness вставит текст у курсора и перед этим покажет суммы, даты, имена и отрицания. Всё работает на твоём Mac.",
+    builtIn: "А встроенная диктовка Mac? Она подчёркивает неоднозначные слова только в готовом тексте, а язык переключается клавишей Globe.",
     download: "Скачать для Mac",
     fine: ["13 дней полной версии", "3 дня без почты, потом ключ на почту", "Apple Silicon", "macOS 14.4+", "без карты"],
   },
@@ -360,6 +373,7 @@ const ru: LandingCopy = {
     rawLabel: "Исходный транскрипт · до вставки", rawBefore: "Ревью с ", rawMiddle: " · бюджет ",
     state: "Проверь диктовку", checks: "места", riskLabel: "Проверь это", play: "Прослушать оригинал",
     stageNote: "Прототип интерфейса · нажми, скажи, вставь",
+    tryHint: "Это анимация. Попробовать по-настоящему можно в приложении, 13 дней бесплатно.",
     prototypeNote: "Анимированная иллюстрация интерфейса · не запись экрана программы",
   },
   process: {
@@ -497,9 +511,9 @@ const uk: LandingCopy = {
   hero: {
     eyebrow: "Локальне диктування для macOS",
     title: "Диктуй, а не друкуй.",
-    titleMuted: "Усе лишається на твоєму Mac.",
-    lede: "Натисни гарячу клавішу й говори. Після короткої перевірки готовий текст з'явиться там, де стоїть курсор. Без обробки в хмарі, без облікового запису, платиш один раз замість щомісячної підписки.",
-    audience: "Для тих, хто використовує більше ніж одну мову і змішує їх в одному реченні.",
+    titleMuted: "Числа й імена перевірені заздалегідь.",
+    lede: "Натисни ⌥ Space і говори, можна впереміш з англійською. Witness вставить текст біля курсора і перед цим покаже суми, дати, імена й заперечення. Усе працює на твоєму Mac.",
+    builtIn: "А вбудоване диктування Mac? Воно підкреслює неоднозначні слова лише в готовому тексті, а мову перемикаєш клавішею Globe.",
     download: "Завантажити для Mac",
     fine: ["13 днів повної версії", "3 дні без пошти, потім ключ на пошту", "Apple Silicon", "macOS 14.4+", "без картки"],
   },
@@ -510,6 +524,7 @@ const uk: LandingCopy = {
     rawLabel: "Вихідний транскрипт · до вставлення", rawBefore: "Рев'ю з ", rawMiddle: " · бюджет ",
     state: "Перевір диктування", checks: "місця", riskLabel: "Перевір це", play: "Прослухати оригінал",
     stageNote: "Прототип інтерфейсу · натисни, скажи, встав",
+    tryHint: "Це анімація. Спробувати по-справжньому можна в застосунку, 13 днів безкоштовно.",
     prototypeNote: "Анімована ілюстрація інтерфейсу · не запис екрана програми",
   },
   process: {

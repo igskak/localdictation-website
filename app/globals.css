@@ -432,6 +432,34 @@ h1 span { color: #95958e; }
   text-align: left;
 }
 
+.demo-tryable { position: relative; cursor: pointer; }
+.demo-try-hint {
+  position: absolute;
+  left: 50%;
+  bottom: 28px;
+  z-index: 3;
+  width: min(440px, calc(100% - 24px));
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+  margin: 0;
+  padding: 14px 16px;
+  border: 1px solid var(--line-strong);
+  border-radius: 14px;
+  background: var(--canvas);
+  box-shadow: var(--shadow);
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.45;
+  transform: translateX(-50%);
+  cursor: default;
+}
+.demo-try-hint a { color: var(--accent); font-weight: 600; white-space: nowrap; }
+.demo-try-hint a:hover { color: var(--ink); }
+.built-in-link { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
+.built-in-link:hover { color: var(--accent); }
+
 .stage-note {
   position: absolute;
   bottom: 0;

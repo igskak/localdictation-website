@@ -55,8 +55,10 @@ test("renders the complete German landing page in the required order", async () 
   assert.equal(response.headers.get("strict-transport-security"), "max-age=31536000");
   assert.equal(response.headers.get("permissions-policy"), "camera=(), geolocation=(), microphone=()");
   assert.match(html, /Diktieren statt tippen/);
-  assert.match(html, /Alles bleibt auf deinem Mac/);
-  assert.match(html, /Für alle, die mehr als eine Sprache benutzen/);
+  assert.match(html, /Zahlen und Namen vorher geprüft/);
+  // Most ad visitors searched for the built-in "Diktierfunktion". The hero has
+  // to answer it, and point at the comparison that carries the sources.
+  assert.match(html, /Und die Diktierfunktion vom Mac\?/);
   assert.match(html, /€99/);
   assert.match(html, /€49/);
   // The annual price also as a monthly figure: €49 / 12, never rounded down.
@@ -76,6 +78,11 @@ test("renders the complete German landing page in the required order", async () 
   // The campaign buys `spracherkennung` and `sprache zu text`; the page has to say both.
   assert.match(html, /<title>[^<]*Spracherkennung für den Mac[^<]*<\/title>/);
   assert.match(hero, /Sprache zu Text/);
+  assert.match(hero, /<a class="built-in-link" href="\/vergleich\/mac-diktierfunktion">Vergleich mit Quellen<\/a>/);
+  // The animation answers a click; the hint with its download link is only
+  // rendered after one, so the hero still ships a single button.
+  assert.match(hero, /class="demo-tryable"/);
+  assert.doesNotMatch(hero, /demo-try-hint/);
   assert.match(html, /nicht öffentlich dokumentiert/);
   assert.match(html, /Die vollständige Datenschutzerklärung lesen/);
   assert.match(html, /UI-Prototyp/);
@@ -160,7 +167,8 @@ test("renders the English variant and reciprocal language links", async () => {
   assert.equal(enResponse.status, 200);
   assert.match(enHtml, /<html lang="en">/i);
   assert.match(enHtml, /Dictate instead of typing/);
-  assert.match(enHtml, /Everything stays on your Mac/);
+  assert.match(enHtml, /Numbers and names checked first/);
+  assert.match(enHtml, /<a class="built-in-link" href="\/en\/guides\/mac-dictation">Comparison with sources<\/a>/);
   // The English ad group buys `speech to text` and `voice to text`.
   assert.match(enHtml, /<title>[^<]*Speech to text for Mac[^<]*<\/title>/);
   assert.match(enHtml, /Voice to text app for Mac/);
@@ -183,7 +191,7 @@ test("renders the Russian and Ukrainian variants with their own languages and re
   assert.equal(ruResponse.status, 200);
   assert.match(ruHtml, /<html lang="ru">/i);
   assert.match(ruHtml, /Диктуй, а не печатай/);
-  assert.match(ruHtml, /Всё остаётся на твоём Mac/);
+  assert.match(ruHtml, /Числа и имена проверены заранее/);
   assert.match(ruHtml, /14 000 €/);
   // The Russian page leads with the language its reader actually speaks, ticked.
   assert.match(ruHtml, /class="active">Русский/);
@@ -193,7 +201,7 @@ test("renders the Russian and Ukrainian variants with their own languages and re
   assert.equal(ukResponse.status, 200);
   assert.match(ukHtml, /<html lang="uk">/i);
   assert.match(ukHtml, /Диктуй, а не друкуй/);
-  assert.match(ukHtml, /Усе лишається на твоєму Mac/);
+  assert.match(ukHtml, /Числа й імена перевірені заздалегідь/);
   assert.match(ukHtml, /class="active">Українська/);
   assert.match(ukHtml, /href="\/danke\?lang=uk&amp;download=auto"/i);
 
