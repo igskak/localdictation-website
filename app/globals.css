@@ -482,21 +482,23 @@ h1 span { color: #95958e; }
 
 @keyframes blink { 50% { opacity: 0; } }
 @keyframes pulse { to { transform: scaleY(0.55); opacity: 0.55; } }
+/* Insertion first, review after: the app no longer waits for a check before
+   it inserts, so neither does the picture of it. */
 @keyframes demo-review-bar {
-  0%, 12%, 86%, 100% { opacity: 0; }
-  18%, 80% { opacity: 1; }
+  0%, 30%, 92%, 100% { opacity: 0; }
+  36%, 88% { opacity: 1; }
 }
 @keyframes demo-risk-popover {
-  0%, 32%, 80%, 100% { opacity: 0; }
-  38%, 74% { opacity: 1; }
+  0%, 46%, 88%, 100% { opacity: 0; }
+  52%, 84% { opacity: 1; }
 }
 @keyframes demo-insert-copy {
-  0%, 82%, 100% { opacity: 0; }
-  87%, 96% { opacity: 1; }
+  0%, 8%, 100% { opacity: 0; }
+  14%, 96% { opacity: 1; }
 }
 @keyframes demo-audio-play {
-  0%, 48%, 60%, 100% { transform: scale(1); }
-  52%, 56% { transform: scale(1.35); }
+  0%, 62%, 74%, 100% { transform: scale(1); }
+  66%, 70% { transform: scale(1.35); }
 }
 
 @media (max-width: 1050px) {

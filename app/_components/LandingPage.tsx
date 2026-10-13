@@ -84,7 +84,6 @@ function ProductDemo({ locale, expanded = false }: { locale: Locale; expanded?: 
         </div>
         <Waveform />
         <div className="risk-count"><b>2</b> {d.checks}</div>
-        <span className="confirm-button" aria-hidden="true">↵</span>
       </div>
 
       <div className="risk-popover" aria-hidden="true">
@@ -268,7 +267,7 @@ export function LandingPage({ locale }: { locale: Locale }) {
             {c.process.steps.map((step) => (
               <article className="step" key={step.number}>
                 <span className="step-number">{step.number}</span>
-                <div className="step-icon" aria-hidden="true">{step.number === "01" ? "⌥" : step.number === "02" ? <Waveform compact /> : step.number === "03" ? "!" : "↵"}</div>
+                <div className="step-icon" aria-hidden="true">{step.number === "01" ? "⌥" : step.number === "02" ? <Waveform compact /> : step.number === "03" ? "↵" : "!"}</div>
                 <h3>{step.title}</h3>
                 <p>{step.body}</p>
               </article>
