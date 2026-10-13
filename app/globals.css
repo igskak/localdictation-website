@@ -1614,3 +1614,309 @@ body { padding-bottom: var(--consent-height, 0px); }
   color: var(--accent);
   font-size: 13px;
 }
+
+/* Hero animation (HeroDemo): a 15 s loop.
+    4-7%  the speaking card appears
+    9-46% the words arrive, the mouth moves
+   46-57% the interjections are struck and removed, the next word is capitalized
+   60-66% the card leaves, the clean sentence lands in the mail
+   68-94% a marker, then the spot with "listen to the original"
+   The jaw and mouth keyframes were generated once: one syllable per pair of
+   stops, still from 47% to the end of the loop. */
+.hero-demo .hd-card {
+  position: absolute;
+  left: 50%;
+  bottom: 52px;
+  z-index: 2;
+  width: min(94%, 560px);
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px 12px 6px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 18px;
+  background: rgba(26, 27, 24, 0.96);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(22px);
+  transform: translateX(-50%);
+  opacity: 0;
+  animation: hd-card 15s ease-in-out infinite both;
+}
+.hd-face {
+  width: 96px;
+  height: 138px;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 16%, #000 84%, transparent);
+  mask-image: linear-gradient(to bottom, transparent, #000 16%, #000 84%, transparent);
+}
+.hd-line { fill: none; stroke: #e9e8e1; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.hd-gap { fill: #1b0d0a; transform-box: fill-box; transform-origin: center top; animation: hd-gap 15s linear infinite both; }
+.hd-jaw { transform-box: view-box; transform-origin: 24px 96px; animation: hd-jaw 15s ease-in-out infinite both; }
+.hd-waves { opacity: 0; animation: hd-waves 15s linear infinite both; }
+.hd-waves path {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: left center;
+  animation: hd-wave 1.2s ease-out infinite;
+}
+.hd-waves path:nth-child(2) { animation-delay: 0.4s; }
+.hd-waves path:nth-child(3) { animation-delay: 0.8s; }
+.hd-speech .recording-state { margin-bottom: 8px; }
+.hd-spoken { margin: 0; color: #e4e3dc; font-size: 16px; line-height: 1.55; }
+.hd-word {
+  display: inline-block;
+  margin-right: 0.28em;
+  opacity: 0;
+  animation: hd-word 15s ease-out infinite both;
+  animation-delay: calc(var(--i) * 0.3s);
+}
+.hd-filler { margin-right: 0; color: #9c9d96; font-style: italic; }
+.hd-filler-text {
+  position: relative;
+  display: inline-block;
+  max-width: 5em;
+  padding-right: 0.28em;
+  overflow: hidden;
+  vertical-align: bottom;
+  white-space: nowrap;
+  animation: hd-collapse 15s ease-in-out infinite both;
+}
+.hd-filler-text::after {
+  content: "";
+  position: absolute;
+  top: 52%;
+  left: -1px;
+  height: 2.5px;
+  border-radius: 2px;
+  box-shadow: 0 0 8px rgba(255, 104, 70, 0.6);
+  background: var(--accent);
+  animation: hd-strike 15s ease-in-out infinite both;
+}
+.hd-cap { display: inline-grid; }
+.hd-low, .hd-up { grid-area: 1 / 1; }
+.hd-low { animation: hd-low 15s ease-in-out infinite both; }
+.hd-up { opacity: 0; color: #ff9a82; animation: hd-up 15s ease-in-out infinite both; }
+.hd-clean { opacity: 0; animation: hd-clean 15s ease-out infinite both; }
+.hd-risk { margin: 0 -3px; padding: 1px 3px; border-radius: 4px; animation: hd-risk 15s ease-in-out infinite both; }
+.hd-chip {
+  position: absolute;
+  top: 64px;
+  right: 22px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 11px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  background: rgba(36, 37, 33, 0.97);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.45);
+  color: #d5d4ce;
+  font-size: 11px;
+  opacity: 0;
+  animation: hd-chip 15s ease-in-out infinite both;
+}
+.hd-chip b { color: var(--accent); font-size: 9px; }
+.hero-demo .hd-pop { top: 352px; right: 34px; opacity: 0; animation: hd-pop 15s ease-in-out infinite both; }
+.hero-demo .hd-pop .listen-control > span { animation: hd-play 15s ease-in-out infinite both; }
+
+@keyframes hd-card {
+  0%, 4% { opacity: 0; transform: translateX(-50%) translateY(10px); }
+  7%, 60% { opacity: 1; transform: translateX(-50%) translateY(0); }
+  63%, 100% { opacity: 0; transform: translateX(-50%) translateY(10px); }
+}
+@keyframes hd-word {
+  0%, 8% { opacity: 0; transform: translateY(5px); }
+  10%, 63% { opacity: 1; transform: none; }
+  65%, 100% { opacity: 0; transform: none; }
+}
+@keyframes hd-waves { 0%, 8.5% { opacity: 0; } 10%, 45% { opacity: 1; } 47%, 100% { opacity: 0; } }
+@keyframes hd-wave {
+  0% { opacity: 0; transform: translateX(-4px) scale(0.8); }
+  30% { opacity: 0.9; }
+  100% { opacity: 0; transform: translateX(10px) scale(1.15); }
+}
+@keyframes hd-strike { 0%, 46% { width: 0; } 49%, 100% { width: calc(100% - 0.28em + 2px); } }
+@keyframes hd-collapse {
+  0%, 52% { max-width: 5em; padding-right: 0.28em; opacity: 1; }
+  56%, 100% { max-width: 0; padding-right: 0; opacity: 0; }
+}
+@keyframes hd-low { 0%, 55% { opacity: 1; } 57%, 100% { opacity: 0; } }
+@keyframes hd-up { 0%, 55% { opacity: 0; } 57%, 100% { opacity: 1; } }
+@keyframes hd-clean {
+  0%, 62% { opacity: 0; transform: translateY(8px); }
+  66%, 94% { opacity: 1; transform: none; }
+  97%, 100% { opacity: 0; transform: none; }
+}
+@keyframes hd-risk {
+  0%, 70% { background: transparent; color: inherit; box-shadow: none; }
+  73%, 100% { background: var(--accent-soft); color: #ff9a82; box-shadow: inset 0 -1px 0 var(--accent); }
+}
+@keyframes hd-chip {
+  0%, 67% { opacity: 0; transform: translateY(-6px); }
+  70%, 94% { opacity: 1; transform: none; }
+  97%, 100% { opacity: 0; transform: none; }
+}
+@keyframes hd-pop { 0%, 75% { opacity: 0; } 78%, 94% { opacity: 1; } 97%, 100% { opacity: 0; } }
+@keyframes hd-play { 0%, 83%, 89%, 100% { transform: scale(1); } 85%, 87% { transform: scale(1.35); } }
+@keyframes hd-jaw {
+  0%, 8.5% { transform: rotate(0deg); }
+  9.0% { transform: rotate(4.3deg); }
+  9.5% { transform: rotate(0.9deg); }
+  10.0% { transform: rotate(5.1deg); }
+  10.6% { transform: rotate(0.1deg); }
+  11.1% { transform: rotate(3.1deg); }
+  11.7% { transform: rotate(0.1deg); }
+  12.2% { transform: rotate(4.7deg); }
+  12.8% { transform: rotate(0.2deg); }
+  13.3% { transform: rotate(5.5deg); }
+  14.0% { transform: rotate(0.8deg); }
+  14.6% { transform: rotate(6.9deg); }
+  15.1% { transform: rotate(1.2deg); }
+  15.6% { transform: rotate(3.6deg); }
+  16.1% { transform: rotate(0.4deg); }
+  16.7% { transform: rotate(3.7deg); }
+  17.3% { transform: rotate(0.9deg); }
+  17.8% { transform: rotate(5.2deg); }
+  18.4% { transform: rotate(0.1deg); }
+  18.8% { transform: rotate(5.7deg); }
+  19.4% { transform: rotate(0.4deg); }
+  20.0% { transform: rotate(4.8deg); }
+  20.6% { transform: rotate(1.1deg); }
+  21.1% { transform: rotate(4.0deg); }
+  21.8% { transform: rotate(0.7deg); }
+  22.4% { transform: rotate(5.9deg); }
+  22.9% { transform: rotate(1.4deg); }
+  23.4% { transform: rotate(4.7deg); }
+  24.1% { transform: rotate(0.2deg); }
+  24.6% { transform: rotate(3.2deg); }
+  25.2% { transform: rotate(1.1deg); }
+  25.8% { transform: rotate(6.5deg); }
+  26.4% { transform: rotate(1.0deg); }
+  26.9% { transform: rotate(5.3deg); }
+  27.5% { transform: rotate(1.2deg); }
+  28.2% { transform: rotate(4.9deg); }
+  28.8% { transform: rotate(0.1deg); }
+  29.4% { transform: rotate(5.6deg); }
+  30.1% { transform: rotate(1.2deg); }
+  30.6% { transform: rotate(4.5deg); }
+  31.2% { transform: rotate(0.0deg); }
+  31.8% { transform: rotate(3.7deg); }
+  32.3% { transform: rotate(0.1deg); }
+  32.9% { transform: rotate(3.5deg); }
+  33.4% { transform: rotate(0.5deg); }
+  34.1% { transform: rotate(3.3deg); }
+  34.6% { transform: rotate(0.8deg); }
+  35.3% { transform: rotate(6.3deg); }
+  35.9% { transform: rotate(0.4deg); }
+  36.5% { transform: rotate(4.4deg); }
+  37.2% { transform: rotate(1.3deg); }
+  37.6% { transform: rotate(3.7deg); }
+  38.2% { transform: rotate(0.3deg); }
+  38.7% { transform: rotate(5.4deg); }
+  39.3% { transform: rotate(0.0deg); }
+  39.8% { transform: rotate(4.5deg); }
+  40.4% { transform: rotate(1.3deg); }
+  41.0% { transform: rotate(5.1deg); }
+  41.6% { transform: rotate(0.9deg); }
+  42.1% { transform: rotate(6.6deg); }
+  42.8% { transform: rotate(1.2deg); }
+  43.4% { transform: rotate(4.6deg); }
+  43.9% { transform: rotate(0.1deg); }
+  44.5% { transform: rotate(3.2deg); }
+  45.0% { transform: rotate(0.3deg); }
+  45.5% { transform: rotate(4.4deg); }
+  46.0% { transform: rotate(0.0deg); }
+  47%, 100% { transform: rotate(0deg); }
+}
+@keyframes hd-gap {
+  0%, 8.5% { transform: scaleY(0.3); }
+  9.0% { transform: scaleY(2.24); }
+  9.5% { transform: scaleY(0.6); }
+  10.0% { transform: scaleY(2.49); }
+  10.6% { transform: scaleY(0.33); }
+  11.1% { transform: scaleY(1.87); }
+  11.7% { transform: scaleY(0.33); }
+  12.2% { transform: scaleY(2.37); }
+  12.8% { transform: scaleY(0.37); }
+  13.3% { transform: scaleY(2.62); }
+  14.0% { transform: scaleY(0.57); }
+  14.6% { transform: scaleY(3.06); }
+  15.1% { transform: scaleY(0.7); }
+  15.6% { transform: scaleY(2.02); }
+  16.1% { transform: scaleY(0.43); }
+  16.7% { transform: scaleY(2.06); }
+  17.3% { transform: scaleY(0.6); }
+  17.8% { transform: scaleY(2.52); }
+  18.4% { transform: scaleY(0.33); }
+  18.8% { transform: scaleY(2.68); }
+  19.4% { transform: scaleY(0.43); }
+  20.0% { transform: scaleY(2.4); }
+  20.6% { transform: scaleY(0.67); }
+  21.1% { transform: scaleY(2.15); }
+  21.8% { transform: scaleY(0.53); }
+  22.4% { transform: scaleY(2.74); }
+  22.9% { transform: scaleY(0.77); }
+  23.4% { transform: scaleY(2.37); }
+  24.1% { transform: scaleY(0.37); }
+  24.6% { transform: scaleY(1.9); }
+  25.2% { transform: scaleY(0.67); }
+  25.8% { transform: scaleY(2.93); }
+  26.4% { transform: scaleY(0.63); }
+  26.9% { transform: scaleY(2.56); }
+  27.5% { transform: scaleY(0.7); }
+  28.2% { transform: scaleY(2.43); }
+  28.8% { transform: scaleY(0.33); }
+  29.4% { transform: scaleY(2.65); }
+  30.1% { transform: scaleY(0.7); }
+  30.6% { transform: scaleY(2.31); }
+  31.2% { transform: scaleY(0.3); }
+  31.8% { transform: scaleY(2.06); }
+  32.3% { transform: scaleY(0.33); }
+  32.9% { transform: scaleY(1.99); }
+  33.4% { transform: scaleY(0.47); }
+  34.1% { transform: scaleY(1.93); }
+  34.6% { transform: scaleY(0.57); }
+  35.3% { transform: scaleY(2.87); }
+  35.9% { transform: scaleY(0.43); }
+  36.5% { transform: scaleY(2.27); }
+  37.2% { transform: scaleY(0.73); }
+  37.6% { transform: scaleY(2.06); }
+  38.2% { transform: scaleY(0.4); }
+  38.7% { transform: scaleY(2.59); }
+  39.3% { transform: scaleY(0.3); }
+  39.8% { transform: scaleY(2.31); }
+  40.4% { transform: scaleY(0.73); }
+  41.0% { transform: scaleY(2.49); }
+  41.6% { transform: scaleY(0.6); }
+  42.1% { transform: scaleY(2.96); }
+  42.8% { transform: scaleY(0.7); }
+  43.4% { transform: scaleY(2.34); }
+  43.9% { transform: scaleY(0.33); }
+  44.5% { transform: scaleY(1.9); }
+  45.0% { transform: scaleY(0.4); }
+  45.5% { transform: scaleY(2.27); }
+  46.0% { transform: scaleY(0.3); }
+  47%, 100% { transform: scaleY(0.3); }
+}
+
+@media (max-width: 700px) {
+  .hero-demo .hd-card { bottom: 44px; width: 96%; grid-template-columns: 66px 1fr; gap: 8px; padding: 10px 12px 10px 2px; }
+  .hd-face { width: 66px; height: 95px; }
+  .hd-spoken { font-size: 13px; }
+  .hd-chip { top: 8px; right: 12px; font-size: 10px; }
+  .hero-demo .hd-pop { top: 280px; right: 8px; }
+}
+
+/* Still: the end state, sentence in the mail, marker and spot shown. */
+@media (prefers-reduced-motion: reduce) {
+  .hero-demo, .hero-demo * { animation: none !important; }
+  .hero-demo .hd-card { display: none; }
+  .hero-demo .hd-clean, .hero-demo .hd-chip, .hero-demo .hd-pop { opacity: 1; }
+  .hero-demo .hd-risk { background: var(--accent-soft); color: #ff9a82; box-shadow: inset 0 -1px 0 var(--accent); }
+}

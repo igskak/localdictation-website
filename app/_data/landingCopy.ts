@@ -1,5 +1,7 @@
 import type { Locale } from "../_lib/locale";
 
+export type SpokenToken = { text: string; filler?: boolean; cap?: string; risk?: boolean };
+
 export type LandingCopy = {
   nav: { label: string; href: string }[];
   hero: {
@@ -17,6 +19,12 @@ export type LandingCopy = {
     state: string; checks: string; riskLabel: string; play: string; stageNote: string; prototypeNote: string;
     // Shown after a click on the hero animation, which readers take for the app.
     tryHint: string;
+    // The hero animation (HeroDemo): a spoken sentence, cleaned, in a mail.
+    // `filler` must be a word ConservativeCleanupService removes in that
+    // language; `cap` is the word after cleanup capitalized it. One `risk`
+    // token is the example spot the marker points at.
+    heroSubject: string; listening: string; chip: string;
+    spoken: SpokenToken[];
   };
   trust: string[];
   process: { kicker: string; title: string; lede: string; steps: { number: string; title: string; body: string }[]; link: string };
@@ -71,6 +79,26 @@ const de: LandingCopy = {
     state: "Diktat prüfen", checks: "Stellen", riskLabel: "Bitte prüfen", play: "Original anhören",
     stageNote: "UI-Prototyp · drücken, sprechen, einsetzen",
     tryHint: "Das ist eine Animation. Ausprobieren kannst du es in der App, 13 Tage kostenlos.",
+    heroSubject: "Kurzes Update", listening: "Witness hört zu", chip: "Eine Stelle ansehen",
+    spoken: [
+      { text: "Ähm", filler: true },
+      { text: "kurzes", cap: "Kurzes" },
+      { text: "Update" },
+      { text: "aus" },
+      { text: "dem" },
+      { text: "Call." },
+      { text: "Äh", filler: true },
+      { text: "das", cap: "Das" },
+      { text: "Meeting" },
+      { text: "am" },
+      { text: "Donnerstag", risk: true },
+      { text: "hätte" },
+      { text: "auch" },
+      { text: "eine" },
+      { text: "Mail" },
+      { text: "sein" },
+      { text: "können." },
+    ],
     prototypeNote: "Animierte Darstellung der Oberfläche · keine Bildschirmaufnahme des Programms",
   },
   process: {
@@ -223,6 +251,23 @@ const en: LandingCopy = {
     state: "Review dictation", checks: "checks", riskLabel: "Check this", play: "Play original",
     stageNote: "UI prototype · press, speak, insert",
     tryHint: "This is an animation. You can try the real thing in the app, free for 13 days.",
+    heroSubject: "Quick update", listening: "Witness is listening", chip: "One spot worth a look",
+    spoken: [
+      { text: "Um", filler: true },
+      { text: "quick", cap: "Quick" },
+      { text: "update" },
+      { text: "from" },
+      { text: "the" },
+      { text: "call." },
+      { text: "Uh", filler: true },
+      { text: "Thursday's", risk: true },
+      { text: "meeting" },
+      { text: "could" },
+      { text: "have" },
+      { text: "been" },
+      { text: "an" },
+      { text: "email." },
+    ],
     prototypeNote: "Animated illustration of the interface · not a screen capture of the app",
   },
   process: {
@@ -374,6 +419,22 @@ const ru: LandingCopy = {
     state: "Проверь диктовку", checks: "места", riskLabel: "Проверь это", play: "Прослушать оригинал",
     stageNote: "Прототип интерфейса · нажми, скажи, вставь",
     tryHint: "Это анимация. Попробовать по-настоящему можно в приложении, 13 дней бесплатно.",
+    heroSubject: "Короткий апдейт", listening: "Witness слушает", chip: "Есть место для проверки",
+    spoken: [
+      { text: "Эм", filler: true },
+      { text: "короткий", cap: "Короткий" },
+      { text: "апдейт" },
+      { text: "после" },
+      { text: "созвона." },
+      { text: "Ээ", filler: true },
+      { text: "эта", cap: "Эта" },
+      { text: "встреча" },
+      { text: "в" },
+      { text: "четверг", risk: true },
+      { text: "могла" },
+      { text: "быть" },
+      { text: "письмом." },
+    ],
     prototypeNote: "Анимированная иллюстрация интерфейса · не запись экрана программы",
   },
   process: {
@@ -525,6 +586,22 @@ const uk: LandingCopy = {
     state: "Перевір диктування", checks: "місця", riskLabel: "Перевір це", play: "Прослухати оригінал",
     stageNote: "Прототип інтерфейсу · натисни, скажи, встав",
     tryHint: "Це анімація. Спробувати по-справжньому можна в застосунку, 13 днів безкоштовно.",
+    heroSubject: "Короткий апдейт", listening: "Witness слухає", chip: "Є місце для перевірки",
+    spoken: [
+      { text: "Ем", filler: true },
+      { text: "короткий", cap: "Короткий" },
+      { text: "апдейт" },
+      { text: "після" },
+      { text: "дзвінка." },
+      { text: "Ее", filler: true },
+      { text: "ця", cap: "Ця" },
+      { text: "зустріч" },
+      { text: "у" },
+      { text: "четвер", risk: true },
+      { text: "могла" },
+      { text: "бути" },
+      { text: "листом." },
+    ],
     prototypeNote: "Анімована ілюстрація інтерфейсу · не запис екрана програми",
   },
   process: {

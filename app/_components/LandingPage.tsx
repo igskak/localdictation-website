@@ -6,6 +6,7 @@ import { analyticsEnabled, getAnalyticsConfig } from "../_lib/analytics";
 import { ConsentReopenLink } from "./ConsentGate";
 import { PartnerOffer, PartnerPrice } from "./PartnerOffer";
 import { TryableDemo } from "./TryableDemo";
+import { HeroDemo } from "./HeroDemo";
 import { localeHome, localeLabels, locales, type Locale } from "../_lib/locale";
 import { legalLocale, legalPaths } from "../_lib/legal";
 import { comparisonSlugs, comparisons, englishComparisonSlugs, englishComparisons } from "../_data/comparisons";
@@ -203,7 +204,7 @@ export function LandingPage({ locale }: { locale: Locale }) {
             <PartnerOffer locale={locale} />
           </div>
           <TryableDemo hint={c.demo.tryHint} cta={c.hero.download} href={downloadHref}>
-            <ProductDemo locale={locale} />
+            <HeroDemo d={c.demo} />
           </TryableDemo>
         </section>
 

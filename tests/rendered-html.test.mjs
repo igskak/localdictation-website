@@ -83,6 +83,10 @@ test("renders the complete German landing page in the required order", async () 
   // rendered after one, so the hero still ships a single button.
   assert.match(hero, /class="demo-tryable"/);
   assert.doesNotMatch(hero, /demo-try-hint/);
+  // The hero animation: a sentence with "ähm", cleaned, written into a mail.
+  // Only the interjections the app's cleanup removes may vanish in it.
+  assert.match(hero, /class="hd-word hd-filler"[^>]*><span class="hd-filler-text">Ähm<\/span>/);
+  assert.match(hero, /class="hd-clean">Kurzes Update aus dem Call\. Das Meeting am <span class="hd-risk">Donnerstag<\/span> hätte auch eine Mail sein können\./);
   assert.match(html, /nicht öffentlich dokumentiert/);
   assert.match(html, /Die vollständige Datenschutzerklärung lesen/);
   assert.match(html, /UI-Prototyp/);
@@ -169,6 +173,7 @@ test("renders the English variant and reciprocal language links", async () => {
   assert.match(enHtml, /Dictate instead of typing/);
   assert.match(enHtml, /With a nudge where a second look pays off/);
   assert.match(enHtml, /<a class="built-in-link" href="\/en\/guides\/mac-dictation">Comparison with sources<\/a>/);
+  assert.match(enHtml, /could have been an email\./);
   // The English ad group buys `speech to text` and `voice to text`.
   assert.match(enHtml, /<title>[^<]*Speech to text for Mac[^<]*<\/title>/);
   assert.match(enHtml, /Voice to text app for Mac/);
