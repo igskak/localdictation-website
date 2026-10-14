@@ -7,19 +7,30 @@ import type { LandingCopy } from "../_data/landingCopy";
  * It shows only what the app does. The raw words appear as spoken, the
  * conservative cleanup removes the interjections it knows ("ähm", "äh") and
  * capitalizes the word that becomes the start of a sentence, the clean text
- * lands at the cursor, and only after that does a marker say one spot is
- * worth a look. No rewording, no merged corrections: the app does neither
+ * lands at the cursor with nothing highlighted in it, and only then does the
+ * Witness icon in the menu bar get its triangle. A click on it opens the menu
+ * ("Prüfung empfohlen", "1 markiertes Fragment prüfen"), and a click on that
+ * opens the review panel, where the spot is marked and can be played back.
+ * Those labels are the app's own strings. No rewording, no merged
+ * corrections: the app does neither
  * (`ConservativeCleanupService`, `TextEdit.Kind` has four kinds), so the
  * picture of it does not either. Which spot gets marked is an example, not
  * a rule; what Witness marks stays unexplained on purpose.
  *
- * Pure CSS on a 15 s loop; `TryableDemo` restarts it on click by remounting.
+ * Pure CSS on an 18 s loop; `TryableDemo` restarts it on click by remounting.
  */
 export function HeroDemo({ d }: { d: LandingCopy["demo"] }) {
   const clean = d.spoken.filter((token) => !token.filler);
   const words = clean.map((token) => token.cap ?? token.text);
   const riskAt = clean.findIndex((token) => token.risk);
-  const risk = riskAt < 0 ? undefined : clean[riskAt];
+  const riskWord = riskAt < 0 ? undefined : words[riskAt].replace(/[.,:;!?]+$/, "");
+  const sentence = (marked: boolean) => riskAt < 0 || !marked ? words.join(" ") : (
+    <>
+      {`${words.slice(0, riskAt).join(" ")} `}
+      <mark>{words[riskAt]}</mark>
+      {` ${words.slice(riskAt + 1).join(" ")}`}
+    </>
+  );
   return (
     <figure className="product-stage hero-demo">
       <div className="stage-grid" aria-hidden="true" />
@@ -40,19 +51,28 @@ export function HeroDemo({ d }: { d: LandingCopy["demo"] }) {
         <div className="mail-body">
           <p>{d.greeting}</p>
           <p className="hd-clean">
-            {riskAt < 0 ? words.join(" ") : (
-              <>
-                {`${words.slice(0, riskAt).join(" ")} `}
-                <span className="hd-risk">{words[riskAt]}</span>
-                {` ${words.slice(riskAt + 1).join(" ")}`}
-              </>
-            )}
+            {sentence(false)}
             <span className="text-caret" aria-hidden="true" />
           </p>
         </div>
       </div>
 
-      <div className="hd-chip" aria-hidden="true"><b>▲</b>{d.chip}</div>
+      <div className="hd-menubar" aria-hidden="true">
+        <span className="hd-menubar-icon" />
+        <span className="hd-menubar-icon" />
+        <span className="hd-witness">
+          <span className="hd-mark"><i /><i /><i /><i /><i /></span>
+          <b className="hd-badge">▲</b>
+        </span>
+      </div>
+
+      <div className="hd-menu" aria-hidden="true">
+        <div className="hd-menu-head">
+          <span className="hd-menu-tile">▲</span>
+          <div><strong>{d.menuTitle}</strong><small>{d.menuDetail}</small></div>
+        </div>
+        <div className="hd-menu-item"><span>▲</span>{d.menuItem}</div>
+      </div>
 
       <div className="hd-card" aria-hidden="true">
         <svg className="hd-face" viewBox="40 40 90 130" aria-hidden="true">
@@ -102,13 +122,21 @@ export function HeroDemo({ d }: { d: LandingCopy["demo"] }) {
         </div>
       </div>
 
-      {risk && (
-        <div className="risk-popover hd-pop" aria-hidden="true">
-          <div className="risk-label"><span /> {d.riskLabel}</div>
-          <strong>{(risk.cap ?? risk.text).replace(/[.,:;!?]+$/, "")}</strong>
-          <span className="listen-control"><span aria-hidden="true">▶</span> {d.play}</span>
-        </div>
-      )}
+      <div className="hd-review" aria-hidden="true">
+        <div className="hd-review-head"><b>▲</b>{d.reviewSummary}</div>
+        <p>{sentence(true)}</p>
+        {riskWord && (
+          <div className="hd-review-row">
+            <span>{riskWord}</span>
+            <i className="hd-play">▶</i>
+          </div>
+        )}
+        <span className="hd-review-button">{d.rawButton}</span>
+      </div>
+
+      <svg className="hd-cursor" viewBox="0 0 16 22" aria-hidden="true">
+        <path d="M1 1 L1 17 L5 13 L8 20 L11 19 L8 12 L14 12 Z" />
+      </svg>
 
       <figcaption className="stage-note">
         <span className="shortcut">⌥ Space</span>

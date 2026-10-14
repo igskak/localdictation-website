@@ -86,7 +86,11 @@ test("renders the complete German landing page in the required order", async () 
   // The hero animation: a sentence with "ähm", cleaned, written into a mail.
   // Only the interjections the app's cleanup removes may vanish in it.
   assert.match(hero, /class="hd-word hd-filler"[^>]*><span class="hd-filler-text">Ähm<\/span>/);
-  assert.match(hero, /class="hd-clean">Kurzes Update aus dem Call\. Das Meeting am <span class="hd-risk">Donnerstag<\/span> hätte auch eine Mail sein können\./);
+  // The sentence lands unmarked; the mark lives in the review panel, opened
+  // from the menu bar, as in the app.
+  assert.match(hero, /class="hd-clean">Kurzes Update aus dem Call\. Das Meeting am Donnerstag hätte auch eine Mail sein können\./);
+  assert.match(hero, /class="hd-review"[\s\S]*?<mark>Donnerstag<\/mark>/);
+  assert.match(hero, /1 markiertes Fragment prüfen/);
   assert.match(html, /nicht öffentlich dokumentiert/);
   assert.match(html, /Die vollständige Datenschutzerklärung lesen/);
   assert.match(html, /UI-Prototyp/);
@@ -174,6 +178,8 @@ test("renders the English variant and reciprocal language links", async () => {
   assert.match(enHtml, /With a nudge where a second look pays off/);
   assert.match(enHtml, /<a class="built-in-link" href="\/en\/guides\/mac-dictation">Comparison with sources<\/a>/);
   assert.match(enHtml, /could have been an email\./);
+  // Each page mixes languages the way its reader does.
+  assert.match(enHtml, /Schönen Feierabend!/);
   // The English ad group buys `speech to text` and `voice to text`.
   assert.match(enHtml, /<title>[^<]*Speech to text for Mac[^<]*<\/title>/);
   assert.match(enHtml, /Voice to text app for Mac/);
@@ -197,6 +203,7 @@ test("renders the Russian and Ukrainian variants with their own languages and re
   assert.match(ruHtml, /<html lang="ru">/i);
   assert.match(ruHtml, /Диктуй, а не печатай/);
   assert.match(ruHtml, /И подсказка, где стоит перепроверить/);
+  assert.match(ruHtml, /Короткий update после call\. Этот meeting в четверг мог быть просто email\./);
   assert.match(ruHtml, /14 000 €/);
   // The Russian page leads with the language its reader actually speaks, ticked.
   assert.match(ruHtml, /class="active">Русский/);
@@ -207,6 +214,7 @@ test("renders the Russian and Ukrainian variants with their own languages and re
   assert.match(ukHtml, /<html lang="uk">/i);
   assert.match(ukHtml, /Диктуй, а не друкуй/);
   assert.match(ukHtml, /І підказка, де варто перевірити/);
+  assert.match(ukHtml, /Короткий update після call\. Цей meeting у четвер міг бути просто email\./);
   assert.match(ukHtml, /class="active">Українська/);
   assert.match(ukHtml, /href="\/danke\?lang=uk&amp;download=auto"/i);
 
