@@ -1,15 +1,36 @@
 import type { Locale } from "../_lib/locale";
 
+export type SpokenToken = { text: string; filler?: boolean; cap?: string; risk?: boolean };
+
 export type LandingCopy = {
   nav: { label: string; href: string }[];
-  hero: { eyebrow: string; title: string; titleMuted: string; lede: string; audience: string; download: string; fine: string[] };
-  trust: string[];
+  hero: {
+    eyebrow: string; title: string; titleMuted: string; lede: string;
+    // The answer to "why not the Mac's own dictation", which most ad visitors
+    // already have. builtInLink labels the sourced comparison; ru and uk have
+    // no such page, so they carry no link.
+    builtIn: string; builtInLink?: string;
+    download: string; fine: string[];
+  };
   demo: {
     windowTitle: string; send: string; to: string; toValue: string; subject: string; subjectValue: string;
     greeting: string; before: string; middle: string; after: string; amount: string;
     rawLabel: string; rawBefore: string; rawMiddle: string;
     state: string; checks: string; riskLabel: string; play: string; stageNote: string; prototypeNote: string;
+    // Shown after a click on the hero animation, which readers take for the app.
+    tryHint: string;
+    // The hero animation (HeroDemo): a spoken sentence, cleaned, in a mail.
+    // `filler` must be a word ConservativeCleanupService removes in that
+    // language; `cap` is the word after cleanup capitalized it. One `risk`
+    // token is the example spot the marker points at.
+    heroSubject: string; listening: string;
+    // The app's own strings for the marker's menu and the review panel
+    // (MenuBarView, StatusPresentation, ReviewPresentation). The app speaks
+    // German and English only, so ru and uk show the English UI.
+    menuTitle: string; menuDetail: string; menuItem: string; reviewSummary: string; rawButton: string;
+    spoken: SpokenToken[];
   };
+  trust: string[];
   process: { kicker: string; title: string; lede: string; steps: { number: string; title: string; body: string }[]; link: string };
   verification: { kicker: string; title: string; lede: string; body: string; points: string[] };
   privacy: {
@@ -47,9 +68,10 @@ const de: LandingCopy = {
   hero: {
     eyebrow: "Diktier-App für den Mac · Sprache zu Text, lokal",
     title: "Diktieren statt tippen.",
-    titleMuted: "Alles bleibt auf deinem Mac.",
-    lede: "Drück den Hotkey, sprich. Nach einer kurzen Prüfung landet der fertige Text dort, wo dein Cursor steht. Ohne Cloud-Verarbeitung, ohne Benutzerkonto, einmal zahlen statt monatlich.",
-    audience: "Für alle, die mehr als eine Sprache benutzen und sie in einem Satz mischen.",
+    titleMuted: "Mit Hinweis, wo ein zweiter Blick lohnt.",
+    lede: "Drück ⌥ Space und sprich, gern Deutsch und Englisch gemischt. Der Text steht sofort am Cursor. Gibt es eine Stelle, auf die du achten solltest, zeigt Witness sie dir, und du hörst dir an, was du gesagt hast. Alles läuft auf deinem Mac.",
+    builtIn: "Und die Diktierfunktion vom Mac? Sie unterstreicht nicht eindeutige Wörter blau, die Sprache wechselst du per Globus-Taste. Witness meldet sich, wenn sich ein Blick lohnt, und spielt dir den Originalton der Stelle vor.",
+    builtInLink: "Vergleich mit Quellen",
     download: "Für Mac kostenlos testen",
     fine: ["13 Tage voller Funktionsumfang", "3 Tage ohne E-Mail, dann Schlüssel per Mail", "Apple Silicon", "macOS 14.4+", "keine Kreditkarte"],
   },
@@ -57,9 +79,32 @@ const de: LandingCopy = {
   demo: {
     windowTitle: "Neue Nachricht", send: "Senden", to: "An:", toValue: "Team Produkt", subject: "Betreff:", subjectValue: "Nächste Schritte",
     greeting: "Hallo zusammen,", before: "das Review mit ", middle: " ist für Donnerstag bestätigt. Das Budget liegt bei ", after: ". Bitte noch einmal prüfen.", amount: "14.000 €",
-    rawLabel: "Roh-Transkript · vor der Einfügung", rawBefore: "Review mit ", rawMiddle: " · Budget ",
+    rawLabel: "Roh-Transkript · nach dem Einfügen", rawBefore: "Review mit ", rawMiddle: " · Budget ",
     state: "Diktat prüfen", checks: "Stellen", riskLabel: "Bitte prüfen", play: "Original anhören",
     stageNote: "UI-Prototyp · drücken, sprechen, einsetzen",
+    tryHint: "Das ist eine Animation. Ausprobieren kannst du es in der App, 13 Tage kostenlos.",
+    heroSubject: "Kurzes Update", listening: "Witness hört zu",
+    menuTitle: "Prüfung empfohlen", menuDetail: "Einige Stellen im letzten Ergebnis solltest du prüfen. Der Text wurde bereits eingefügt.",
+    menuItem: "1 markiertes Fragment prüfen", reviewSummary: "1 Fragment prüfen", rawButton: "Rohtranskript anzeigen",
+    spoken: [
+      { text: "Ähm", filler: true },
+      { text: "kurzes", cap: "Kurzes" },
+      { text: "Update" },
+      { text: "aus" },
+      { text: "dem" },
+      { text: "Call." },
+      { text: "Äh", filler: true },
+      { text: "das", cap: "Das" },
+      { text: "Meeting" },
+      { text: "am" },
+      { text: "Donnerstag", risk: true },
+      { text: "hätte" },
+      { text: "auch" },
+      { text: "eine" },
+      { text: "Mail" },
+      { text: "sein" },
+      { text: "können." },
+    ],
     prototypeNote: "Animierte Darstellung der Oberfläche · keine Bildschirmaufnahme des Programms",
   },
   process: {
@@ -69,8 +114,8 @@ const de: LandingCopy = {
     steps: [
       { number: "01", title: "Hotkey drücken", body: "Push-to-talk oder feststellbar, so wie du arbeitest." },
       { number: "02", title: "Sprechen, wie du sprichst", body: "Deutsch, Englisch oder beides gemischt. Fachbegriffe inklusive." },
-      { number: "03", title: "Nur prüfen, wenn nötig", body: "Zahlen, Namen und Begriffe erscheinen vor dem Einfügen in einer kompakten Prüfzeile." },
-      { number: "04", title: "Bestätigen und einfügen", body: "Ohne offene Prüfung landet der Text direkt am Cursor. Blockiert eine App die Einfügung, bleibt der Zwischenablage-Fallback." },
+      { number: "03", title: "Text steht am Cursor", body: "Direkt in der App, in der du schreibst. Blockiert eine App die Einfügung, übernimmt die Zwischenablage." },
+      { number: "04", title: "Nachsehen, wenn Witness es meldet", body: "Gibt es eine Stelle, auf die du achten solltest, erscheint ein Hinweis in der Menüleiste. Ein Klick zeigt sie mit Originalton und Roh-Transkript." },
     ],
     link: "Und wenn etwas geraten wurde",
   },
@@ -78,8 +123,8 @@ const de: LandingCopy = {
     kicker: "Verifikation",
     title: "Du siehst, was du prüfen musst",
     lede: "Viele Diktier-Tools zeigen nicht ausdrücklich, wo du prüfen solltest. So kann aus 14.000 € unbemerkt 40.000 € werden.",
-    body: "Witness markiert Zahlen, Datumsangaben, Eigennamen, Verneinungen und Wörterbuchbegriffe vor der Einfügung. Spiele den Originalton ab, vergleiche das Roh-Transkript und bestätige erst dann.",
-    points: ["Originalton", "Roh-Transkript", "Deine Bestätigung"],
+    body: "Witness markiert die Stellen, auf die du achten solltest, und ein Hinweis in der Menüleiste sagt dir, wann sich ein Blick lohnt. Dort hörst du den Originalton der Stelle und vergleichst mit dem Roh-Transkript.",
+    points: ["Originalton", "Roh-Transkript", "Hinweis in der Menüleiste"],
   },
   privacy: {
     kicker: "Privatsphäre",
@@ -101,7 +146,7 @@ const de: LandingCopy = {
   languages: {
     kicker: "Sprachen",
     title: "Deutsch und Englisch in einem Satz",
-    body: "Du kreuzt an, welche Sprachen du sprichst, geraten wird nichts. Ein Wort, das nach einer anderen deiner Sprachen aussieht, landet vor dem Einfügen in der Prüfzeile. Vier Sprachen sind end-to-end gemessen, die übrigen 96 werden erkannt.",
+    body: "Du kreuzt an, welche Sprachen du sprichst, geraten wird nichts. Vier Sprachen sind end-to-end gemessen, die übrigen 96 werden erkannt.",
     pills: ["Deutsch", "English", "Русский", "Українська", "+96 weitere"],
     dictionaryTitle: "Eigenes Wörterbuch",
     tags: { german: "Deutsch", english: "English", all: "Alle Sprachen" },
@@ -128,7 +173,7 @@ const de: LandingCopy = {
     featureHead: "Merkmal",
     rows: [
       ["Sprachverarbeitung", "lokal", "Cloud", "EU-Cloud", "lokal oder Cloud", "lokal"],
-      ["Unsichere Stellen", "vor Einfügung markiert", "nicht öffentlich dokumentiert", "nicht öffentlich dokumentiert", "nicht öffentlich dokumentiert", "nicht öffentlich dokumentiert"],
+      ["Unsichere Stellen", "markiert, mit Originalton", "nicht öffentlich dokumentiert", "nicht öffentlich dokumentiert", "nicht öffentlich dokumentiert", "nicht öffentlich dokumentiert"],
       ["Sprachwahl", "angekreuzt, 4 gemessen", "100+ Sprachen", "Auto-Erkennung", "Sprache je Modus", "modellabhängig"],
       ["Kostenloser Einstieg", "13 Tage Vollversion", "Free, 1 500 Wörter/Woche", "14 Tage Vollversion", "dauerhafter Free-Tarif", "14 Tage Erstattungsfrist"],
       ["Bezahlpreis", "€99 einmalig / €49 Jahr", "$15 Monat / $144 Jahr", "€12,99 Monat / €10,99 bei Jahreszahlung", "$8.49 Monat / $84.99 Jahr / $249.99 Lifetime", "$25 / $39 / $49 einmalig"],
@@ -197,9 +242,10 @@ const en: LandingCopy = {
   hero: {
     eyebrow: "Voice to text app for Mac · runs offline",
     title: "Dictate instead of typing.",
-    titleMuted: "Everything stays on your Mac.",
-    lede: "Press the hotkey and speak. After a quick check, finished text appears exactly where your cursor is. No cloud processing, no user account, and a one-time purchase instead of another monthly bill.",
-    audience: "For people who use more than one language and mix them in the same sentence.",
+    titleMuted: "With a nudge where a second look pays off.",
+    lede: "Press ⌥ Space and speak, English and German mixed if you like. The text lands at your cursor right away. If there is a spot worth checking, Witness points to it, and you can hear what you actually said. Everything runs on your Mac.",
+    builtIn: "What about the Mac's built-in dictation? It underlines ambiguous words in blue, and you switch languages with the Globe key. Witness speaks up when a second look pays off and plays you the original audio of that spot.",
+    builtInLink: "Comparison with sources",
     download: "Try free on your Mac",
     fine: ["13-day full trial", "3 days without an email, then a key by mail", "Apple silicon", "macOS 14.4+", "no credit card"],
   },
@@ -207,9 +253,31 @@ const en: LandingCopy = {
   demo: {
     windowTitle: "New Message", send: "Send", to: "To:", toValue: "Product Team", subject: "Subject:", subjectValue: "Next steps",
     greeting: "Hi everyone,", before: "the review with ", middle: " is confirmed for Thursday. The budget is ", after: ". Please double-check.", amount: "€14,000",
-    rawLabel: "Raw transcript · before insertion", rawBefore: "Review with ", rawMiddle: " · budget ",
+    rawLabel: "Raw transcript · after insertion", rawBefore: "Review with ", rawMiddle: " · budget ",
     state: "Review dictation", checks: "checks", riskLabel: "Check this", play: "Play original",
     stageNote: "UI prototype · press, speak, insert",
+    tryHint: "This is an animation. You can try the real thing in the app, free for 13 days.",
+    heroSubject: "Quick update", listening: "Witness is listening",
+    menuTitle: "Worth a look", menuDetail: "Some fragments in the last result are worth checking. The text is already in place.",
+    menuItem: "Check 1 flagged fragment", reviewSummary: "1 fragment worth checking", rawButton: "Show raw transcript",
+    spoken: [
+      { text: "Um", filler: true },
+      { text: "quick", cap: "Quick" },
+      { text: "update" },
+      { text: "from" },
+      { text: "the" },
+      { text: "call." },
+      { text: "Uh", filler: true },
+      { text: "Thursday's", risk: true },
+      { text: "meeting" },
+      { text: "could" },
+      { text: "have" },
+      { text: "been" },
+      { text: "an" },
+      { text: "email." },
+      { text: "Schönen" },
+      { text: "Feierabend!" },
+    ],
     prototypeNote: "Animated illustration of the interface · not a screen capture of the app",
   },
   process: {
@@ -219,8 +287,8 @@ const en: LandingCopy = {
     steps: [
       { number: "01", title: "Press the hotkey", body: "Use push-to-talk or lock recording on, whichever suits your workflow." },
       { number: "02", title: "Speak naturally", body: "English, German, or both mixed together. Technical terms included." },
-      { number: "03", title: "Only review when needed", body: "Numbers, names, and terms appear in one compact review strip before insertion." },
-      { number: "04", title: "Confirm and insert", body: "With no open checks, text lands directly at the cursor. If an app blocks insertion, a clipboard fallback remains." },
+      { number: "03", title: "Text at your cursor", body: "Straight into the app you are writing in. If an app blocks insertion, the clipboard takes over." },
+      { number: "04", title: "Look when Witness asks", body: "If there is a spot worth checking, a marker appears in the menu bar. One click shows it with the original audio and the raw transcript." },
     ],
     link: "And when the model had to guess",
   },
@@ -228,8 +296,8 @@ const en: LandingCopy = {
     kicker: "Verification",
     title: "See exactly what needs checking",
     lede: "Many dictation tools do not explicitly show where a review is warranted. That can let €14,000 quietly become €40,000.",
-    body: "Witness highlights numbers, dates, names, negations, and vocabulary terms before insertion. Play the original audio, compare the raw transcript, and confirm only then.",
-    points: ["Original audio", "Raw transcript", "Your confirmation"],
+    body: "Witness marks the spots worth checking, and a marker in the menu bar tells you when a look pays off. There you can play the original audio of that spot and compare it with the raw transcript.",
+    points: ["Original audio", "Raw transcript", "Menu bar marker"],
   },
   privacy: {
     kicker: "Privacy",
@@ -251,7 +319,7 @@ const en: LandingCopy = {
   languages: {
     kicker: "Languages",
     title: "English and German in one sentence",
-    body: "Tick the languages you speak, nothing is guessed. A word that looks like another of your languages lands in the check row before insertion. Four languages are measured end to end, the other 96 are recognised.",
+    body: "Tick the languages you speak, nothing is guessed. Four languages are measured end to end, the other 96 are recognised.",
     pills: ["English", "Deutsch", "Русский", "Українська", "+96 more"],
     dictionaryTitle: "Personal vocabulary",
     tags: { german: "German", english: "English", all: "All languages" },
@@ -278,7 +346,7 @@ const en: LandingCopy = {
     featureHead: "Feature",
     rows: [
       ["Speech processing", "local", "cloud", "EU cloud", "local or cloud", "local"],
-      ["Uncertain passages", "highlighted before insertion", "not publicly documented", "not publicly documented", "not publicly documented", "not publicly documented"],
+      ["Uncertain passages", "highlighted, with the original audio", "not publicly documented", "not publicly documented", "not publicly documented", "not publicly documented"],
       ["Language choice", "ticked by you, 4 measured", "100+ languages", "auto-detection", "language per mode", "model-dependent"],
       ["Free entry", "13-day full trial", "Free, 1,500 words a week", "14-day full trial", "ongoing free tier", "14-day refund window"],
       ["Paid price", "€99 once / €49 year", "$15 month / $144 year", "€12.99 month / €10.99 billed annually", "$8.49 month / $84.99 year / $249.99 lifetime", "$25 / $39 / $49 once"],
@@ -347,9 +415,9 @@ const ru: LandingCopy = {
   hero: {
     eyebrow: "Локальная диктовка для macOS",
     title: "Диктуй, а не печатай.",
-    titleMuted: "Всё остаётся на твоём Mac.",
-    lede: "Нажми хоткей и говори. После короткой проверки готовый текст появится там, где стоит курсор. Без обработки в облаке, без аккаунта, платишь один раз вместо ежемесячной подписки.",
-    audience: "Для тех, кто использует больше одного языка и мешает их в одном предложении.",
+    titleMuted: "И подсказка, где стоит перепроверить.",
+    lede: "Нажми ⌥ Space и говори, можно вперемешку с английским. Текст сразу появляется у курсора. Если есть место, на которое стоит обратить внимание, Witness покажет его, и ты услышишь, что сказал на самом деле. Всё работает на твоём Mac.",
+    builtIn: "А встроенная диктовка Mac? Она подчёркивает неоднозначные слова синим, а язык переключается клавишей Globe. Witness подаёт знак, когда стоит перепроверить, и даёт послушать оригинал этого места.",
     download: "Скачать для Mac",
     fine: ["13 дней полной версии", "3 дня без почты, потом ключ на почту", "Apple Silicon", "macOS 14.4+", "без карты"],
   },
@@ -357,9 +425,29 @@ const ru: LandingCopy = {
   demo: {
     windowTitle: "Новое письмо", send: "Отправить", to: "Кому:", toValue: "Команда продукта", subject: "Тема:", subjectValue: "Следующие шаги",
     greeting: "Всем привет,", before: "ревью с ", middle: " подтверждено на четверг. Бюджет: ", after: ", перепроверьте, пожалуйста.", amount: "14 000 €",
-    rawLabel: "Исходный транскрипт · до вставки", rawBefore: "Ревью с ", rawMiddle: " · бюджет ",
+    rawLabel: "Исходный транскрипт · после вставки", rawBefore: "Ревью с ", rawMiddle: " · бюджет ",
     state: "Проверь диктовку", checks: "места", riskLabel: "Проверь это", play: "Прослушать оригинал",
     stageNote: "Прототип интерфейса · нажми, скажи, вставь",
+    tryHint: "Это анимация. Попробовать по-настоящему можно в приложении, 13 дней бесплатно.",
+    heroSubject: "Короткий апдейт", listening: "Witness слушает",
+    menuTitle: "Worth a look", menuDetail: "Some fragments in the last result are worth checking. The text is already in place.",
+    menuItem: "Check 1 flagged fragment", reviewSummary: "1 fragment worth checking", rawButton: "Show raw transcript",
+    spoken: [
+      { text: "Эм", filler: true },
+      { text: "короткий", cap: "Короткий" },
+      { text: "update" },
+      { text: "после" },
+      { text: "call." },
+      { text: "Ээ", filler: true },
+      { text: "этот", cap: "Этот" },
+      { text: "meeting" },
+      { text: "в" },
+      { text: "четверг", risk: true },
+      { text: "мог" },
+      { text: "быть" },
+      { text: "просто" },
+      { text: "email." },
+    ],
     prototypeNote: "Анимированная иллюстрация интерфейса · не запись экрана программы",
   },
   process: {
@@ -369,8 +457,8 @@ const ru: LandingCopy = {
     steps: [
       { number: "01", title: "Нажми хоткей", body: "Удерживать или зафиксировать запись, как тебе удобнее." },
       { number: "02", title: "Говори как говоришь", body: "По-русски, по-английски или вперемешку. Термины тоже." },
-      { number: "03", title: "Проверяй только когда нужно", body: "Числа, имена и термины появляются перед вставкой в одной компактной строке проверки." },
-      { number: "04", title: "Подтверди и вставь", body: "Если проверять нечего, текст сразу идёт под курсор. Если приложение блокирует вставку, остаётся буфер обмена." },
+      { number: "03", title: "Текст у курсора", body: "Сразу в приложение, где ты пишешь. Если приложение блокирует вставку, остаётся буфер обмена." },
+      { number: "04", title: "Смотри, когда Witness просит", body: "Если есть место, на которое стоит обратить внимание, в строке меню появляется отметка. Один клик показывает его с оригиналом записи и исходным транскриптом." },
     ],
     link: "А если модель что-то додумала",
   },
@@ -378,8 +466,8 @@ const ru: LandingCopy = {
     kicker: "Проверка",
     title: "Ты видишь, что нужно перепроверить",
     lede: "Большинство диктовщиков не показывают, где стоит перепроверить. Так 14 000 € незаметно превращаются в 40 000 €.",
-    body: "Witness подсвечивает числа, даты, имена, отрицания и слова из твоего словаря до вставки. Прослушай оригинал, сравни с исходным транскриптом, и только потом подтверди.",
-    points: ["Оригинал записи", "Исходный транскрипт", "Твоё подтверждение"],
+    body: "Witness отмечает места, на которые стоит обратить внимание, а отметка в строке меню подсказывает, когда стоит перепроверить. Там можно прослушать оригинал этого места и сравнить с исходным транскриптом.",
+    points: ["Оригинал записи", "Исходный транскрипт", "Отметка в строке меню"],
   },
   privacy: {
     kicker: "Приватность",
@@ -401,7 +489,7 @@ const ru: LandingCopy = {
   languages: {
     kicker: "Языки",
     title: "Русский и английский в одном предложении",
-    body: "Ты отмечаешь галочками языки, на которых говоришь, ничего не угадывается. Слово, похожее на другой из твоих языков, попадает в строку проверки перед вставкой. Четыре языка проверены от и до, остальные 96 распознаются.",
+    body: "Ты отмечаешь галочками языки, на которых говоришь, ничего не угадывается. Четыре языка проверены от и до, остальные 96 распознаются.",
     pills: ["Русский", "English", "Deutsch", "Українська", "+96 ещё"],
     dictionaryTitle: "Свой словарь",
     tags: { german: "Немецкий", english: "Английский", all: "Все языки" },
@@ -428,7 +516,7 @@ const ru: LandingCopy = {
     featureHead: "Параметр",
     rows: [
       ["Обработка речи", "локально", "облако", "облако в ЕС", "локально или облако", "локально"],
-      ["Неуверенные места", "подсвечены до вставки", "публично не описано", "публично не описано", "публично не описано", "публично не описано"],
+      ["Неуверенные места", "подсвечены, с оригиналом записи", "публично не описано", "публично не описано", "публично не описано", "публично не описано"],
       ["Выбор языков", "отмечаешь сам, 4 проверены", "100+ языков", "автоопределение", "язык на каждый режим", "зависит от модели"],
       ["Бесплатный вход", "13 дней полной версии", "Free, 1 500 слов в неделю", "14 дней полной версии", "бессрочный бесплатный тариф", "14 дней на возврат"],
       ["Цена", "€99 разово / €49 в год", "$15 в месяц / $144 в год", "€12,99 в месяц / €10,99 при годовой", "$8.49 в месяц / $84.99 в год / $249.99 навсегда", "$25 / $39 / $49 разово"],
@@ -497,9 +585,9 @@ const uk: LandingCopy = {
   hero: {
     eyebrow: "Локальне диктування для macOS",
     title: "Диктуй, а не друкуй.",
-    titleMuted: "Усе лишається на твоєму Mac.",
-    lede: "Натисни гарячу клавішу й говори. Після короткої перевірки готовий текст з'явиться там, де стоїть курсор. Без обробки в хмарі, без облікового запису, платиш один раз замість щомісячної підписки.",
-    audience: "Для тих, хто використовує більше ніж одну мову і змішує їх в одному реченні.",
+    titleMuted: "І підказка, де варто перевірити.",
+    lede: "Натисни ⌥ Space і говори, можна впереміш з англійською. Текст одразу з'являється біля курсора. Якщо є місце, на яке варто звернути увагу, Witness покаже його, і ти почуєш, що сказав насправді. Усе працює на твоєму Mac.",
+    builtIn: "А вбудоване диктування Mac? Воно підкреслює неоднозначні слова синім, а мову перемикаєш клавішею Globe. Witness подає знак, коли варто перевірити, і дає прослухати оригінал цього місця.",
     download: "Завантажити для Mac",
     fine: ["13 днів повної версії", "3 дні без пошти, потім ключ на пошту", "Apple Silicon", "macOS 14.4+", "без картки"],
   },
@@ -507,9 +595,29 @@ const uk: LandingCopy = {
   demo: {
     windowTitle: "Новий лист", send: "Надіслати", to: "Кому:", toValue: "Команда продукту", subject: "Тема:", subjectValue: "Наступні кроки",
     greeting: "Всім привіт,", before: "рев'ю з ", middle: " підтверджено на четвер. Бюджет: ", after: ", перевірте, будь ласка.", amount: "14 000 €",
-    rawLabel: "Вихідний транскрипт · до вставлення", rawBefore: "Рев'ю з ", rawMiddle: " · бюджет ",
+    rawLabel: "Вихідний транскрипт · після вставлення", rawBefore: "Рев'ю з ", rawMiddle: " · бюджет ",
     state: "Перевір диктування", checks: "місця", riskLabel: "Перевір це", play: "Прослухати оригінал",
     stageNote: "Прототип інтерфейсу · натисни, скажи, встав",
+    tryHint: "Це анімація. Спробувати по-справжньому можна в застосунку, 13 днів безкоштовно.",
+    heroSubject: "Короткий апдейт", listening: "Witness слухає",
+    menuTitle: "Worth a look", menuDetail: "Some fragments in the last result are worth checking. The text is already in place.",
+    menuItem: "Check 1 flagged fragment", reviewSummary: "1 fragment worth checking", rawButton: "Show raw transcript",
+    spoken: [
+      { text: "Ем", filler: true },
+      { text: "короткий", cap: "Короткий" },
+      { text: "update" },
+      { text: "після" },
+      { text: "call." },
+      { text: "Ее", filler: true },
+      { text: "цей", cap: "Цей" },
+      { text: "meeting" },
+      { text: "у" },
+      { text: "четвер", risk: true },
+      { text: "міг" },
+      { text: "бути" },
+      { text: "просто" },
+      { text: "email." },
+    ],
     prototypeNote: "Анімована ілюстрація інтерфейсу · не запис екрана програми",
   },
   process: {
@@ -519,8 +627,8 @@ const uk: LandingCopy = {
     steps: [
       { number: "01", title: "Натисни гарячу клавішу", body: "Утримувати або зафіксувати запис, як тобі зручніше." },
       { number: "02", title: "Говори як говориш", body: "Українською, англійською чи впереміш. Терміни теж." },
-      { number: "03", title: "Перевіряй лише коли треба", body: "Числа, імена й терміни з'являються перед вставленням в одному компактному рядку перевірки." },
-      { number: "04", title: "Підтверди і встав", body: "Якщо перевіряти нічого, текст одразу йде під курсор. Якщо застосунок блокує вставлення, лишається буфер обміну." },
+      { number: "03", title: "Текст біля курсора", body: "Одразу в застосунок, де ти пишеш. Якщо застосунок блокує вставлення, лишається буфер обміну." },
+      { number: "04", title: "Дивись, коли Witness просить", body: "Якщо є місце, на яке варто звернути увагу, у рядку меню з'являється позначка. Один клік показує його з оригіналом запису й вихідним транскриптом." },
     ],
     link: "А якщо модель щось додумала",
   },
@@ -528,8 +636,8 @@ const uk: LandingCopy = {
     kicker: "Перевірка",
     title: "Ти бачиш, що треба перевірити",
     lede: "Більшість диктувальників не показують, де варто перевірити. Так 14 000 € непомітно перетворюються на 40 000 €.",
-    body: "Witness підсвічує числа, дати, імена, заперечення та слова з твого словника до вставлення. Прослухай оригінал, порівняй із вихідним транскриптом, і лише тоді підтвердь.",
-    points: ["Оригінал запису", "Вихідний транскрипт", "Твоє підтвердження"],
+    body: "Witness позначає місця, на які варто звернути увагу, а позначка в рядку меню підказує, коли варто перевірити. Там можна прослухати оригінал цього місця й порівняти з вихідним транскриптом.",
+    points: ["Оригінал запису", "Вихідний транскрипт", "Позначка в рядку меню"],
   },
   privacy: {
     kicker: "Приватність",
@@ -551,7 +659,7 @@ const uk: LandingCopy = {
   languages: {
     kicker: "Мови",
     title: "Українська та англійська в одному реченні",
-    body: "Ти позначаєш галочками мови, якими говориш, нічого не вгадується. Слово, схоже на іншу з твоїх мов, потрапляє в рядок перевірки перед вставленням. Чотири мови виміряні наскрізь, решта 96 розпізнаються.",
+    body: "Ти позначаєш галочками мови, якими говориш, нічого не вгадується. Чотири мови виміряні наскрізь, решта 96 розпізнаються.",
     pills: ["Українська", "English", "Deutsch", "Русский", "+96 ще"],
     dictionaryTitle: "Власний словник",
     tags: { german: "Німецька", english: "Англійська", all: "Усі мови" },
@@ -578,7 +686,7 @@ const uk: LandingCopy = {
     featureHead: "Параметр",
     rows: [
       ["Обробка мовлення", "локально", "хмара", "хмара в ЄС", "локально або хмара", "локально"],
-      ["Непевні місця", "підсвічені до вставлення", "публічно не описано", "публічно не описано", "публічно не описано", "публічно не описано"],
+      ["Непевні місця", "підсвічені, з оригіналом запису", "публічно не описано", "публічно не описано", "публічно не описано", "публічно не описано"],
       ["Вибір мов", "позначаєш сам, 4 виміряні", "100+ мов", "автовизначення", "мова на кожен режим", "залежить від моделі"],
       ["Безкоштовний вхід", "13 днів повної версії", "Free, 1 500 слів на тиждень", "14 днів повної версії", "безстроковий безкоштовний тариф", "14 днів на повернення"],
       ["Ціна", "€99 разово / €49 на рік", "$15 на місяць / $144 на рік", "€12,99 на місяць / €10,99 за річної", "$8.49 на місяць / $84.99 на рік / $249.99 назавжди", "$25 / $39 / $49 разово"],
