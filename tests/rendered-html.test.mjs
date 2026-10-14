@@ -768,6 +768,24 @@ test("renders the source-dated comparison hub and every required AEO route", asy
   }
 });
 
+test("sells the Sprecho alternative in the snippet, not only on the page", async () => {
+  // Since 14.10 the page ranks 3rd for "sprecho alternative" with no clicks
+  // (witness-seo/reports/2026-10-12.md), so title and description carry the
+  // reason to leave: the cloud and the monthly plan.
+  const html = await (await render("/vergleich/sprecho-alternative")).text();
+  const title = html.match(/<title>([^<]+)<\/title>/)?.[1] ?? "";
+  const description = html.match(/<meta name="description" content="([^"]+)"/)?.[1] ?? "";
+  assert.match(title, /^Sprecho-Alternative: Diktat bleibt auf dem Mac/);
+  assert.ok(title.length <= 60, title);
+  assert.ok(description.length <= 160, description);
+  assert.match(description, /€12,99 im Monat/);
+  assert.match(description, /€99 einmal/);
+  assert.match(html, /14\. Oktober 2026/);
+  assert.match(html, /Sprecho-Alternative ohne Monatsabo\?/);
+  const ownText = html.replace(/<script[\s\S]*?<\/script>/g, "");
+  assert.doesNotMatch(ownText, /\u2014/);
+});
+
 test("answers the roundup search on the hub with one dated, sourced table", async () => {
   // Since 27.09 /vergleich is the page for "Diktier-App Mac" (docs/seo/BACKLOG.md,
   // item 5), so it carries the same promises as a single comparison.

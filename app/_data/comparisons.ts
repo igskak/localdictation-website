@@ -504,9 +504,11 @@ const sprecho: ComparisonPageData = {
   path: "/vergleich/sprecho-alternative",
   eyebrow: "Sprecho-Alternative",
   title: "Witness oder Sprecho? Lokaler Mac-Workflow gegen EU-Cloud",
-  metaTitle: "Sprecho-Alternative für den Mac | Witness",
+  metaTitle: "Sprecho-Alternative: Diktat bleibt auf dem Mac | Witness",
   description:
-    "Sprecho und Witness sachlich verglichen: EU-Cloud, lokale Verarbeitung, Plattformen, Sprachen, Prüfung, AVV und Preis. Stand Oktober 2026.",
+    "Sprecho erkennt Sprache auf Servern in Deutschland oder den Niederlanden, Pro kostet €12,99 im Monat. Witness rechnet auf dem Mac, €99 einmal. 13 Tage gratis.",
+  updatedIso: "2026-10-14",
+  updatedLabel: "14. Oktober 2026",
   directAnswer: {
     text: "Die kurze Antwort: Wenn in deinen Diktaten Mandantennamen, Beträge oder Fristen vorkommen, ist Witness die bessere Sprecho-Alternative. Sprecho verarbeitet Sprache in der Cloud und speichert Sprachdaten nach eigener Angabe ausschließlich in Deutschland, ohne Übertragung in die USA. Das ist ein sauber dokumentierter Weg, aber es bleibt ein Weg nach draußen: Der Satz, den du gerade gesprochen hast, liegt für die Dauer der Verarbeitung auf einem fremden Server. Bei Witness verlässt er den Mac nicht, und auffällige Zahlen, Namen und Verneinungen stehen vor dem Einfügen zur Freigabe. Sprecho deckt dafür zusätzlich Windows, Linux, iOS und Android ab.",
     sources: ["sprecho-product", "sprecho-dpa", "local-product"],
@@ -602,6 +604,14 @@ const sprecho: ComparisonPageData = {
     {
       question: "Welche Sprecho-Alternative läuft ohne Inhaltsupload?",
       answer: "Witness ist dafür konzipiert, Audio und Text auf dem Apple-Silicon-Mac zu verarbeiten.",
+    },
+    {
+      question: "Gibt es eine Sprecho-Alternative ohne Monatsabo?",
+      answer: "Ja. Witness kostet €99 einmal oder €49 im Jahr, beides für zwei Macs. Sprecho Pro kostet €12,99 im Monat oder €131,88 im Jahr. Witness lässt sich vorher 13 Tage kostenlos testen, ohne Kreditkarte.",
+    },
+    {
+      question: "Brauche ich für Witness ein Benutzerkonto?",
+      answer: "Nein. Die Lizenz ist ein Schlüssel per E-Mail, ein Produktkonto gibt es nicht. Die Lizenzprüfung läuft offline auf dem Mac.",
     },
   ],
   sources: [localSource, ...sprechoSources],
