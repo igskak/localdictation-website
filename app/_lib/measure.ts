@@ -41,12 +41,11 @@ export function denyMeasurementStorage(config: MeasureConfig): void {
  *
  * Google is not told: the ad account has its conversions, and these exist for
  * the product question of where on the way to the payment people stop. The
- * events are `start_consent_ticked` and `start_buy_clicked`, each with the
- * page's `locale`. The visit itself and the click on the hero button are
+ * event is `start_buy_clicked`, with the page's `locale`. The visit itself and the click on the hero button are
  * already in PostHog as a pageview and an autocaptured click carrying
  * `data-cta`; the purchase itself is reported by the activation service.
  */
-export function reportStartStep(config: MeasureConfig, event: "start_consent_ticked" | "start_buy_clicked", locale: string): void {
+export function reportStartStep(config: MeasureConfig, event: "start_buy_clicked", locale: string): void {
   capturePosthog(config, event, { locale });
 }
 

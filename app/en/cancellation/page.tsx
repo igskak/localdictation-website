@@ -11,7 +11,7 @@ export default function CancellationPage() {
     page="withdrawal"
     eyebrow="Legal"
     title="Cancellation"
-    updated="20 October 2026"
+    updated="21 October 2026"
     notice={<><b>This instruction is for consumers.</b> It covers buying a licence, not the free trial — for the trial you enter no paid contract and have nothing to withdraw from. The German text at <Link href={legalPaths.de.withdrawal}>/widerruf</Link> says the same thing for purchases made in German.</>}
   >
     <h2>Right of withdrawal</h2>
@@ -36,7 +36,7 @@ export default function CancellationPage() {
       <li>acknowledged that you thereby lose your right of withdrawal once performance begins,</li>
     </ol>
     <p>and we have provided you with confirmation of that acknowledgement.</p>
-    <p>Witness asks for both declarations before it opens a checkout — the payment page is standardized and cannot ask, so the app does, above the prices, and the Buy buttons do nothing until it is ticked. On the page for the introductory offer the same happens before the buy button. Your purchase confirmation repeats the declaration. <strong>If those declarations were not made, your right of withdrawal runs the full fourteen days</strong> — even if you have already received the key and used Witness.</p>
+    <p>Witness asks for both declarations before it opens a checkout — the payment page is standardized and cannot ask, so the app does, above the prices, and the Buy buttons do nothing until it is ticked. On the page for the introductory offer (witnessmac.com/start) these declarations are not asked for. Anyone who buys there can therefore withdraw for the full fourteen days, even after having used Witness. Your purchase confirmation repeats the declaration. <strong>If those declarations were not made, your right of withdrawal runs the full fourteen days</strong> — even if you have already received the key and used Witness.</p>
 
     <h2>The annual licence</h2>
     <p>For the introductory offer (€4.99 for the first 14 days) the withdrawal period starts with the purchase. The automatic charge of €49 on day 15 is not a new order but the continuation of the same contract named in the offer; you can prevent it by cancelling up to day 14. The right of withdrawal attaches to the conclusion of the contract. An automatic renewal of the annual licence is not a new conclusion and therefore starts no new withdrawal period. You can end the renewal at any time up to the last day of the current term; section 8 of the <Link href={legalPaths.en.terms}>Terms and Licence</Link> says how.</p>
