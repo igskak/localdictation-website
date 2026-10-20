@@ -13,12 +13,12 @@ const meta: Record<Locale, { title: string; description: string; imageAlt: strin
   de: {
     title: "Witness: Spracherkennung für den Mac, ohne Cloud",
     description: "Sprache zu Text am Mac: lokale Diktier-App für Apple Silicon. Deutsch und Englisch mischen, unsichere Stellen prüfen, Text direkt am Cursor einsetzen.",
-    imageAlt: "Witness zeigt einen markierten Betrag vor dem Einfügen",
+    imageAlt: "Witness markiert einen Betrag im eingefügten Text",
   },
   en: {
     title: "Witness: Speech to text for Mac, private and offline",
     description: "Voice to text for Apple silicon Macs, processed on the device. Mix English and German, review uncertain passages, and insert text at your cursor.",
-    imageAlt: "Witness highlights an amount for review before insertion",
+    imageAlt: "Witness flags an amount in the inserted text",
   },
   ru: {
     title: "Witness: диктовка без передачи твоих данных",
