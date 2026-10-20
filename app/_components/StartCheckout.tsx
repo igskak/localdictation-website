@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { type MeasureConfig, reportStartStep } from "../_lib/measure";
 
 /**
  * The buy button of the paid-entry page, behind the declaration.
@@ -22,6 +23,8 @@ export function StartCheckout({
   consent,
   termsHref,
   withdrawalHref,
+  analytics,
+  locale,
 }: {
   /** `null` while there is no payment link to send anyone to. */
   href: string | null;
@@ -29,6 +32,8 @@ export function StartCheckout({
   consent: { label: string; declaration: string; terms: string; withdrawal: string; needsScript: string; soon: string };
   termsHref: string;
   withdrawalHref: string;
+  analytics: MeasureConfig;
+  locale: string;
 }) {
   const [declared, setDeclared] = useState(false);
 
@@ -37,7 +42,10 @@ export function StartCheckout({
       {href !== null && (
         <>
           <label className="start-consent">
-            <input type="checkbox" checked={declared} onChange={(event) => setDeclared(event.target.checked)} />
+            <input type="checkbox" checked={declared} onChange={(event) => {
+                setDeclared(event.target.checked);
+                if (event.target.checked) reportStartStep(analytics, "start_consent_ticked", locale);
+              }} />
             <span>{consent.label}</span>
           </label>
           <p className="start-declaration" lang="de">{consent.declaration}</p>
@@ -52,7 +60,11 @@ export function StartCheckout({
             tabIndex={declared ? 0 : -1}
             data-cta="start-buy"
             onClick={(event) => {
-              if (!declared) event.preventDefault();
+              if (!declared) {
+                event.preventDefault();
+                return;
+              }
+              reportStartStep(analytics, "start_buy_clicked", locale);
             }}
           >
             {label}

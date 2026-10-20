@@ -18,7 +18,7 @@ import { type PosthogConfig, capturePosthog, denyPosthogStorage, grantPosthogSto
 export type MeasureConfig = GtagConfig & PosthogConfig;
 
 /** How the reader got to the file: the download that starts itself, or the link that starts it again. */
-export type DownloadMode = "auto" | "click" | "link";
+export type DownloadMode = "auto" | "click" | "link" | "purchase";
 
 /** Loads both, in whatever state the reader's answer leaves them. Idempotent in both. */
 export function startMeasurement(config: MeasureConfig, consent: ConsentChoice | null): void {
@@ -34,6 +34,20 @@ export function grantMeasurementStorage(config: MeasureConfig): void {
 export function denyMeasurementStorage(config: MeasureConfig): void {
   denyStorage();
   denyPosthogStorage(config);
+}
+
+/**
+ * A step of the paid-entry page (`/start`), reported to PostHog only.
+ *
+ * Google is not told: the ad account has its conversions, and these exist for
+ * the product question of where on the way to the payment people stop. The
+ * events are `start_consent_ticked` and `start_buy_clicked`, each with the
+ * page's `locale`. The visit itself and the click on the hero button are
+ * already in PostHog as a pageview and an autocaptured click carrying
+ * `data-cta`; the purchase itself is reported by the activation service.
+ */
+export function reportStartStep(config: MeasureConfig, event: "start_consent_ticked" | "start_buy_clicked", locale: string): void {
+  capturePosthog(config, event, { locale });
 }
 
 /**

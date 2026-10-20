@@ -1,6 +1,7 @@
 import { landingCopy } from "../_data/landingCopy";
 import { introCheckoutLink } from "../_data/partnerOffers";
 import { startCopy, startPaths, type StartLocale } from "../_data/startCopy";
+import { getAnalyticsConfig } from "../_lib/analytics";
 import { legalPaths } from "../_lib/legal";
 import { HeroDemo } from "./HeroDemo";
 import { RouteFooter } from "./RouteFooter";
@@ -112,6 +113,8 @@ export function StartPage({ locale }: { locale: StartLocale }) {
             consent={c.consent}
             termsHref={legal.terms}
             withdrawalHref={legal.withdrawal}
+            analytics={getAnalyticsConfig()}
+            locale={locale}
           />
           <p className="pricing-footnote">{c.price.line} {c.price.paymentNote}</p>
         </section>

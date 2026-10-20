@@ -1,6 +1,6 @@
 import { getAnalyticsConfig } from "../_lib/analytics";
 import { getDownloadTarget } from "../_lib/download";
-import { DownloadLink } from "../danke/DownloadSignal";
+import { StartDownload } from "./StartDownload";
 import { cancelPaths, startCopy, thanksPaths, type StartLocale } from "../_data/startCopy";
 import { RouteFooter } from "./RouteFooter";
 
@@ -34,7 +34,7 @@ export function StartThanksPage({ locale }: { locale: StartLocale }) {
         <section className="thanks-hero shell">
           <h1>{c.title}</h1>
           <p>{c.lede}</p>
-          {available && <DownloadLink analytics={getAnalyticsConfig()} locale={locale} href={downloadPath} label={c.download} />}
+          {available && <StartDownload analytics={getAnalyticsConfig()} locale={locale} href={downloadPath} label={c.download} />}
           <p className="start-keep">{c.keep}</p>
         </section>
         <section className="install-section shell" id="installation">
