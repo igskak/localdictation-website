@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { checkoutFor, parsePlan } from "../_data/partnerOffers";
+import { checkoutFor, introCheckoutLink, parsePlan } from "../_data/partnerOffers";
 
 export const dynamic = "force-dynamic";
 
@@ -23,6 +23,14 @@ function redirect(target: URL | string) {
 
 export function GET(request: Request) {
   const requestUrl = new URL(request.url);
+
+  // The introductory offer from `/start`. No promotion code and no partner
+  // cookie: it is its own Payment Link with its own price, and a code typed
+  // into it would discount the first year of somebody else's deal.
+  if (requestUrl.searchParams.get("plan") === "intro") {
+    return redirect(introCheckoutLink() ?? new URL("/start", requestUrl.origin));
+  }
+
   const plan = parsePlan(requestUrl.searchParams.get("plan"));
   if (!plan) return redirect(new URL("/#preis", requestUrl.origin));
   return redirect(checkoutFor(plan, request.headers.get("cookie"), Date.now()));

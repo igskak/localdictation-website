@@ -288,6 +288,7 @@ export async function ComparisonHub() {
         <nav aria-label="Rechtliche Links">
           <Link href="/agb">AGB</Link>
           <Link href="/widerruf">Widerruf</Link>
+          <Link href="/kuendigen">Verträge hier kündigen</Link>
           <Link href="/datenschutz">Datenschutz</Link>
           <Link href="/impressum">Impressum</Link>
         </nav>

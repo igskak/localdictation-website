@@ -80,6 +80,7 @@ export const comparisonChrome: Record<ComparisonLocale, ComparisonChrome> = {
     legal: [
       { label: "AGB", href: "/agb" },
       { label: "Widerruf", href: "/widerruf" },
+      { label: "Verträge hier kündigen", href: "/kuendigen" },
       { label: "Datenschutz", href: "/datenschutz" },
       { label: "Impressum", href: "/impressum" },
     ],
@@ -122,6 +123,7 @@ export const comparisonChrome: Record<ComparisonLocale, ComparisonChrome> = {
     legal: [
       { label: "Terms", href: "/en/terms" },
       { label: "Cancellation", href: "/en/cancellation" },
+      { label: "Cancel contracts here", href: "/en/cancel-subscription" },
       { label: "Privacy", href: "/en/privacy" },
       { label: "Legal notice", href: "/en/legal-notice" },
     ],

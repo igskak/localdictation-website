@@ -8,6 +8,7 @@ import { PartnerOffer, PartnerPrice } from "./PartnerOffer";
 import { TryableDemo } from "./TryableDemo";
 import { HeroDemo } from "./HeroDemo";
 import { localeHome, localeLabels, locales, type Locale } from "../_lib/locale";
+import { cancelPaths, startCopy } from "../_data/startCopy";
 import { legalLocale, legalPaths } from "../_lib/legal";
 import { comparisonSlugs, comparisons, englishComparisonSlugs, englishComparisons } from "../_data/comparisons";
 
@@ -446,7 +447,7 @@ export function LandingPage({ locale }: { locale: Locale }) {
         <div className="shell footer-top"><Brand /><p>{c.footer.tagline}</p></div>
         <div className="shell footer-bottom">
           <span>© 2026 Witness</span>
-          <nav aria-label={c.footer.legalNav}><a href={legal.terms} hrefLang={legalLang}>{c.footer.agb}</a><a href={legal.withdrawal} hrefLang={legalLang}>{c.footer.widerruf}</a><a href={legal.privacy} hrefLang={legalLang}>{c.footer.datenschutz}</a><a href={legal.imprint} hrefLang={legalLang}>{c.footer.impressum}</a><a href={legal.licences} hrefLang={legalLang}>{c.footer.lizenzen}</a><a href="mailto:hallo@witnessmac.com">{c.footer.kontakt}</a>{analyticsEnabled(getAnalyticsConfig()) && <ConsentReopenLink label={consentCopy[locale].reopen} />}</nav>
+          <nav aria-label={c.footer.legalNav}><a href={legal.terms} hrefLang={legalLang}>{c.footer.agb}</a><a href={legal.withdrawal} hrefLang={legalLang}>{c.footer.widerruf}</a><a href={cancelPaths[legalLang]} hrefLang={legalLang}>{startCopy[legalLang].footer.cancel}</a><a href={legal.privacy} hrefLang={legalLang}>{c.footer.datenschutz}</a><a href={legal.imprint} hrefLang={legalLang}>{c.footer.impressum}</a><a href={legal.licences} hrefLang={legalLang}>{c.footer.lizenzen}</a><a href="mailto:hallo@witnessmac.com">{c.footer.kontakt}</a>{analyticsEnabled(getAnalyticsConfig()) && <ConsentReopenLink label={consentCopy[locale].reopen} />}</nav>
         </div>
       </footer>
 

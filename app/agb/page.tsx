@@ -9,7 +9,7 @@ export default function AGBPage() {
     page="terms"
     eyebrow="Rechtliches"
     title="Vertrags- und Lizenzbedingungen"
-    updated="4. Oktober 2026"
+    updated="20. Oktober 2026"
     notice={<><b>Diese Bedingungen beschreiben das Produkt, das tatsächlich verkauft wird.</b> Sie sind vollständig formuliert und nicht als Entwurf gedacht, ersetzen aber keine anwaltliche Prüfung. Maßgeblich ist die Fassung, die beim Abschluss deines Kaufs galt.</>}
   >
     <h2>1. Anbieter und Geltungsbereich</h2>
@@ -39,11 +39,11 @@ export default function AGBPage() {
     <h2>4. Vertragsschluss, Preise und Zahlung</h2>
     <p>Die Darstellung der Lizenzen auf dieser Website und im Fenster der App ist kein bindendes Angebot, sondern eine Aufforderung zur Bestellung. Der Vertrag kommt zustande, wenn du den Bezahlvorgang abschließt und die Zahlung bestätigt wird.</p>
     <p>Der Bezahlvorgang läuft über <strong>Stripe</strong> als Zahlungsdienstleister: Stripe nimmt die Zahlung entgegen und leitet sie an uns weiter. Für den Zahlungsvorgang gelten zusätzlich die Bedingungen von Stripe. <strong>Der Lizenzvertrag über die Nutzung von Witness kommt mit uns zustande</strong>; wir sind Verkäufer und Rechnungssteller, und für den Vertrag gelten diese Bedingungen. Wir sehen keine Kartendaten.</p>
-    <p>Die Preise betragen <strong>€99 einmalig</strong> für die Lifetime-Lizenz und <strong>€49 pro Jahr</strong> für die Jahreslizenz, jeweils als Endpreis. Wir sind in Tschechien kein Umsatzsteuerzahler (nejsem plátce DPH): Umsatzsteuer wird auf die Preise nicht aufgeschlagen und auf der Rechnung nicht ausgewiesen. Welche Zahlungsarten verfügbar sind, zeigt der Bezahlvorgang vor dem Abschluss an. Die Rechnung erhältst du per E-Mail.</p>
+    <p>Die Preise betragen <strong>€99 einmalig</strong> für die Lifetime-Lizenz und <strong>€49 pro Jahr</strong> für die Jahreslizenz, jeweils als Endpreis. Für die Jahreslizenz gibt es zusätzlich ein <strong>Einführungsangebot von €4,99 für die ersten 14 Tage</strong>; es steht in Abschnitt 8. Wir sind in Tschechien kein Umsatzsteuerzahler (nejsem plátce DPH): Umsatzsteuer wird auf die Preise nicht aufgeschlagen und auf der Rechnung nicht ausgewiesen. Welche Zahlungsarten verfügbar sind, zeigt der Bezahlvorgang vor dem Abschluss an. Die Rechnung erhältst du per E-Mail.</p>
 
     <h2>5. Lieferung und Aktivierung</h2>
     <p>Nach bestätigter Zahlung stellen wir für den Mac, an dem du aktivierst, einen signierten Lizenzschlüssel aus und senden ihn an die beim Kauf angegebene E-Mail-Adresse. Die Lieferung erfolgt unmittelbar, in der Regel innerhalb weniger Minuten.</p>
-    <p>Der Schlüssel wird auf deinem Mac gegen eine Signatur geprüft. Eine laufende Verbindung ist dafür nicht nötig: Fällt unser Aktivierungsdienst aus, kann niemand neu aktivieren, aber keine bereits aktivierte Installation hört auf zu arbeiten.</p>
+    <p>Der Schlüssel wird auf deinem Mac gegen eine Signatur geprüft. Eine laufende Verbindung ist dafür nicht nötig: Fällt unser Aktivierungsdienst aus, kann niemand neu aktivieren, aber keine bereits aktivierte Installation hört auf zu arbeiten. Eine Ausnahme ist die Jahreslizenz: Ihr Schlüssel gilt etwa 30 Tage und wird von der App in seiner letzten Woche im Hintergrund erneuert, solange das Abonnement läuft (Abschnitt 8).</p>
     <p>Kommt keine E-Mail an, fordere den Schlüssel in der App erneut an — du bekommst denselben Schlüssel und keinen zweiten. Hilft das nicht, schreib an <a href="mailto:hallo@witnessmac.com">hallo@witnessmac.com</a>.</p>
 
     <h2>6. Was die Lizenz erlaubt</h2>
@@ -63,18 +63,20 @@ export default function AGBPage() {
     <p>Eine Lifetime-Lizenz umfasst <strong>die beim Kauf aktuelle Hauptversion — derzeit Version 1 — und alle Updates dazu</strong>, also jede Version 1.x, zeitlich unbegrenzt und ohne weitere Zahlung.</p>
     <p>Eine künftige Hauptversion (2.0) ist ein neues Produkt und nicht eingeschlossen. Deine gekaufte Version läuft weiter, so lange sie auf deinem Mac und deiner macOS-Version läuft. Die App zeigt an, was eine neue Hauptversion für deine Lizenz bedeutet, bevor du irgendetwas entscheidest.</p>
 
-    <h2>8. Jahreslizenz: Laufzeit, Verlängerung und Kündigung</h2>
-    <p>Die Jahreslizenz läuft 12 Monate ab Ausstellung und verlängert sich danach automatisch um jeweils 12 Monate zum dann geltenden Preis, wenn du sie nicht vorher beendest.</p>
+    <h2>8. Jahreslizenz und Einführungsangebot: Laufzeit, Verlängerung und Kündigung</h2>
+    <p><strong>Einführungsangebot.</strong> Für €4,99 erhältst du die Jahreslizenz für die ersten 14 Tage ab Kauf. Kündigst du nicht bis zum Ende dieser 14 Tage, zieht Stripe am 15. Tag automatisch €49 für die ersten 12 Monate ein. Kündigst du bis dahin, zahlst du nur die €4,99 und es wird nichts weiter abgebucht. Preis und automatische Abbuchung nach den 14 Tagen stehen vor dem Kauf auf der Bestellseite und im Bezahlvorgang.</p>
+    <p>Die Jahreslizenz läuft 12 Monate ab Ausstellung, beim Einführungsangebot ab dem Ende der ersten 14 Tage, und verlängert sich danach automatisch um jeweils 12 Monate zum dann geltenden Preis, wenn du sie nicht vorher beendest.</p>
     <ul>
       <li><strong>Beenden kannst du jederzeit</strong> bis zum letzten Tag der laufenden Laufzeit, ohne Frist und ohne Grund. Die Lizenz bleibt dann bis zum Ende des bezahlten Zeitraums nutzbar und verlängert sich nicht.</li>
-      <li>Am einfachsten geht das über den Link zur Zahlungsverwaltung in deiner Kaufbestätigung. Alternativ genügt eine E-Mail an <a href="mailto:hallo@witnessmac.com">hallo@witnessmac.com</a> mit der Adresse, unter der die Lizenz läuft. Wir beenden die Verlängerung und bestätigen das in Textform.</li>
+      <li>Am einfachsten geht das über die Schaltfläche <Link href="/kuendigen">Verträge hier kündigen</Link>, die du auf jeder Seite dieser Website findest. Du kündigst ohne Anmeldung und bekommst die Bestätigung sofort und per E-Mail. Alternativ geht es über „Abonnement verwalten“ in den Einstellungen von Witness oder per E-Mail an <a href="mailto:hallo@witnessmac.com">hallo@witnessmac.com</a> mit der Adresse, unter der die Lizenz läuft. Wir beenden die Verlängerung und bestätigen das in Textform.</li>
+      <li>Der Schlüssel auf deinem Mac gilt etwa 30 Tage. Die App erneuert ihn in seiner letzten Woche im Hintergrund, solange das Abonnement läuft. Nach einer Kündigung, einer Erstattung oder einer endgültig fehlgeschlagenen Zahlung wird kein neuer Schlüssel mehr ausgestellt; der letzte gilt bis zu seinem Ablauf, spätestens etwa 30 Tage nach seiner Ausstellung. Er kann bis zu einer Woche über das bezahlte Ende hinausreichen, damit eine Kartenzahlung, die Stripe noch wiederholt, dich nicht sperrt.</li>
       <li>Eine Preisänderung für die nächste Verlängerung kündigen wir mindestens sechs Wochen vorher per E-Mail an. Bist du nicht einverstanden, beende die Verlängerung bis zum Ende der laufenden Laufzeit.</li>
       <li>Eine anteilige Rückzahlung für eine bereits begonnene Laufzeit gibt es nicht; das gesetzliche Widerrufsrecht bleibt davon unberührt.</li>
     </ul>
     <p>Nach Ablauf pausieren neue Diktierungen. Die App, deine Einstellungen und dein Wörterbuch bleiben auf deinem Mac.</p>
 
     <h2>9. Updates und Systemvoraussetzungen</h2>
-    <p>In den Einstellungen kannst du mit „Auf Updates prüfen“ nach einer neuen Version suchen. Ist eine verfügbar, kann Witness sie nach deiner Bestätigung laden, prüfen, installieren und neu starten. Im Hintergrund sucht oder installiert die App keine Updates. Neue Versionen stehen auch auf witnessmac.com zum Download bereit.</p>
+    <p>Witness fragt standardmäßig einmal am Tag bei GitHub an, ob eine neuere signierte Version vorliegt, und bietet sie dir an. In den Einstellungen kannst du das abschalten und mit „Auf Updates prüfen“ selbst suchen. Eine Version wird erst nach deiner Bestätigung geladen, geprüft, installiert und neu gestartet; im Hintergrund installiert die App nichts. Neue Versionen stehen auch auf witnessmac.com zum Download bereit.</p>
     <p>Gegenüber Verbrauchern stellen wir während des Zeitraums, für den die Lizenz gilt, die Aktualisierungen bereit, die erforderlich sind, um die Vertragsmäßigkeit des Produkts zu erhalten — bei der Lifetime-Lizenz für die gekaufte Hauptversion. Wir informieren über solche Aktualisierungen; installierst du sie nicht, haften wir nicht für Mängel, die allein daraus folgen.</p>
     <p>Es gelten die Systemvoraussetzungen, die zum Zeitpunkt deines Kaufs genannt waren: Apple Silicon und macOS 14.4 oder neuer. Ändert Apple das Betriebssystem so, dass eine Anpassung nötig wird, nehmen wir sie im Rahmen des vorstehenden Absatzes vor.</p>
 

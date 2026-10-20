@@ -3,6 +3,7 @@ import { landingCopy } from "../_data/landingCopy";
 import { consentCopy } from "../_data/consentCopy";
 import { analyticsEnabled, getAnalyticsConfig } from "../_lib/analytics";
 import { ConsentReopenLink } from "./ConsentGate";
+import { cancelPaths, startCopy } from "../_data/startCopy";
 import { legalLocale, legalPaths } from "../_lib/legal";
 import type { Locale } from "../_lib/locale";
 
@@ -28,6 +29,8 @@ export function RouteFooter({ locale = "de" }: { locale?: Locale }) {
         <nav aria-label={c.legalNav}>
           <Link href={paths.terms} hrefLang={lang}>{c.agb}</Link>
           <Link href={paths.withdrawal} hrefLang={lang}>{c.widerruf}</Link>
+          {/* §312k BGB: a button for ending a contract made on this site, on every page of it. */}
+          <Link href={cancelPaths[legal]} hrefLang={lang}>{startCopy[legal].footer.cancel}</Link>
           <Link href={paths.privacy} hrefLang={lang}>{c.datenschutz}</Link>
           <Link href={paths.imprint} hrefLang={lang}>{c.impressum}</Link>
           <Link href={paths.licences} hrefLang={lang}>{c.lizenzen}</Link>

@@ -30,6 +30,37 @@ const checkoutLinks: Record<Plan, string> = {
 };
 
 /**
+ * The Payment Link for the introductory offer sold on `/start`: €4.99 now for
+ * the first fourteen days of the annual subscription, then €49 a year unless
+ * cancelled (Stripe: the one-off price `witness_intro_14_days`, the €49
+ * recurring price, and a fourteen-day trial on the subscription).
+ *
+ * Created 20.10.2026 (`plink_1USkPxHOSgmME2jERfCcYoSq`). Were it `null` `/buy?plan=intro` sends the
+ * reader back to `/start` and the page shows no buy button, so nothing can be
+ * bought through a link that is not there yet.
+ *
+ * It takes no promotion code and ignores the partner cookie: the partner deal
+ * is for the two links above and ends on 31 December.
+ */
+const introPaymentLink: string | null = "https://buy.stripe.com/5kQaEXeMY7NIdEMbAmds405";
+
+export function introCheckoutLink(): string | null {
+  return introPaymentLink;
+}
+
+/**
+ * Stripe's customer portal login page, where a subscriber cancels, changes the
+ * card or downloads invoices. Activated 20.10.2026 on the account's default
+ * portal configuration, which Steliara's products share. `null` would make
+ * `/manage` fall back to the cancellation form.
+ */
+const customerPortalLink: string | null = "https://billing.stripe.com/p/login/cNi28rgV6c3Y1W45bYds400";
+
+export function customerPortal(): string | null {
+  return customerPortalLink;
+}
+
+/**
  * The cookie that carries a partner's discount from the reader's first visit
  * to the checkout the app opens two weeks later. It holds the partner's name
  * and nothing else, and it expires with the offer.
