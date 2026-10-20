@@ -17,7 +17,15 @@ export type ComparisonSlug = (typeof comparisonSlugs)[number];
  * (docs/seo/BACKLOG.md, item 2). A page lives under `/en/compare/<slug>` or
  * `/en/guides/<slug>`, whichever its `path` names.
  */
-export const englishComparisonSlugs = ["wispr-flow-alternatives", "mac-dictation", "dictation-missed-words"] as const;
+export const englishComparisonSlugs = [
+  "wispr-flow-alternatives",
+  "mac-dictation",
+  "dictation-missed-words",
+  "best-dictation-apps-mac",
+  "wispr-flow-pricing",
+  "is-wispr-flow-safe",
+  "wispr-flow-vs-superwhisper",
+] as const;
 
 export type EnglishComparisonSlug = (typeof englishComparisonSlugs)[number];
 
@@ -146,6 +154,13 @@ const wisprSources: ComparisonSource[] = [
     url: "https://docs.wisprflow.ai/articles/4760791189-free-tier-weekly-word-cap-and-bonus-words-remove-desktop-trial-experiment",
   },
 ];
+
+const wisprPlansDoc: ComparisonSource = {
+  id: "wispr-plans-doc",
+  title: "Flow plans and what's included",
+  publisher: "Wispr Flow",
+  url: "https://docs.wisprflow.ai/articles/9559327591-flow-plans-and-what-s-included",
+};
 
 const superwhisperSources: ComparisonSource[] = [
   {
@@ -284,7 +299,7 @@ const fluidVoiceSources: ComparisonSource[] = [
     id: "fluidvoice-product",
     title: "FluidVoice: free open source voice-to-text for macOS",
     publisher: "Altic",
-    url: "https://altic.dev/fluid",
+    url: "https://fluidvoice.com/",
   },
 ];
 
@@ -1394,7 +1409,7 @@ const wisprFlowAlternatives: ComparisonPageData = {
       ["MacWhisper", "Local models; optional cloud providers", "Free version; Pro €64 once"],
       ["VoiceInk", "Local; optional cloud clean-up of text only", "$25, $39 or $49 once for one, two or three Macs"],
       ["Apple dictation", "On device or on Apple servers, depending on language", "Included in macOS"],
-      ["Wispr Flow, for reference", "Cloud, processed and stored in the United States", "Free with 1,500 words a week; Pro $144 a year"],
+      ["Wispr Flow, for reference", "Cloud, processed and stored in the United States", "Free with 2,000 words a week; Pro $144 a year"],
     ],
   },
   sections: [
@@ -1402,8 +1417,8 @@ const wisprFlowAlternatives: ComparisonPageData = {
       title: "What people are actually leaving",
       paragraphs: [
         {
-          text: "Three documented facts about Wispr Flow start most of these searches. Its security FAQ states that Flow is a cloud service, not an on-premise deployment, and that it processes and stores customer data in the United States. The setup guide requires signing in before you can dictate at all. And the free tier caps dictation at 1,500 words a week, resetting Sunday at midnight Pacific.",
-          sources: ["wispr-security", "wispr-setup", "wispr-free"],
+          text: "Three documented facts about Wispr Flow start most of these searches. Its security FAQ states that Flow is a cloud service, not an on-premise deployment, and that it processes and stores customer data in the United States. The setup guide requires signing in before you can dictate at all. And the free tier caps dictation at 2,000 words a week on Mac, resetting Sunday at midnight Pacific.",
+          sources: ["wispr-security", "wispr-setup", "wispr-plans-doc"],
         },
         {
           text: "For a lot of work none of that matters. It starts to matter when the sentence you just spoke is a client name, a settlement figure or a diagnosis, because then the question is no longer how fast the text appears but which server saw it first. Flow does give you two settings over what happens next, one for model training and one for cloud storage of your dictations, but neither of them moves recognition off the cloud. The audio goes out either way.",
@@ -1501,6 +1516,7 @@ const wisprFlowAlternatives: ComparisonPageData = {
   sources: [
     localSourceEn,
     ...wisprSources,
+    wisprPlansDoc,
     ...spokenlySources,
     ...macParakeetSources,
     ...fluidVoiceSources,
@@ -1782,6 +1798,481 @@ const missedWords: ComparisonPageData = {
   sources: [localSourceEn, ...recognitionLimitsEn, appleGuideEn[0]],
 };
 
+const bestDictationApps: ComparisonPageData = {
+  locale: "en",
+  slug: "best-dictation-apps-mac",
+  path: "/en/compare/best-dictation-apps-mac",
+  updatedIso: "2026-10-20",
+  updatedLabel: "20 October 2026",
+  eyebrow: "Best dictation apps for Mac",
+  title: "Best dictation apps for Mac, and how to choose one",
+  metaTitle: "Best Dictation Apps for Mac (2026) | Witness",
+  description:
+    "Nine ways to dictate on a Mac, compared on where speech is processed, what you pay and what you see when recognition is unsure. Checked 20 October 2026.",
+  directAnswer: {
+    text: "The short answer: for dictation on a Mac you have nine real options, and most of the local ones cost nothing. macOS has dictation built in. Superwhisper, MacWhisper, Spokenly, MacParakeet and FluidVoice run recognition on the Mac and have a free way in. VoiceInk is a one-time purchase from $25. Wispr Flow is the cloud option, with an account and $144 a year for Pro. Witness is €99 once, and it is the one to look at when the text goes into documents other people act on, because it points you to the passages that deserve a second look. If you only need to get words onto the screen privately, you do not need to pay for anything on this page.",
+    sources: ["apple-dictation-en", "super-pro", "macparakeet-product", "fluidvoice-product", "spokenly-pricing", "voiceink-product", "wispr-plans-doc", "local-product"],
+  },
+  table: {
+    caption: "Nine ways to dictate on a Mac, by where speech is processed and what they cost",
+    headers: ["App", "Where speech is processed", "Price"],
+    rows: [
+      ["Witness", "On the Mac, with no cloud option", "€99 once or €49 a year, two Macs, 13-day trial"],
+      ["macOS dictation", "On device or on Apple servers, depending on language", "Included in macOS"],
+      ["Superwhisper", "Local models; cloud models optional", "Free tier with unlimited local Whisper; Pro $8.49/mo, $84.99/yr or $249.99 once"],
+      ["MacWhisper", "Local models; optional cloud providers", "Free version; Pro €64 once"],
+      ["VoiceInk", "Local; optional cloud clean-up of text only", "$25, $39 or $49 once for one, two or three Macs"],
+      ["Spokenly", "Local models offline; managed cloud only on Pro", "$0 forever for local models; Pro $99.99 a year"],
+      ["MacParakeet", "Local on Apple Silicon", "Free, GPL-3.0, no account"],
+      ["FluidVoice", "Local by default", "Free, GPLv3, no paid tier"],
+      ["Wispr Flow", "Cloud, processed and stored in the United States", "Free with 2,000 words a week; Pro $144 a year"],
+    ],
+  },
+  sections: [
+    {
+      title: "Three questions that sort the list",
+      paragraphs: [
+        {
+          text: "Where does the speech go? What does it cost over the time you will use it? And what are you shown when recognition is not sure? The first two are on every vendor page. The third almost never is, and it is the one that decides whether you can trust what lands in a document.",
+          sources: ["local-product"],
+        },
+        {
+          text: "Wispr Flow answers the first question differently from everyone else here: its security FAQ states that Flow processes dictated audio in the cloud and stores customer data in the United States, and the setup guide asks you to sign in before you can dictate. Every other app in the table runs recognition on the Mac by default.",
+          sources: ["wispr-security", "wispr-setup"],
+        },
+      ],
+    },
+    {
+      title: "If you only need private and free",
+      paragraphs: [
+        {
+          text: "You are well served. Superwhisper's free tier allows unlimited dictation with any local Whisper model and says nothing you dictate leaves your device on that plan. Spokenly runs Whisper and Parakeet models offline for $0 with no word cap. MacParakeet and FluidVoice are free and open source, MacParakeet needs no account and covers 98 languages, and MacWhisper has a permanently free version. macOS dictation is already installed.",
+          sources: ["super-pro", "spokenly-pricing", "macparakeet-product", "fluidvoice-product", "macwhisper-product", "apple-dictation-en"],
+        },
+        {
+          text: "If your texts are messages, notes and first drafts, start with the built-in dictation and one of the free apps before you spend anything. Witness is not the cheapest thing on this page and does not try to be.",
+          sources: ["apple-dictation-en", "local-product"],
+        },
+      ],
+    },
+    {
+      title: "What the paid local apps add",
+      paragraphs: [
+        {
+          text: "Superwhisper Pro adds cloud voice models, AI-powered modes and file transcription, at $8.49 a month, $84.99 a year or $249.99 once. VoiceInk is a one-time $25 to $49 depending on how many Macs. MacWhisper Pro is €64 once. These buy features: more models, more modes, transcription of recordings.",
+          sources: ["super-pro", "voiceink-product", "macwhisper-product"],
+        },
+        {
+          text: "An automatic marker for passages where recognition was unsure is not publicly documented for any of them on the pages we checked. That is not a statement about how well they recognise speech. It only means we cannot list that feature as present.",
+          sources: ["super-pro", "voiceink-product", "macwhisper-product", "spokenly-pricing", "macparakeet-product", "fluidvoice-product"],
+        },
+      ],
+    },
+    {
+      title: "What happens when recognition is wrong",
+      paragraphs: [
+        {
+          text: "Dictation fails quietly. A figure comes out as another figure, a name as a similar name, and the sentence stays perfectly readable, so nothing makes you look again. Local processing does not change that: it decides where your audio goes, not how the model behaves on an unclear recording.",
+          sources: ["local-product"],
+        },
+        {
+          text: "macOS deserves credit here. It underlines ambiguous words in blue and lets you click one to pick an alternative, which is a real check and worth knowing about. Witness works on the same problem with different choices. The text lands at your cursor straight away. When a passage deserves a second look, a marker lights up in the menu bar, and one click opens a panel with the flagged passages, the short audio behind a flagged one, and the raw transcript, so you can see what cleanup changed. We make no claim that Witness recognises speech more accurately: there is no shared published benchmark that would let anyone rank these apps on accuracy.",
+          sources: ["apple-dictation-en", "local-product"],
+        },
+      ],
+    },
+    {
+      title: "What two years cost",
+      paragraphs: [
+        {
+          text: "Wispr Flow Pro is $12 a month billed annually, which is $144 a year, so $288 over two years. Superwhisper Pro is $84.99 a year, or $249.99 once. Spokenly Pro is $99.99 a year. Witness is €99 once for two Macs, or €49 a year, and the 13-day trial is the full version with no account. Prices are in each vendor's own currency, and we have not converted them.",
+          sources: ["wispr-plans-doc", "super-pro", "spokenly-pricing", "local-product"],
+        },
+        {
+          text: "The one-time options are Witness, VoiceInk, MacWhisper Pro and Superwhisper's lifetime plan. If you would rather not think about renewals and want the check on top, that is the case for Witness. If you want the lowest price, it is not.",
+          sources: ["voiceink-product", "macwhisper-product", "super-pro", "local-product"],
+        },
+      ],
+    },
+    {
+      title: "Two languages in one day",
+      paragraphs: [
+        {
+          text: "With Witness you tick the languages you actually speak, out of 100, and recognition chooses among those. English, German, Russian and Ukrainian are measured end to end, from recognition through cleanup to every marker. For the other languages you still get recognition, and the markers that need per-language calibration stay off instead of guessing.",
+          sources: ["local-product"],
+        },
+      ],
+    },
+  ],
+  verdict: {
+    text: "What we recommend: switch on the built-in dictation, try one free local app, and decide from there. If the text you dictate goes into documents where a wrong figure or name costs you, and you would rather be pointed to the passages that deserve a look than proofread everything, choose Witness: Apple Silicon with macOS 14.4 or newer, €99 once for two Macs, and a 13-day trial that is the full version with no account. Choose Wispr Flow only if you need the same app on Windows, iPhone and Android and accept that your speech is processed in the cloud. It is not for you if you need to transcribe recordings or run on Windows.",
+    sources: ["apple-dictation-en", "wispr-security", "local-product"],
+  },
+  faqs: [
+    {
+      question: "What is the best free dictation app for Mac?",
+      answer: "That depends on what you need, but there are good free local choices: Superwhisper's free tier with unlimited local Whisper models, Spokenly with local models for $0, MacParakeet and FluidVoice as open-source apps, MacWhisper's free version, and the dictation built into macOS.",
+    },
+    {
+      question: "Can I dictate on a Mac without an internet connection?",
+      answer: "Yes with the local apps once the speech model is downloaded. Witness recognises speech on the Mac and needs a connection only to download the model and to activate the licence. macOS dictation depends on the language: some run on the device, others on Apple servers.",
+    },
+    {
+      question: "Which Mac dictation app has no subscription?",
+      answer: "Witness (€99 once), VoiceInk ($25 to $49 once), MacWhisper Pro (€64 once) and Superwhisper's lifetime plan ($249.99 once) are one-time purchases, and several apps are free. Wispr Flow and Spokenly Pro are subscriptions.",
+    },
+    {
+      question: "Which one should I pick for German and English?",
+      answer: "All of them recognise both. With Witness you tick the languages you speak, and English and German are among the four measured end to end.",
+    },
+    {
+      question: "Is one of these more accurate than the others?",
+      answer: "Nobody can answer that from public evidence. There is no shared published benchmark with identical hardware, recordings and post-processing, so this page compares where speech is processed, what each app costs and what it shows you.",
+    },
+  ],
+  sources: [
+    localSourceEn,
+    wisprSources[0],
+    wisprSources[3],
+    wisprPlansDoc,
+    ...spokenlySources,
+    ...macParakeetSources,
+    ...fluidVoiceSources,
+    superwhisperSources[0],
+    macwhisperSources[0],
+    voiceInkSources[0],
+    appleDictationEn,
+  ],
+};
+
+const wisprFlowPricing: ComparisonPageData = {
+  locale: "en",
+  slug: "wispr-flow-pricing",
+  path: "/en/compare/wispr-flow-pricing",
+  updatedIso: "2026-10-20",
+  updatedLabel: "20 October 2026",
+  eyebrow: "Wispr Flow pricing",
+  title: "Wispr Flow pricing: what each plan costs, and what the free plan allows",
+  metaTitle: "Wispr Flow Pricing: Plans and Free Limits | Witness",
+  description:
+    "Wispr Flow costs $0, $15 a month or $144 a year for Pro. The free plan stops at 2,000 words a week on Mac. Checked 20 October 2026.",
+  directAnswer: {
+    text: "The short answer: Wispr Flow is free up to 2,000 words a week on Mac, then Pro costs $15 a month, or $144 a year ($12 a month) if you pay annually. Teams pay $23 a user a month on Growth, and Enterprise is priced on request. There is no one-time plan on the pricing page. Over three years of Pro you pay $432, and Flow processes the audio in the cloud the whole time. Witness is €99 once for two Macs, or €49 a year, and runs on the Mac with a 13-day trial and no account. The free local apps cost less than either, which is the honest alternative if all you want is private dictation.",
+    sources: ["wispr-plans", "wispr-plans-doc", "wispr-security", "local-product"],
+  },
+  table: {
+    caption: "Wispr Flow plans next to Witness, as listed on 20 October 2026",
+    headers: ["Plan", "Wispr Flow", "Witness"],
+    rows: [
+      ["Free entry", "Free plan, 2,000 words a week on Mac and Windows", "13-day full trial, no account"],
+      ["Paid, monthly", "Pro $15 a month; Growth $23 a user a month", "No monthly plan"],
+      ["Paid, yearly", "Pro $144 a year ($12 a month); Growth $216 a user a year", "€49 a year, two Macs"],
+      ["Paid, one time", "Not listed on the pricing page", "€99 once, two Macs"],
+      ["Where speech is processed", "Cloud, processed and stored in the United States", "On the Mac, with no cloud option"],
+      ["Account", "Sign-in required to dictate", "Email licence key, no product account"],
+      ["Platforms", "Mac, Windows, iPhone, Android", "Mac with Apple Silicon, macOS 14.4 or newer"],
+    ],
+  },
+  sections: [
+    {
+      title: "The plans, in order",
+      paragraphs: [
+        {
+          text: "Free is $0. Pro is $15 per user a month, or $144 a user a year, which Wispr Flow lists as $12 a month and 20 percent less than paying monthly. Growth, for teams, is $23 a user a month or $216 a year without the meeting notetaker, and $33 a month or $312 a year with it. It adds single sign-on, several email domains and usage reporting. Enterprise is custom, billed annually for new agreements. Prices are fixed per currency across 24 supported currencies, so the figures differ outside the US.",
+          sources: ["wispr-plans-doc", "wispr-plans"],
+        },
+        {
+          text: "Students and educators with an education email get 50 percent off Pro, according to the pricing page. The default trial is 14 days, with 30 days through a referral and 90 days for students where it applies.",
+          sources: ["wispr-plans", "wispr-plans-doc"],
+        },
+      ],
+    },
+    {
+      title: "What the free plan allows",
+      paragraphs: [
+        {
+          text: "On Mac and Windows the free plan gives a weekly allowance of 2,000 words, with a hard maximum of 5,000, and the count resets on Sunday at midnight Pacific. When you reach the allowance Flow slows down; at the maximum, dictation is blocked until the reset or an upgrade. iPhone and Android have separate, lower caps, and the limits can change without an app update.",
+          sources: ["wispr-plans-doc"],
+        },
+        {
+          text: "For scale: 2,000 words is roughly four typed pages. A person who dictates emails and messages through a working week will pass it, and the practical choice then is between Pro and a different tool.",
+          sources: ["wispr-plans-doc"],
+        },
+      ],
+    },
+    {
+      title: "What Pro costs over time",
+      paragraphs: [
+        {
+          text: "At $144 a year Pro costs $288 over two years and $432 over three, and it stops working when you stop paying. Witness Lifetime is €99 once for two Macs and keeps working, with all version 1 updates. The annual licence is €49 a year if you would rather not pay it all at once. We have not converted dollars to euros: compare the figures in your own currency.",
+          sources: ["wispr-plans-doc", "local-product"],
+        },
+        {
+          text: "Superwhisper, VoiceInk and MacWhisper also have one-time options and several local apps are free. Witness is not the cheapest dictation tool and does not try to be. What the price buys is a different approach to errors: the text lands at your cursor at once, a marker in the menu bar tells you when a passage deserves a second look, and one click shows the flagged passages, the audio behind them and the raw transcript. An automatic marker like that is not publicly documented for Wispr Flow on the pages we checked.",
+          sources: ["super-pro", "voiceink-product", "macwhisper-product", "wispr-plans-doc", "local-product"],
+        },
+      ],
+    },
+    {
+      title: "The cost that is not on the pricing page",
+      paragraphs: [
+        {
+          text: "Wispr Flow is a cloud service. Its security FAQ says it processes dictated audio in the cloud and stores customer data in the United States, and you need an account before you can dictate. For a shopping list that does not matter. For client names, contract terms or health information it is the part of the price you should read first.",
+          sources: ["wispr-security", "wispr-setup"],
+        },
+      ],
+    },
+    {
+      title: "When Pro is the right purchase",
+      paragraphs: [
+        {
+          text: "If you need one dictation tool across Mac, Windows, iPhone and Android, or a team needs single sign-on and central billing, Wispr Flow is built for that and Witness is not. Witness runs on Apple Silicon Macs only, on purpose: everything is computed locally.",
+          sources: ["wispr-plans-doc", "local-product"],
+        },
+      ],
+    },
+  ],
+  verdict: {
+    text: "What we recommend: use the free plan to find out whether you dictate more than 2,000 words a week. If you do, and the text includes things you would not want on a US server, or you simply prefer to pay once, Witness is the better buy: €99 once for two Macs, speech processed only on your Mac, a marker for passages that deserve a second look, and a 13-day trial that is the full version with no account. Pick Wispr Flow Pro if you need Windows, iPhone or Android as well as Mac. It is not for you if you want the lowest possible price: the free local apps beat both.",
+    sources: ["wispr-plans-doc", "wispr-security", "local-product"],
+  },
+  faqs: [
+    {
+      question: "Is Wispr Flow free?",
+      answer: "There is a free plan with a weekly allowance of 2,000 words on Mac and Windows and a hard maximum of 5,000. After that you wait for the Sunday reset or upgrade to Pro.",
+    },
+    {
+      question: "How much does Wispr Flow Pro cost?",
+      answer: "$15 a month, or $144 a year, which is $12 a month. Annual billing is 20 percent cheaper than monthly. Prices differ by currency.",
+    },
+    {
+      question: "Does Wispr Flow have a lifetime or one-time plan?",
+      answer: "Not on the pricing page we checked on 20 October 2026, which lists Free, Pro, Growth and Enterprise. Witness, VoiceInk, MacWhisper Pro and Superwhisper's lifetime plan are one-time purchases.",
+    },
+    {
+      question: "Is there a student discount for Wispr Flow?",
+      answer: "The pricing page lists 50 percent off Pro for students and educators with an education email, and the plans article lists a 90-day student trial where it applies.",
+    },
+    {
+      question: "Does Wispr Flow work offline?",
+      answer: "Its security documentation describes Flow as a cloud service that processes dictated audio in the cloud. It does not describe an offline mode.",
+    },
+  ],
+  sources: [localSourceEn, wisprSources[2], wisprPlansDoc, wisprSources[0], wisprSources[3], superwhisperSources[0], voiceInkSources[0], macwhisperSources[0]],
+};
+
+const isWisprFlowSafe: ComparisonPageData = {
+  locale: "en",
+  slug: "is-wispr-flow-safe",
+  path: "/en/compare/is-wispr-flow-safe",
+  updatedIso: "2026-10-20",
+  updatedLabel: "20 October 2026",
+  eyebrow: "Is Wispr Flow safe",
+  title: "Is Wispr Flow safe? What it sends, stores and lets you turn off",
+  metaTitle: "Is Wispr Flow Safe? Privacy Review | Witness",
+  description:
+    "Wispr Flow is audited, and still sends your speech to a US cloud. What it stores, what you can switch off and what you cannot. Checked 20 October 2026.",
+  directAnswer: {
+    text: "The short answer: Wispr Flow is audited, and it is a cloud service. Its security FAQ lists a SOC 2 Type II report and an ISO/IEC 27001:2022 certificate for Flow dictation, encryption in transit and at rest, and HIPAA-ready dictation under a signed agreement. The same page says Flow processes dictated audio in the cloud and stores customer data in the United States, and that turning off model improvement does not stop cloud processing. So whether it is safe for you depends on one question: are you comfortable with what you dictate leaving your Mac? If not, use something that recognises speech on the Mac. Witness does, and nothing you dictate leaves it.",
+    sources: ["wispr-security", "wispr-privacy", "local-product"],
+  },
+  table: {
+    caption: "What the privacy documents say, side by side",
+    headers: ["Question", "Wispr Flow", "Witness"],
+    rows: [
+      ["Where is speech recognised?", "In the cloud, with customer data stored in the United States", "On the Mac, with no cloud option"],
+      ["Is an account needed?", "Yes, to sign in and dictate", "No product account, an email key for the licence"],
+      ["Can you stop your data being used to improve models?", "Yes, a setting that is on by default for Free and Pro", "Dictation content is not sent, so there is nothing to opt out of"],
+      ["Does turning that off keep audio on your Mac?", "No: cloud processing continues, and metadata such as word count, duration, app and timestamp is still uploaded", "Not applicable"],
+      ["Who holds the encryption keys?", "Wispr; customer-managed keys are not supported", "Not applicable, no dictation data on a server"],
+      ["Audits and certificates", "SOC 2 Type II report, ISO/IEC 27001:2022 certificate", "Not applicable, no dictation server to audit"],
+      ["Works without an internet connection?", "Not described as an offline mode", "Yes, after the speech model is downloaded"],
+    ],
+  },
+  sections: [
+    {
+      title: "What Wispr Flow documents well",
+      paragraphs: [
+        {
+          text: "It would be wrong to call it careless. The Trust Center provides a SOC 2 Type II report, there is an ISO/IEC 27001:2022 certificate covering Flow dictation, service data is encrypted in transit and at rest, and the page says third-party AI providers may not use your data to train their models. HIPAA-ready dictation needs a signed business associate agreement. These are real controls and a security team will want to know about them.",
+          sources: ["wispr-security"],
+        },
+      ],
+    },
+    {
+      title: "What leaves your Mac",
+      paragraphs: [
+        {
+          text: "Everything you dictate. The security FAQ says Flow processes dictated audio in the cloud to turn speech into text, and processes and stores customer data in the United States. It also says the service is not end-to-end encrypted in the strict sense, because it has to process the audio to produce a transcript, and that Wispr manages the encryption keys.",
+          sources: ["wispr-security"],
+        },
+        {
+          text: "The page does not name the cloud or language-model providers behind this. It says Wispr uses third-party AI providers and keeps a subprocessor list in its Trust Center.",
+          sources: ["wispr-security"],
+        },
+      ],
+    },
+    {
+      title: "What you can switch off, and what you cannot",
+      paragraphs: [
+        {
+          text: "There are two settings. 'Improve the model for everyone' is on by default for Free and Pro and can be turned off; it withholds audio, transcripts and edits from model improvement. The documentation is explicit that turning it off does not stop cloud processing, and that metadata such as word count, duration, app and timestamp is still uploaded. A dictation you choose to report is retained and can be used to train and evaluate models regardless.",
+          sources: ["wispr-security", "wispr-privacy"],
+        },
+        {
+          text: "'Dictation cloud storage' keeps transcripts, audio and history on Wispr's servers for cross-device access. Per the privacy article both settings default to on, and signing out resets the storage preference to on. The meeting Notetaker is separate: its audio is kept for 7 days, its transcripts and summaries are stored in the cloud, and there is no opt-out.",
+          sources: ["wispr-privacy", "wispr-security"],
+        },
+      ],
+    },
+    {
+      title: "Where safe is the wrong question",
+      paragraphs: [
+        {
+          text: "For most dictation this does not matter. Automatic marking of passages where recognition was unsure is not publicly documented for Wispr Flow either, which is a separate question from privacy. It starts to matter when the sentence you just spoke is a client name, a settlement figure, a diagnosis or an unpublished plan, and when someone else's rules decide where it may be processed. Then the useful question is not whether the provider is audited, but whether the content needs to leave your Mac at all. Ask your own policy, not ours.",
+          sources: ["wispr-security"],
+        },
+        {
+          text: "Witness answers that question by not having the option. Speech recognition and text processing run on your Mac, and so does the licence check. Audio, transcript and vocabulary are never sent anywhere, and audio stays in memory only. What goes out is limited to documented non-content data for activation, licence, payment and updates. The text lands at your cursor at once, a menu-bar marker flags passages that deserve a second look, and one click opens them with the audio behind them and the raw transcript.",
+          sources: ["local-product"],
+        },
+      ],
+    },
+  ],
+  verdict: {
+    text: "What we recommend: if your dictation can sit on a US cloud service and you want one tool across Mac, Windows, iPhone and Android, Wispr Flow's audits and controls are reasonable and you can decide for yourself. If your dictation includes client or patient names, contracts, figures or anything you are obliged to keep in-house, choose a tool that does not send it anywhere. Witness runs only on your Mac, costs €99 once for two Macs, and the 13-day trial is the full version with no account. It is not for you if you need Windows or a phone.",
+    sources: ["wispr-security", "wispr-privacy", "local-product"],
+  },
+  faqs: [
+    {
+      question: "Is Wispr Flow safe to use?",
+      answer: "It documents a SOC 2 Type II report, an ISO/IEC 27001:2022 certificate and encryption in transit and at rest. It is also a cloud service that processes your dictated audio and stores customer data in the United States, so safe depends on whether that is acceptable for what you dictate.",
+    },
+    {
+      question: "Does Wispr Flow store my dictations?",
+      answer: "With Dictation cloud storage on, it stores transcripts, audio and history on its servers. The privacy article says the setting defaults to on, and signing out resets it to on. Notetaker audio is kept for 7 days.",
+    },
+    {
+      question: "Does Wispr Flow train on my voice?",
+      answer: "A setting called 'Improve the model for everyone' is on by default for Free and Pro and can be turned off. Third-party AI providers may not use the data to train their models. A dictation you report can be used for training and evaluation regardless of the setting.",
+    },
+    {
+      question: "Can I stop Wispr Flow sending audio to the cloud?",
+      answer: "The documentation says turning off model improvement does not stop cloud processing. We did not find an offline mode described.",
+    },
+    {
+      question: "What is a Wispr Flow alternative that stays on my Mac?",
+      answer: "Several local apps exist, some free. Witness is one: recognition runs on the Mac, there is no cloud option, and a menu-bar marker points you to passages that deserve a second look.",
+    },
+  ],
+  sources: [localSourceEn, wisprSources[0], wisprSources[3], wisprSources[4], wisprPlansDoc],
+};
+
+const wisprFlowVsSuperwhisper: ComparisonPageData = {
+  locale: "en",
+  slug: "wispr-flow-vs-superwhisper",
+  path: "/en/compare/wispr-flow-vs-superwhisper",
+  updatedIso: "2026-10-20",
+  updatedLabel: "20 October 2026",
+  eyebrow: "Wispr Flow vs Superwhisper",
+  title: "Wispr Flow vs Superwhisper on Mac: privacy, price, and a third option",
+  metaTitle: "Wispr Flow vs Superwhisper for Mac | Witness",
+  description:
+    "Wispr Flow is cloud and a subscription. Superwhisper can run fully local with a free tier. Where they differ, and what neither shows. Checked 20 October 2026.",
+  directAnswer: {
+    text: "The short answer: the two split on where your speech goes and what you pay. Wispr Flow processes dictated audio in the cloud, needs an account, and costs $144 a year for Pro after 2,000 free words a week on Mac. Superwhisper runs recognition and text clean-up locally or in the cloud, stage by stage, has a free tier with unlimited local Whisper dictation, and sells Pro at $8.49 a month, $84.99 a year or $249.99 once. What they share is the gap that matters for documents: neither documents a marker for passages where recognition was unsure. That gap is what Witness is built around, and it is why it belongs on your shortlist as a third candidate.",
+    sources: ["wispr-security", "wispr-plans-doc", "super-pro", "super-security", "local-product"],
+  },
+  table: {
+    caption: "Wispr Flow and Superwhisper, as documented on 20 October 2026",
+    headers: ["", "Wispr Flow", "Superwhisper"],
+    rows: [
+      ["Where speech is processed", "Cloud, with customer data stored in the United States", "Your choice per stage: fully local, or cloud models via providers"],
+      ["Free entry", "2,000 words a week on Mac and Windows", "Unlimited dictation with any local Whisper model; two modes without AI"],
+      ["Paid", "Pro $15 a month or $144 a year", "Pro $8.49 a month, $84.99 a year or $249.99 once"],
+      ["Training on your data", "Setting on by default for Free and Pro, can be turned off", "Audio and text not used to train AI models"],
+      ["Uncertain passages", "Not publicly documented", "Not publicly documented"],
+    ],
+  },
+  sections: [
+    {
+      title: "Where the audio goes",
+      paragraphs: [
+        {
+          text: "This is the sharpest difference. Wispr Flow's security FAQ states that Flow processes dictated audio in the cloud and stores customer data in the United States. Superwhisper splits each dictation into two stages, a voice model and an optional language model for post-processing, and each can run locally or in the cloud. With a fully local setup its security page says no audio or text ever leaves your machine.",
+          sources: ["wispr-security", "super-security"],
+        },
+        {
+          text: "So with Superwhisper the setting you choose decides the answer. With cloud models, audio and text go through API calls to providers such as Anthropic, OpenAI, Deepgram and Groq, or to Superwhisper's own cloud models, and custom vocabulary is sent with the audio. Its agreements with providers include zero data retention, which the page says applies to API usage only.",
+          sources: ["super-security"],
+        },
+      ],
+    },
+    {
+      title: "What you pay",
+      paragraphs: [
+        {
+          text: "Wispr Flow Pro is $15 a month or $144 a year. Superwhisper Pro is cheaper by the year at $84.99, and it has a $249.99 lifetime plan that Wispr Flow does not list. The free tiers are not alike: Superwhisper's allows unlimited local dictation with any local Whisper model, and Wispr Flow's stops at 2,000 words a week on Mac, with a maximum of 5,000.",
+          sources: ["wispr-plans-doc", "super-pro"],
+        },
+        {
+          text: "In Superwhisper's free tier the cloud voice models, AI-powered modes and file transcription are Pro features, and new users get 3,000 words of Pro access before it falls back to Free.",
+          sources: ["super-pro"],
+        },
+      ],
+    },
+    {
+      title: "Which one for which person",
+      paragraphs: [
+        {
+          text: "Choose Wispr Flow for the shortest path to working dictation and the widest platform list, including iPhone and Android, plus team features such as SSO. Choose Superwhisper if you want control over where each stage runs, a free local tier, or a one-time price. We cannot rank them on accuracy, and nobody can from public evidence: there is no shared published benchmark.",
+          sources: ["wispr-plans-doc", "super-pro", "super-security"],
+        },
+      ],
+    },
+    {
+      title: "What neither one shows you",
+      paragraphs: [
+        {
+          text: "Dictation fails quietly. A figure comes out as a different figure, and the sentence stays readable, so nothing makes you look again. Automatic marking of the passages where recognition was unsure is not publicly documented for either app on the pages we checked.",
+          sources: ["wispr-security", "super-pro", "local-product"],
+        },
+        {
+          text: "That is the one thing Witness is built around. It recognises speech only on your Mac, with no cloud option. The text lands at your cursor at once. When a passage deserves a second look, a marker lights up in the menu bar and one click opens the flagged passages, the short audio behind each, and the raw transcript so you can see what cleanup changed. It costs €99 once for two Macs, runs on Apple Silicon with macOS 14.4 or newer, and the 13-day trial is the full version with no account.",
+          sources: ["local-product"],
+        },
+      ],
+    },
+  ],
+  verdict: {
+    text: "What we recommend: if you dictate into documents where a wrong figure or name costs you, and you want to be pointed to the passages that deserve a second look instead of proofreading everything, choose Witness. It recognises speech only on your Mac, costs €99 once for two Macs, and the 13-day trial is the full version with no account. If the choice really is between these two, Superwhisper with local models selected is the closer match when privacy matters, and Wispr Flow when you need Windows, iPhone or Android. Witness is Mac-only, so it is not for you if you need those.",
+    sources: ["super-security", "super-pro", "local-product"],
+  },
+  faqs: [
+    {
+      question: "Is Superwhisper more private than Wispr Flow?",
+      answer: "With local models selected for both stages, Superwhisper says no audio or text leaves your machine. Wispr Flow's documentation describes a cloud service that processes dictated audio and stores customer data in the United States.",
+    },
+    {
+      question: "Which is cheaper, Wispr Flow or Superwhisper?",
+      answer: "Per year Superwhisper Pro is $84.99 against $144 for Wispr Flow Pro. Superwhisper also lists a $249.99 lifetime plan, and its free tier allows unlimited local dictation. Wispr Flow's free plan stops at 2,000 words a week on Mac.",
+    },
+    {
+      question: "Does Superwhisper work offline?",
+      answer: "With local voice models, yes. Cloud models need a connection. Wispr Flow's documentation does not describe an offline mode.",
+    },
+    {
+      question: "Do either of them mark uncertain words?",
+      answer: "Neither documents an automatic marker for passages where recognition was unsure on the pages we checked. That is not a statement about accuracy.",
+    },
+    {
+      question: "What is a third option to Wispr Flow and Superwhisper?",
+      answer: "Witness: recognition only on your Mac, a one-time price, and a menu-bar marker pointing to passages that deserve a second look.",
+    },
+  ],
+  sources: [localSourceEn, wisprSources[0], wisprSources[3], wisprSources[4], wisprPlansDoc, superwhisperSources[0], superwhisperSources[1]],
+};
+
 export const comparisons: Record<ComparisonSlug, ComparisonPageData> = {
   "mac-diktierfunktion": macDictation,
   "wispr-flow-alternative": wispr,
@@ -1797,6 +2288,10 @@ export const englishComparisons: Record<EnglishComparisonSlug, ComparisonPageDat
   "wispr-flow-alternatives": wisprFlowAlternatives,
   "mac-dictation": macDictationGuide,
   "dictation-missed-words": missedWords,
+  "best-dictation-apps-mac": bestDictationApps,
+  "wispr-flow-pricing": wisprFlowPricing,
+  "is-wispr-flow-safe": isWisprFlowSafe,
+  "wispr-flow-vs-superwhisper": wisprFlowVsSuperwhisper,
 };
 
 /** Every page in one locale, in footer order. */
