@@ -1,7 +1,7 @@
 import { getAnalyticsConfig } from "../_lib/analytics";
 import { getDownloadTarget } from "../_lib/download";
 import { DownloadLink } from "../danke/DownloadSignal";
-import { cancelPaths, startCopy, type StartLocale } from "../_data/startCopy";
+import { cancelPaths, startCopy, thanksPaths, type StartLocale } from "../_data/startCopy";
 import { RouteFooter } from "./RouteFooter";
 
 /**
@@ -18,12 +18,17 @@ export function StartThanksPage({ locale }: { locale: StartLocale }) {
   const available = Boolean(getDownloadTarget());
   const downloadPath = locale === "de" ? "/download" : `/download?lang=${locale}`;
   const home = locale === "de" ? "/start" : "/en/start";
+  // The Payment Link has one return address, so an English buyer lands here
+  // first and needs the way to their own language.
+  const other: StartLocale = locale === "de" ? "en" : "de";
 
   return (
     <div className="thanks-page" lang={locale}>
       <header className="thanks-header shell">
         <a href={home} className="thanks-brand">Witness</a>
-        <span>{locale === "de" ? "Kauf" : "Purchase"}</span>
+        <span>
+          {locale === "de" ? "Kauf" : "Purchase"} · <a href={thanksPaths[other]} hrefLang={other}>{other.toUpperCase()}</a>
+        </span>
       </header>
       <main>
         <section className="thanks-hero shell">

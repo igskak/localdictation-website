@@ -1134,6 +1134,8 @@ test("the page after the payment tells a buyer which address to enter, and never
     for (const pattern of must) assert.match(html, pattern, path);
     assert.doesNotMatch(html, mustNot, path);
     assert.match(html, /<meta name="robots" content="noindex, nofollow"/, path);
+    // One return address for the Payment Link, so each page offers the other language.
+    assert.match(html, path === "/start/danke" ? /href="\/en\/start\/danke"/ : /href="\/start\/danke"/, path);
   }
 });
 
