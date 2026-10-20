@@ -324,7 +324,7 @@ const wispr: ComparisonPageData = {
       ["Inhaltsverarbeitung", "Lokal auf Apple Silicon", "Cloud-SaaS; Verarbeitung und Speicherung in den USA"],
       ["Plattformen", "macOS 14.4+, Apple Silicon", "macOS, Windows, iOS und Android"],
       ["Sprachwahl", "Angekreuzte Sprachen, eine je Diktat; vier end-to-end gemessen", "100+ Sprachen; Erkennung zu Sitzungsbeginn, eine je Segment"],
-      ["Prüfung riskanter Stellen", "Vor Einfügung vorgesehen", "Nicht öffentlich dokumentiert"],
+      ["Markierung unsicherer Stellen", "Zeichen in der Menüleiste, Prüfansicht mit Originalton und Rohtranskript", "Nicht öffentlich dokumentiert"],
       ["Konto", "Kein Produktkonto vorgesehen", "Anmeldung erforderlich"],
       ["Preis", "€99 lebenslang oder €49/Jahr", "Free; Pro $15/Monat oder $12/Monat bei jährlicher Zahlung ($144/Jahr)"],
     ],
@@ -351,7 +351,7 @@ const wispr: ComparisonPageData = {
           sources: ["wispr-languages"],
         },
         {
-          text: "Auch Witness entscheidet sich pro Aufnahme für eine Sprache; gemischte Sätze kommen bei beiden Produkten gemischt heraus, und wir führen das deshalb nicht als Unterschied. Der Unterschied liegt darin, woher diese eine Sprache kommt und was danach passiert. Witness kennt dieselbe Größenordnung von 100 Sprachen, überlässt die Wahl aber dir: Du kreuzt an, welche du sprichst, und entschieden wird nur noch zwischen diesen. Wörter, die nach einer anderen deiner Sprachen aussehen, stehen vor dem Einfügen in der Prüfzeile. Für Deutsch, Englisch, Russisch und Ukrainisch ist der ganze Weg gemessen, von der Erkennung über die Textaufbereitung bis zu jeder Prüfmarkierung; bei den übrigen bleiben sprachabhängig kalibrierte Markierungen aus, statt zu raten. Begriffe und Eigennamen lassen sich im lokalen Wörterbuch hinterlegen.",
+          text: "Auch Witness entscheidet sich pro Aufnahme für eine Sprache; gemischte Sätze kommen bei beiden Produkten gemischt heraus, und wir führen das deshalb nicht als Unterschied. Der Unterschied liegt darin, woher diese eine Sprache kommt und was danach passiert. Witness kennt dieselbe Größenordnung von 100 Sprachen, überlässt die Wahl aber dir: Du kreuzt an, welche du sprichst, und entschieden wird nur noch zwischen diesen. Wörter, die nach einer anderen deiner Sprachen aussehen, werden markiert. Für Deutsch, Englisch, Russisch und Ukrainisch ist der ganze Weg gemessen, von der Erkennung über die Textaufbereitung bis zu jeder Prüfmarkierung; bei den übrigen bleiben sprachabhängig kalibrierte Markierungen aus, statt zu raten. Begriffe und Eigennamen lassen sich im lokalen Wörterbuch hinterlegen.",
           sources: ["local-product"],
         },
       ],
@@ -360,7 +360,7 @@ const wispr: ComparisonPageData = {
       title: "Prüfen statt geglättete Unsicherheit zu übersehen",
       paragraphs: [
         {
-          text: "Der besondere Fokus von Witness ist nicht eine behauptete höhere Trefferquote. Vor dem Einfügen sollen riskante Fragmente wie Zahlen, Datumsangaben, Namen, Verneinungen und Wörterbuchbegriffe markiert werden. Du kannst den Originalton des Fragments erneut hören und das Rohtranskript sehen. Für eine entsprechende risikobasierte Prüfzeile fanden wir in der öffentlichen Wispr-Flow-Dokumentation keinen Nachweis: nicht öffentlich dokumentiert.",
+          text: "Der besondere Fokus von Witness ist nicht eine behauptete höhere Trefferquote. Der Text steht sofort am Cursor, und Stellen, auf die du achten solltest, werden markiert: ein Zeichen in der Menüleiste, ein Klick öffnet sie. Dort kannst du den Originalton der Stelle erneut hören und das Rohtranskript sehen. Für eine entsprechende risikobasierte Markierung fanden wir in der öffentlichen Wispr-Flow-Dokumentation keinen Nachweis: nicht öffentlich dokumentiert.",
           sources: ["local-product", "wispr-security", "wispr-languages"],
         },
       ],
@@ -373,14 +373,14 @@ const wispr: ComparisonPageData = {
           sources: ["wispr-setup", "wispr-plans", "wispr-free", "wispr-privacy"],
         },
         {
-          text: "Witness hat kein Produktkonto. Ein Lizenzschlüssel kommt per E-Mail; €99 als Einmalkauf oder €49 pro Jahr für zwei Macs. Wähle Wispr Flow für geräteübergreifenden Komfort auf Mac, Windows, iPhone und Android. Wähle Witness, wenn du einen Apple-Silicon-Mac nutzt, Inhaltsuploads vermeiden und erkannte Risikostellen selbst freigeben willst.",
+          text: "Witness hat kein Produktkonto. Ein Lizenzschlüssel kommt per E-Mail; €99 als Einmalkauf oder €49 pro Jahr für zwei Macs. Wähle Wispr Flow für geräteübergreifenden Komfort auf Mac, Windows, iPhone und Android. Wähle Witness, wenn du einen Apple-Silicon-Mac nutzt, Inhaltsuploads vermeiden und markierte Stellen selbst prüfen willst.",
           sources: ["local-product"],
         },
       ],
     },
   ],
   verdict: {
-    text: "Unsere Empfehlung: Wenn du auf einem Apple-Silicon-Mac arbeitest und deine Diktate Inhalte enthalten, die das Gerät nicht verlassen sollen, nimm Witness. Einmal €99 statt $144 jedes Jahr, kein Konto, und die auffälligen Stellen stehen vor dem Einfügen zur Freigabe. Wispr Flow bleibt die Wahl, wenn du dieselbe Oberfläche auf Windows, iPhone und Android brauchst. Einen Genauigkeitsvergleich behaupten wir nicht: Es gibt keinen veröffentlichten gemeinsamen Benchmark, der die beiden belastbar ordnet.",
+    text: "Unsere Empfehlung: Wenn du auf einem Apple-Silicon-Mac arbeitest und deine Diktate Inhalte enthalten, die das Gerät nicht verlassen sollen, nimm Witness. Einmal €99 statt $144 jedes Jahr, kein Konto, und Stellen, auf die du achten solltest, sind markiert. Wispr Flow bleibt die Wahl, wenn du dieselbe Oberfläche auf Windows, iPhone und Android brauchst. Einen Genauigkeitsvergleich behaupten wir nicht: Es gibt keinen veröffentlichten gemeinsamen Benchmark, der die beiden belastbar ordnet.",
     sources: ["wispr-security", "local-product"],
   },
   faqs: [
@@ -390,7 +390,7 @@ const wispr: ComparisonPageData = {
     },
     {
       question: "Wie gehen Witness und Wispr Flow mit Deutsch und Englisch in einem Satz um?",
-      answer: "Beide unterstützen Deutsch und Englisch in einem Satz, und beide entscheiden sich pro Aufnahme für eine Sprache, und das ist kein Unterschied zwischen ihnen. Der Unterschied bei Witness: Du kreuzt vorher an, welche Sprachen überhaupt in Frage kommen, und ein Wort in einer Sprache, die du nicht angekreuzt hast, wird vor dem Einfügen markiert.",
+      answer: "Beide unterstützen Deutsch und Englisch in einem Satz, und beide entscheiden sich pro Aufnahme für eine Sprache, und das ist kein Unterschied zwischen ihnen. Der Unterschied bei Witness: Du kreuzt vorher an, welche Sprachen überhaupt in Frage kommen, und ein Wort in einer Sprache, die du nicht angekreuzt hast, wird markiert.",
     },
     {
       question: "Ist Witness bereits allgemein verfügbar?",
@@ -409,7 +409,7 @@ const superwhisper: ComparisonPageData = {
   description:
     "Superwhisper und Witness im Quellenvergleich: lokale und Cloud-Modelle, Sprachen, Verifikation, Plattformen und Preise. Stand Oktober 2026.",
   directAnswer: {
-    text: "Die kurze Antwort: Superwhisper kann lokal arbeiten, und der kostenlose Tarif erlaubt nach Anbieterangabe unbegrenztes Diktat mit lokalen Whisper-Modellen. Witness ist dann die passendere Wahl, wenn nicht die Modellauswahl deine Frage ist, sondern was mit einem unsicher erkannten Wort passiert: Zahlen, Daten, Eigennamen und Verneinungen werden vor dem Einfügen markiert, und das unveränderte Rohtranskript bleibt per Hotkey sichtbar. Superwhisper bietet dafür mehr Modelle, mehr Plattformen und Dateitranskription.",
+    text: "Die kurze Antwort: Superwhisper kann lokal arbeiten, und der kostenlose Tarif erlaubt nach Anbieterangabe unbegrenztes Diktat mit lokalen Whisper-Modellen. Witness ist dann die passendere Wahl, wenn nicht die Modellauswahl deine Frage ist, sondern was mit einem unsicher erkannten Wort passiert: Stellen, auf die du achten solltest, werden markiert, und das unveränderte Rohtranskript lässt sich mit einem Klick zeigen. Superwhisper bietet dafür mehr Modelle, mehr Plattformen und Dateitranskription.",
     sources: ["super-models", "super-download", "local-product"],
   },
   table: {
@@ -419,7 +419,7 @@ const superwhisper: ComparisonPageData = {
       ["Verarbeitung", "Inhaltsverarbeitung lokal", "Vollständig lokal konfigurierbar; optionale Cloud-Modelle"],
       ["Plattformen", "Apple Silicon, macOS 14.4+", "macOS 13.3+, Windows 10+, iOS 18+, Android"],
       ["Sprachen", "100 Sprachen zum Ankreuzen; DE, EN, RU, UK gemessen", "Lokale Whisper-Modelle für 100+ Sprachen"],
-      ["Prüfung riskanter Stellen", "Vor Einfügung vorgesehen", "Nicht öffentlich dokumentiert"],
+      ["Markierung unsicherer Stellen", "Zeichen in der Menüleiste, Prüfansicht mit Originalton und Rohtranskript", "Nicht öffentlich dokumentiert"],
       ["Modellauswahl", "Bewusst kuratiert", "Lokale und Cloud-Sprach- sowie Textmodelle"],
       ["Preis", "€99 lebenslang oder €49/Jahr", "Free mit lokalen Modellen; Pro $8.49/Monat, $84.99/Jahr oder $249.99 lebenslang"],
     ],
@@ -446,7 +446,7 @@ const superwhisper: ComparisonPageData = {
           sources: ["super-models"],
         },
         {
-          text: "Witness reduziert die Modellauswahl zugunsten eines festen Ablaufs: Hotkey, sprechen, nur auffällige Fragmente prüfen, bestätigen, am Cursor einfügen. Bei den Sprachen bleibt die Wahl bei dir: Du kreuzt aus 100 an, welche vorkommen, statt sie bei jedem Segment frei erraten zu lassen. Deutsch, Englisch, Russisch und Ukrainisch sind dabei end-to-end gemessen.",
+          text: "Witness reduziert die Modellauswahl zugunsten eines festen Ablaufs: Hotkey, sprechen, der Text steht am Cursor, nur markierte Stellen prüfst du nach. Bei den Sprachen bleibt die Wahl bei dir: Du kreuzt aus 100 an, welche vorkommen, statt sie bei jedem Segment frei erraten zu lassen. Deutsch, Englisch, Russisch und Ukrainisch sind dabei end-to-end gemessen.",
           sources: ["local-product"],
         },
       ],
@@ -455,7 +455,7 @@ const superwhisper: ComparisonPageData = {
       title: "Der Unterschied liegt nach der Transkription",
       paragraphs: [
         {
-          text: "Witness soll Zahlen, Datumsangaben, Eigennamen, Verneinungen und Wörterbuchbegriffe vor der Einfügung markieren. Zu jedem markierten Fragment sind Rohtranskript und kurzer Originalton vorgesehen. Das verspricht keine fehlerfreie Erkennung; es macht bestimmte Fehlerklassen sichtbar. Eine vergleichbare, risikobasierte Vorabprüfung ist in den von uns geprüften öffentlichen Superwhisper-Dokumenten nicht öffentlich dokumentiert.",
+          text: "Witness markiert Stellen, auf die du achten solltest, nachdem der Text am Cursor steht. Zu den markierten Stellen sind Rohtranskript und kurzer Originalton vorgesehen. Das verspricht keine fehlerfreie Erkennung; es macht bestimmte Fehlerklassen sichtbar. Eine vergleichbare, risikobasierte Markierung ist in den von uns geprüften öffentlichen Superwhisper-Dokumenten nicht öffentlich dokumentiert.",
           sources: ["local-product", "super-security", "super-models"],
         },
         {
@@ -472,7 +472,7 @@ const superwhisper: ComparisonPageData = {
           sources: ["super-download", "super-pro"],
         },
         {
-          text: "Witness zielt ausschließlich auf Apple Silicon mit macOS 14.4 oder neuer. Vorgesehen sind zwei Macs pro Lizenz, €99 lebenslang oder €49 jährlich. Superwhisper bietet damit mehr Gerätefreiheit und Konfigurationsbreite. Witness setzt dagegen auf weniger Optionen, eine feste lokale Datenschutzgrenze und die explizite Prüfung vor dem Einfügen.",
+          text: "Witness zielt ausschließlich auf Apple Silicon mit macOS 14.4 oder neuer. Vorgesehen sind zwei Macs pro Lizenz, €99 lebenslang oder €49 jährlich. Superwhisper bietet damit mehr Gerätefreiheit und Konfigurationsbreite. Witness setzt dagegen auf weniger Optionen, eine feste lokale Datenschutzgrenze und die Markierung unsicherer Stellen.",
           sources: ["local-product"],
         },
       ],
@@ -489,7 +489,7 @@ const superwhisper: ComparisonPageData = {
     },
     {
       question: "Warum dann Witness wählen?",
-      answer: "Witness konzentriert sich auf eine selbst angekreuzte Sprachauswahl und eine Prüfung bestimmter riskanter Fragmente vor der Einfügung, statt möglichst viele Modelle anzubieten.",
+      answer: "Witness konzentriert sich auf eine selbst angekreuzte Sprachauswahl und die Markierung von Stellen, auf die man achten sollte, statt möglichst viele Modelle anzubieten.",
     },
     {
       question: "Welche App ist genauer?",
@@ -510,7 +510,7 @@ const sprecho: ComparisonPageData = {
   updatedIso: "2026-10-14",
   updatedLabel: "14. Oktober 2026",
   directAnswer: {
-    text: "Die kurze Antwort: Wenn in deinen Diktaten Mandantennamen, Beträge oder Fristen vorkommen, ist Witness die bessere Sprecho-Alternative. Sprecho verarbeitet Sprache in der Cloud und speichert Sprachdaten nach eigener Angabe ausschließlich in Deutschland, ohne Übertragung in die USA. Das ist ein sauber dokumentierter Weg, aber es bleibt ein Weg nach draußen: Der Satz, den du gerade gesprochen hast, liegt für die Dauer der Verarbeitung auf einem fremden Server. Bei Witness verlässt er den Mac nicht, und auffällige Zahlen, Namen und Verneinungen stehen vor dem Einfügen zur Freigabe. Sprecho deckt dafür zusätzlich Windows, Linux, iOS und Android ab.",
+    text: "Die kurze Antwort: Wenn in deinen Diktaten Mandantennamen, Beträge oder Fristen vorkommen, ist Witness die bessere Sprecho-Alternative. Sprecho verarbeitet Sprache in der Cloud und speichert Sprachdaten nach eigener Angabe ausschließlich in Deutschland, ohne Übertragung in die USA. Das ist ein sauber dokumentierter Weg, aber es bleibt ein Weg nach draußen: Der Satz, den du gerade gesprochen hast, liegt für die Dauer der Verarbeitung auf einem fremden Server. Bei Witness verlässt er den Mac nicht, und Stellen, auf die du achten solltest, sind markiert. Sprecho deckt dafür zusätzlich Windows, Linux, iOS und Android ab.",
     sources: ["sprecho-product", "sprecho-dpa", "local-product"],
   },
   table: {
@@ -520,7 +520,7 @@ const sprecho: ComparisonPageData = {
       ["Inhaltsverarbeitung", "Lokal auf dem Mac", "Cloud; Spracherkennung in Deutschland und/oder den Niederlanden, Speicherung in Deutschland"],
       ["Plattformen", "Apple Silicon, macOS 14.4+", "Mac, Windows, Linux, iOS und Android"],
       ["Sprachen", "100 Sprachen zum Ankreuzen; DE, EN, RU, UK gemessen", "100+ Sprachen mit Auto-Erkennung"],
-      ["Prüfung riskanter Stellen", "Vor Einfügung vorgesehen", "Nicht öffentlich dokumentiert"],
+      ["Markierung unsicherer Stellen", "Zeichen in der Menüleiste, Prüfansicht mit Originalton und Rohtranskript", "Nicht öffentlich dokumentiert"],
       ["Vertragliche Ebene", "Keine Inhaltsverarbeitung im Auftrag vorgesehen", "AVV wird angeboten"],
       ["Preis", "€99 lebenslang oder €49/Jahr", "Free mit 2 000 Wörtern/Woche; Pro €12,99/Monat oder €10,99/Monat bei Jahreszahlung (€131,88)"],
     ],
@@ -566,10 +566,10 @@ const sprecho: ComparisonPageData = {
       ],
     },
     {
-      title: "Was vor der Einfügung sichtbar wird",
+      title: "Was nach dem Einfügen sichtbar wird",
       paragraphs: [
         {
-          text: "Witness soll bestimmte Risikoklassen vor dem Einfügen markieren: Zahlen, Daten, Eigennamen, Verneinungen und Begriffe aus dem eigenen Wörterbuch. Der Nutzer kann das kurze Audiofragment erneut anhören und das unveränderte Rohtranskript ansehen. Das ist keine Behauptung perfekter Erkennung, sondern eine Kontrollstufe für mögliche Folgen eines Fehlers.",
+          text: "Der Text steht sofort am Cursor. Witness markiert Stellen, auf die man achten sollte, mit einem Zeichen in der Menüleiste. Der Nutzer kann dort das kurze Audiofragment erneut anhören und das unveränderte Rohtranskript ansehen. Das ist keine Behauptung perfekter Erkennung, sondern eine Kontrollstufe für mögliche Folgen eines Fehlers.",
           sources: ["local-product"],
         },
         {
@@ -589,7 +589,7 @@ const sprecho: ComparisonPageData = {
     },
   ],
   verdict: {
-    text: "Unsere Empfehlung: Wenn du auf einem Apple-Silicon-Mac arbeitest und regelmäßig Namen, Beträge oder Fristen diktierst, nimm Witness. Du zahlst €99 einmal statt €131,88 jedes Jahr, die Inhalte bleiben auf dem Gerät, und du siehst vor dem Einfügen, wo die Erkennung unsicher war. Sprecho bleibt sinnvoll, wenn du dieselbe Oberfläche zusätzlich auf Windows, Linux, iOS und Android brauchst oder für die Inhaltsverarbeitung einen Auftragsverarbeitungsvertrag vorlegen musst.",
+    text: "Unsere Empfehlung: Wenn du auf einem Apple-Silicon-Mac arbeitest und regelmäßig Namen, Beträge oder Fristen diktierst, nimm Witness. Du zahlst €99 einmal statt €131,88 jedes Jahr, die Inhalte bleiben auf dem Gerät, und du siehst, wo die Erkennung unsicher war. Sprecho bleibt sinnvoll, wenn du dieselbe Oberfläche zusätzlich auf Windows, Linux, iOS und Android brauchst oder für die Inhaltsverarbeitung einen Auftragsverarbeitungsvertrag vorlegen musst.",
     sources: ["sprecho-dpa", "local-product"],
   },
   faqs: [
@@ -626,7 +626,7 @@ const voiceInk: ComparisonPageData = {
   description:
     "VoiceInk und Witness sachlich verglichen: Open Source, lokale Modelle, Cloud-Optionen, Sprachauswahl, Verifikation, Lizenzen und Preise.",
   directAnswer: {
-    text: "Die kurze Antwort: VoiceInk und Witness verarbeiten beide lokal auf dem Mac, der Unterschied liegt danach. Witness markiert Zahlen, Daten, Eigennamen und Verneinungen vor dem Einfügen und zeigt das unveränderte Rohtranskript, damit ein falsch erkannter Betrag nicht unbemerkt in ein Dokument läuft. Wenn du täglich in fremde Dokumente diktierst, ist das der Unterschied, der zählt. VoiceInk ist dafür günstiger, ab $25 einmalig, und sein Quellcode ist öffentlich.",
+    text: "Die kurze Antwort: VoiceInk und Witness verarbeiten beide lokal auf dem Mac, der Unterschied liegt danach. Witness markiert Stellen, auf die du achten solltest, und zeigt das unveränderte Rohtranskript, damit ein falsch erkannter Betrag nicht unbemerkt in ein Dokument läuft. Wenn du täglich in fremde Dokumente diktierst, ist das der Unterschied, der zählt. VoiceInk ist dafür günstiger, ab $25 einmalig, und sein Quellcode ist öffentlich.",
     sources: ["voiceink-product", "voiceink-github", "voiceink-models", "local-product"],
   },
   table: {
@@ -636,7 +636,7 @@ const voiceInk: ComparisonPageData = {
       ["Produktstatus", "Verfügbar", "Verfügbar; Quellcode öffentlich"],
       ["Verarbeitung", "Inhalte lokal", "Lokale Modelle standardmäßig; optionale Cloud-Textverbesserung"],
       ["Sprachen", "100 Sprachen zum Ankreuzen; DE, EN, RU, UK gemessen", "Abhängig vom gewählten Sprachmodell"],
-      ["Prüfung riskanter Stellen", "Vor Einfügung vorgesehen", "Nicht öffentlich dokumentiert"],
+      ["Markierung unsicherer Stellen", "Zeichen in der Menüleiste, Prüfansicht mit Originalton und Rohtranskript", "Nicht öffentlich dokumentiert"],
       ["Lizenz", "Kommerzielle App", "GPLv3-Quellcode; kommerzielle vorkompilierte App"],
       ["Preis", "€99 lebenslang oder €49/Jahr, zwei Macs", "$25 / $39 / $49 einmalig für ein / zwei / drei Macs"],
     ],
@@ -685,7 +685,7 @@ const voiceInk: ComparisonPageData = {
       title: "Verifikation ist nicht dasselbe wie Verlauf",
       paragraphs: [
         {
-          text: "Witness soll riskante Fragmente vor der Einfügung markieren. Bei Zahlen, Datumsangaben, Eigennamen, Verneinungen und Wörterbuchbegriffen kann der Nutzer Originalton und Rohtranskript prüfen und erst danach bestätigen. Die Funktion behauptet nicht, jeden Fehler zu finden; sie soll folgenreiche Stellen sichtbar machen, bevor Text eine Mail oder ein Formular erreicht.",
+          text: "Witness markiert Stellen, auf die man achten sollte. Bei einer markierten Stelle kann der Nutzer Originalton und Rohtranskript prüfen. Die Funktion behauptet nicht, jeden Fehler zu finden; sie soll folgenreiche Stellen sichtbar machen, bevor eine Mail oder ein Formular abgeschickt wird.",
           sources: ["local-product"],
         },
         {
@@ -705,7 +705,7 @@ const voiceInk: ComparisonPageData = {
     },
   ],
   verdict: {
-    text: "Fazit: VoiceInk ist eine starke, günstigere und bereits verfügbare lokale Option mit offenem Quellcode und großer Modellwahl. Witness sollte nur gewählt werden, wenn die selbst gewählte Sprachauswahl und die vorgesehene Vorabprüfung riskanter Fragmente den höheren Preis rechtfertigen.",
+    text: "Fazit: VoiceInk ist eine starke, günstigere und bereits verfügbare lokale Option mit offenem Quellcode und großer Modellwahl. Witness sollte nur gewählt werden, wenn die selbst gewählte Sprachauswahl und die vorgesehene Markierung unsicherer Stellen den höheren Preis rechtfertigen.",
     sources: ["voiceink-product", "voiceink-github", "local-product"],
   },
   faqs: [
@@ -719,7 +719,7 @@ const voiceInk: ComparisonPageData = {
     },
     {
       question: "Ist Witness besser als VoiceInk?",
-      answer: "Nicht allgemein. VoiceInk gewinnt bei Preis, Verfügbarkeit, Quelloffenheit und Modellwahl; Witness fokussiert die selbst angekreuzte Sprachauswahl und die Risikoprüfung vor dem Einfügen.",
+      answer: "Nicht allgemein. VoiceInk gewinnt bei Preis, Verfügbarkeit, Quelloffenheit und Modellwahl; Witness fokussiert die selbst angekreuzte Sprachauswahl und die Markierung unsicherer Stellen.",
     },
   ],
   sources: [localSource, ...voiceInkSources],
@@ -736,7 +736,7 @@ const macwhisper: ComparisonPageData = {
   updatedIso: "2026-10-01",
   updatedLabel: "1. Oktober 2026",
   directAnswer: {
-    text: "Die kurze Antwort: MacWhisper und Witness lösen zwei verschiedene Aufgaben. MacWhisper ist in erster Linie eine Transkriptionsumgebung für Dateien, Meetings und Untertitel und bietet zusätzlich systemweites Diktat; es ist verfügbar, kostet €64 einmalig neben einer kostenlosen Version und erlaubt als persönliche Lizenz als Richtwert drei Geräte. Witness macht ausschließlich Diktat in andere Apps, und zwar mit einer Kontrollstufe davor: Zahlen, Namen, Daten und Verneinungen werden markiert, bevor der Text in dein Dokument geht. Wenn du den ganzen Tag in fremde Apps diktierst, ist das der Unterschied, der zählt. Für fertige Aufnahmen bleibt MacWhisper das breitere Werkzeug.",
+    text: "Die kurze Antwort: MacWhisper und Witness lösen zwei verschiedene Aufgaben. MacWhisper ist in erster Linie eine Transkriptionsumgebung für Dateien, Meetings und Untertitel und bietet zusätzlich systemweites Diktat; es ist verfügbar, kostet €64 einmalig neben einer kostenlosen Version und erlaubt als persönliche Lizenz als Richtwert drei Geräte. Witness macht ausschließlich Diktat in andere Apps, und zwar mit einer Kontrolle dahinter: Der Text steht sofort am Cursor, und Stellen, auf die du achten solltest, werden markiert. Wenn du den ganzen Tag in fremde Apps diktierst, ist das der Unterschied, der zählt. Für fertige Aufnahmen bleibt MacWhisper das breitere Werkzeug.",
     sources: ["macwhisper-product", "macwhisper-licensing", "local-product"],
   },
   table: {
@@ -747,8 +747,8 @@ const macwhisper: ComparisonPageData = {
       ["Produktstatus", "Verfügbar", "Verfügbar"],
       ["Verarbeitung", "Inhalte lokal; keine Cloud-Option vorgesehen", "Lokale Modelle; optional Cloud-Anbieter wie OpenAI, Anthropic, xAI und Google Gemini"],
       ["Sprachen", "100 Sprachen zum Ankreuzen; DE, EN, RU, UK gemessen", "100 Sprachen laut Anbieter"],
-      ["Nachbearbeitung", "Bereinigung umkehrbar; Rohtranskript per Hotkey", "Automatische Grammatikverbesserung; Diktat mit KI-Prompts"],
-      ["Prüfung riskanter Stellen", "Vor Einfügung vorgesehen", "Nicht öffentlich dokumentiert"],
+      ["Nachbearbeitung", "Bereinigung umkehrbar; Rohtranskript mit einem Klick", "Automatische Grammatikverbesserung; Diktat mit KI-Prompts"],
+      ["Markierung unsicherer Stellen", "Zeichen in der Menüleiste, Prüfansicht mit Originalton und Rohtranskript", "Nicht öffentlich dokumentiert"],
       ["Geräte", "Zwei Macs", "Persönliche Lizenz, Richtwert drei Geräte"],
       ["Preis", "€99 lebenslang oder €49/Jahr", "Kostenlose Version; Pro €64 einmalig, lebenslange Updates"],
     ],
@@ -762,7 +762,7 @@ const macwhisper: ComparisonPageData = {
           sources: ["macwhisper-product"],
         },
         {
-          text: "Witness kann nichts davon und soll es auch nicht können. Es gibt keine Dateitranskription, keine Untertitel, keine Sprechererkennung und keinen Meeting-Mitschnitt. Das Produkt macht eine einzige Sache: Hotkey drücken, sprechen, Text erscheint an der Cursorposition in der App, in der du gerade bist. Diese Beschränkung ist der Grund, warum die Prüfung vor dem Einfügen überhaupt möglich ist: Es gibt genau einen Moment, in dem der Text entsteht, und an dem steht die Kontrolle.",
+          text: "Witness kann nichts davon und soll es auch nicht können. Es gibt keine Dateitranskription, keine Untertitel, keine Sprechererkennung und keinen Meeting-Mitschnitt. Das Produkt macht eine einzige Sache: Hotkey drücken, sprechen, Text erscheint an der Cursorposition in der App, in der du gerade bist. Diese Beschränkung ist der Grund, warum sich die Markierung unsicherer Stellen auf einen einzigen Moment konzentrieren kann: Es gibt genau einen Moment, in dem der Text entsteht, und an dem setzt die Kontrolle an.",
           sources: ["local-product"],
         },
       ],
@@ -775,7 +775,7 @@ const macwhisper: ComparisonPageData = {
           sources: ["macwhisper-product"],
         },
         {
-          text: "Witness setzt an dieser Stelle bewusst anders an. Die Bereinigung bleibt konservativ und umkehrbar: Ein Hotkey zeigt das Rohtranskript, damit nachträglich sichtbar bleibt, was das Programm verändert hat. Zusätzlich sollen Zahlen, Datumsangaben, Eigennamen, Verneinungen und Wörterbuchbegriffe vor der Einfügung markiert werden, sodass Originalton und Rohtext daneben zur Kontrolle stehen. Der Gedanke dahinter: Je glatter ein Text formuliert ist, desto schwerer fällt auf, dass eine Summe oder ein Name unterwegs ein anderer geworden ist.",
+          text: "Witness setzt an dieser Stelle bewusst anders an. Die Bereinigung bleibt konservativ und umkehrbar: Ein Hotkey zeigt das Rohtranskript, damit nachträglich sichtbar bleibt, was das Programm verändert hat. Zusätzlich markiert Witness Stellen, auf die du achten solltest; Originalton und Rohtext stehen dort zur Kontrolle bereit. Der Gedanke dahinter: Je glatter ein Text formuliert ist, desto schwerer fällt auf, dass eine Summe oder ein Name unterwegs ein anderer geworden ist.",
           sources: ["local-product"],
         },
         {
@@ -814,7 +814,7 @@ const macwhisper: ComparisonPageData = {
       title: "Preis, Geräte und Hardware",
       paragraphs: [
         {
-          text: "MacWhisper nennt eine dauerhaft kostenlose Version und MacWhisper Pro für €64 als Einmalkauf inklusive lebenslanger Updates. Die persönliche Lizenz ist laut Support für die eigenen Geräte gedacht, mit einem Richtwert von drei. Witness kostet €99 lebenslang oder €49 jährlich für zwei Macs, beim Einmalkauf also €35 mehr. Dafür bekommst du die eine Funktion, um die es auf dieser Seite geht: Zahlen, Daten, Eigennamen und Verneinungen werden vor dem Einfügen markiert, statt geglättet in den Text zu laufen. Ein einziger falsch eingefügter Betrag in einem Angebot kostet mehr als diese Differenz. 13 Tage lassen sich kostenlos testen, ohne Konto.",
+          text: "MacWhisper nennt eine dauerhaft kostenlose Version und MacWhisper Pro für €64 als Einmalkauf inklusive lebenslanger Updates. Die persönliche Lizenz ist laut Support für die eigenen Geräte gedacht, mit einem Richtwert von drei. Witness kostet €99 lebenslang oder €49 jährlich für zwei Macs, beim Einmalkauf also €35 mehr. Dafür bekommst du die eine Funktion, um die es auf dieser Seite geht: Stellen, auf die du achten solltest, werden markiert, statt geglättet in den Text zu laufen. Ein einziger falsch eingefügter Betrag in einem Angebot kostet mehr als diese Differenz. 13 Tage lassen sich kostenlos testen, ohne Konto.",
           sources: ["macwhisper-product", "macwhisper-licensing", "local-product"],
         },
         {
@@ -825,7 +825,7 @@ const macwhisper: ComparisonPageData = {
     },
   ],
   verdict: {
-    text: "Unsere Empfehlung: MacWhisper bleibt das Werkzeug für fertige Aufnahmen, also Dateien, Meetings und Untertitel. Wenn dein Tag dagegen aus Diktat in fremde Apps besteht, du dabei Deutsch und Englisch mischst und willst, dass Zahlen und Namen vor dem Einfügen markiert statt geglättet werden, ist Witness die passende Wahl.",
+    text: "Unsere Empfehlung: MacWhisper bleibt das Werkzeug für fertige Aufnahmen, also Dateien, Meetings und Untertitel. Wenn dein Tag dagegen aus Diktat in fremde Apps besteht, du dabei Deutsch und Englisch mischst und willst, dass Stellen mit Prüfbedarf markiert statt geglättet werden, ist Witness die passende Wahl.",
     sources: ["macwhisper-product", "local-product"],
   },
   faqs: [
@@ -885,7 +885,7 @@ const dsgvo: ComparisonPageData = {
     caption: "Architektur statt pauschaler Datenschutzsiegel",
     headers: ["Lösung", "Dokumentierter Verarbeitungsweg", "Wichtige Einordnung"],
     rows: [
-      ["Witness", "Diktatinhalte lokal", "Verfügbar; Risikoprüfung vor Einfügung"],
+      ["Witness", "Diktatinhalte lokal", "Verfügbar; Markierung unsicherer Stellen nach dem Einfügen"],
       ["VoiceInk", "Lokale Transkription; optionale Cloud-Textverbesserung", "GPLv3-Quellcode und kommerzielle App"],
       ["Superwhisper", "Vollständig lokal konfigurierbar; optionale Cloud-Modelle", "Konfiguration entscheidet"],
       ["Sprecho", "Cloud: Spracherkennung in Deutschland und/oder den Niederlanden, Speicherung in Deutschland", "AVV verfügbar"],
@@ -937,7 +937,7 @@ const dsgvo: ComparisonPageData = {
       title: "Dritte Frage: Was passiert bei optionalen Funktionen?",
       paragraphs: [
         {
-          text: "Prüfe nicht nur das Standardversprechen, sondern jede aktivierbare Stufe. Superwhisper trennt Sprachmodell und Textmodell; beide können lokal oder cloudbasiert sein. VoiceInk beschreibt eine optionale Cloud Enhancement für transkribierten Text. Wispr Flow trennt Privacy Mode, der Trainingsnutzung steuert, von Cloud Sync, der serverseitige Speicherung steuert. Diese Schalter ändern den Datenfluss und gehören in eine interne Freigabe. Bei Witness gibt es diesen Schalter nicht, deshalb muss auch niemand in der Kanzlei oder Praxis prüfen, wer ihn gesetzt hat.",
+          text: "Prüfe nicht nur das Standardversprechen, sondern jede aktivierbare Stufe. Superwhisper trennt Sprachmodell und Textmodell; beide können lokal oder cloudbasiert sein. VoiceInk beschreibt eine optionale Cloud Enhancement für transkribierten Text. Wispr Flow trennt „Improve the model for everyone“, das die Trainingsnutzung steuert, von „Dictation cloud storage“, das die Speicherung auf den Servern steuert. Diese Schalter ändern den Datenfluss und gehören in eine interne Freigabe. Bei Witness gibt es diesen Schalter nicht, deshalb muss auch niemand in der Kanzlei oder Praxis prüfen, wer ihn gesetzt hat.",
           sources: ["super-security", "voiceink-product", "wispr-privacy", "local-product"],
         },
         {
@@ -950,7 +950,7 @@ const dsgvo: ComparisonPageData = {
       title: "Vierte Frage: Wie werden Fehler vor dem Absenden sichtbar?",
       paragraphs: [
         {
-          text: "Datenschutz schützt nicht vor einer falsch erkannten Summe oder einer verlorenen Verneinung. Witness markiert Zahlen, Daten, Namen, Verneinungen und Wörterbuchbegriffe vor der Einfügung; Originalton und Rohtranskript liegen zur Kontrolle daneben. Vergleichbare automatische Risikomarkierungen sind bei Wispr Flow, Superwhisper, Sprecho und VoiceInk in den von uns geprüften öffentlichen Unterlagen nicht öffentlich dokumentiert. In einer Akte oder einem Befundbericht ist das die Stelle, an der ein Fehler sonst unbemerkt bleibt.",
+          text: "Datenschutz schützt nicht vor einer falsch erkannten Summe oder einer verlorenen Verneinung. Witness markiert Stellen, auf die du achten solltest; Originalton und Rohtranskript liegen zur Kontrolle bereit. Vergleichbare automatische Risikomarkierungen sind bei Wispr Flow, Superwhisper, Sprecho und VoiceInk in den von uns geprüften öffentlichen Unterlagen nicht öffentlich dokumentiert. In einer Akte oder einem Befundbericht ist das die Stelle, an der ein Fehler sonst unbemerkt bleibt.",
           sources: ["local-product", "wispr-security", "super-security", "sprecho-product", "voiceink-product"],
         },
         {
@@ -964,11 +964,11 @@ const dsgvo: ComparisonPageData = {
       paragraphs: [],
       bullets: [
         {
-          text: "Kanzlei: Du diktierst einen Schriftsatz mit Aktenzeichen, Frist und Streitwert. Die Daten bleiben auf dem Mac, und ein verrutschter Betrag oder ein fehlendes „nicht“ wird markiert, bevor der Text im Dokument steht.",
+          text: "Kanzlei: Du diktierst einen Schriftsatz mit Aktenzeichen, Frist und Streitwert. Die Daten bleiben auf dem Mac, und eine Stelle, auf die du achten solltest, etwa ein verrutschter Betrag, wird markiert und lässt sich im Originalton nachhören.",
           sources: ["local-product"],
         },
         {
-          text: "Praxis oder Beratung: Du diktierst Namen, Daten und Verneinungen („keine Allergie bekannt“). Gerade bei Verneinungen und Zahlen fällt ein Erkennungsfehler im fertigen Text nicht auf, die Markierung macht die Stelle sichtbar.",
+          text: "Praxis oder Beratung: Du diktierst Namen, Daten und Befunde. Gerade bei Zahlen und Namen fällt ein Erkennungsfehler im fertigen Text nicht auf, die Markierung macht die Stelle sichtbar.",
           sources: ["local-product"],
         },
         {
@@ -990,7 +990,7 @@ const dsgvo: ComparisonPageData = {
     },
   ],
   verdict: {
-    text: "Unsere Empfehlung: Wenn in deinen Diktaten personenbezogene Daten oder Berufsgeheimnisse vorkommen und du auf einem Apple-Silicon-Mac arbeitest, nimm Witness. Diktatinhalte werden nicht übertragen, es gibt keinen Cloud-Schalter, der sich falsch stellen lässt, und die zweite Hälfte des Problems ist mitgedacht: Zahlen, Namen, Daten und Verneinungen stehen vor dem Einfügen zur Freigabe, denn einen Erkennungsfehler in einer Akte bemerkt sonst niemand. Ein AVV für Inhaltsverarbeitung ist nicht vorgesehen, weil keine Inhalte im Auftrag verarbeitet werden; für Lizenz, Zahlung und Updates nennt die Datenschutzerklärung Empfänger, Rechtsgrundlage und Aufbewahrung. Sprecho bleibt sinnvoll, wenn du für die Inhaltsverarbeitung ausdrücklich einen AVV vorlegen musst oder dieselbe Oberfläche auf Windows und Mobilgeräten brauchst. Das ersetzt keine rechtliche Prüfung: Auch lokale Software entbindet eine Organisation nicht von eigenen Pflichten. 13 Tage lassen sich kostenlos testen, ohne Konto.",
+    text: "Unsere Empfehlung: Wenn in deinen Diktaten personenbezogene Daten oder Berufsgeheimnisse vorkommen und du auf einem Apple-Silicon-Mac arbeitest, nimm Witness. Diktatinhalte werden nicht übertragen, es gibt keinen Cloud-Schalter, der sich falsch stellen lässt, und die zweite Hälfte des Problems ist mitgedacht: Stellen, auf die du achten solltest, werden markiert, denn einen Erkennungsfehler in einer Akte bemerkt sonst niemand. Ein AVV für Inhaltsverarbeitung ist nicht vorgesehen, weil keine Inhalte im Auftrag verarbeitet werden; für Lizenz, Zahlung und Updates nennt die Datenschutzerklärung Empfänger, Rechtsgrundlage und Aufbewahrung. Sprecho bleibt sinnvoll, wenn du für die Inhaltsverarbeitung ausdrücklich einen AVV vorlegen musst oder dieselbe Oberfläche auf Windows und Mobilgeräten brauchst. Das ersetzt keine rechtliche Prüfung: Auch lokale Software entbindet eine Organisation nicht von eigenen Pflichten. 13 Tage lassen sich kostenlos testen, ohne Konto.",
     sources: ["gdpr", "local-product", "sprecho-dpa"],
   },
   faqs: [
@@ -1070,7 +1070,7 @@ const macDictation: ComparisonPageData = {
   updatedIso: "2026-10-01",
   updatedLabel: "1. Oktober 2026",
   directAnswer: {
-    text: "Die Diktierfunktion schaltest du unter Menü „Apple“ > „Systemeinstellungen“ > „Tastatur“ ein. Danach setzt du den Cursor in eine beliebige App und drückst die Mikrofontaste, deinen Kurzbefehl für die Diktierfunktion oder wählst „Bearbeiten“ > „Diktat starten“. Für Notizen und kurze Nachrichten reicht das eingebaute Werkzeug oft aus. Eine App wie Witness lohnt sich, wenn in deinen Texten Zahlen, Namen oder Verneinungen stimmen müssen und du diese Stellen vor dem Einfügen prüfen willst.",
+    text: "Die Diktierfunktion schaltest du unter Menü „Apple“ > „Systemeinstellungen“ > „Tastatur“ ein. Danach setzt du den Cursor in eine beliebige App und drückst die Mikrofontaste, deinen Kurzbefehl für die Diktierfunktion oder wählst „Bearbeiten“ > „Diktat starten“. Für Notizen und kurze Nachrichten reicht das eingebaute Werkzeug oft aus. Eine App wie Witness lohnt sich, wenn in deinen Texten Zahlen und Namen stimmen müssen und du unsichere Stellen markiert bekommen willst.",
     sources: ["apple-dictate", "local-product"],
   },
   table: {
@@ -1081,7 +1081,7 @@ const macDictation: ComparisonPageData = {
       ["Verarbeitung", "Inhalte immer lokal auf dem Mac", "Allgemeine Textdiktate lokal, wenn die Tastatureinstellungen es anzeigen; sonst auf Apple-Servern"],
       ["Starten", "Eigener Hotkey", "Mikrofontaste, Kurzbefehl oder „Bearbeiten“ > „Diktat starten“"],
       ["Sprachen", "Aus 100 ankreuzen; DE, EN, RU, UK end-to-end gemessen", "Mehrere Sprachen einstellbar; Wechsel per Klick auf das Sprachkürzel oder mit der Globus-Taste"],
-      ["Unsichere Stellen", "Vor dem Einfügen markiert: Zahlen, Daten, Namen, Verneinungen, Wörterbuchbegriffe", "Nicht eindeutiger Text wird blau unterstrichen, Alternativen per Klick"],
+      ["Unsichere Stellen", "Nach dem Einfügen markiert: Zeichen in der Menüleiste, Prüfansicht mit Originalton und Rohtranskript", "Nicht eindeutiger Text wird blau unterstrichen, Alternativen per Klick"],
       ["Originalton einer Stelle anhören", "Bei markierten Stellen mit Zeitmarken, aus dem Arbeitsspeicher", "Nicht öffentlich dokumentiert"],
       ["Voraussetzung", "Apple Silicon, macOS 14.4 oder neuer", "Nicht in allen Sprachen oder Regionen verfügbar, Umfang variiert"],
     ],
@@ -1152,7 +1152,7 @@ const macDictation: ComparisonPageData = {
           sources: ["apple-dictate"],
         },
         {
-          text: "Witness setzt früher an. Bevor der Text im Dokument landet, markiert es Zahlen, Datumsangaben, Eigennamen, Verneinungen und Begriffe aus deinem Wörterbuch. Daneben stehen das Rohtranskript und, bei Stellen mit Zeitmarken, der kurze Originalton zum Nachhören. Erst nach deiner Bestätigung wird am Cursor eingefügt. Das ist langsamer als direktes Diktieren und lohnt sich bei E-Mails, Tickets und Dokumenten, in denen ein falsches Datum oder ein verlorenes „nicht“ teuer wird.",
+          text: "Witness setzt an anderer Stelle an. Der Text steht sofort am Cursor, und Stellen, auf die du achten solltest, markiert es mit einem Zeichen in der Menüleiste. Ein Klick zeigt sie mit dem Rohtranskript und, bei Stellen mit Zeitmarken, dem kurzen Originalton zum Nachhören. Das kostet dich keine Wartezeit beim Diktieren und lohnt sich bei E-Mails, Tickets und Dokumenten, in denen ein falsches Datum oder ein falscher Betrag teuer wird.",
           sources: ["local-product"],
         },
         {
@@ -1163,7 +1163,7 @@ const macDictation: ComparisonPageData = {
     },
   ],
   verdict: {
-    text: "Unsere Empfehlung: Schalte die eingebaute Diktierfunktion ein, lerne die Satzzeichen-Befehle und behalte sie für Notizen und kurze Nachrichten. Dafür ist sie kostenlos und gut genug. Sobald diktierter Text in Dokumente geht, auf die sich andere verlassen, also Angebote, Mandantenpost, Akten, Tickets, ist Witness die passende Wahl: Zahlen, Datumsangaben, Eigennamen und Verneinungen werden vor dem Einfügen markiert, den Originalton einer markierten Stelle kannst du nachhören, und die Inhalte bleiben auf dem Mac. 13 Tage lassen sich kostenlos testen, ohne Konto.",
+    text: "Unsere Empfehlung: Schalte die eingebaute Diktierfunktion ein, lerne die Satzzeichen-Befehle und behalte sie für Notizen und kurze Nachrichten. Dafür ist sie kostenlos und gut genug. Sobald diktierter Text in Dokumente geht, auf die sich andere verlassen, also Angebote, Mandantenpost, Akten, Tickets, ist Witness die passende Wahl: Stellen, auf die du achten solltest, werden markiert, den Originalton einer markierten Stelle kannst du nachhören, und die Inhalte bleiben auf dem Mac. 13 Tage lassen sich kostenlos testen, ohne Konto.",
     sources: ["apple-dictate", "local-product"],
   },
   faqs: [
@@ -1185,7 +1185,7 @@ const macDictation: ComparisonPageData = {
     },
     {
       question: "Ist Witness genauer als die Diktierfunktion?",
-      answer: "Dafür gibt es keinen gemeinsamen, veröffentlichten Test. Witness unterscheidet sich im Ablauf: Es markiert riskante Stellen vor dem Einfügen, statt direkt in den Text zu schreiben.",
+      answer: "Dafür gibt es keinen gemeinsamen, veröffentlichten Test. Witness unterscheidet sich darin, welche Stellen markiert werden: Der Text steht sofort am Cursor, Stellen mit Prüfbedarf bekommen ein Zeichen in der Menüleiste und eine Prüfansicht mit Originalton.",
     },
   ],
   sources: [localSource, ...macDictationSources],
@@ -1265,8 +1265,8 @@ const kiSpracherkennung: ComparisonPageData = {
     rows: [
       ["Wo die Erkennung läuft", "Lokal auf Apple Silicon", "Auf Servern des Anbieters, bei Wispr Flow in den USA"],
       ["Konto", "Kein Produktkonto vorgesehen", "Anmeldung erforderlich, etwa bei Wispr Flow"],
-      ["Was die KI mit dem Text macht", "Konservative Bereinigung, per Hotkey umkehrbar", "Glättung, Grammatikkorrektur, Umformulierung"],
-      ["Unsichere Stellen", "Zahlen, Daten, Namen, Verneinungen und Wörterbuchbegriffe vor dem Einfügen markiert", "Nicht öffentlich dokumentiert"],
+      ["Was die KI mit dem Text macht", "Konservative Bereinigung, mit einem Klick umkehrbar", "Glättung, Grammatikkorrektur, Umformulierung"],
+      ["Unsichere Stellen", "Markiert, mit Originalton und Rohtranskript in der Prüfansicht", "Nicht öffentlich dokumentiert"],
       ["Originalton nachhören", "Bei markierten Stellen, aus dem Arbeitsspeicher", "Nicht öffentlich dokumentiert"],
       ["Kosten", "€99 einmalig oder €49/Jahr, zwei Macs", "Abo, bei Wispr Flow Pro $144 im Jahr"],
     ],
@@ -1319,7 +1319,7 @@ const kiSpracherkennung: ComparisonPageData = {
           sources: ["local-product"],
         },
         {
-          text: "Je glatter der Text, desto weniger fällt auf, dass der Betrag unterwegs ein anderer geworden ist. Witness bereinigt deshalb konservativ und umkehrbar: Ein Hotkey zeigt das unveränderte Rohtranskript, damit nachvollziehbar bleibt, was das Programm geändert hat.",
+          text: "Je glatter der Text, desto weniger fällt auf, dass der Betrag unterwegs ein anderer geworden ist. Witness bereinigt deshalb konservativ und umkehrbar: Ein Klick in der Prüfansicht zeigt das unveränderte Rohtranskript, damit nachvollziehbar bleibt, was das Programm geändert hat.",
           sources: ["local-product"],
         },
       ],
@@ -1328,18 +1328,18 @@ const kiSpracherkennung: ComparisonPageData = {
       title: "Woran du ein brauchbares KI-Diktat erkennst",
       paragraphs: [
         {
-          text: "Vier Punkte, und sie sind konkret. Werden die Stellen markiert, an denen ein Fehler die Bedeutung ändert, also Zahlen, Datumsangaben, Eigennamen, Verneinungen und eigene Fachbegriffe? Kommst du an das unveränderte Rohtranskript? Kannst du den Originalton einer markierten Stelle nachhören, statt den Text nur noch einmal zu lesen? Und bestimmst du selbst, welche Sprachen überhaupt in Frage kommen? Bei den geprüften öffentlichen Seiten der großen KI-Diktier-Clouds ist eine automatische Risiko- oder Confidence-Markierung auf Fragmentebene nicht öffentlich dokumentiert. Das ist keine Aussage darüber, wie gut sie erkennen, und kein Genauigkeitsvergleich: Es heißt nur, dass wir diese eine Funktion nicht als belegten Gleichstand eintragen können.",
+          text: "Vier Punkte, und sie sind konkret. Werden die Stellen markiert, an denen ein Fehler die Bedeutung ändert, statt nur allgemein Unsicherheit anzuzeigen? Kommst du an das unveränderte Rohtranskript? Kannst du den Originalton einer markierten Stelle nachhören, statt den Text nur noch einmal zu lesen? Und bestimmst du selbst, welche Sprachen überhaupt in Frage kommen? Bei den geprüften öffentlichen Seiten der großen KI-Diktier-Clouds ist eine automatische Risiko- oder Confidence-Markierung auf Fragmentebene nicht öffentlich dokumentiert. Das ist keine Aussage darüber, wie gut sie erkennen, und kein Genauigkeitsvergleich: Es heißt nur, dass wir diese eine Funktion nicht als belegten Gleichstand eintragen können.",
           sources: ["local-product", "wispr-security"],
         },
         {
-          text: "Witness ist um diese vier gebaut: markierte Risikostellen vor dem Einfügen, Rohtranskript per Hotkey, Nachhören des kurzen Fragments aus dem Arbeitsspeicher, und du kreuzt aus 100 Sprachen an, welche vorkommen. Deutsch, Englisch, Russisch und Ukrainisch sind end-to-end gemessen; bei den übrigen bleiben sprachabhängig kalibrierte Markierungen aus, statt zu raten. Eine bessere Erkennung behaupten wir dabei nicht: Es gibt keinen gemeinsamen veröffentlichten Benchmark, der die Programme belastbar ordnet. 13 Tage lassen sich kostenlos testen, ohne Konto.",
+          text: "Witness ist um diese vier gebaut: markierte Stellen, auf die du achten solltest, Rohtranskript mit einem Klick, Nachhören des kurzen Fragments aus dem Arbeitsspeicher, und du kreuzt aus 100 Sprachen an, welche vorkommen. Deutsch, Englisch, Russisch und Ukrainisch sind end-to-end gemessen; bei den übrigen bleiben sprachabhängig kalibrierte Markierungen aus, statt zu raten. Eine bessere Erkennung behaupten wir dabei nicht: Es gibt keinen gemeinsamen veröffentlichten Benchmark, der die Programme belastbar ordnet. 13 Tage lassen sich kostenlos testen, ohne Konto.",
           sources: ["local-product"],
         },
       ],
     },
   ],
   verdict: {
-    text: "Unsere Empfehlung: Lass dich nicht vom Wort KI leiten, es steckt überall dasselbe Prinzip dahinter. Entscheide nach den zwei Fragen, die wirklich auseinandergehen. Wenn deine Diktate Inhalte enthalten, die den Mac nicht verlassen sollen, und darin regelmäßig Zahlen, Namen oder Fristen vorkommen, ist Witness die passende Wahl: einmal €99 statt eines Abos, kein Konto, und die unsicheren Stellen stehen vor dem Einfügen zur Freigabe. Eine Cloud-Lösung wie Wispr Flow bleibt sinnvoll, wenn du dieselbe Oberfläche auf Windows, iPhone und Android brauchst.",
+    text: "Unsere Empfehlung: Lass dich nicht vom Wort KI leiten, es steckt überall dasselbe Prinzip dahinter. Entscheide nach den zwei Fragen, die wirklich auseinandergehen. Wenn deine Diktate Inhalte enthalten, die den Mac nicht verlassen sollen, und darin regelmäßig Zahlen, Namen oder Fristen vorkommen, ist Witness die passende Wahl: einmal €99 statt eines Abos, kein Konto, und unsichere Stellen werden markiert. Eine Cloud-Lösung wie Wispr Flow bleibt sinnvoll, wenn du dieselbe Oberfläche auf Windows, iPhone und Android brauchst.",
     sources: ["wispr-security", "local-product"],
   },
   faqs: [
@@ -1361,7 +1361,7 @@ const kiSpracherkennung: ComparisonPageData = {
     },
     {
       question: "Worauf sollte ich bei einem KI-Diktierprogramm achten?",
-      answer: "Wo die Erkennung läuft, ob ein Konto nötig ist, ob riskante Stellen vor dem Einfügen markiert werden, ob du an das unveränderte Rohtranskript kommst und ob du die Sprachauswahl selbst bestimmst.",
+      answer: "Wo die Erkennung läuft, ob ein Konto nötig ist, ob riskante Stellen markiert werden, ob du an das unveränderte Rohtranskript kommst und ob du die Sprachauswahl selbst bestimmst.",
     },
   ],
   sources: [localSource, ...kiSources, wisprSources[0], wisprSources[3]],
@@ -1377,7 +1377,7 @@ const wisprFlowAlternatives: ComparisonPageData = {
   title: "Best Wispr Flow alternatives for Mac, and how to pick one",
   metaTitle: "Wispr Flow Alternatives for Mac | Witness",
   description:
-    "Eight Wispr Flow alternatives for Mac, compared on where speech is processed, price, and what you see before the text lands. Checked 1 October 2026.",
+    "Eight Wispr Flow alternatives for Mac, compared on where speech is processed, price, and what you are shown when recognition is unsure. Checked 1 October 2026.",
   directAnswer: {
     text: "The short answer: if you are looking for a Wispr Flow alternative because your dictation should stay on your Mac, there are eight real options and most of them cost nothing. Wispr Flow describes itself in its own documentation as a cloud service that processes and stores customer data in the United States, it requires an account to set up, and Pro costs $144 a year. Every alternative on this page runs recognition on the Mac instead. Where they differ is what happens after recognition. If local processing is all you need, this page says which ones are free. If you also need to catch the words recognition got wrong before they reach a document, that narrows to one.",
     sources: ["wispr-security", "wispr-setup", "wispr-plans", "local-product"],
@@ -1440,7 +1440,7 @@ const wisprFlowAlternatives: ComparisonPageData = {
           sources: ["spokenly-pricing", "macparakeet-product", "fluidvoice-product", "super-pro", "macwhisper-product", "voiceink-product", "apple-dictation-en"],
         },
         {
-          text: "Witness is built around that one step. Numbers, dates, proper names, negations and your own dictionary terms are marked before the text is inserted, you can play back the short audio fragment behind a marked spot, and a hotkey shows the untouched raw transcript so you can see what the cleanup changed. This is not a claim that Witness recognises speech more accurately: there is no shared published benchmark that would let anyone rank these apps on accuracy. It is a claim about what you are shown when recognition is unsure.",
+          text: "Witness is built around that one step. The text lands at your cursor at once. Passages that deserve a second look are marked with a sign in the menu bar and one click opens them, you can play back the short audio behind a marked passage, and the panel can show the untouched raw transcript so you can see what the cleanup changed. This is not a claim that Witness recognises speech more accurately: there is no shared published benchmark that would let anyone rank these apps on accuracy. It is a claim about what you are shown when recognition is unsure.",
           sources: ["local-product"],
         },
       ],
@@ -1453,7 +1453,7 @@ const wisprFlowAlternatives: ComparisonPageData = {
           sources: ["wispr-languages"],
         },
         {
-          text: "Witness decides one language per recording too, so that part is not a difference and we do not list it as one. The difference is where that language comes from: you tick the languages you actually speak, out of 100, and the choice is made only among those. A word that looks like one of your other languages is flagged before insertion. German, English, Russian and Ukrainian are measured end to end, from recognition through cleanup to every risk marking; for the rest, markings that need per-language calibration stay off rather than guessing. Worth 13 days of your time if you write in two languages: the trial is the full version and needs no account.",
+          text: "Witness decides one language per recording too, so that part is not a difference and we do not list it as one. The difference is where that language comes from: you tick the languages you actually speak, out of 100, and the choice is made only among those. A word that looks like one of your other languages is flagged. German, English, Russian and Ukrainian are measured end to end, from recognition through cleanup to every risk marking; for the rest, markings that need per-language calibration stay off rather than guessing. Worth 13 days of your time if you write in two languages: the trial is the full version and needs no account.",
           sources: ["local-product"],
         },
       ],
@@ -1466,14 +1466,14 @@ const wisprFlowAlternatives: ComparisonPageData = {
           sources: ["wispr-plans", "voiceink-product", "macwhisper-product", "local-product"],
         },
         {
-          text: "What the difference buys is the check before insertion. One wrong amount in a quote, one dropped not in an email to a client, and the gap between free and €99 stops being the interesting number. For notes and messages that gap is real and the free apps are enough. For documents other people act on, the €99 is the cheaper mistake, and the 13-day trial is the full version with no account.",
+          text: "What the difference buys is the marker for passages that deserve a second look. One wrong amount in a quote, one dropped not in an email to a client, and the gap between free and €99 stops being the interesting number. For notes and messages that gap is real and the free apps are enough. For documents other people act on, the €99 is the cheaper mistake, and the 13-day trial is the full version with no account.",
           sources: ["local-product"],
         },
       ],
     },
   ],
   verdict: {
-    text: "What we recommend: every app on this page runs recognition on the Mac, so whichever one you pick, the cloud question is answered. The question worth another minute is what happens when recognition gets a word wrong, because that is the failure you do not see. If you dictate into documents where a figure, a date, a name or a negation has to be right, Witness is the alternative built for exactly that: the risky spots are marked before the text lands, you can replay the audio behind a marked one, and a hotkey shows the raw transcript. Apple Silicon with macOS 14.4 or newer, €99 once for two Macs, and the 13-day trial is the full version with no account. Wispr Flow stays the better fit if you need the same interface on Windows, iPhone and Android.",
+    text: "What we recommend: every app on this page runs recognition on the Mac, so whichever one you pick, the cloud question is answered. The question worth another minute is what happens when recognition gets a word wrong, because that is the failure you do not see. If you dictate into documents where a figure, a date or a name has to be right, Witness is the alternative built for exactly that: the text lands at once, passages that deserve a second look are marked in the menu bar, you can replay the audio behind a marked one, and the panel shows the raw transcript. Apple Silicon with macOS 14.4 or newer, €99 once for two Macs, and the 13-day trial is the full version with no account. Wispr Flow stays the better fit if you need the same interface on Windows, iPhone and Android.",
     sources: ["spokenly-pricing", "macparakeet-product", "fluidvoice-product", "local-product"],
   },
   faqs: [
@@ -1487,11 +1487,11 @@ const wisprFlowAlternatives: ComparisonPageData = {
     },
     {
       question: "Why pay for Witness when MacParakeet and Spokenly are free?",
-      answer: "Only for one reason: Witness marks numbers, dates, names and negations before the text is inserted and lets you replay the audio behind a marked spot. Fragment-level risk marking is not publicly documented for the free apps. If you do not need that step, the free apps keep your audio local just as well.",
+      answer: "Only for one reason: Witness marks passages that deserve a second look and lets you replay the audio behind a marked spot. Fragment-level risk marking is not publicly documented for the free apps. If you do not need that step, the free apps keep your audio local just as well.",
     },
     {
       question: "Which alternative handles German and English in the same day?",
-      answer: "All of them recognise both languages, and all of them decide one language per recording. Witness lets you tick which languages can occur before you dictate, and flags a word that looks like another of your languages before it is inserted.",
+      answer: "All of them recognise both languages, and all of them decide one language per recording. Witness lets you tick which languages can occur before you dictate, and flags a word that looks like another of your languages.",
     },
     {
       question: "Do any of these apps match Wispr Flow on accuracy?",
@@ -1524,7 +1524,7 @@ const macDictationGuide: ComparisonPageData = {
   description:
     "Turn on Mac dictation, dictate punctuation, fix it when it stops working, and see what the built-in tool does not show you. Checked 1 October 2026.",
   directAnswer: {
-    text: "To turn on dictation, open the Apple menu, then System Settings, click Keyboard in the sidebar, switch on Dictation and click Enable. Then put the cursor where you want the text, and start with the microphone key, your Dictation keyboard shortcut, or Edit then Start Dictation. You can dictate text of any length without a timeout, and it stops on its own after 30 seconds of silence. For notes and short messages this is usually all you need. An app is worth it once numbers, names and negations in your text have to be right, because the built-in tool gives you no way to see which words it was unsure about.",
+    text: "To turn on dictation, open the Apple menu, then System Settings, click Keyboard in the sidebar, switch on Dictation and click Enable. Then put the cursor where you want the text, and start with the microphone key, your Dictation keyboard shortcut, or Edit then Start Dictation. You can dictate text of any length without a timeout, and it stops on its own after 30 seconds of silence. For notes and short messages this is usually all you need. An app is worth it once figures and names in your text have to be right, because the built-in tool underlines ambiguous words but does not point you to the passages where a mistake would cost you.",
     sources: ["apple-dictate-en", "local-product"],
   },
   table: {
@@ -1535,9 +1535,9 @@ const macDictationGuide: ComparisonPageData = {
       ["Where speech is processed", "On device or on Apple servers, depending on the language", "On the Mac, with no cloud option"],
       ["Starting it", "Microphone key, shortcut, or Edit then Start Dictation", "One hotkey you choose"],
       ["Punctuation", "Spoken commands, from period to euro sign", "Added during cleanup, reversible"],
-      ["Uncertain words", "Ambiguous text underlined in blue, alternatives on click", "Numbers, dates, names, negations and dictionary terms marked before insertion"],
+      ["Uncertain words", "Ambiguous text underlined in blue, alternatives on click", "Passages that deserve a second look, marked in the menu bar after insertion; panel with audio and raw transcript"],
       ["Hearing a spot again", "Not publicly documented", "Replay of the short audio fragment behind a marked spot"],
-      ["Seeing what cleanup changed", "Not applicable, no cleanup", "Hotkey shows the untouched raw transcript"],
+      ["Seeing what cleanup changed", "Not applicable, no cleanup", "One click in the review panel shows the untouched raw transcript"],
       ["Languages", "Several can be set, switch with the Globe key", "Tick from 100; English, German, Russian and Ukrainian measured end to end"],
       ["Requirements", "Not available in every language or region", "Apple Silicon, macOS 14.4 or newer"],
     ],
@@ -1590,11 +1590,11 @@ const macDictationGuide: ComparisonPageData = {
           sources: ["apple-dictate-en"],
         },
         {
-          text: "What it does not do is tell you which kinds of mistakes matter. A blue underline appears where the recogniser saw two plausible words. It does not appear because a figure, a date, a client name or the word not is the thing that would change the meaning of the sentence. Those are exactly the words that fail silently: the sentence stays readable, so nothing prompts you to check it.",
+          text: "What it does not do is tell you which kinds of mistakes matter. A blue underline appears where the recogniser saw two plausible words. It does not appear because a figure, a date or a client name is the thing that would change the meaning of the sentence. Those are exactly the words that fail silently: the sentence stays readable, so nothing prompts you to check it.",
           sources: ["apple-dictate-en", "local-product"],
         },
         {
-          text: "Witness marks those categories specifically before the text is inserted: numbers, dates, proper names, negations and the terms in your own dictionary. You can replay the short audio fragment behind a marked spot and press a hotkey to see the untouched raw transcript, so you can tell what the cleanup changed. This is not a claim that Witness recognises speech more accurately than macOS, and there is no shared published benchmark that would support such a claim. It is a claim about what you are shown when recognition is unsure.",
+          text: "Witness points you to those passages specifically. The text lands at your cursor at once, a sign in the menu bar marks the passages that deserve a second look, and one click opens them. You can replay the short audio behind a marked passage and see the untouched raw transcript, so you can tell what the cleanup changed. This is not a claim that Witness recognises speech more accurately than macOS, and there is no shared published benchmark that would support such a claim. It is a claim about what you are shown when recognition is unsure.",
           sources: ["local-product"],
         },
       ],
@@ -1614,7 +1614,7 @@ const macDictationGuide: ComparisonPageData = {
     },
   ],
   verdict: {
-    text: "What we recommend: switch on the built-in dictation first, learn the punctuation commands, and keep it for notes and messages. If you dictate into documents where a figure, a date, a name or a negation has to be right, Witness is the better tool for that work, because it marks those spots before the text lands instead of leaving you to find them afterwards. If you need dictation on Windows, an iPhone or Android, neither of these is your answer.",
+    text: "What we recommend: switch on the built-in dictation first, learn the punctuation commands, and keep it for notes and messages. If you dictate into documents where a figure, a date or a name has to be right, Witness is the better tool for that work, because it points you to the passages that deserve a second look instead of leaving you to find them yourself. If you need dictation on Windows, an iPhone or Android, neither of these is your answer.",
     sources: ["apple-dictate-en", "local-product"],
   },
   faqs: [
@@ -1636,7 +1636,7 @@ const macDictationGuide: ComparisonPageData = {
     },
     {
       question: "Does Mac dictation show when it is unsure of a word?",
-      answer: "Yes, up to a point. Ambiguous text is underlined in blue and clicking the word offers alternatives. It does not single out the categories where an error changes the meaning, such as figures, dates, names and negations.",
+      answer: "Yes, up to a point. Ambiguous text is underlined in blue and clicking the word offers alternatives. It does not point you to the passages where a mistake would change the meaning.",
     },
   ],
   sources: [localSourceEn, ...appleGuideEn],
@@ -1739,11 +1739,11 @@ const missedWords: ComparisonPageData = {
       title: "What catching it reliably requires",
       paragraphs: [
         {
-          text: "Four things, and they are specific. Mark the categories where an error changes meaning rather than flagging general uncertainty: figures, dates, proper names, negations and your own terminology. Keep the unmodified raw transcript available, so you can see what the cleanup changed. Let the person hear the short piece of audio behind a marked spot, because reading the text again cannot tell you what you actually said. And narrow the set of languages the model may choose from, so a word is not rendered into a language you were not speaking.",
+          text: "Four things, and they are specific. Point to the passages where an error would change the meaning rather than flagging general uncertainty. Keep the unmodified raw transcript available, so you can see what the cleanup changed. Let the person hear the short piece of audio behind a marked spot, because reading the text again cannot tell you what you actually said. And narrow the set of languages the model may choose from, so a word is not rendered into a language you were not speaking.",
           sources: ["local-product"],
         },
         {
-          text: "Witness is built around those four. The risky categories are marked before the text is inserted, a hotkey shows the raw transcript, a marked fragment can be played back from memory, and you tick which of 100 languages you actually speak instead of letting the model guess per segment. German, English, Russian and Ukrainian are measured end to end, from recognition through cleanup to every risk marking; for the other languages, markings that need per-language calibration stay off rather than guessing. Everything runs on an Apple Silicon Mac and the audio is not written to disk. The trial is 13 days of the full version with no account.",
+          text: "Witness is built around those four. The text lands at your cursor at once, passages that deserve a second look are marked, one click shows the raw transcript, a marked fragment can be played back from memory, and you tick which of 100 languages you actually speak instead of letting the model guess per segment. German, English, Russian and Ukrainian are measured end to end, from recognition through cleanup to every risk marking; for the other languages, markings that need per-language calibration stay off rather than guessing. Everything runs on an Apple Silicon Mac and the audio is not written to disk. The trial is 13 days of the full version with no account.",
           sources: ["local-product"],
         },
       ],

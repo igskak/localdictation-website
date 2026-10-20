@@ -10,10 +10,10 @@ import type { CitedCopy, ComparisonFaq, ComparisonSource } from "./comparisons";
 export const hubUpdatedIso = "2026-09-30";
 export const hubUpdatedLabel = "30. September 2026";
 
-export const hubTitle = "Diktier-Apps für den Mac 2026: sieben im Vergleich, und welche dir Fehler vor dem Einfügen zeigt";
+export const hubTitle = "Diktier-Apps für den Mac 2026: sieben im Vergleich, und welche unsichere Stellen markiert";
 export const hubMetaTitle = "Diktier-Apps für den Mac 2026 im Vergleich | Witness";
 export const hubDescription =
-  "Sieben Diktier-Apps für den Mac: lokal oder Cloud, Prüfung vor dem Einfügen, Abo oder Einmalkauf. Mit offiziellen Quellen, geprüft am 30.09.2026.";
+  "Sieben Diktier-Apps für den Mac: lokal oder Cloud, Markierung unsicherer Stellen, Abo oder Einmalkauf. Mit offiziellen Quellen, geprüft am 30.09.2026.";
 
 export const hubSources: ComparisonSource[] = [
   {
@@ -79,7 +79,7 @@ export const hubSources: ComparisonSource[] = [
 ];
 
 export const hubDirectAnswer: CitedCopy = {
-  text: "Wenn du am Mac Mails, Verträge oder Tickets diktierst, in denen eine falsche Summe oder ein verlorenes „nicht“ Folgen hat, empfehlen wir Witness: Es arbeitet lokal auf dem Mac, legt dir Zahlen, Datumsangaben, Namen und Verneinungen vor dem Einfügen mit dem Originalton vor und kostet einmal €99. Für kurze Notizen ohne Installation reicht die kostenlose Diktierfunktion von macOS. Wispr Flow und Sprecho sind Cloud-Dienste für viele Geräte, Superwhisper und VoiceInk transkribieren lokal, MacWhisper ist für Aufnahmen und Meetings gebaut. Eine Prüfung riskanter Stellen vor dem Einfügen ist bei diesen fünf Apps nicht öffentlich dokumentiert. Witness ist unser eigenes Produkt.",
+  text: "Wenn du am Mac Mails, Verträge oder Tickets diktierst, in denen eine falsche Summe oder ein verlorenes „nicht“ Folgen hat, empfehlen wir Witness: Es arbeitet lokal auf dem Mac, fügt den Text sofort am Cursor ein, markiert Stellen, auf die du achten solltest, und lässt dich sie im Originalton nachhören. Es kostet einmal €99. Für kurze Notizen ohne Installation reicht die kostenlose Diktierfunktion von macOS. Wispr Flow und Sprecho sind Cloud-Dienste für viele Geräte, Superwhisper und VoiceInk transkribieren lokal, MacWhisper ist für Aufnahmen und Meetings gebaut. Eine automatische Markierung unsicherer Stellen ist bei diesen fünf Apps nicht öffentlich dokumentiert. Witness ist unser eigenes Produkt.",
   sources: ["local-product", "apple-dictate", "wispr-security", "sprecho-product", "super-security", "voiceink-product", "macwhisper-product"],
 };
 
@@ -95,7 +95,7 @@ export type HubRow = {
   own?: boolean;
 };
 
-export const hubTableHeaders = ["App", "Wo dein Diktat verarbeitet wird", "Prüfung vor dem Einfügen", "Plattformen", "Kostenlos nutzbar", "Bezahlpreis"] as const;
+export const hubTableHeaders = ["App", "Wo dein Diktat verarbeitet wird", "Markierung unsicherer Stellen", "Plattformen", "Kostenlos nutzbar", "Bezahlpreis"] as const;
 
 export const hubRows: HubRow[] = [
   {
@@ -162,7 +162,7 @@ export const hubRows: HubRow[] = [
     app: "Witness",
     href: "/",
     processing: "Immer lokal auf dem Mac, ohne Cloud-Stufe für Inhalte",
-    check: "Zahlen, Datumsangaben, Namen, Verneinungen und Wörterbuchbegriffe markiert, mit Roh-Transkript und Originalton; eingefügt wird nach deiner Bestätigung",
+    check: "Stellen, auf die du achten solltest, markiert, mit Roh-Transkript und Originalton; der Text steht sofort am Cursor",
     platforms: "Apple Silicon, macOS 14.4+",
     free: "13 Tage voller Funktionsumfang, ohne Kreditkarte",
     price: "€99 einmalig oder €49/Jahr, zwei Macs",
@@ -189,11 +189,11 @@ export const hubSections: HubSection[] = [
         sources: ["local-product"],
       },
       {
-        text: "Witness setzt genau davor an. Zahlen, Datumsangaben, Eigennamen, Verneinungen und Begriffe aus deinem Wörterbuch erscheinen vor dem Einfügen in einer Prüfzeile, daneben das Roh-Transkript und der kurze Originalton. Ohne offene Prüfung landet der Text direkt am Cursor, mit Prüfung erst nach deiner Bestätigung.",
+        text: "Witness setzt genau dort an. Der Text steht sofort am Cursor. Stellen, auf die du achten solltest, markiert Witness mit einem Zeichen in der Menüleiste; ein Klick öffnet sie mit dem Roh-Transkript und dem kurzen Originalton.",
         sources: ["local-product"],
       },
       {
-        text: "Die Diktierfunktion von macOS unterstreicht nicht eindeutige Wörter blau, nachdem sie im Text stehen; ein Klick zeigt Alternativen. Bei MacWhisper, Sprecho, Superwhisper, VoiceInk und Wispr Flow ist eine Markierung riskanter Stellen vor dem Einfügen nicht öffentlich dokumentiert. Für dich heißt das: Dort liest du jeden diktierten Betrag selbst gegen, bevor die Mail rausgeht. Über die Erkennungsgenauigkeit sagt das nichts, einen gemeinsamen, veröffentlichten Test aller Apps gibt es nicht.",
+        text: "Die Diktierfunktion von macOS unterstreicht nicht eindeutige Wörter blau, nachdem sie im Text stehen; ein Klick zeigt Alternativen. Bei MacWhisper, Sprecho, Superwhisper, VoiceInk und Wispr Flow ist eine automatische Markierung unsicherer Stellen nicht öffentlich dokumentiert. Für dich heißt das: Dort liest du jeden diktierten Betrag selbst gegen, bevor die Mail rausgeht. Über die Erkennungsgenauigkeit sagt das nichts, einen gemeinsamen, veröffentlichten Test aller Apps gibt es nicht.",
         sources: ["apple-dictate", "macwhisper-product", "sprecho-product", "super-security", "voiceink-product", "wispr-security"],
       },
     ],
@@ -222,7 +222,7 @@ export const hubSections: HubSection[] = [
     title: "Deutsch und Englisch in einem Diktat",
     paragraphs: [
       {
-        text: "Wer im Job zwischen Deutsch und Englisch wechselt, diktiert selten sauber in einer Sprache. In Witness kreuzt du an, welche Sprachen du sprichst, statt sie raten zu lassen. Sieht ein Wort nach einer anderen deiner Sprachen aus, landet es vor dem Einfügen in der Prüfzeile. Deutsch, Englisch, Russisch und Ukrainisch sind end-to-end gemessen, 96 weitere Sprachen werden erkannt.",
+        text: "Wer im Job zwischen Deutsch und Englisch wechselt, diktiert selten sauber in einer Sprache. In Witness kreuzt du an, welche Sprachen du sprichst, statt sie raten zu lassen. Sieht ein Wort nach einer anderen deiner Sprachen aus, wird es markiert. Deutsch, Englisch, Russisch und Ukrainisch sind end-to-end gemessen, 96 weitere Sprachen werden erkannt.",
         sources: ["local-product"],
       },
       {
@@ -239,7 +239,7 @@ export const hubSections: HubSection[] = [
         sources: ["wispr-plans", "sprecho-pricing", "local-product"],
       },
       {
-        text: "Günstigere Einmalkäufe gibt es: VoiceInk ab $25 für einen Mac, MacWhisper Pro für €64. Dauerhaft gratis sind die Diktierfunktion von macOS, die Basisversion von MacWhisper und Superwhisper mit lokalen Whisper-Modellen. Der Aufpreis bei Witness bezahlt die Prüfung vor dem Einfügen, die dort nicht öffentlich dokumentiert ist.",
+        text: "Günstigere Einmalkäufe gibt es: VoiceInk ab $25 für einen Mac, MacWhisper Pro für €64. Dauerhaft gratis sind die Diktierfunktion von macOS, die Basisversion von MacWhisper und Superwhisper mit lokalen Whisper-Modellen. Der Aufpreis bei Witness bezahlt die Markierung unsicherer Stellen samt Originalton zum Nachhören, die bei den anderen Apps nicht öffentlich dokumentiert ist; macOS unterstreicht nur nicht eindeutige Wörter blau.",
         sources: ["voiceink-product", "macwhisper-product", "super-pro", "apple-dictate", "local-product"],
       },
     ],
@@ -248,11 +248,11 @@ export const hubSections: HubSection[] = [
     title: "Drei Arbeitstage, in denen Witness passt",
     paragraphs: [
       {
-        text: "Die Anwältin diktiert eine Fristverlängerung bis zum 14. Oktober und einen Streitwert von 18.500 €. Beide Stellen stehen in der Prüfzeile, sie hört den Originalton an, bestätigt, und die Mail geht mit den richtigen Zahlen raus.",
+        text: "Die Anwältin diktiert eine Fristverlängerung bis zum 14. Oktober und einen Streitwert von 18.500 €. Der Text steht sofort in der Mail, zwei Stellen sind markiert. Sie öffnet sie, hört den Originalton an, korrigiert, und die Mail geht mit den richtigen Zahlen raus.",
         sources: ["local-product"],
       },
       {
-        text: "Der Berater schreibt einem Kunden in Zürich auf Deutsch und setzt englische Begriffe aus dem Projekt dazwischen. Er hat beide Sprachen angekreuzt, und was nach der jeweils anderen klingt, sieht er vor dem Einfügen.",
+        text: "Der Berater schreibt einem Kunden in Zürich auf Deutsch und setzt englische Begriffe aus dem Projekt dazwischen. Er hat beide Sprachen angekreuzt, und was nach der jeweils anderen klingt, sieht er markiert.",
         sources: ["local-product"],
       },
       {
@@ -265,7 +265,7 @@ export const hubSections: HubSection[] = [
 ];
 
 export const hubVerdict: CitedCopy = {
-  text: "Fazit: Wenn du am Mac diktierst und dich darauf verlassen musst, dass Zahlen, Namen und Verneinungen stimmen, ist Witness unsere Empfehlung. Unter den sieben Apps ist sie die einzige, bei der eine Prüfung riskanter Stellen vor dem Einfügen öffentlich dokumentiert ist, der Inhalt verlässt den Mac nie, und du zahlst einmal statt jedes Jahr. Teste es 13 Tage mit deinen eigenen Mails und Tickets.",
+  text: "Fazit: Wenn du am Mac diktierst und dich darauf verlassen musst, dass Zahlen und Namen stimmen, ist Witness unsere Empfehlung. Unter den sieben Apps ist sie die einzige, bei der eine Markierung unsicherer Stellen mit Originalton zum Nachhören öffentlich dokumentiert ist, der Inhalt verlässt den Mac nie, und du zahlst einmal statt jedes Jahr. Teste es 13 Tage mit deinen eigenen Mails und Tickets.",
   sources: ["local-product", "apple-dictate", "macwhisper-product", "sprecho-product", "super-security", "voiceink-product", "wispr-security"],
 };
 
@@ -276,8 +276,8 @@ export const hubNotFor: CitedCopy = {
 
 export const hubFaqs: ComparisonFaq[] = [
   {
-    question: "Welche Diktier-App für den Mac prüft Zahlen und Namen vor dem Einfügen?",
-    answer: "Witness markiert Zahlen, Datumsangaben, Eigennamen, Verneinungen und Wörterbuchbegriffe vor dem Einfügen und zeigt dazu Roh-Transkript und Originalton. Die Diktierfunktion von macOS unterstreicht nicht eindeutige Wörter blau, nachdem sie im Text stehen. Bei MacWhisper, Sprecho, Superwhisper, VoiceInk und Wispr Flow ist eine solche Prüfung nicht öffentlich dokumentiert.",
+    question: "Welche Diktier-App für den Mac markiert unsichere Stellen und lässt mich sie nachhören?",
+    answer: "Witness fügt den Text sofort ein und markiert Stellen, auf die du achten solltest; dazu zeigt es Roh-Transkript und Originalton. Die Diktierfunktion von macOS unterstreicht nicht eindeutige Wörter blau, nachdem sie im Text stehen. Bei MacWhisper, Sprecho, Superwhisper, VoiceInk und Wispr Flow ist eine solche Markierung nicht öffentlich dokumentiert.",
   },
   {
     question: "Welche Diktier-App für den Mac ist kostenlos?",
@@ -293,6 +293,6 @@ export const hubFaqs: ComparisonFaq[] = [
   },
   {
     question: "Welche Diktier-App ist am genauesten?",
-    answer: "Dafür gibt es keinen gemeinsamen, veröffentlichten Test mit gleicher Hardware und gleichen Aufnahmen, jede Rangliste nach Genauigkeit wäre geraten. Jede Spracherkennung irrt manchmal. Entscheidend ist, ob du den Fehler siehst, bevor er im Text steht: Genau dafür ist Witness gebaut.",
+    answer: "Dafür gibt es keinen gemeinsamen, veröffentlichten Test mit gleicher Hardware und gleichen Aufnahmen, jede Rangliste nach Genauigkeit wäre geraten. Jede Spracherkennung irrt manchmal. Entscheidend ist, ob dich die App auf eine unsichere Stelle hinweist: Genau dafür ist Witness gebaut.",
   },
 ];
