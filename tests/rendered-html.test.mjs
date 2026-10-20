@@ -1113,15 +1113,19 @@ test("the paid-entry page leads with the payment, says what follows it, and neve
   }
 });
 
-test("the buy button is not rendered until a payment link exists, and there is no promotion code on it", async () => {
+test("the buy button sends the reader through /buy, which hands over the intro link and no promotion code", async () => {
   const html = await (await render("/start")).text();
-  // No link configured: the page says so instead of showing a dead button.
-  assert.match(html, /Der Kauf ist in Kürze möglich/);
-  assert.doesNotMatch(html, /data-cta="start-buy"/);
+  assert.match(html, /<a[^>]+href="\/buy\?plan=intro"[^>]*data-cta="start-buy"|<a[^>]+data-cta="start-buy"[^>]+href="\/buy\?plan=intro"/);
+  // Inert until the declaration is ticked.
+  assert.match(html, /aria-disabled="true"/);
+  // (the sentence is still in the serialized props of the client component, so look for the element)
+  assert.doesNotMatch(html, /<p class="start-noscript">Der Kauf ist in Kürze möglich/);
 
-  const redirect = await render("/buy?plan=intro");
+  const redirect = await render("/buy?plan=intro", { cookie: "witness_offer=tamara" });
   assert.equal(redirect.status, 307);
-  assert.equal(redirect.headers.get("location"), "http://localhost/start");
+  const location = redirect.headers.get("location") ?? "";
+  assert.match(location, /^https:\/\/buy\.stripe\.com\/5kQaEXeMY7NIdEMbAmds405$/);
+  assert.ok(!location.includes("prefilled_promo_code"), "the partner code must not ride along");
   assert.equal(redirect.headers.get("x-robots-tag"), "noindex, nofollow, noarchive");
 });
 

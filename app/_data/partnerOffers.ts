@@ -35,14 +35,14 @@ const checkoutLinks: Record<Plan, string> = {
  * cancelled (Stripe: the one-off price `witness_intro_14_days`, the €49
  * recurring price, and a fourteen-day trial on the subscription).
  *
- * `null` until the link exists. While it is `null` `/buy?plan=intro` sends the
+ * Created 20.10.2026 (`plink_1USkPxHOSgmME2jERfCcYoSq`). Were it `null` `/buy?plan=intro` sends the
  * reader back to `/start` and the page shows no buy button, so nothing can be
  * bought through a link that is not there yet.
  *
  * It takes no promotion code and ignores the partner cookie: the partner deal
  * is for the two links above and ends on 31 December.
  */
-const introPaymentLink: string | null = null;
+const introPaymentLink: string | null = "https://buy.stripe.com/5kQaEXeMY7NIdEMbAmds405";
 
 export function introCheckoutLink(): string | null {
   return introPaymentLink;
