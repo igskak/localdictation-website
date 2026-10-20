@@ -27,6 +27,10 @@ const comparisonLabels: Record<ComparisonSlug | EnglishComparisonSlug, string> =
   "wispr-flow-alternatives": "Wispr Flow alternatives",
   "mac-dictation": "Mac dictation guide",
   "dictation-missed-words": "Dictation that drops words",
+  "best-dictation-apps-mac": "Best dictation apps for Mac",
+  "wispr-flow-pricing": "Wispr Flow pricing",
+  "is-wispr-flow-safe": "Is Wispr Flow safe",
+  "wispr-flow-vs-superwhisper": "Wispr Flow vs Superwhisper",
 };
 
 function localeOf(data: ComparisonPageData) {
