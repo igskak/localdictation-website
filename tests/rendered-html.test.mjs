@@ -317,9 +317,10 @@ test("serves the legal pages, and no longer calls any of them a draft", async ()
   // On 20 October the terms, the withdrawal instruction and the privacy
   // policies gained the introductory offer, the thirty-day key, the daily
   // update check and the cancellation button.
-  const paidEntryPages = new Set(["/agb", "/widerruf", "/en/terms", "/en/cancellation"]);
-  // On 21 October the two privacy policies gained the six service events.
-  const analyticsPages = new Set(["/datenschutz", "/en/privacy"]);
+  const paidEntryPages = new Set(["/agb", "/en/terms"]);
+  // On 21 October the two privacy policies gained the six service events, and the
+  // withdrawal instruction stopped claiming a declaration on the paid-entry page.
+  const analyticsPages = new Set(["/datenschutz", "/en/privacy", "/widerruf", "/en/cancellation"]);
   for (const [routes, counterparts] of [[legalRoutes, legalRoutesEn], [legalRoutesEn, legalRoutes]]) {
     for (const [index, route] of routes.entries()) {
       const [date, month, monthDe] = analyticsPages.has(route)
@@ -1120,8 +1121,12 @@ test("the paid-entry page leads with the payment, says what follows it, and neve
 test("the buy button sends the reader through /buy, which hands over the intro link and no promotion code", async () => {
   const html = await (await render("/start")).text();
   assert.match(html, /<a[^>]+href="\/buy\?plan=intro"[^>]*data-cta="start-buy"|<a[^>]+data-cta="start-buy"[^>]+href="\/buy\?plan=intro"/);
-  // Inert until the declaration is ticked.
-  assert.match(html, /aria-disabled="true"/);
+  // No declaration box: the statutory fourteen days of withdrawal apply, and the
+  // page must not claim a waiver nobody made.
+  assert.equal((html.match(/<input[^>]+type="checkbox"/g) ?? []).length, 1, "the theme switch is the only checkbox on the page");
+  assert.doesNotMatch(html, /aria-disabled="true"/);
+  assert.doesNotMatch(html, /Widerrufsrecht verliere|give up my right of withdrawal/);
+  assert.match(html, /href="\/widerruf"/);
   // (the sentence is still in the serialized props of the client component, so look for the element)
   assert.doesNotMatch(html, /<p class="start-noscript">Der Kauf ist in Kürze möglich/);
 

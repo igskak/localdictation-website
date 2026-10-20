@@ -9,7 +9,7 @@ export default function WiderrufPage() {
     page="withdrawal"
     eyebrow="Rechtliches"
     title="Widerruf"
-    updated="20. Oktober 2026"
+    updated="21. Oktober 2026"
     notice={<><b>Diese Belehrung gilt für Verbraucher.</b> Sie betrifft den Kauf einer Lizenz, nicht den kostenlosen Test — für den Test schließt du keinen entgeltlichen Vertrag und hast nichts zu widerrufen.</>}
   >
     <h2>Widerrufsrecht</h2>
@@ -34,7 +34,7 @@ export default function WiderrufPage() {
       <li>deine Kenntnis davon bestätigt hast, dass du durch deine Zustimmung mit Beginn der Ausführung des Vertrags dein Widerrufsrecht verlierst,</li>
     </ol>
     <p>und wir dir diese Bestätigung zur Verfügung gestellt haben.</p>
-    <p>Witness holt beide Erklärungen ein, bevor die App einen Bezahlvorgang öffnet — die Bezahlseite ist standardisiert und kann nicht danach fragen, also fragt die App, über den Preisen, und die Kaufknöpfe tun nichts, solange nicht angekreuzt ist. Auf der Seite für das Einführungsangebot geschieht dasselbe vor dem Kaufknopf. Deine Kaufbestätigung wiederholt die Erklärung. <strong>Liegen sie nicht vor, bleibt dein Widerrufsrecht die vollen vierzehn Tage bestehen</strong> — auch dann, wenn du den Schlüssel bereits erhalten und Witness benutzt hast.</p>
+    <p>Witness holt beide Erklärungen ein, bevor die App einen Bezahlvorgang öffnet — die Bezahlseite ist standardisiert und kann nicht danach fragen, also fragt die App, über den Preisen, und die Kaufknöpfe tun nichts, solange nicht angekreuzt ist. Auf der Seite für das Einführungsangebot (witnessmac.com/start) werden diese Erklärungen nicht eingeholt. Wer dort kauft, kann deshalb den Vertrag die vollen vierzehn Tage widerrufen, auch wenn er Witness schon benutzt hat. Deine Kaufbestätigung wiederholt die Erklärung. <strong>Liegen sie nicht vor, bleibt dein Widerrufsrecht die vollen vierzehn Tage bestehen</strong> — auch dann, wenn du den Schlüssel bereits erhalten und Witness benutzt hast.</p>
 
     <h2>Jahreslizenz</h2>
     <p>Beim Einführungsangebot (€4,99 für die ersten 14 Tage) beginnt die Widerrufsfrist mit dem Kauf. Die automatische Abbuchung der €49 am 15. Tag ist keine neue Bestellung, sondern die im Angebot genannte Fortsetzung desselben Vertrags; du kannst sie bis zum 14. Tag durch Kündigung verhindern. Das Widerrufsrecht bezieht sich auf den Abschluss des Vertrags. Eine automatische Verlängerung der Jahreslizenz ist kein neuer Vertragsabschluss und löst deshalb kein neues Widerrufsrecht aus. Beenden kannst du die Verlängerung jederzeit bis zum letzten Tag der laufenden Laufzeit; wie das geht, steht in Abschnitt 8 der <Link href="/agb">Vertrags- und Lizenzbedingungen</Link>.</p>

@@ -20,7 +20,7 @@ export type StartCopy = {
   meta: { title: string; description: string };
   header: { cta: string };
   hero: { eyebrow: string; title: string; titleMuted: string; lede: string; cta: string; fine: string[] };
-  consent: { label: string; declaration: string; terms: string; withdrawal: string; needsScript: string; soon: string };
+  consent: { terms: string; withdrawal: string; soon: string };
   steps: { kicker: string; title: string; items: { title: string; body: string }[] };
   gives: { kicker: string; title: string; items: { title: string; body: string }[] };
   price: { kicker: string; title: string; today: string; todayNote: string; then: string; thenNote: string; line: string; bullets: string[]; paymentNote: string };
@@ -74,11 +74,8 @@ export const startCopy: Record<StartLocale, StartCopy> = {
       fine: ["14 Tage ab Kauf", "Apple Silicon", "macOS 14.4+", "Kein Benutzerkonto"],
     },
     consent: {
-      label: "Schick mir den Lizenzschlüssel, sobald ich bezahlt habe. Mir ist bewusst, dass ich mein Widerrufsrecht verliere, sobald die Lieferung beginnt.",
-      declaration: "Ich verlange ausdrücklich die sofortige Ausführung des Vertrags und bestätige, dass ich dadurch mein Widerrufsrecht verliere.",
       terms: "Vertrags- und Lizenzbedingungen",
       withdrawal: "Widerruf",
-      needsScript: "Zum Bestellen braucht diese Seite JavaScript. Schreib sonst an hallo@witnessmac.com.",
       soon: "Der Kauf ist in Kürze möglich.",
     },
     steps: {
@@ -170,11 +167,8 @@ export const startCopy: Record<StartLocale, StartCopy> = {
       fine: ["14 days from purchase", "Apple silicon", "macOS 14.4+", "No user account"],
     },
     consent: {
-      label: "Send my license key as soon as I have paid. I understand that I give up my right of withdrawal once delivery begins.",
-      declaration: "Ich verlange ausdrücklich die sofortige Ausführung des Vertrags und bestätige, dass ich dadurch mein Widerrufsrecht verliere.",
       terms: "Terms",
       withdrawal: "Right of withdrawal",
-      needsScript: "This page needs JavaScript to order. Otherwise write to hallo@witnessmac.com.",
       soon: "Purchase will open shortly.",
     },
     steps: {
