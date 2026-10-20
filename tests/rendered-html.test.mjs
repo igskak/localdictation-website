@@ -317,10 +317,14 @@ test("serves the legal pages, and no longer calls any of them a draft", async ()
   // On 20 October the terms, the withdrawal instruction and the privacy
   // policies gained the introductory offer, the thirty-day key, the daily
   // update check and the cancellation button.
-  const paidEntryPages = new Set(["/agb", "/widerruf", "/datenschutz", "/en/terms", "/en/cancellation", "/en/privacy"]);
+  const paidEntryPages = new Set(["/agb", "/widerruf", "/en/terms", "/en/cancellation"]);
+  // On 21 October the two privacy policies gained the six service events.
+  const analyticsPages = new Set(["/datenschutz", "/en/privacy"]);
   for (const [routes, counterparts] of [[legalRoutes, legalRoutesEn], [legalRoutesEn, legalRoutes]]) {
     for (const [index, route] of routes.entries()) {
-      const [date, month, monthDe] = paidEntryPages.has(route)
+      const [date, month, monthDe] = analyticsPages.has(route)
+        ? ["21", "October", "Oktober"]
+        : paidEntryPages.has(route)
         ? ["20", "October", "Oktober"]
         : funnelPages.has(route)
         ? ["5", "October", "Oktober"]
