@@ -50,10 +50,11 @@ export function introCheckoutLink(): string | null {
 
 /**
  * Stripe's customer portal login page, where a subscriber cancels, changes the
- * card or downloads invoices. `null` until the portal is switched on in the
- * dashboard; `/manage` then falls back to the cancellation form.
+ * card or downloads invoices. Activated 20.10.2026 on the account's default
+ * portal configuration, which Steliara's products share. `null` would make
+ * `/manage` fall back to the cancellation form.
  */
-const customerPortalLink: string | null = null;
+const customerPortalLink: string | null = "https://billing.stripe.com/p/login/cNi28rgV6c3Y1W45bYds400";
 
 export function customerPortal(): string | null {
   return customerPortalLink;

@@ -1175,10 +1175,10 @@ test("a cancellation with no usable address never reaches the service", async ()
   assert.equal(response.headers.get("location"), "http://localhost/kuendigen?status=failed");
 });
 
-test("manage subscription falls back to the cancellation form until the portal is switched on", async () => {
+test("manage subscription sends the reader to Stripe's customer portal login", async () => {
   const response = await render("/manage");
   assert.equal(response.status, 307);
-  assert.equal(response.headers.get("location"), "http://localhost/kuendigen");
+  assert.match(response.headers.get("location") ?? "", /^https:\/\/billing\.stripe\.com\/p\/login\//);
   assert.equal(response.headers.get("x-robots-tag"), "noindex, nofollow, noarchive");
 });
 
