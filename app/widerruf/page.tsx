@@ -9,7 +9,7 @@ export default function WiderrufPage() {
     page="withdrawal"
     eyebrow="Rechtliches"
     title="Widerruf"
-    updated="5. September 2026"
+    updated="20. Oktober 2026"
     notice={<><b>Diese Belehrung gilt für Verbraucher.</b> Sie betrifft den Kauf einer Lizenz, nicht den kostenlosen Test — für den Test schließt du keinen entgeltlichen Vertrag und hast nichts zu widerrufen.</>}
   >
     <h2>Widerrufsrecht</h2>
@@ -25,6 +25,8 @@ export default function WiderrufPage() {
     <p>Die Rückzahlung wird über Stripe abgewickelt, weil Stripe die Zahlung entgegengenommen hat. Auf deinem Kontoauszug erscheint sie unter derselben Bezeichnung wie der Kauf.</p>
     <p>Mit dem Widerruf endet deine Lizenz. Wir vermerken den Lizenzschlüssel als beendet. Weil Witness den Schlüssel auf deinem Mac gegen eine Signatur prüft und dafür keine Verbindung braucht, kann ein bereits ausgelieferter Schlüssel technisch nicht aus der Ferne abgeschaltet werden: <strong>du bist deshalb verpflichtet, Witness nach dem Widerruf nicht weiter mit diesem Schlüssel zu nutzen</strong> und die Lizenz in der App über „Von diesem Mac entfernen“ freizugeben oder die App zu löschen.</p>
 
+    <p>Bei der Jahreslizenz gilt der Schlüssel auf deinem Mac nur etwa 30 Tage und wird nach einem Widerruf nicht mehr erneuert; er läuft deshalb von selbst ab. Auch das Abonnement bei Stripe beenden wir mit dem Widerruf.</p>
+
     <h2>Wann das Widerrufsrecht vorzeitig erlischt</h2>
     <p>Bei einem Vertrag über die Lieferung von digitalen Inhalten, die nicht auf einem körperlichen Datenträger geliefert werden, erlischt das Widerrufsrecht auch dann, wenn wir mit der Ausführung des Vertrags begonnen haben, nachdem du</p>
     <ol>
@@ -32,10 +34,10 @@ export default function WiderrufPage() {
       <li>deine Kenntnis davon bestätigt hast, dass du durch deine Zustimmung mit Beginn der Ausführung des Vertrags dein Widerrufsrecht verlierst,</li>
     </ol>
     <p>und wir dir diese Bestätigung zur Verfügung gestellt haben.</p>
-    <p>Witness holt beide Erklärungen ein, bevor die App einen Bezahlvorgang öffnet — die Bezahlseite ist standardisiert und kann nicht danach fragen, also fragt die App, über den Preisen, und die Kaufknöpfe tun nichts, solange nicht angekreuzt ist. Deine Kaufbestätigung wiederholt die Erklärung. <strong>Liegen sie nicht vor, bleibt dein Widerrufsrecht die vollen vierzehn Tage bestehen</strong> — auch dann, wenn du den Schlüssel bereits erhalten und Witness benutzt hast.</p>
+    <p>Witness holt beide Erklärungen ein, bevor die App einen Bezahlvorgang öffnet — die Bezahlseite ist standardisiert und kann nicht danach fragen, also fragt die App, über den Preisen, und die Kaufknöpfe tun nichts, solange nicht angekreuzt ist. Auf der Seite für das Einführungsangebot geschieht dasselbe vor dem Kaufknopf. Deine Kaufbestätigung wiederholt die Erklärung. <strong>Liegen sie nicht vor, bleibt dein Widerrufsrecht die vollen vierzehn Tage bestehen</strong> — auch dann, wenn du den Schlüssel bereits erhalten und Witness benutzt hast.</p>
 
     <h2>Jahreslizenz</h2>
-    <p>Das Widerrufsrecht bezieht sich auf den Abschluss des Vertrags. Eine automatische Verlängerung der Jahreslizenz ist kein neuer Vertragsabschluss und löst deshalb kein neues Widerrufsrecht aus. Beenden kannst du die Verlängerung jederzeit bis zum letzten Tag der laufenden Laufzeit; wie das geht, steht in Abschnitt 8 der <Link href="/agb">Vertrags- und Lizenzbedingungen</Link>.</p>
+    <p>Beim Einführungsangebot (€4,99 für die ersten 14 Tage) beginnt die Widerrufsfrist mit dem Kauf. Die automatische Abbuchung der €49 am 15. Tag ist keine neue Bestellung, sondern die im Angebot genannte Fortsetzung desselben Vertrags; du kannst sie bis zum 14. Tag durch Kündigung verhindern. Das Widerrufsrecht bezieht sich auf den Abschluss des Vertrags. Eine automatische Verlängerung der Jahreslizenz ist kein neuer Vertragsabschluss und löst deshalb kein neues Widerrufsrecht aus. Beenden kannst du die Verlängerung jederzeit bis zum letzten Tag der laufenden Laufzeit; wie das geht, steht in Abschnitt 8 der <Link href="/agb">Vertrags- und Lizenzbedingungen</Link>.</p>
 
     <h2>Über das Gesetz hinaus</h2>
     <p>Wir versprechen nichts, was über das gesetzliche Widerrufsrecht hinausgeht. Ein zweites, freiwilliges Rücknahmeversprechen daneben würde nur die Frage aufwerfen, welches von beiden gilt. Was du hast, steht vollständig auf dieser Seite.</p>

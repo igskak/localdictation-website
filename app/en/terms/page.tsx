@@ -13,7 +13,7 @@ export default function TermsPage() {
     page="terms"
     eyebrow="Legal"
     title="Terms and Licence"
-    updated="4 October 2026"
+    updated="20 October 2026"
     notice={<><b>This English text applies to purchases made in English.</b> The German text at <Link href={legalPaths.de.terms}>/agb</Link> applies to purchases made in German. They say the same thing; if you find a place where they do not, tell us — you are entitled to rely on the one you read. Neither replaces advice from a lawyer, and the version that applies to you is the one that was current when you bought.</>}
   >
     <h2>1. Who we are, and what these terms cover</h2>
@@ -43,11 +43,11 @@ export default function TermsPage() {
     <h2>4. How the contract is made, prices, and payment</h2>
     <p>Showing the licences on this website and in the app is an invitation to order, not a binding offer. The contract is made when you complete the payment and it is confirmed.</p>
     <p>Payment runs through <strong>Stripe</strong> as payment service provider: Stripe takes the payment and passes it on to us, so Stripe&apos;s own terms apply to the payment as well. <strong>The licence contract for using Witness is with us</strong>; we are the seller and issue the invoice, and these terms govern the contract. We never see a card number.</p>
-    <p>The prices are <strong>€99 once</strong> for the lifetime licence and <strong>€49 per year</strong> for the annual licence, each as a final price. We are not a VAT payer in the Czech Republic (nejsem plátce DPH): no VAT is added to the prices or shown on the invoice. The checkout shows which payment methods are available before you finish. You receive the invoice by e-mail.</p>
+    <p>The prices are <strong>€99 once</strong> for the lifetime licence and <strong>€49 per year</strong> for the annual licence, each as a final price. The annual licence also has an <strong>introductory offer of €4.99 for the first 14 days</strong>, described in section 8. We are not a VAT payer in the Czech Republic (nejsem plátce DPH): no VAT is added to the prices or shown on the invoice. The checkout shows which payment methods are available before you finish. You receive the invoice by e-mail.</p>
 
     <h2>5. Delivery and activation</h2>
     <p>Once the payment is confirmed we issue a signed licence key for the Mac you activate from and send it to the e-mail address you bought with. Delivery is immediate, normally within a few minutes.</p>
-    <p>The key is verified on your Mac against a signature. That needs no live connection: if our activation service is down, nobody new can activate, but no installation that is already activated stops working.</p>
+    <p>The key is verified on your Mac against a signature. That needs no live connection: if our activation service is down, nobody new can activate, but no installation that is already activated stops working. The annual licence is the exception: its key is valid for about 30 days, and the app renews it in the background in its last week for as long as the subscription runs (section 8).</p>
     <p>If no mail arrives, ask for the key again in the app — you get the same key, not a second one. If that does not help, write to <a href="mailto:hallo@witnessmac.com">hallo@witnessmac.com</a>.</p>
 
     <h2>6. What the licence allows</h2>
@@ -67,18 +67,20 @@ export default function TermsPage() {
     <p>A lifetime licence covers <strong>the major version current when you bought — version 1 today — and every update to it</strong>, meaning every version 1.x, with no time limit and no further payment.</p>
     <p>A future major version (2.0) is a new product and is not included. The version you bought keeps running for as long as it runs on your Mac and your macOS version. The app tells you what a new major version means for your licence before you decide anything.</p>
 
-    <h2>8. The annual licence: term, renewal and ending it</h2>
-    <p>The annual licence runs for 12 months from issue and then renews automatically for another 12 months at the price then current, unless you end it first.</p>
+    <h2>8. The annual licence and the introductory offer: term, renewal and ending it</h2>
+    <p><strong>Introductory offer.</strong> For €4.99 you get the annual licence for the first 14 days from purchase. If you do not cancel by the end of those 14 days, Stripe automatically charges €49 on day 15 for the first 12 months. If you cancel by then you pay only the €4.99 and nothing more is charged. The price and the automatic charge after the 14 days are shown before you buy, on the order page and in the checkout.</p>
+    <p>The annual licence runs for 12 months from issue, or from the end of the first 14 days for the introductory offer, and then renews automatically for another 12 months at the price then current, unless you end it first.</p>
     <ul>
       <li><strong>You can end it at any time</strong> up to the last day of the current term, with no notice period and no reason. It then stays usable until the end of the period you paid for and does not renew.</li>
-      <li>The simplest way is the payment-management link in your purchase confirmation. An e-mail to <a href="mailto:hallo@witnessmac.com">hallo@witnessmac.com</a> naming the address the licence runs under does it too. We stop the renewal and confirm that in writing.</li>
+      <li>The simplest way is the <Link href="/en/cancel-subscription">Cancel contracts here</Link> button, which you find on every page of this site. You cancel without signing in and get the confirmation at once and by e-mail. “Manage subscription” in Witness settings works too, as does an e-mail to <a href="mailto:hallo@witnessmac.com">hallo@witnessmac.com</a> naming the address the licence runs under does it too. We stop the renewal and confirm that in writing.</li>
+      <li>The key on your Mac is valid for about 30 days. The app renews it in the background in its last week for as long as the subscription runs. After a cancellation, a refund or a payment that has finally failed, no new key is issued; the last one is valid until it expires, at most about 30 days after it was issued. It can run up to a week past the paid end, so that a card payment Stripe is still retrying does not lock you out.</li>
       <li>We announce a price change for the next renewal by e-mail at least six weeks in advance. If you do not agree, end the renewal before the current term is over.</li>
       <li>There is no pro-rata refund for a term already started; the statutory right of withdrawal is unaffected.</li>
     </ul>
     <p>When it ends, new dictations pause. The app, your settings and your vocabulary stay on your Mac.</p>
 
     <h2>9. Updates and system requirements</h2>
-    <p>In Settings, you can press “Check for updates” to ask for a new version. If one is available, Witness can download, verify, install and relaunch it after you confirm. It does not check or install in the background. New versions are also available at witnessmac.com.</p>
+    <p>By default Witness asks GitHub once a day whether a newer signed version exists, and offers it to you. You can switch that off in Settings and press “Check for updates” yourself. A version is only downloaded, verified, installed and relaunched after you confirm; the app installs nothing in the background. New versions are also available at witnessmac.com.</p>
     <p>For consumers, we provide, for as long as the licence runs, the updates needed to keep the product in conformity with the contract — for a lifetime licence, for the major version you bought. We tell you about such updates; if you do not install them, we are not liable for defects that follow from that alone.</p>
     <p>The system requirements that apply are the ones stated when you bought: Apple silicon and macOS 14.4 or newer. If Apple changes the operating system so that an adjustment becomes necessary, we make it within the paragraph above.</p>
 

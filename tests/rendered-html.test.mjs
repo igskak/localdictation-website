@@ -314,9 +314,15 @@ test("serves the legal pages, and no longer calls any of them a draft", async ()
   // On 5 October the two privacy policies gained the six setup events and the
   // passing of all nine on to PostHog; the other legal pages did not change.
   const funnelPages = new Set(["/datenschutz", "/en/privacy"]);
+  // On 20 October the terms, the withdrawal instruction and the privacy
+  // policies gained the introductory offer, the thirty-day key, the daily
+  // update check and the cancellation button.
+  const paidEntryPages = new Set(["/agb", "/widerruf", "/datenschutz", "/en/terms", "/en/cancellation", "/en/privacy"]);
   for (const [routes, counterparts] of [[legalRoutes, legalRoutesEn], [legalRoutesEn, legalRoutes]]) {
     for (const [index, route] of routes.entries()) {
-      const [date, month, monthDe] = funnelPages.has(route)
+      const [date, month, monthDe] = paidEntryPages.has(route)
+        ? ["20", "October", "Oktober"]
+        : funnelPages.has(route)
         ? ["5", "October", "Oktober"]
         : privacyPages.has(route) ? ["4", "October", "Oktober"] : [updatedPages.has(route) ? "24" : "5", "September", "September"];
       const stamp = route.startsWith("/en/")
@@ -1074,4 +1080,137 @@ test("no page calls Stripe the merchant of record or promises VAT in the price",
     assert.doesNotMatch(html, /merchant of record/i, route);
     assert.doesNotMatch(html, /inkl\. MwSt|einschließlich der gesetzlichen Umsatzsteuer|incl\. VAT|including statutory VAT|включая НДС|включно з ПДВ/i, route);
   }
+});
+
+// MARK: - The paid-entry pages
+
+test("the paid-entry page leads with the payment, says what follows it, and never offers the free download", async () => {
+  for (const [path, lang, line, cta] of [
+    ["/start", "de", "€4,99 für die ersten 14 Tage ab Kauf. Danach €49 pro Jahr, automatisch, wenn du nicht bis zum 14. Tag kündigst. Dann zahlst du nichts weiter.", "Für €4,99 starten"],
+    ["/en/start", "en", "€4.99 for the first 14 days from purchase. Then €49 a year, automatically, unless you cancel by day 14. Then you pay nothing more.", "Start for €4.99"],
+  ]) {
+    const response = await render(path);
+    assert.equal(response.status, 200, path);
+    const html = await response.text();
+
+    assert.match(html, /<meta name="robots" content="noindex, nofollow"/, `${path} stays out of the index`);
+    assert.doesNotMatch(html, /<link rel="canonical"/, `${path} is not a second copy of the landing page`);
+    // The sentence that matters legally: what is charged today, what on day 15,
+    // and how to stop it. It sits under the hero button and again in the price section.
+    assert.ok((html.split(line).length - 1) >= 2, `${path} must state the price line next to the button and in the price section`);
+    assert.ok(html.includes(cta), path);
+    assert.match(html, new RegExp(`<html[^>]*lang="${lang}"|lang="${lang}"`), path);
+
+    // It does not lead with, link to, or advertise the free download.
+    assert.doesNotMatch(html, /href="\/danke/, `${path} must not link to the free download`);
+    assert.doesNotMatch(html, /href="\/download/, `${path} must not link to the file`);
+    assert.doesNotMatch(html, /13 Tage|13 days|kostenlos testen|try free|Try free/i, `${path} must not mention the free trial`);
+    assert.doesNotMatch(html, /href="\/(?:en|ru|uk)?"|href="\/vergleich/, `${path} must not lead anywhere that sells the free trial`);
+
+    // The §312k button is on the page, and the buy button needs the declaration.
+    const cancelHref = lang === "de" ? "/kuendigen" : "/en/cancel-subscription";
+    assert.match(html, new RegExp(`href="${cancelHref}"`), `${path} must carry the cancellation button`);
+  }
+});
+
+test("the buy button is not rendered until a payment link exists, and there is no promotion code on it", async () => {
+  const html = await (await render("/start")).text();
+  // No link configured: the page says so instead of showing a dead button.
+  assert.match(html, /Der Kauf ist in Kürze möglich/);
+  assert.doesNotMatch(html, /data-cta="start-buy"/);
+
+  const redirect = await render("/buy?plan=intro");
+  assert.equal(redirect.status, 307);
+  assert.equal(redirect.headers.get("location"), "http://localhost/start");
+  assert.equal(redirect.headers.get("x-robots-tag"), "noindex, nofollow, noarchive");
+});
+
+test("the page after the payment tells a buyer which address to enter, and never mentions a trial", async () => {
+  for (const [path, must, mustNot] of [
+    ["/start/danke", [/Gib dort die Adresse ein, mit der du gerade bezahlt hast/, /href="\/manage"/, /href="\/kuendigen"/], /13 Tage|kostenlos|zehn weitere/i],
+    ["/en/start/danke", [/Enter the one you just paid with/, /href="\/manage"/, /href="\/en\/cancel-subscription"/], /13 days|free trial|ten more/i],
+  ]) {
+    const html = await (await render(path)).text();
+    for (const pattern of must) assert.match(html, pattern, path);
+    assert.doesNotMatch(html, mustNot, path);
+    assert.match(html, /<meta name="robots" content="noindex, nofollow"/, path);
+  }
+});
+
+test("the cancellation form works without JavaScript and answers in the same words the mail carries", async () => {
+  const de = await (await render("/kuendigen")).text();
+  const deForm = de.match(/<form[^>]*>/)?.[0] ?? "";
+  assert.match(deForm, /method="post"/);
+  assert.match(deForm, /action="\/kuendigen\/senden"/);
+  assert.match(de, /<input[^>]+name="email"[^>]+type="email"|<input[^>]+type="email"[^>]+name="email"/);
+  assert.match(de, /Jetzt kündigen/);
+
+  const done = await (await render("/kuendigen?status=done")).text();
+  assert.match(done, /Deine Kündigung ist eingegangen/);
+  assert.doesNotMatch(done, /<form/, "a received cancellation is not offered again");
+
+  const failed = await (await render("/kuendigen?status=failed")).text();
+  assert.match(failed, /Das hat nicht geklappt/);
+  assert.match(failed, /<form/);
+
+  const en = await (await render("/en/cancel-subscription")).text();
+  assert.match(en.match(/<form[^>]*>/)?.[0] ?? "", /action="\/en\/cancel-subscription\/submit"/);
+  assert.match(en, /Cancel now/);
+});
+
+test("a cancellation with no usable address never reaches the service", async () => {
+  const workerUrl = new URL("../dist/server/index.js", import.meta.url);
+  workerUrl.searchParams.set("test", `${process.pid}-${Date.now()}-${Math.random()}`);
+  const { default: worker } = await import(workerUrl.href);
+  const form = new FormData();
+  form.set("email", "not an address");
+  const response = await worker.fetch(
+    new Request("http://localhost/kuendigen/senden", { method: "POST", body: form }),
+    { ASSETS: { fetch: async () => new Response("Not found", { status: 404 }) } },
+    { waitUntil() {}, passThroughOnException() {} },
+  );
+  assert.equal(response.status, 303);
+  assert.equal(response.headers.get("location"), "http://localhost/kuendigen?status=failed");
+});
+
+test("manage subscription falls back to the cancellation form until the portal is switched on", async () => {
+  const response = await render("/manage");
+  assert.equal(response.status, 307);
+  assert.equal(response.headers.get("location"), "http://localhost/kuendigen");
+  assert.equal(response.headers.get("x-robots-tag"), "noindex, nofollow, noarchive");
+});
+
+test("every page of the shop carries the cancellation button, and the sitemap leaves the paid-entry pages out", async () => {
+  const expected = { "/": "/kuendigen", "/en": "/en/cancel-subscription", "/ru": "/en/cancel-subscription", "/uk": "/en/cancel-subscription" };
+  for (const [route, href] of Object.entries(expected)) {
+    const html = await (await render(route)).text();
+    assert.match(html, new RegExp(`href="${href}"`), `${route} must carry the cancellation button`);
+  }
+  for (const route of ["/agb", "/datenschutz", "/en/terms", "/vergleich"]) {
+    const html = await (await render(route)).text();
+    assert.match(html, /href="\/kuendigen"|href="\/en\/cancel-subscription"/, `${route} must carry the cancellation button`);
+  }
+
+  const sitemap = await (await render("/sitemap.xml")).text();
+  for (const path of ["/start", "/kuendigen", "/manage", "/cancel-subscription"]) {
+    assert.ok(!sitemap.includes(path), `${path} must stay out of the sitemap`);
+  }
+});
+
+test("the terms describe the introductory offer, the thirty-day key and the daily update check", async () => {
+  const de = await (await render("/agb")).text();
+  for (const claim of ["Einführungsangebot von €4,99 für die ersten 14 Tage", "am 15. Tag automatisch €49", "Verträge hier kündigen", "etwa 30 Tage", "einmal am Tag bei GitHub"]) {
+    assert.ok(de.includes(claim), `the German terms must state ${claim}`);
+  }
+  const en = await (await render("/en/terms")).text();
+  for (const claim of ["introductory offer of €4.99 for the first 14 days", "charges €49 on day 15", "Cancel contracts here", "about 30 days", "asks GitHub once a day"]) {
+    assert.ok(en.includes(claim), `the English terms must state ${claim}`);
+  }
+
+  const datenschutz = await (await render("/datenschutz")).text();
+  assert.match(datenschutz, /etwa einmal im Monat/);
+  assert.match(datenschutz, /Einmal am Tag, solange „Automatisch nach Updates suchen“/);
+  const privacy = await (await render("/en/privacy")).text();
+  assert.match(privacy, /about once a month/);
+  assert.match(privacy, /Once a day while “Check for updates automatically”/);
 });

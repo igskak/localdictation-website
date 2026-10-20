@@ -30,6 +30,36 @@ const checkoutLinks: Record<Plan, string> = {
 };
 
 /**
+ * The Payment Link for the introductory offer sold on `/start`: €4.99 now for
+ * the first fourteen days of the annual subscription, then €49 a year unless
+ * cancelled (Stripe: the one-off price `witness_intro_14_days`, the €49
+ * recurring price, and a fourteen-day trial on the subscription).
+ *
+ * `null` until the link exists. While it is `null` `/buy?plan=intro` sends the
+ * reader back to `/start` and the page shows no buy button, so nothing can be
+ * bought through a link that is not there yet.
+ *
+ * It takes no promotion code and ignores the partner cookie: the partner deal
+ * is for the two links above and ends on 31 December.
+ */
+const introPaymentLink: string | null = null;
+
+export function introCheckoutLink(): string | null {
+  return introPaymentLink;
+}
+
+/**
+ * Stripe's customer portal login page, where a subscriber cancels, changes the
+ * card or downloads invoices. `null` until the portal is switched on in the
+ * dashboard; `/manage` then falls back to the cancellation form.
+ */
+const customerPortalLink: string | null = null;
+
+export function customerPortal(): string | null {
+  return customerPortalLink;
+}
+
+/**
  * The cookie that carries a partner's discount from the reader's first visit
  * to the checkout the app opens two weeks later. It holds the partner's name
  * and nothing else, and it expires with the offer.
