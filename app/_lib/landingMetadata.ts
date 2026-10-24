@@ -12,23 +12,23 @@ import { requestOrigin } from "./requestOrigin";
 const meta: Record<Locale, { title: string; description: string; imageAlt: string }> = {
   de: {
     title: "Witness: Spracherkennung für den Mac, ohne Cloud",
-    description: "Sprache zu Text am Mac: lokale Diktier-App für Apple Silicon. Deutsch und Englisch mischen, unsichere Stellen prüfen, Text direkt am Cursor einsetzen.",
+    description: "Sprache zu Text am Mac: lokale Diktier-App für Apple Silicon. Deutsch und Englisch mischen, Text sofort am Cursor, unsichere Stellen werden markiert.",
     imageAlt: "Witness markiert einen Betrag im eingefügten Text",
   },
   en: {
     title: "Witness: Speech to text for Mac, private and offline",
-    description: "Voice to text for Apple silicon Macs, processed on the device. Mix English and German, review uncertain passages, and insert text at your cursor.",
+    description: "Voice to text for Apple silicon Macs, processed on the device. Mix English and German, get text at your cursor at once, with uncertain passages marked.",
     imageAlt: "Witness flags an amount in the inserted text",
   },
   ru: {
     title: "Witness: диктовка без передачи твоих данных",
-    description: "Локальная диктовка для Mac на Apple Silicon. Мешай русский с английским, проверяй неуверенные места и вставляй готовый текст прямо под курсор.",
-    imageAlt: "Witness подсвечивает сумму для проверки до вставки",
+    description: "Локальная диктовка для Mac на Apple Silicon. Мешай русский с английским: текст сразу встаёт под курсор, а неуверенные места Witness отметит.",
+    imageAlt: "Witness отмечает сумму во вставленном тексте",
   },
   uk: {
     title: "Witness: диктування без передавання твоїх даних",
-    description: "Локальне диктування для Mac на Apple Silicon. Змішуй українську з англійською, перевіряй непевні місця та вставляй готовий текст просто під курсор.",
-    imageAlt: "Witness підсвічує суму для перевірки до вставлення",
+    description: "Локальне диктування для Mac на Apple Silicon. Змішуй українську з англійською: текст одразу з'являється під курсором, а непевні місця Witness позначить.",
+    imageAlt: "Witness позначає суму у вставленому тексті",
   },
 };
 

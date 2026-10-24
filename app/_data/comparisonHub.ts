@@ -13,7 +13,7 @@ export const hubUpdatedLabel = "30. September 2026";
 export const hubTitle = "Diktier-Apps für den Mac 2026: sieben im Vergleich, und welche unsichere Stellen markiert";
 export const hubMetaTitle = "Diktier-Apps für den Mac 2026 im Vergleich | Witness";
 export const hubDescription =
-  "Sieben Diktier-Apps für den Mac: lokal oder Cloud, Markierung unsicherer Stellen, Abo oder Einmalkauf. Mit offiziellen Quellen, geprüft am 30.09.2026.";
+  "Sieben Diktier-Apps für den Mac: wo die Sprache verarbeitet wird, was sie kosten, welche unsichere Stellen markiert. Witness: lokal, €99 einmal, 13 Tage gratis.";
 
 export const hubSources: ComparisonSource[] = [
   {
