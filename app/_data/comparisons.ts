@@ -325,9 +325,9 @@ const wispr: ComparisonPageData = {
   path: "/vergleich/wispr-flow-alternative",
   eyebrow: "Wispr-Flow-Alternative",
   title: "Witness oder Wispr Flow? Lokalität ist die eigentliche Entscheidung",
-  metaTitle: "Wispr-Flow-Alternative für den Mac | Witness",
+  metaTitle: "Wispr-Flow-Alternative ohne Cloud und Konto | Witness",
   description:
-    "Wispr Flow und Witness im Vergleich: Verarbeitung, Sprachen, Prüfung, Konto und Preis, mit offiziellen Quellen. Stand Oktober 2026.",
+    "Wispr Flow verarbeitet Diktate in den USA, Pro kostet $144 im Jahr. Witness rechnet auf deinem Mac, ohne Konto, für €99 einmal. 13 Tage gratis testen.",
   directAnswer: {
     text: "Die kurze Antwort: Witness ist die passende Wispr-Flow-Alternative, wenn Diktatinhalte den Mac nicht verlassen sollen. Wispr Flow beschreibt sich in der eigenen Dokumentation als Cloud-Dienst, der Kundendaten in den USA verarbeitet und speichert; der Satz, den du diktierst, geht zur Erkennung dorthin. Dazu verlangt die Einrichtung ein Konto, und Pro kostet $144 im Jahr. Witness rechnet auf dem eigenen Apple-Silicon-Mac, kommt ohne Produktkonto aus und kostet €99 einmal. Flow deckt dafür Windows, iPhone und Android mit ab.",
     sources: ["wispr-security", "wispr-languages", "local-product"],
@@ -406,6 +406,10 @@ const wispr: ComparisonPageData = {
     {
       question: "Wie gehen Witness und Wispr Flow mit Deutsch und Englisch in einem Satz um?",
       answer: "Beide unterstützen Deutsch und Englisch in einem Satz, und beide entscheiden sich pro Aufnahme für eine Sprache, und das ist kein Unterschied zwischen ihnen. Der Unterschied bei Witness: Du kreuzt vorher an, welche Sprachen überhaupt in Frage kommen, und ein Wort in einer Sprache, die du nicht angekreuzt hast, wird markiert.",
+    },
+    {
+      question: "Gibt es eine Wispr-Flow-Alternative ohne Konto?",
+      answer: "Ja. Witness braucht kein Produktkonto: Die Lizenz ist ein Schlüssel per E-Mail, und die Lizenzprüfung läuft offline auf dem Mac. Wispr Flow verlangt bei der Einrichtung eine Anmeldung. Witness kostet €99 einmal oder €49 im Jahr und lässt sich 13 Tage kostenlos testen, ohne Kreditkarte.",
     },
     {
       question: "Ist Witness bereits allgemein verfügbar?",
@@ -880,16 +884,16 @@ const secrecySources: ComparisonSource[] = [
 ];
 
 // The top results for this query argue locality and cite the secrecy statutes;
-// none of them covers the second half, a wrong amount or a lost "nicht" that
+// none of them covers the second half, a wrong amount or a misheard name that
 // nobody sees before it is sent. That is where this page ends up.
 const dsgvo: ComparisonPageData = {
   slug: "diktiersoftware-mac-dsgvo",
   path: "/vergleich/diktiersoftware-mac-dsgvo",
   eyebrow: "Diktiersoftware für Mac & DSGVO",
   title: "Diktiersoftware für den Mac und DSGVO: lokal oder Cloud bei sensiblen Inhalten?",
-  metaTitle: "Diktiersoftware Mac DSGVO: lokal oder Cloud? | Witness",
+  metaTitle: "Diktiersoftware Mac DSGVO: Diktate bleiben lokal | Witness",
   description:
-    "Diktiersoftware für den Mac mit DSGVO und Berufsgeheimnis (§ 203 StGB) prüfen: lokal, EU-Cloud oder US-Cloud, AVV und Fehlerkontrolle. Stand Oktober 2026.",
+    "Mandanten- oder Patientennamen im Diktat? Bei Witness gehen Audio und Text an keinen Server, also kein Dienstleister für Diktatinhalte. § 203 StGB erklärt.",
   updatedIso: "2026-10-07",
   updatedLabel: "7. Oktober 2026",
   directAnswer: {
@@ -965,7 +969,7 @@ const dsgvo: ComparisonPageData = {
       title: "Vierte Frage: Wie werden Fehler vor dem Absenden sichtbar?",
       paragraphs: [
         {
-          text: "Datenschutz schützt nicht vor einer falsch erkannten Summe oder einer verlorenen Verneinung. Witness markiert Stellen, auf die du achten solltest; Originalton und Rohtranskript liegen zur Kontrolle bereit. Vergleichbare automatische Risikomarkierungen sind bei Wispr Flow, Superwhisper, Sprecho und VoiceInk in den von uns geprüften öffentlichen Unterlagen nicht öffentlich dokumentiert. In einer Akte oder einem Befundbericht ist das die Stelle, an der ein Fehler sonst unbemerkt bleibt.",
+          text: "Datenschutz schützt nicht vor einer falsch erkannten Summe oder einem verhörten Namen. Witness markiert Stellen, auf die du achten solltest; Originalton und Rohtranskript liegen zur Kontrolle bereit. Vergleichbare automatische Risikomarkierungen sind bei Wispr Flow, Superwhisper, Sprecho und VoiceInk in den von uns geprüften öffentlichen Unterlagen nicht öffentlich dokumentiert. In einer Akte oder einem Befundbericht ist das die Stelle, an der ein Fehler sonst unbemerkt bleibt.",
           sources: ["local-product", "wispr-security", "super-security", "sprecho-product", "voiceink-product"],
         },
         {
@@ -1071,8 +1075,8 @@ const macDictationSources: ComparisonSource[] = [
 ];
 
 // The built-in feature is local too, so this page cannot sell locality. What it
-// can say, sourced, is where Apple's own help draws its lines, and that Witness
-// checks before inserting while macOS underlines ambiguous words afterwards.
+// can say, sourced, is where Apple's own help draws its lines, and how Witness
+// marks passages in the menu bar while macOS underlines words in the text.
 const macDictation: ComparisonPageData = {
   slug: "mac-diktierfunktion",
   path: "/vergleich/mac-diktierfunktion",
@@ -1390,11 +1394,11 @@ const wisprFlowAlternatives: ComparisonPageData = {
   updatedLabel: "1 October 2026",
   eyebrow: "Wispr Flow alternatives",
   title: "Best Wispr Flow alternatives for Mac, and how to pick one",
-  metaTitle: "Wispr Flow Alternatives for Mac | Witness",
+  metaTitle: "Wispr Flow Alternatives That Run on Your Mac | Witness",
   description:
-    "Eight Wispr Flow alternatives for Mac, compared on where speech is processed, price, and what you are shown when recognition is unsure. Checked 1 October 2026.",
+    "Wispr Flow sends your speech to a US cloud and Pro costs $144 a year. Eight alternatives that run on your Mac, and which one marks what deserves a second look.",
   directAnswer: {
-    text: "The short answer: if you are looking for a Wispr Flow alternative because your dictation should stay on your Mac, there are eight real options and most of them cost nothing. Wispr Flow describes itself in its own documentation as a cloud service that processes and stores customer data in the United States, it requires an account to set up, and Pro costs $144 a year. Every alternative on this page runs recognition on the Mac instead. Where they differ is what happens after recognition. If local processing is all you need, this page says which ones are free. If you also need to catch the words recognition got wrong before they reach a document, that narrows to one.",
+    text: "The short answer: if you are looking for a Wispr Flow alternative because your dictation should stay on your Mac, there are eight real options and most of them cost nothing. Wispr Flow describes itself in its own documentation as a cloud service that processes and stores customer data in the United States, it requires an account to set up, and Pro costs $144 a year. Every alternative on this page runs recognition on the Mac instead. Where they differ is what happens after recognition. If local processing is all you need, this page says which ones are free. If you also want the passages recognition may have got wrong pointed out to you, that narrows to one.",
     sources: ["wispr-security", "wispr-setup", "wispr-plans", "local-product"],
   },
   table: {
@@ -1666,9 +1670,9 @@ const missedWords: ComparisonPageData = {
   updatedLabel: "1 October 2026",
   eyebrow: "Dictation that drops words",
   title: "Why dictation silently drops words, and how to catch it",
-  metaTitle: "Why Dictation Drops Words | Witness",
+  metaTitle: "Why Dictation Drops Words, and How to Catch It | Witness",
   description:
-    "Dictation does not fail loudly: it drops a negation or changes a figure and leaves the sentence readable. What the research shows, and how to catch it.",
+    "Dictation changes a figure or drops a word, and the sentence still reads fine. What the research shows, three habits that catch it, and when an app should.",
   directAnswer: {
     text: "The short answer: dictation does not fail loudly. Speech recognition predicts language as much as it transcribes it, so when the audio is unclear it does not leave a gap, it writes the most probable words instead. OpenAI states this plainly in the Whisper model card: the predictions may include texts that are not actually spoken in the audio input. A peer-reviewed study of Whisper transcriptions found that roughly 1% contained entire hallucinated phrases or sentences which did not exist in any form in the underlying audio. The failure you need to catch is not the garbled sentence, because you already notice that one. It is the clean sentence where a figure, a date, a name or the word not came out different and the text still reads perfectly.",
     sources: ["whisper-card", "careless-whisper"],

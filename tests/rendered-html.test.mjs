@@ -818,6 +818,41 @@ test("sells the Sprecho alternative in the snippet, not only on the page", async
   assert.doesNotMatch(ownText, /\u2014/);
 });
 
+test("gives the pages already on page one a snippet that says why to click", async () => {
+  // Search Console, 7 days to 22.10: these pages sit between positions 5 and 10
+  // with few clicks, while the Sprecho page took its first clicks after the same
+  // change in #22. Each snippet now names the reason to switch, and none of them
+  // describes a check before insertion: Witness inserts at once and marks after.
+  const pages = [
+    ["/vergleich/wispr-flow-alternative", /^Wispr-Flow-Alternative ohne Cloud und Konto/, [/\$144 im Jahr/, /€99 einmal/]],
+    ["/en/compare/wispr-flow-alternatives", /^Wispr Flow Alternatives That Run on Your Mac/, [/\$144 a year/, /second look/]],
+    ["/vergleich/diktiersoftware-mac-dsgvo", /^Diktiersoftware Mac DSGVO: Diktate bleiben lokal/, [/keinen Server/, /§ 203 StGB/]],
+    ["/en/guides/dictation-missed-words", /^Why Dictation Drops Words, and How to Catch It/, [/three habits/]],
+    ["/vergleich", /^Diktier-Apps für den Mac 2026 im Vergleich/, [/€99 einmal/]],
+  ];
+  for (const [path, titlePattern, descriptionPatterns] of pages) {
+    const html = await (await render(path)).text();
+    const title = html.match(/<title>([^<]+)<\/title>/)?.[1] ?? "";
+    const description = html.match(/<meta name="description" content="([^"]+)"/)?.[1] ?? "";
+    assert.match(title, titlePattern, path);
+    assert.ok(title.length <= 60, title);
+    assert.ok(description.length <= 160, description);
+    for (const pattern of descriptionPatterns) assert.match(description, pattern, path);
+    const ownText = html.replace(/<script[\s\S]*?<\/script>/g, "");
+    assert.doesNotMatch(ownText, /\u2014/, path);
+    assert.doesNotMatch(ownText, /before they reach a document|vor dem Einfügen|verlorenen Verneinung/, path);
+  }
+  const wispr = await (await render("/vergleich/wispr-flow-alternative")).text();
+  assert.match(wispr, /Wispr-Flow-Alternative ohne Konto\?/);
+});
+
+test("describes the landing image as marked after insertion in every language", async () => {
+  for (const path of ["/", "/en", "/ru", "/uk"]) {
+    const html = await (await render(path)).text();
+    assert.doesNotMatch(html, /до вставки|до вставлення|unsichere Stellen prüfen, Text|review uncertain passages, and insert/, path);
+  }
+});
+
 test("answers the roundup search on the hub with one dated, sourced table", async () => {
   // Since 27.09 /vergleich is the page for "Diktier-App Mac" (docs/seo/BACKLOG.md,
   // item 5), so it carries the same promises as a single comparison.
