@@ -748,21 +748,23 @@ const macwhisper: ComparisonPageData = {
   slug: "macwhisper-alternative",
   path: "/vergleich/macwhisper-alternative",
   eyebrow: "MacWhisper-Alternative",
-  title: "MacWhisper-Alternative? Es kommt darauf an, ob du Dateien transkribierst oder diktierst",
+  title: "MacWhisper-Alternative? Es kommt darauf an, ob du Stapel und Meetings brauchst oder Diktat und einzelne Dateien",
   metaTitle: "MacWhisper Alternative für den Mac | Vergleich 2026",
   description:
-    "MacWhisper und Witness sachlich verglichen: Dateitranskription gegen Diktat, lokale Modelle, optionale Cloud-Anbieter, Grammatikverbesserung, Sprachen, Geräte und Preise.",
-  updatedIso: "2026-10-01",
-  updatedLabel: "1. Oktober 2026",
+    "MacWhisper und Witness sachlich verglichen: Dateitranskription, Diktat, lokale Modelle, optionale Cloud-Anbieter, Grammatikverbesserung, Sprachen, Geräte und Preise.",
+  updatedIso: "2026-10-25",
+  updatedLabel: "25. Oktober 2026",
   directAnswer: {
-    text: "Die kurze Antwort: MacWhisper und Witness lösen zwei verschiedene Aufgaben. MacWhisper ist in erster Linie eine Transkriptionsumgebung für Dateien, Meetings und Untertitel und bietet zusätzlich systemweites Diktat; es ist verfügbar, kostet €64 einmalig neben einer kostenlosen Version und erlaubt als persönliche Lizenz als Richtwert drei Geräte. Witness macht ausschließlich Diktat in andere Apps, und zwar mit einer Kontrolle dahinter: Der Text steht sofort am Cursor, und Stellen, auf die du achten solltest, werden markiert. Wenn du den ganzen Tag in fremde Apps diktierst, ist das der Unterschied, der zählt. Für fertige Aufnahmen bleibt MacWhisper das breitere Werkzeug.",
+    text: "Die kurze Antwort: MacWhisper ist in erster Linie eine Transkriptionsumgebung für Dateien, Meetings und Untertitel und bietet zusätzlich systemweites Diktat; es ist verfügbar, kostet €64 einmalig neben einer kostenlosen Version und erlaubt als persönliche Lizenz als Richtwert drei Geräte. Witness diktiert in andere Apps und transkribiert zusätzlich einzelne Audio- und Videodateien, beides lokal, und zwar mit einer Kontrolle dahinter: Stellen, auf die du achten solltest, werden markiert, im Diktat wie im Dateitranskript. Wenn es dir um geprüfte Texte aus einzelnen Aufnahmen geht, kommt Witness infrage; für Stapelverarbeitung, Meeting-Mitschnitte, automatische Sprechererkennung und YouTube-Links ist MacWhisper das breitere Werkzeug.",
     sources: ["macwhisper-product", "macwhisper-licensing", "local-product"],
   },
   table: {
     caption: "MacWhisper und Witness auf einen Blick",
     headers: ["Kriterium", "Witness", "MacWhisper"],
     rows: [
-      ["Schwerpunkt", "Diktat in andere Apps", "Transkription von Dateien, Meetings und Untertiteln; zusätzlich systemweites Diktat"],
+      ["Schwerpunkt", "Diktat in andere Apps; einzelne Audio- und Videodateien", "Transkription von Dateien, Meetings und Untertiteln; zusätzlich systemweites Diktat"],
+      ["Dateien", "Eine Datei nach der anderen (m4a, mp3, wav, aiff, caf, mp4, mov); Export als TXT, Markdown, Word, SRT und Text mit Zeitmarken", "Dateien per Drag-and-drop, Stapelverarbeitung, Export nach .srt, .vtt, .txt, .md, .pdf, .html und .docx"],
+      ["Sprecher und Meetings", "Sprecher benennst und ordnest du selbst zu; keine automatische Erkennung, kein Meeting-Mitschnitt", "Sprechererkennung und Meeting-Mitschnitte laut Anbieter"],
       ["Produktstatus", "Verfügbar", "Verfügbar"],
       ["Verarbeitung", "Inhalte lokal; keine Cloud-Option vorgesehen", "Lokale Modelle; optional Cloud-Anbieter wie OpenAI, Anthropic, xAI und Google Gemini"],
       ["Sprachen", "100 Sprachen zum Ankreuzen; DE, EN, RU, UK gemessen", "100 Sprachen laut Anbieter"],
@@ -781,7 +783,7 @@ const macwhisper: ComparisonPageData = {
           sources: ["macwhisper-product"],
         },
         {
-          text: "Witness kann nichts davon und soll es auch nicht können. Es gibt keine Dateitranskription, keine Untertitel, keine Sprechererkennung und keinen Meeting-Mitschnitt. Das Produkt macht eine einzige Sache: Hotkey drücken, sprechen, Text erscheint an der Cursorposition in der App, in der du gerade bist. Diese Beschränkung ist der Grund, warum sich die Markierung unsicherer Stellen auf einen einzigen Moment konzentrieren kann: Es gibt genau einen Moment, in dem der Text entsteht, und an dem setzt die Kontrolle an.",
+          text: "Witness kann einen Teil davon. Es transkribiert einzelne Audio- und Videodateien (m4a, mp3, wav, aiff, caf, mp4, mov), lokal und nacheinander, und exportiert das Ergebnis als Text, Markdown, Word-Dokument, SRT-Untertitel oder Text mit Zeitmarken. Sprecher erkennt Witness nicht automatisch; du benennst sie im Transkript selbst und ordnest Passagen zu. Es gibt keinen Stapelbetrieb, keinen Meeting-Mitschnitt, keine YouTube- oder Podcast-Links, keine Zusammenfassungen. Im Diktat bleibt es bei einer Sache: Hotkey drücken, sprechen, Text erscheint an der Cursorposition. In beiden Fällen setzt die Kontrolle am selben Punkt an: Stellen, bei denen die Erkennung unsicher war, bleiben im Text markiert, statt geglättet zu werden.",
           sources: ["local-product"],
         },
       ],
@@ -844,7 +846,7 @@ const macwhisper: ComparisonPageData = {
     },
   ],
   verdict: {
-    text: "Unsere Empfehlung: MacWhisper bleibt das Werkzeug für fertige Aufnahmen, also Dateien, Meetings und Untertitel. Wenn dein Tag dagegen aus Diktat in fremde Apps besteht, du dabei Deutsch und Englisch mischst und willst, dass Stellen mit Prüfbedarf markiert statt geglättet werden, ist Witness die passende Wahl.",
+    text: "Unsere Empfehlung: MacWhisper bleibt das Werkzeug für Stapel, Meetings, Sprechererkennung und Untertitel in großem Stil. Wenn dein Tag dagegen aus Diktat in fremde Apps besteht und du dazu einzelne Aufnahmen, etwa ein Interview, lokal transkribieren willst, und dabei Stellen mit Prüfbedarf markiert statt geglättet haben möchtest, ist Witness die passende Wahl.",
     sources: ["macwhisper-product", "local-product"],
   },
   faqs: [
@@ -862,7 +864,7 @@ const macwhisper: ComparisonPageData = {
     },
     {
       question: "Ist Witness ein vollwertiger MacWhisper-Ersatz?",
-      answer: "Nein. Witness transkribiert keine Dateien, erstellt keine Untertitel, erkennt keine Sprecher und zeichnet keine Meetings auf. Es ersetzt MacWhisper nur für den Teil, der Diktat in andere Apps heißt.",
+      answer: "Nicht in jeder Hinsicht. Witness transkribiert einzelne Audio- und Videodateien lokal und exportiert sie unter anderem als Word-Dokument und als SRT-Untertitel. Es erkennt Sprecher nicht automatisch, verarbeitet keine Stapel, zeichnet keine Meetings auf und nimmt keine YouTube-Links. Wer das braucht, bleibt bei MacWhisper.",
     },
   ],
   sources: [localSource, ...macwhisperSources],

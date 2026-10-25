@@ -270,7 +270,7 @@ export const hubVerdict: CitedCopy = {
 };
 
 export const hubNotFor: CitedCopy = {
-  text: "Nicht das Richtige ist Witness, wenn du auf Windows, Linux oder dem Handy diktierst, einen Intel-Mac hast oder vor allem Aufnahmen und Meetings in Text umwandelst: Witness macht nur Diktat an den Cursor auf Apple-Silicon-Macs.",
+  text: "Nicht das Richtige ist Witness, wenn du auf Windows, Linux oder dem Handy diktierst, einen Intel-Mac hast oder vor allem Meetings mitschneiden oder viele Aufnahmen im Stapel umwandeln willst: Witness diktiert an den Cursor und transkribiert einzelne Audio- und Videodateien, jeweils lokal und nur auf Apple-Silicon-Macs.",
   sources: ["local-product"],
 };
 
