@@ -1,10 +1,10 @@
 import Link from "next/link";
 import { cancelSubmitPaths, startCopy, type StartLocale } from "../_data/startCopy";
-import { legalPaths } from "../_lib/legal";
+import { legalLocale, legalPaths } from "../_lib/legal";
 import { RouteFooter } from "./RouteFooter";
 
 /**
- * "Verträge hier kündigen" (§312k BGB): `/kuendigen` and `/en/cancel-subscription`.
+ * The locale-specific cancellation page, including the German §312k path.
  *
  * A form that works without JavaScript and without an account. It posts to this
  * site, which forwards the address to the activation service; the answer comes
@@ -15,8 +15,8 @@ import { RouteFooter } from "./RouteFooter";
  */
 export function CancelPage({ locale, status }: { locale: StartLocale; status: "idle" | "done" | "failed" }) {
   const c = startCopy[locale].cancel;
-  const legal = legalPaths[locale];
-  const home = locale === "de" ? "/start" : "/en/start";
+  const legal = legalPaths[legalLocale(locale)];
+  const home = locale === "de" ? "/start" : `/${locale}/start`;
 
   return (
     <div className="legal-page" lang={locale}>

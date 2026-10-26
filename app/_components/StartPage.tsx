@@ -1,14 +1,14 @@
 import { landingCopy } from "../_data/landingCopy";
 import { introCheckoutLink } from "../_data/partnerOffers";
-import { startCopy, startPaths, type StartLocale } from "../_data/startCopy";
+import { startCopy, startLocales, startPaths, type StartLocale } from "../_data/startCopy";
 import { getAnalyticsConfig } from "../_lib/analytics";
-import { legalPaths } from "../_lib/legal";
+import { legalLocale, legalPaths } from "../_lib/legal";
 import { HeroDemo } from "./HeroDemo";
 import { RouteFooter } from "./RouteFooter";
 import { StartCheckout } from "./StartCheckout";
 
 /**
- * `/start` and `/en/start`: the page the ads send to.
+ * The locale-specific `/start` pages that paid campaigns send to.
  *
  * It is the one place on the site where the first thing offered is a payment
  * and not a download, and it is built to be reached only from an ad. It is
@@ -22,14 +22,20 @@ import { StartCheckout } from "./StartCheckout";
  */
 export function StartPage({ locale }: { locale: StartLocale }) {
   const c = startCopy[locale];
-  const demo = landingCopy[locale].demo;
-  const legal = legalPaths[locale];
-  const other: StartLocale = locale === "de" ? "en" : "de";
+  const ui = {
+    de: { theme: "Farbschema", page: "Seite", language: "Sprache" },
+    en: { theme: "Theme", page: "Page", language: "Language" },
+    es: { theme: "Tema", page: "Página", language: "Idioma" },
+    it: { theme: "Tema", page: "Pagina", language: "Lingua" },
+    fr: { theme: "Thème", page: "Page", language: "Langue" },
+  }[locale];
+  const demo = landingCopy[locale === "de" ? "de" : "en"].demo;
+  const legal = legalPaths[legalLocale(locale)];
   const buyHref = introCheckoutLink() === null ? null : "/buy?plan=intro";
 
   return (
     <div className="site-root start-page" lang={locale}>
-      <input className="theme-checkbox" type="checkbox" id={`theme-start-${locale}`} aria-label="Theme" />
+      <input className="theme-checkbox" type="checkbox" id={`theme-start-${locale}`} aria-label={ui.theme} />
 
       <header className="site-header-wrap">
         <div className="site-header shell">
@@ -39,14 +45,16 @@ export function StartPage({ locale }: { locale: StartLocale }) {
               <span>Witness</span>
             </span>
           </a>
-          <nav className="site-nav" aria-label={locale === "de" ? "Seite" : "Page"}>
+          <nav className="site-nav" aria-label={ui.page}>
             <a href="#so-geht-es">{c.steps.kicker}</a>
             <a href="#preis">{c.price.kicker}</a>
             <a href="#faq">FAQ</a>
           </nav>
           <div className="header-actions">
-            <nav className="language-switch-group" aria-label="Language">
-              <a className="language-switch" href={startPaths[other]} hrefLang={other}>{other.toUpperCase()}</a>
+            <nav className="language-switch-group" aria-label={ui.language}>
+              {startLocales.filter((candidate) => candidate !== locale).map((candidate) => (
+                <a className="language-switch" href={startPaths[candidate]} hrefLang={candidate} key={candidate}>{candidate.toUpperCase()}</a>
+              ))}
             </nav>
             <a className="button button-primary header-download" href="#preis" data-cta="start-header">{c.header.cta}</a>
           </div>
@@ -67,7 +75,19 @@ export function StartPage({ locale }: { locale: StartLocale }) {
               {c.hero.fine.map((item, index) => <span key={item}>{index > 0 && <i />} {item}</span>)}
             </p>
           </div>
-          <div className="start-demo"><HeroDemo d={demo} /></div>
+          <div className="start-demo">
+            {locale === "de" || locale === "en" ? (
+              <HeroDemo d={demo} />
+            ) : (
+              <article className="start-proof-card">
+                <span>{c.gives.kicker}</span>
+                <h2>{c.gives.items[1].title}</h2>
+                <p>{c.gives.items[1].body}</p>
+                <strong>{c.gives.items[2].title}</strong>
+                <p>{c.gives.items[2].body}</p>
+              </article>
+            )}
+          </div>
         </section>
 
         <section className="section shell" id="so-geht-es">

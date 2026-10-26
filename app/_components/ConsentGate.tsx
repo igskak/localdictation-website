@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { consentCopy } from "../_data/consentCopy";
 import { legalLocale, legalPaths } from "../_lib/legal";
-import type { Locale } from "../_lib/locale";
+import type { PageLocale } from "../_lib/locale";
 import { type ConsentChoice, readConsent, writeConsent } from "../_lib/gtag";
 import { type MeasureConfig, denyMeasurementStorage, grantMeasurementStorage, startMeasurement } from "../_lib/measure";
 
@@ -40,7 +40,7 @@ function subscribeToConsent(onChange: () => void) {
  * invalid rather than merely disliked -- and an invalid consent is worth less
  * than none, because it is the one a complaint can point at.
  */
-export function ConsentGate({ config, locale }: { config: MeasureConfig; locale: Locale }) {
+export function ConsentGate({ config, locale }: { config: MeasureConfig; locale: PageLocale }) {
   const c = consentCopy[locale];
   const hydrated = useSyncExternalStore(subscribeToHydration, () => true, () => false);
   const stored = useSyncExternalStore(subscribeToConsent, readConsent, () => null);

@@ -1,20 +1,21 @@
 /**
- * The paid-entry pages: `/start` and `/en/start` for the readers the ads send,
- * `/start/danke` and `/en/start/danke` after the payment, and the cancellation
- * form at `/kuendigen` and `/en/cancel-subscription`.
+ * The paid-entry pages for readers sent by ads, their post-purchase pages, and
+ * the cancellation forms. German, English, Spanish, Italian, and French share
+ * one typed content shape so the price disclosure cannot drift by market.
  *
- * German and English only. The ads are German and English, the legal set is
- * German and English, and a third language here would be a third copy of a price
- * sentence that has to say the same thing everywhere.
+ * The legal documents are still German and English. ES/IT/FR link to the
+ * English set until reviewed translations land; the expansion plan gates paid
+ * acquisition on replacing that fallback.
  *
  * The price sentence is the one that matters legally and commercially: what is
  * charged today, what is charged on the fifteenth day, and how to stop it. It is
  * written once per language in `price.line` and repeated verbatim wherever a
  * price appears, so no page can say "€4,99" without saying what follows.
  */
-import type { Locale } from "../_lib/locale";
+import type { PageLocale } from "../_lib/locale";
 
-export type StartLocale = Extract<Locale, "de" | "en">;
+export type StartLocale = Extract<PageLocale, "de" | "en" | "es" | "it" | "fr">;
+export const startLocales: StartLocale[] = ["de", "en", "es", "it", "fr"];
 
 export type StartCopy = {
   meta: { title: string; description: string };
@@ -55,7 +56,7 @@ export type StartCopy = {
     privacy: string;
     privacyLink: string;
   };
-  footer: { cancel: string };
+  footer: { legalNav: string; terms: string; withdrawal: string; cancel: string; privacy: string; imprint: string; licences: string; contact: string };
 };
 
 export const startCopy: Record<StartLocale, StartCopy> = {
@@ -150,7 +151,7 @@ export const startCopy: Record<StartLocale, StartCopy> = {
       privacy: "Was mit der Adresse geschieht, steht in der",
       privacyLink: "Datenschutzerklärung",
     },
-    footer: { cancel: "Verträge hier kündigen" },
+    footer: { legalNav: "Rechtliche Links", terms: "AGB", withdrawal: "Widerruf", cancel: "Verträge hier kündigen", privacy: "Datenschutz", imprint: "Impressum", licences: "Lizenzen", contact: "Kontakt" },
   },
   en: {
     meta: {
@@ -243,15 +244,198 @@ export const startCopy: Record<StartLocale, StartCopy> = {
       privacy: "What happens to the address is in the",
       privacyLink: "privacy policy",
     },
-    footer: { cancel: "Cancel contracts here" },
+    footer: { legalNav: "Legal links", terms: "Terms", withdrawal: "Right of withdrawal", cancel: "Cancel contracts here", privacy: "Privacy", imprint: "Legal notice", licences: "Licences", contact: "Contact" },
+  },
+  es: {
+    meta: {
+      title: "Witness para Mac · Dicta en lugar de escribir",
+      description: "Una app de dictado para Mac que señala dónde conviene revisar. El reconocimiento de voz se ejecuta en tu Mac. 14 días por 4,99 €, después 49 € al año.",
+    },
+    header: { cta: "Empezar por 4,99 €" },
+    hero: {
+      eyebrow: "Voz a texto para Mac · funciona sin conexión",
+      title: "Dicta en lugar de escribir.",
+      titleMuted: "Con una señal donde conviene revisar.",
+      lede: "Pulsa ⌥ Espacio y habla, también si mezclas idiomas. El texto aparece directamente donde está el cursor. Si hay algo que deberías comprobar, Witness lo marca y te permite escuchar lo que dijiste. Todo se procesa en tu Mac.",
+      cta: "Empezar por 4,99 €",
+      fine: ["14 días desde la compra", "Apple Silicon", "macOS 14.4+", "Sin cuenta de usuario"],
+    },
+    consent: { terms: "Condiciones (en inglés)", withdrawal: "Derecho de desistimiento (en inglés)", soon: "La compra estará disponible próximamente." },
+    steps: {
+      kicker: "Cómo funciona",
+      title: "Empieza a dictar en tres pasos",
+      items: [
+        { title: "Paga", body: "4,99 € por los primeros 14 días. El pago se realiza mediante Stripe y no necesitas una cuenta de usuario." },
+        { title: "Descarga y abre Witness", body: "La descarga comienza después del pago. Witness descarga una vez el modelo de voz en tu Mac; después puedes dictar sin conexión." },
+        { title: "Introduce tu email el tercer día", body: "Durante tres días Witness no te pide nada. Después solicita tu email. Introduce la dirección con la que pagaste para activar la licencia." },
+      ],
+    },
+    gives: {
+      kicker: "Qué obtienes",
+      title: "Un dictado que no tienes que aceptar a ciegas",
+      items: [
+        { title: "Local en tu Mac", body: "El audio, la transcripción y el texto no salen de tu Mac. No hay una cuenta de usuario ni un servidor que vea tus dictados." },
+        { title: "Una señal donde conviene mirar", body: "Witness marca los fragmentos que deberías comprobar y reproduce el audio original de ese momento." },
+        { title: "Verificación calibrada en español", body: "Importes, fechas, nombres, términos del diccionario y palabras claramente dañadas se resaltan con reglas medidas para español." },
+      ],
+    },
+    price: {
+      kicker: "Precio", title: "14 días por 4,99 €, después un año", today: "4,99 €", todayNote: "hoy, por los primeros 14 días", then: "49 €", thenNote: "después al año, automáticamente, salvo cancelación antes de terminar el día 14",
+      line: "4,99 € por los primeros 14 días desde la compra. Después, 49 € al año de forma automática, salvo que canceles antes de que termine el día 14. Si cancelas, no se te cobrará nada más.",
+      bullets: ["Cancela hasta el día 14 con un clic en «Cancelar suscripción»", "Para dos de tus Mac", "Todas las actualizaciones durante el periodo", "Precios finales"],
+      paymentNote: "El pago se procesa mediante Stripe. Verás los métodos de pago disponibles antes de confirmar.",
+    },
+    faq: {
+      title: "Respuestas claras antes de comprar",
+      items: [
+        { q: "¿Cómo cancelo?", a: "Usa «Cancelar suscripción» al final de cualquier página, sin iniciar sesión. Introduce el email con el que pagaste y recibirás una confirmación inmediata. También puedes usar «Gestionar suscripción» en Witness." },
+        { q: "¿Qué ocurre el día 15?", a: "Si no has cancelado, Stripe cobra 49 € por el primer año y Witness sigue funcionando. Si cancelaste, el acceso termina tras los 14 días y no se cobra nada más." },
+        { q: "¿Witness funciona sin internet?", a: "Sí. El reconocimiento y el tratamiento del texto se ejecutan en tu Mac. Aproximadamente una vez al mes solo se renueva la licencia con tu email y un identificador del dispositivo." },
+        { q: "¿Qué ocurre con mis dictados?", a: "Nada sale del dispositivo. El audio y el texto permanecen en tu Mac. La lista completa de datos técnicos transmitidos está en la política de privacidad enlazada en inglés." },
+      ],
+    },
+    thanks: {
+      meta: { title: "Gracias · Witness", description: "Hemos recibido tu compra. Instala Witness y activa tu licencia." },
+      title: "Gracias, hemos recibido tu compra.",
+      lede: "Descarga Witness y ábrelo. Durante los primeros tres días no te pedirá nada. El tercer día solicitará tu email: introduce la dirección con la que acabas de pagar y la licencia quedará activa.",
+      download: "Descargar Witness para Mac", downloadAgain: "Iniciar de nuevo la descarga",
+      steps: [
+        { title: "Descarga y arrastra a Aplicaciones", body: "Abre el archivo y arrastra Witness a la carpeta Aplicaciones. Funciona en Mac con Apple Silicon y macOS 14.4 o posterior." },
+        { title: "Permite el micrófono y Accesibilidad", body: "En el primer inicio, macOS solicita acceso al micrófono. Para insertar texto en el cursor, permite Witness en Ajustes del Sistema → Privacidad y seguridad → Accesibilidad." },
+        { title: "Dicta", body: "Pulsa ⌥ Espacio y habla. El modelo de voz se descarga una sola vez durante el primer inicio." },
+      ],
+      keep: "Importante: el tercer día introduce el email con el que pagaste. Otra dirección no permitirá reconocer tu compra.",
+      manage: "Gestionar suscripción", cancel: "Cancelar suscripción", help: "¿Necesitas ayuda?", helpLink: "Escríbenos",
+    },
+    cancel: {
+      meta: { title: "Cancelar suscripción · Witness", description: "Cancela tu suscripción a Witness sin iniciar sesión." },
+      kicker: "Cancelación", title: "Cancelar suscripción",
+      lede: "Introduce el email con el que pagaste y cancela con un clic. La suscripción no se renovará y Witness seguirá disponible hasta el final del periodo pagado. Recibirás la confirmación aquí y por email.",
+      emailLabel: "Correo electrónico", emailHint: "La dirección con la que pagaste.", button: "Cancelar ahora",
+      doneTitle: "Hemos recibido tu cancelación.", doneBody: "Si existe una suscripción para esta dirección, ya está cancelada y no se renovará. La confirmación con fecha y hora está en camino. Witness seguirá disponible hasta el final del periodo pagado.",
+      failedTitle: "No ha funcionado.", failedBody: "No hemos podido tramitar la cancelación. Inténtalo de nuevo o escribe a hallo@witnessmac.com; un email sencillo es suficiente.",
+      manageLead: "También puedes gestionar la suscripción, cambiar la tarjeta o descargar facturas:", manageLink: "Gestionar suscripción", privacy: "El tratamiento de la dirección se explica en la", privacyLink: "política de privacidad (en inglés)",
+    },
+    footer: { legalNav: "Enlaces legales", terms: "Condiciones (EN)", withdrawal: "Desistimiento (EN)", cancel: "Cancelar suscripción", privacy: "Privacidad (EN)", imprint: "Aviso legal (EN)", licences: "Licencias (EN)", contact: "Contacto" },
+  },
+  it: {
+    meta: { title: "Witness per Mac · Dettatura senza digitare", description: "Un’app di dettatura per Mac che indica dove conviene controllare. Il riconoscimento vocale avviene sul tuo Mac. 14 giorni a 4,99 €, poi 49 € all’anno." },
+    header: { cta: "Inizia a 4,99 €" },
+    hero: {
+      eyebrow: "Da voce a testo su Mac · funziona offline", title: "Detta invece di digitare.", titleMuted: "Con un avviso dove conviene controllare.",
+      lede: "Premi ⌥ Spazio e parla, anche mescolando le lingue. Il testo appare subito dove si trova il cursore. Se c’è un punto da verificare, Witness lo segnala e ti permette di riascoltare ciò che hai detto. Tutto viene elaborato sul tuo Mac.",
+      cta: "Inizia a 4,99 €", fine: ["14 giorni dall’acquisto", "Apple Silicon", "macOS 14.4+", "Nessun account utente"],
+    },
+    consent: { terms: "Condizioni (in inglese)", withdrawal: "Diritto di recesso (in inglese)", soon: "L’acquisto sarà disponibile a breve." },
+    steps: {
+      kicker: "Come funziona", title: "Inizia a dettare in tre passaggi",
+      items: [
+        { title: "Paga", body: "4,99 € per i primi 14 giorni. Il pagamento avviene tramite Stripe e non serve un account utente." },
+        { title: "Scarica e apri Witness", body: "Il download parte dopo il pagamento. Witness scarica una volta il modello vocale sul Mac; poi puoi dettare offline." },
+        { title: "Inserisci l’email il terzo giorno", body: "Per tre giorni Witness non chiede nulla. Poi richiede l’indirizzo email: usa quello con cui hai pagato per attivare la licenza." },
+      ],
+    },
+    gives: {
+      kicker: "Cosa ottieni", title: "Dettatura che non devi accettare alla cieca",
+      items: [
+        { title: "Locale sul tuo Mac", body: "Audio, trascrizione e testo non lasciano il Mac. Non esistono un account utente o un server che vede le tue dettature." },
+        { title: "Un avviso dove serve", body: "Witness evidenzia i frammenti da verificare e riproduce l’audio originale di quel punto." },
+        { title: "Verifica calibrata in italiano", body: "Importi, date, nomi, termini del dizionario e parole chiaramente danneggiate vengono segnalati con regole misurate per l’italiano." },
+      ],
+    },
+    price: {
+      kicker: "Prezzo", title: "14 giorni a 4,99 €, poi un anno", today: "4,99 €", todayNote: "oggi, per i primi 14 giorni", then: "49 €", thenNote: "poi ogni anno, automaticamente, salvo annullamento entro il 14° giorno",
+      line: "4,99 € per i primi 14 giorni dall’acquisto. Poi 49 € all’anno in automatico, a meno che tu non annulli entro il 14° giorno. Se annulli, non paghi altro.",
+      bullets: ["Annulla entro il 14° giorno con un clic su «Annulla abbonamento»", "Per due dei tuoi Mac", "Tutti gli aggiornamenti nel periodo", "Prezzi finali"], paymentNote: "Il pagamento è gestito da Stripe. I metodi disponibili sono mostrati prima della conferma.",
+    },
+    faq: {
+      title: "Risposte chiare prima dell’acquisto",
+      items: [
+        { q: "Come annullo?", a: "Usa «Annulla abbonamento» in fondo a ogni pagina, senza accedere. Inserisci l’email usata per il pagamento e riceverai subito una conferma. Puoi anche usare «Gestisci abbonamento» in Witness." },
+        { q: "Cosa succede il 15° giorno?", a: "Se non hai annullato, Stripe addebita 49 € per il primo anno e Witness continua a funzionare. Se hai annullato, l’accesso termina dopo 14 giorni e non viene addebitato altro." },
+        { q: "Witness funziona senza internet?", a: "Sì. Riconoscimento e trattamento del testo avvengono sul Mac. Circa una volta al mese viene rinnovata solo la licenza usando l’email e un identificatore del dispositivo." },
+        { q: "Cosa succede alle mie dettature?", a: "Audio e testo restano sul Mac. L’elenco completo dei dati tecnici trasmessi è nell’informativa sulla privacy collegata in inglese." },
+      ],
+    },
+    thanks: {
+      meta: { title: "Grazie · Witness", description: "Abbiamo ricevuto il tuo acquisto. Installa Witness e attiva la licenza." }, title: "Grazie, abbiamo ricevuto il tuo acquisto.",
+      lede: "Scarica Witness e aprilo. Per i primi tre giorni non chiede nulla. Il terzo giorno richiede l’email: inserisci l’indirizzo usato per il pagamento e la licenza sarà attiva.", download: "Scarica Witness per Mac", downloadAgain: "Avvia di nuovo il download",
+      steps: [
+        { title: "Scarica e trascina in Applicazioni", body: "Apri il file e trascina Witness nella cartella Applicazioni. Funziona su Mac Apple Silicon con macOS 14.4 o successivo." },
+        { title: "Consenti microfono e Accessibilità", body: "Al primo avvio macOS chiede il microfono. Per inserire il testo al cursore, abilita Witness in Impostazioni di Sistema → Privacy e sicurezza → Accessibilità." },
+        { title: "Detta", body: "Premi ⌥ Spazio e parla. Il modello vocale viene scaricato una sola volta al primo avvio." },
+      ],
+      keep: "Importante: il terzo giorno usa l’email con cui hai pagato. Con un altro indirizzo Witness non riconosce l’acquisto.", manage: "Gestisci abbonamento", cancel: "Annulla abbonamento", help: "Serve aiuto?", helpLink: "Scrivici",
+    },
+    cancel: {
+      meta: { title: "Annulla abbonamento · Witness", description: "Annulla l’abbonamento a Witness senza accedere." }, kicker: "Annullamento", title: "Annulla abbonamento",
+      lede: "Inserisci l’email con cui hai pagato e annulla con un clic. L’abbonamento non si rinnoverà e Witness resterà disponibile fino alla fine del periodo pagato. Riceverai la conferma qui e per email.", emailLabel: "Indirizzo email", emailHint: "L’indirizzo usato per il pagamento.", button: "Annulla ora",
+      doneTitle: "Abbiamo ricevuto l’annullamento.", doneBody: "Se esiste un abbonamento per questo indirizzo, è stato annullato e non si rinnoverà. La conferma con data e ora è in arrivo. Witness resta disponibile fino alla fine del periodo pagato.", failedTitle: "Operazione non riuscita.", failedBody: "Non è stato possibile ricevere l’annullamento. Riprova o scrivi a hallo@witnessmac.com; basta una semplice email.", manageLead: "Puoi anche gestire l’abbonamento, cambiare carta o scaricare le fatture:", manageLink: "Gestisci abbonamento", privacy: "Il trattamento dell’indirizzo è descritto nell’", privacyLink: "informativa sulla privacy (in inglese)",
+    },
+    footer: { legalNav: "Link legali", terms: "Condizioni (EN)", withdrawal: "Recesso (EN)", cancel: "Annulla abbonamento", privacy: "Privacy (EN)", imprint: "Note legali (EN)", licences: "Licenze (EN)", contact: "Contatti" },
+  },
+  fr: {
+    meta: { title: "Witness pour Mac · Dictez au lieu de taper", description: "Une app de dictée pour Mac qui indique les passages à vérifier. La reconnaissance vocale s’exécute sur votre Mac. 14 jours à 4,99 €, puis 49 € par an." },
+    header: { cta: "Commencer pour 4,99 €" },
+    hero: {
+      eyebrow: "Voix en texte sur Mac · fonctionne hors ligne", title: "Dictez au lieu de taper.", titleMuted: "Avec un signal là où une vérification s’impose.",
+      lede: "Appuyez sur ⌥ Espace et parlez, même en mélangeant les langues. Le texte apparaît immédiatement à l’emplacement du curseur. Si un passage mérite votre attention, Witness le signale et vous permet de réécouter vos mots. Tout est traité sur votre Mac.", cta: "Commencer pour 4,99 €", fine: ["14 jours à compter de l’achat", "Apple Silicon", "macOS 14.4+", "Aucun compte utilisateur"],
+    },
+    consent: { terms: "Conditions (en anglais)", withdrawal: "Droit de rétractation (en anglais)", soon: "L’achat sera bientôt disponible." },
+    steps: {
+      kicker: "Fonctionnement", title: "Commencez à dicter en trois étapes",
+      items: [
+        { title: "Payez", body: "4,99 € pour les 14 premiers jours. Le paiement est traité par Stripe et aucun compte utilisateur n’est nécessaire." },
+        { title: "Téléchargez et ouvrez Witness", body: "Le téléchargement démarre après le paiement. Witness télécharge une fois le modèle vocal sur votre Mac ; vous pouvez ensuite dicter hors ligne." },
+        { title: "Saisissez votre e-mail le troisième jour", body: "Pendant trois jours, Witness ne demande rien. Il demande ensuite votre e-mail : utilisez l’adresse du paiement pour activer la licence." },
+      ],
+    },
+    gives: {
+      kicker: "Ce que vous obtenez", title: "Une dictée que vous n’avez pas à accepter les yeux fermés",
+      items: [
+        { title: "En local sur votre Mac", body: "L’audio, la transcription et le texte ne quittent pas votre Mac. Aucun compte utilisateur et aucun serveur ne voient vos dictées." },
+        { title: "Un signal quand il faut regarder", body: "Witness surligne les fragments à vérifier et lit l’audio original correspondant." },
+        { title: "Vérification calibrée en français", body: "Montants, dates, noms, termes du dictionnaire et mots manifestement déformés sont signalés par des règles mesurées pour le français." },
+      ],
+    },
+    price: {
+      kicker: "Tarif", title: "14 jours à 4,99 €, puis un an", today: "4,99 €", todayNote: "aujourd’hui, pour les 14 premiers jours", then: "49 €", thenNote: "puis par an, automatiquement, sauf résiliation avant la fin du 14e jour",
+      line: "4,99 € pour les 14 premiers jours à compter de l’achat. Puis 49 € par an automatiquement, sauf résiliation avant la fin du 14e jour. Dans ce cas, aucun autre montant n’est prélevé.",
+      bullets: ["Résiliez avant la fin du 14e jour en un clic via « Résilier l’abonnement »", "Pour deux de vos Mac", "Toutes les mises à jour pendant la période", "Prix finaux"], paymentNote: "Le paiement est traité par Stripe. Les moyens disponibles sont affichés avant la confirmation.",
+    },
+    faq: {
+      title: "Des réponses claires avant l’achat",
+      items: [
+        { q: "Comment résilier ?", a: "Utilisez « Résilier l’abonnement » au bas de chaque page, sans vous connecter. Saisissez l’e-mail du paiement et vous recevrez immédiatement une confirmation. Vous pouvez aussi utiliser « Gérer l’abonnement » dans Witness." },
+        { q: "Que se passe-t-il le 15e jour ?", a: "Si vous n’avez pas résilié, Stripe prélève 49 € pour la première année et Witness continue de fonctionner. Si vous avez résilié, l’accès prend fin après 14 jours et rien d’autre n’est prélevé." },
+        { q: "Witness fonctionne-t-il sans Internet ?", a: "Oui. La reconnaissance et le traitement du texte s’exécutent sur votre Mac. Environ une fois par mois, seule la licence est renouvelée avec votre e-mail et un identifiant d’appareil." },
+        { q: "Que deviennent mes dictées ?", a: "L’audio et le texte restent sur votre Mac. La liste complète des données techniques transmises figure dans la politique de confidentialité liée en anglais." },
+      ],
+    },
+    thanks: {
+      meta: { title: "Merci · Witness", description: "Votre achat a bien été reçu. Installez Witness et activez votre licence." }, title: "Merci, votre achat a bien été reçu.",
+      lede: "Téléchargez Witness et ouvrez-le. Pendant les trois premiers jours, il ne demande rien. Le troisième jour, saisissez l’adresse e-mail utilisée pour le paiement afin d’activer la licence.", download: "Télécharger Witness pour Mac", downloadAgain: "Relancer le téléchargement",
+      steps: [
+        { title: "Téléchargez et glissez dans Applications", body: "Ouvrez le fichier et glissez Witness dans le dossier Applications. Witness fonctionne sur les Mac Apple Silicon avec macOS 14.4 ou version ultérieure." },
+        { title: "Autorisez le micro et l’Accessibilité", body: "Au premier lancement, macOS demande l’accès au micro. Pour insérer du texte au curseur, autorisez Witness dans Réglages Système → Confidentialité et sécurité → Accessibilité." },
+        { title: "Dictez", body: "Appuyez sur ⌥ Espace et parlez. Le modèle vocal est téléchargé une seule fois au premier lancement." },
+      ],
+      keep: "Important : le troisième jour, utilisez l’adresse e-mail du paiement. Une autre adresse ne permettra pas à Witness de reconnaître l’achat.", manage: "Gérer l’abonnement", cancel: "Résilier l’abonnement", help: "Besoin d’aide ?", helpLink: "Écrivez-nous",
+    },
+    cancel: {
+      meta: { title: "Résilier l’abonnement · Witness", description: "Résiliez votre abonnement Witness sans vous connecter." }, kicker: "Résiliation", title: "Résilier l’abonnement",
+      lede: "Saisissez l’e-mail du paiement et résiliez en un clic. L’abonnement ne sera pas renouvelé et Witness restera disponible jusqu’à la fin de la période payée. Vous recevrez la confirmation ici et par e-mail.", emailLabel: "Adresse e-mail", emailHint: "L’adresse utilisée pour le paiement.", button: "Résilier maintenant",
+      doneTitle: "Votre résiliation a bien été reçue.", doneBody: "Si un abonnement correspond à cette adresse, il est résilié et ne sera pas renouvelé. La confirmation datée est en cours d’envoi. Witness reste disponible jusqu’à la fin de la période payée.", failedTitle: "La demande n’a pas abouti.", failedBody: "La résiliation n’a pas pu être enregistrée. Réessayez ou écrivez à hallo@witnessmac.com ; un simple e-mail suffit.", manageLead: "Vous pouvez aussi gérer l’abonnement, changer de carte ou télécharger les factures :", manageLink: "Gérer l’abonnement", privacy: "Le traitement de l’adresse est décrit dans la", privacyLink: "politique de confidentialité (en anglais)",
+    },
+    footer: { legalNav: "Liens juridiques", terms: "Conditions (EN)", withdrawal: "Rétractation (EN)", cancel: "Résilier l’abonnement", privacy: "Confidentialité (EN)", imprint: "Mentions légales (EN)", licences: "Licences (EN)", contact: "Contact" },
   },
 };
 
 /** Paths of the cancellation form, per language. */
-export const cancelPaths: Record<StartLocale, string> = { de: "/kuendigen", en: "/en/cancel-subscription" };
+export const cancelPaths: Record<StartLocale, string> = { de: "/kuendigen", en: "/en/cancel-subscription", es: "/es/cancelar-suscripcion", it: "/it/annulla-abbonamento", fr: "/fr/resilier-abonnement" };
 
 /** Where the cancellation form posts to, per language. */
-export const cancelSubmitPaths: Record<StartLocale, string> = { de: "/kuendigen/senden", en: "/en/cancel-subscription/submit" };
+export const cancelSubmitPaths: Record<StartLocale, string> = { de: "/kuendigen/senden", en: "/en/cancel-subscription/submit", es: "/es/cancelar-suscripcion/enviar", it: "/it/annulla-abbonamento/invia", fr: "/fr/resilier-abonnement/envoyer" };
 
-export const startPaths: Record<StartLocale, string> = { de: "/start", en: "/en/start" };
-export const thanksPaths: Record<StartLocale, string> = { de: "/start/danke", en: "/en/start/danke" };
+export const startPaths: Record<StartLocale, string> = { de: "/start", en: "/en/start", es: "/es/start", it: "/it/start", fr: "/fr/start" };
+export const thanksPaths: Record<StartLocale, string> = { de: "/start/danke", en: "/en/start/danke", es: "/es/start/gracias", it: "/it/start/grazie", fr: "/fr/start/merci" };

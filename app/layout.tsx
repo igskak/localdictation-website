@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
-import { parseLocale } from "./_lib/locale";
+import { parsePageLocale } from "./_lib/locale";
 import { analyticsEnabled, getAnalyticsConfig } from "./_lib/analytics";
 import { ConsentGate } from "./_components/ConsentGate";
 import { DownloadOnClick } from "./_components/DownloadOnClick";
@@ -21,7 +21,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const incoming = await headers();
-  const locale = parseLocale(incoming.get("x-page-locale"));
+  const locale = parsePageLocale(incoming.get("x-page-locale"));
   const analytics = getAnalyticsConfig();
   return (
     <html lang={locale}>

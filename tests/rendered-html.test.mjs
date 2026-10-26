@@ -1128,6 +1128,9 @@ test("the paid-entry page leads with the payment, says what follows it, and neve
   for (const [path, lang, line, cta] of [
     ["/start", "de", "€4,99 für die ersten 14 Tage ab Kauf. Danach €49 pro Jahr, automatisch, wenn du nicht bis zum 14. Tag kündigst. Dann zahlst du nichts weiter.", "Für €4,99 starten"],
     ["/en/start", "en", "€4.99 for the first 14 days from purchase. Then €49 a year, automatically, unless you cancel by day 14. Then you pay nothing more.", "Start for €4.99"],
+    ["/es/start", "es", "4,99 € por los primeros 14 días desde la compra. Después, 49 € al año de forma automática, salvo que canceles antes de que termine el día 14. Si cancelas, no se te cobrará nada más.", "Empezar por 4,99 €"],
+    ["/it/start", "it", "4,99 € per i primi 14 giorni dall’acquisto. Poi 49 € all’anno in automatico, a meno che tu non annulli entro il 14° giorno. Se annulli, non paghi altro.", "Inizia a 4,99 €"],
+    ["/fr/start", "fr", "4,99 € pour les 14 premiers jours à compter de l’achat. Puis 49 € par an automatiquement, sauf résiliation avant la fin du 14e jour. Dans ce cas, aucun autre montant n’est prélevé.", "Commencer pour 4,99 €"],
   ]) {
     const response = await render(path);
     assert.equal(response.status, 200, path);
@@ -1148,8 +1151,23 @@ test("the paid-entry page leads with the payment, says what follows it, and neve
     assert.doesNotMatch(html, /href="\/(?:en|ru|uk)?"|href="\/vergleich/, `${path} must not lead anywhere that sells the free trial`);
 
     // The §312k button is on the page, and the buy button needs the declaration.
-    const cancelHref = lang === "de" ? "/kuendigen" : "/en/cancel-subscription";
+    const cancelHref = { de: "/kuendigen", en: "/en/cancel-subscription", es: "/es/cancelar-suscripcion", it: "/it/annulla-abbonamento", fr: "/fr/resilier-abonnement" }[lang];
     assert.match(html, new RegExp(`href="${cancelHref}"`), `${path} must carry the cancellation button`);
+  }
+});
+
+test("the new-market paid pages localize every visible sales block and expose every language switch", async () => {
+  for (const [path, checks] of [
+    ["/es/start", [/Dicta en lugar de escribir/, /Verificación calibrada en español/, /Respuestas claras antes de comprar/]],
+    ["/it/start", [/Detta invece di digitare/, /Verifica calibrata in italiano/, /Risposte chiare prima dell’acquisto/]],
+    ["/fr/start", [/Dictez au lieu de taper/, /Vérification calibrée en français/, /Des réponses claires avant l’achat/]],
+  ]) {
+    const html = await (await render(path)).text();
+    for (const check of checks) assert.match(html, check, path);
+    assert.doesNotMatch(html, /Dictate instead of typing|What you get|Straight answers before you buy/, path);
+    for (const locale of ["de", "en", "es", "it", "fr"]) {
+      if (!path.startsWith(`/${locale}/`)) assert.match(html, new RegExp(`hreflang="${locale}"`, "i"), `${path} → ${locale}`);
+    }
   }
 });
 
@@ -1177,13 +1195,18 @@ test("the page after the payment tells a buyer which address to enter, and never
   for (const [path, must, mustNot] of [
     ["/start/danke", [/Gib dort die Adresse ein, mit der du gerade bezahlt hast/, /href="\/manage"/, /href="\/kuendigen"/], /13 Tage|kostenlos|zehn weitere/i],
     ["/en/start/danke", [/Enter the one you just paid with/, /href="\/manage"/, /href="\/en\/cancel-subscription"/], /13 days|free trial|ten more/i],
+    ["/es/start/gracias", [/dirección con la que acabas de pagar/, /href="\/manage"/, /href="\/es\/cancelar-suscripcion"/], /prueba gratis|free trial/i],
+    ["/it/start/grazie", [/indirizzo usato per il pagamento/, /href="\/manage"/, /href="\/it\/annulla-abbonamento"/], /prova gratuita|free trial/i],
+    ["/fr/start/merci", [/adresse e-mail utilisée pour le paiement/, /href="\/manage"/, /href="\/fr\/resilier-abonnement"/], /essai gratuit|free trial/i],
   ]) {
     const html = await (await render(path)).text();
     for (const pattern of must) assert.match(html, pattern, path);
     assert.doesNotMatch(html, mustNot, path);
     assert.match(html, /<meta name="robots" content="noindex, nofollow"/, path);
-    // One return address for the Payment Link, so each page offers the other language.
-    assert.match(html, path === "/start/danke" ? /href="\/en\/start\/danke"/ : /href="\/start\/danke"/, path);
+    // One return address for the Payment Link, so every page offers every language.
+    for (const destination of ["/start/danke", "/en/start/danke", "/es/start/gracias", "/it/start/grazie", "/fr/start/merci"]) {
+      if (destination !== path) assert.match(html, new RegExp(`href="${destination}"`), `${path} → ${destination}`);
+    }
   }
 });
 
@@ -1206,6 +1229,16 @@ test("the cancellation form works without JavaScript and answers in the same wor
   const en = await (await render("/en/cancel-subscription")).text();
   assert.match(en.match(/<form[^>]*>/)?.[0] ?? "", /action="\/en\/cancel-subscription\/submit"/);
   assert.match(en, /Cancel now/);
+
+  for (const [path, action, label] of [
+    ["/es/cancelar-suscripcion", "/es/cancelar-suscripcion/enviar", /Cancelar ahora/],
+    ["/it/annulla-abbonamento", "/it/annulla-abbonamento/invia", /Annulla ora/],
+    ["/fr/resilier-abonnement", "/fr/resilier-abonnement/envoyer", /Résilier maintenant/],
+  ]) {
+    const html = await (await render(path)).text();
+    assert.match(html.match(/<form[^>]*>/)?.[0] ?? "", new RegExp(`action="${action}"`), path);
+    assert.match(html, label, path);
+  }
 });
 
 test("a cancellation with no usable address never reaches the service", async () => {

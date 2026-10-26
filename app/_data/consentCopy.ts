@@ -1,4 +1,4 @@
-import type { Locale } from "../_lib/locale";
+import type { PageLocale } from "../_lib/locale";
 
 export type ConsentCopy = {
   /** The banner itself. Two buttons, no dark pattern: refusing is one click, like accepting. */
@@ -32,7 +32,7 @@ export type ConsentCopy = {
  * who just read "nothing leaves your Mac" on the page above deserves to be
  * told which of the two statements this box is about.
  */
-export const consentCopy: Record<Locale, ConsentCopy> = {
+export const consentCopy: Record<PageLocale, ConsentCopy> = {
   de: {
     title: "Dürfen wir Cookies für die Messung setzen?",
     body: (tools) => `Dafür werden Daten von ${tools} verarbeitet, auch in den USA. Stimmst du zu, dürfen Cookies auf deinem Gerät gespeichert werden; lehnst du ab, speichern diese Dienste nichts auf deinem Gerät und die Messung bleibt anonym.`,
@@ -80,5 +80,26 @@ export const consentCopy: Record<Locale, ConsentCopy> = {
     privacyLink: "Що саме вимірюється",
     reopen: "Налаштування cookies",
     region: "Повідомлення про cookies",
+  },
+  es: {
+    title: "¿Podemos usar cookies para la medición?",
+    body: (tools) => `Para ello, ${tools} procesa datos, también en Estados Unidos. Si aceptas, pueden guardarse cookies en tu dispositivo; si rechazas, estos servicios no guardan nada en él y la medición sigue siendo anónima.`,
+    reassurance: "Lo que dictas en Witness no se ve afectado en ningún caso. No sale de tu Mac.",
+    tools: { analytics: "Google Analytics", ads: "Google Ads", product: "PostHog" },
+    and: "y", accept: "Aceptar", decline: "Rechazar", privacyLink: "Qué se mide exactamente", reopen: "Ajustes de cookies", region: "Aviso de cookies",
+  },
+  it: {
+    title: "Possiamo usare cookie per la misurazione?",
+    body: (tools) => `A questo scopo ${tools} tratta dati, anche negli Stati Uniti. Se accetti, possono essere salvati cookie sul dispositivo; se rifiuti, questi servizi non vi salvano nulla e la misurazione resta anonima.`,
+    reassurance: "Ciò che detti in Witness non viene mai coinvolto e non lascia il tuo Mac.",
+    tools: { analytics: "Google Analytics", ads: "Google Ads", product: "PostHog" },
+    and: "e", accept: "Accetta", decline: "Rifiuta", privacyLink: "Cosa viene misurato", reopen: "Impostazioni cookie", region: "Avviso sui cookie",
+  },
+  fr: {
+    title: "Pouvons-nous utiliser des cookies de mesure ?",
+    body: (tools) => `À cette fin, ${tools} traite des données, notamment aux États-Unis. Si vous acceptez, des cookies peuvent être enregistrés sur votre appareil ; si vous refusez, ces services n’y enregistrent rien et la mesure reste anonyme.`,
+    reassurance: "Ce que vous dictez dans Witness n’est jamais concerné et ne quitte pas votre Mac.",
+    tools: { analytics: "Google Analytics", ads: "Google Ads", product: "PostHog" },
+    and: "et", accept: "Accepter", decline: "Refuser", privacyLink: "Ce qui est mesuré exactement", reopen: "Réglages des cookies", region: "Information sur les cookies",
   },
 };

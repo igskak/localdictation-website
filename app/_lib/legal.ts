@@ -1,4 +1,4 @@
-import type { Locale } from "./locale";
+import type { PageLocale } from "./locale";
 
 /** The two languages the legal texts exist in. Russian and Ukrainian readers get the English set. */
 export type LegalLocale = "de" | "en";
@@ -39,6 +39,6 @@ export const legalPaths: Record<LegalLocale, Record<LegalPage, string>> = {
  * withdrawal instruction they cannot read would be worse than a translation
  * that is honest about being one.
  */
-export function legalLocale(locale: Locale): LegalLocale {
+export function legalLocale(locale: PageLocale): LegalLocale {
   return locale === "de" ? "de" : "en";
 }

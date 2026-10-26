@@ -1,6 +1,8 @@
 export type Locale = "de" | "en" | "ru" | "uk";
+export type PageLocale = Locale | "es" | "it" | "fr";
 
 export const locales: Locale[] = ["de", "en", "ru", "uk"];
+export const pageLocales: PageLocale[] = ["de", "en", "ru", "uk", "es", "it", "fr"];
 
 const homePaths: Record<Locale, string> = { de: "/", en: "/en", ru: "/ru", uk: "/uk" };
 
@@ -19,6 +21,10 @@ export const alternateLanguages: Record<string, string> = {
 
 export function parseLocale(value: string | null | undefined): Locale {
   return locales.includes(value as Locale) ? (value as Locale) : "de";
+}
+
+export function parsePageLocale(value: string | null | undefined): PageLocale {
+  return pageLocales.includes(value as PageLocale) ? (value as PageLocale) : "de";
 }
 
 export function localeHome(locale: Locale): string {

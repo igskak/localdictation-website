@@ -1,11 +1,11 @@
 import { getAnalyticsConfig } from "../_lib/analytics";
 import { getDownloadTarget } from "../_lib/download";
 import { StartDownload } from "./StartDownload";
-import { cancelPaths, startCopy, thanksPaths, type StartLocale } from "../_data/startCopy";
+import { cancelPaths, startCopy, startLocales, thanksPaths, type StartLocale } from "../_data/startCopy";
 import { RouteFooter } from "./RouteFooter";
 
 /**
- * Where the €4.99 payment lands: `/start/danke` and `/en/start/danke`.
+ * Where the €4.99 payment lands for each paid-entry locale.
  *
  * It is not `/danke`. That page says the first three days ask for nothing and a
  * free key follows, which is true for a download and wrong for somebody who has
@@ -17,17 +17,16 @@ export function StartThanksPage({ locale }: { locale: StartLocale }) {
   const c = startCopy[locale].thanks;
   const available = Boolean(getDownloadTarget());
   const downloadPath = locale === "de" ? "/download" : `/download?lang=${locale}`;
-  const home = locale === "de" ? "/start" : "/en/start";
-  // The Payment Link has one return address, so an English buyer lands here
-  // first and needs the way to their own language.
-  const other: StartLocale = locale === "de" ? "en" : "de";
+  const home = locale === "de" ? "/start" : `/${locale}/start`;
 
   return (
     <div className="thanks-page" lang={locale}>
       <header className="thanks-header shell">
         <a href={home} className="thanks-brand">Witness</a>
         <span>
-          {locale === "de" ? "Kauf" : "Purchase"} · <a href={thanksPaths[other]} hrefLang={other}>{other.toUpperCase()}</a>
+          {startLocales.map((candidate, index) => (
+            <span key={candidate}>{index > 0 && " · "}{candidate === locale ? candidate.toUpperCase() : <a href={thanksPaths[candidate]} hrefLang={candidate}>{candidate.toUpperCase()}</a>}</span>
+          ))}
         </span>
       </header>
       <main>

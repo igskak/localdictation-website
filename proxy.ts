@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { locales, parseLocale } from "./app/_lib/locale";
+import { pageLocales, parseLocale } from "./app/_lib/locale";
 
 /**
  * The host this request arrived on with its `www.` prefix removed, or null when
@@ -38,7 +38,7 @@ export function proxy(request: NextRequest) {
   const requestHeaders = new Headers(request.headers);
   const { pathname, searchParams } = request.nextUrl;
   // German lives at the root, every other locale under its own prefix; /danke and /download carry ?lang=.
-  const prefixed = locales.find((locale) => locale !== "de" && (pathname === `/${locale}` || pathname.startsWith(`/${locale}/`)));
+  const prefixed = pageLocales.find((locale) => locale !== "de" && (pathname === `/${locale}` || pathname.startsWith(`/${locale}/`)));
   const queried = pathname === "/danke" || pathname === "/download" ? parseLocale(searchParams.get("lang")) : "de";
   const isDownload = pathname === "/download";
   requestHeaders.set("x-page-locale", prefixed ?? queried);
