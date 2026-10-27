@@ -1,7 +1,7 @@
 import type { PageLocale } from "./locale";
 
-/** Languages with legal-document routes. Only counsel-approved sets may be selected by a checkout. */
-export type LegalLocale = "de" | "en" | "es" | "it" | "fr";
+/** The two languages the published legal texts exist in. Other locales use English. */
+export type LegalLocale = "de" | "en";
 
 export const legalPages = ["terms", "withdrawal", "privacy", "imprint", "licences"] as const;
 export type LegalPage = (typeof legalPages)[number];
@@ -27,27 +27,6 @@ export const legalPaths: Record<LegalLocale, Record<LegalPage, string>> = {
     privacy: "/en/privacy",
     imprint: "/en/legal-notice",
     licences: "/en/licences",
-  },
-  es: {
-    terms: "/es/condiciones",
-    withdrawal: "/es/desistimiento",
-    privacy: "/es/privacidad",
-    imprint: "/es/aviso-legal",
-    licences: "/es/licencias",
-  },
-  it: {
-    terms: "/it/condizioni",
-    withdrawal: "/it/recesso",
-    privacy: "/it/privacy",
-    imprint: "/it/note-legali",
-    licences: "/it/licenze",
-  },
-  fr: {
-    terms: "/fr/conditions",
-    withdrawal: "/fr/retractation",
-    privacy: "/fr/confidentialite",
-    imprint: "/fr/mentions-legales",
-    licences: "/fr/licences",
   },
 };
 

@@ -393,58 +393,35 @@ test("serves the legal pages, and no longer calls any of them a draft", async ()
   assert.equal(llms.trim().split(/\n\n+/).length, 4);
 });
 
-test("renders the ES IT and FR legal review set without switching checkout before counsel approval", async () => {
+test("keeps ES IT and FR purchase documents in the published English legal set", async () => {
   const sets = [
     {
-      locale: "es",
       start: "/es/start",
-      routes: ["/es/condiciones", "/es/desistimiento", "/es/privacidad", "/es/aviso-legal", "/es/licencias"],
-      terms: /Condiciones y licencia/,
-      review: /revisión jurídica/,
-      privacy: [/api\.witnessmac\.com/, /Hugging Face/, /Cloudflare/, /Stripe/, /Resend/, /PostHog/, /Google Analytics 4/, /90 días/, /24 horas/],
+      localTerms: "/es/condiciones",
+      termsLabel: /Condiciones \(EN\)/,
+      withdrawalLabel: /Desistimiento \(EN\)/,
     },
     {
-      locale: "it",
       start: "/it/start",
-      routes: ["/it/condizioni", "/it/recesso", "/it/privacy", "/it/note-legali", "/it/licenze"],
-      terms: /Condizioni e licenza/,
-      review: /revisione legale/,
-      privacy: [/api\.witnessmac\.com/, /Hugging Face/, /Cloudflare/, /Stripe/, /Resend/, /PostHog/, /Google Analytics 4/, /90 giorni/, /24 ore/],
+      localTerms: "/it/condizioni",
+      termsLabel: /Condizioni \(EN\)/,
+      withdrawalLabel: /Recesso \(EN\)/,
     },
     {
-      locale: "fr",
       start: "/fr/start",
-      routes: ["/fr/conditions", "/fr/retractation", "/fr/confidentialite", "/fr/mentions-legales", "/fr/licences"],
-      terms: /Conditions et licence/,
-      review: /validation juridique/,
-      privacy: [/api\.witnessmac\.com/, /Hugging Face/, /Cloudflare/, /Stripe/, /Resend/, /PostHog/, /Google Analytics 4/, /90 jours/, /24 heures/],
+      localTerms: "/fr/conditions",
+      termsLabel: /Conditions \(EN\)/,
+      withdrawalLabel: /Rétractation \(EN\)/,
     },
   ];
 
   for (const set of sets) {
-    for (const route of set.routes) {
-      const response = await render(route);
-      assert.equal(response.status, 200, route);
-      const html = await response.text();
-      assert.match(html, new RegExp(`lang="${set.locale}"`), route);
-      assert.match(html, /<meta name="robots" content="noindex, nofollow"/, route);
-      assert.match(html, /href="\/en\/(?:terms|cancellation|privacy|legal-notice|licences)"/, `${route} must expose its approved English counterpart`);
-    }
-
-    const terms = await (await render(set.routes[0])).text();
-    assert.match(terms, set.terms);
-    assert.match(terms, set.review);
-    assert.match(terms, /4,99 €|€4\.99/);
-    assert.match(terms, /49 €/);
-    assert.match(terms, /99 €/);
-
-    const privacy = await (await render(set.routes[2])).text();
-    for (const fact of set.privacy) assert.match(privacy, fact, `${set.routes[2]} must disclose ${fact}`);
-
     const checkout = await (await render(set.start)).text();
-    assert.match(checkout, /href="\/en\/terms"/, `${set.start} stays on counsel-approved terms`);
-    assert.match(checkout, /href="\/en\/cancellation"/, `${set.start} stays on counsel-approved withdrawal text`);
-    assert.doesNotMatch(checkout, new RegExp(`href="${set.routes[0]}"`), `${set.start} must not link a legal-review draft`);
+    assert.match(checkout, /href="\/en\/terms"/, `${set.start} uses the English terms`);
+    assert.match(checkout, /href="\/en\/cancellation"/, `${set.start} uses the English withdrawal text`);
+    assert.match(checkout, set.termsLabel);
+    assert.match(checkout, set.withdrawalLabel);
+    assert.doesNotMatch(checkout, new RegExp(`href="${set.localTerms}"`), `${set.start} must not imply that a localized legal set exists`);
   }
 });
 

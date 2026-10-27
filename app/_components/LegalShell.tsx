@@ -19,9 +19,6 @@ import { legalPaths, type LegalLocale, type LegalPage } from "../_lib/legal";
 const chrome = {
   de: { skip: "Zum Inhalt", home: "Zur Startseite ↗", updated: "Stand", other: "English version", otherLang: "en" },
   en: { skip: "Skip to content", home: "To the home page ↗", updated: "Last updated", other: "Deutsche Fassung", otherLang: "de" },
-  es: { skip: "Ir al contenido", home: "Volver a la oferta ↗", updated: "Última actualización", other: "Versión inglesa", otherLang: "en" },
-  it: { skip: "Vai al contenuto", home: "Torna all’offerta ↗", updated: "Ultimo aggiornamento", other: "Versione inglese", otherLang: "en" },
-  fr: { skip: "Aller au contenu", home: "Retour à l’offre ↗", updated: "Dernière mise à jour", other: "Version anglaise", otherLang: "en" },
 } as const;
 
 export function LegalShell({
@@ -43,7 +40,7 @@ export function LegalShell({
 }) {
   const c = chrome[locale];
   const other: LegalLocale = locale === "en" ? "de" : "en";
-  const home = locale === "de" ? "/" : locale === "en" ? "/en" : `/${locale}/start`;
+  const home = locale === "de" ? "/" : "/en";
 
   return (
     <div className="legal-page" lang={locale}>
