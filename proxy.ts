@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { pageLocales, parseLocale } from "./app/_lib/locale";
+import { isAutomatedClient, preferredHomeLocale } from "./app/_lib/browserLocale";
+import { localeHome, locales, pageLocales, parseLocale } from "./app/_lib/locale";
 
 /**
  * The host this request arrived on with its `www.` prefix removed, or null when
@@ -14,6 +15,26 @@ function apexHost(request: NextRequest) {
   const host = (request.nextUrl.host || request.headers.get("host")?.split(",", 1)[0]?.trim() || "").toLowerCase();
   const apex = host.startsWith("www.") ? host.slice(4) : "";
   return apex.includes(".") ? apex : null;
+}
+
+/**
+ * The home page to send a reader of the bare root to, or null to serve German.
+ *
+ * Only a person typing the address or following a plain link is moved. A query
+ * string means a campaign chose this page (`gclid`, `gad_campaignid`, `utm_*`,
+ * `ref=producthunt`): German ads land German, and the entry URL keeps the tag
+ * the dashboards count by. A referrer from this site means the reader got here
+ * on purpose, most often by picking DE in the language switcher, which would
+ * otherwise bounce them straight back. RSC requests are client navigations.
+ */
+function browserHome(request: NextRequest) {
+  const { pathname, search, host } = request.nextUrl;
+  if (pathname !== "/" || search || (request.method !== "GET" && request.method !== "HEAD")) return null;
+  if (request.headers.has("rsc") || isAutomatedClient(request.headers.get("user-agent"))) return null;
+  const referrer = request.headers.get("referer");
+  if (referrer && URL.canParse(referrer) && new URL(referrer).host === host) return null;
+  const locale = preferredHomeLocale(request.headers.get("accept-language"), locales, "en");
+  return locale && locale !== "de" ? localeHome(locale) : null;
 }
 
 export function proxy(request: NextRequest) {
@@ -35,6 +56,16 @@ export function proxy(request: NextRequest) {
     return redirect;
   }
 
+  // Temporary and uncached: the same URL answers differently per reader.
+  const home = browserHome(request);
+  if (home) {
+    const redirect = NextResponse.redirect(new URL(home, request.nextUrl), 302);
+    redirect.headers.set("cache-control", "private, no-store");
+    redirect.headers.set("vary", "Accept-Language");
+    redirect.headers.set("strict-transport-security", "max-age=31536000");
+    return redirect;
+  }
+
   const requestHeaders = new Headers(request.headers);
   const { pathname, searchParams } = request.nextUrl;
   // German lives at the root, every other locale under its own prefix; /danke and /download carry ?lang=.
@@ -51,6 +82,8 @@ export function proxy(request: NextRequest) {
   }
   response.headers.set("strict-transport-security", "max-age=31536000");
   response.headers.set("permissions-policy", "camera=(), geolocation=(), microphone=()");
+  // Google's signal for a URL that adapts to the reader's language.
+  if (pathname === "/") response.headers.append("vary", "Accept-Language");
   return response;
 }
 

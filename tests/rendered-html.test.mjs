@@ -760,6 +760,66 @@ test("ignores a forwarded www host rather than redirecting off-site", async () =
   assert.equal(response.headers.get("location"), null);
 });
 
+// Friends with English, Russian and Ukrainian browsers opened witnessmac.com
+// and got German: the root served German to everyone (27.10.2026). It now
+// sends a person to their own language, and leaves alone every request that
+// has to see the German page as it is.
+const safari = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Safari/605.1.15";
+
+test("sends a reader of the bare root to the home page in their browser's language", async () => {
+  for (const [language, home] of [["en-US,en;q=0.9", "/en"], ["ru-RU,ru;q=0.9,en;q=0.8", "/ru"], ["uk-UA,uk;q=0.9", "/uk"], ["fr-FR,fr;q=0.9", "/en"]]) {
+    const response = await render("/", { "user-agent": safari, "accept-language": language }, "https://witnessmac.com");
+    assert.equal(response.status, 302, language);
+    assert.equal(response.headers.get("location"), home, language);
+    assert.equal(response.headers.get("cache-control"), "private, no-store", language);
+    assert.match(response.headers.get("vary") ?? "", /accept-language/i, language);
+  }
+});
+
+test("serves German at the root to German readers and says the root varies", async () => {
+  for (const language of ["de-DE,de;q=0.9,en;q=0.8", "de-CH", "en;q=0.5,de;q=0.9"]) {
+    const response = await render("/", { "user-agent": safari, "accept-language": language }, "https://witnessmac.com");
+    assert.equal(response.status, 200, language);
+    assert.match(response.headers.get("vary") ?? "", /accept-language/i, language);
+  }
+});
+
+test("leaves ad clicks, campaign links, the switcher and crawlers on the German root", async () => {
+  const english = { "user-agent": safari, "accept-language": "en-US,en;q=0.9" };
+  const cases = [
+    // A German ad lands German, and its click id stays in the entry URL.
+    ["/?gclid=abc&gad_source=1&gad_campaignid=24239719366", english],
+    ["/?utm_source=newsletter", english],
+    ["/?ref=producthunt", english],
+    // Picking DE in the switcher on /en must not bounce back to English.
+    ["/", { ...english, referer: "https://witnessmac.com/en" }],
+    ["/", { "accept-language": "en-US,en;q=0.9", "user-agent": "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)" }],
+    ["/", { "accept-language": "en-US,en;q=0.9", "user-agent": "AdsBot-Google (+http://www.google.com/adsbot.html)" }],
+    ["/", { "accept-language": "en-US,en;q=0.9" }],
+    ["/", { "user-agent": safari }],
+  ];
+  for (const [path, headers] of cases) {
+    const response = await render(path, headers, "https://witnessmac.com");
+    assert.equal(response.status, 200, `${path} ${JSON.stringify(headers)}`);
+    assert.equal(response.headers.get("location"), null);
+  }
+  // A client navigation is the reader's own choice. The framework answers a
+  // bare RSC request with its own 307 to `/?_rsc`, which is not ours to move.
+  const navigation = await render("/", { ...english, rsc: "1" }, "https://witnessmac.com");
+  assert.notEqual(navigation.status, 302);
+  assert.doesNotMatch(navigation.headers.get("location") ?? "", /^\/(en|ru|uk)\b/);
+  // A link from another site is a typed address for this purpose.
+  const fromElsewhere = await render("/", { ...english, referer: "https://t.me/" }, "https://witnessmac.com");
+  assert.equal(fromElsewhere.status, 302);
+});
+
+test("moves only the root, never a page that already has its language", async () => {
+  for (const path of ["/vergleich", "/datenschutz", "/en", "/ru", "/danke"]) {
+    const response = await render(path, { "user-agent": safari, "accept-language": "uk-UA,uk;q=0.9" }, "https://witnessmac.com");
+    assert.notEqual(response.status, 302, path);
+  }
+});
+
 test("keeps legal metadata route-specific and non-indexable", async () => {
   const expected = new Map([
     ["/impressum", "Anbieterkennzeichnung und rechtliche Hinweise"],
