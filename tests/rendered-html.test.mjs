@@ -1129,8 +1129,8 @@ test("the paid-entry page leads with the payment, says what follows it, and neve
     ["/start", "de", "€4,99 für die ersten 14 Tage ab Kauf. Danach €49 pro Jahr, automatisch, wenn du nicht bis zum 14. Tag kündigst. Dann zahlst du nichts weiter.", "Für €4,99 starten"],
     ["/en/start", "en", "€4.99 for the first 14 days from purchase. Then €49 a year, automatically, unless you cancel by day 14. Then you pay nothing more.", "Start for €4.99"],
     ["/es/start", "es", "4,99 € por los primeros 14 días desde la compra. Después, 49 € al año de forma automática, salvo que canceles antes de que termine el día 14. Si cancelas, no se te cobrará nada más.", "Empezar por 4,99 €"],
-    ["/it/start", "it", "4,99 € per i primi 14 giorni dall’acquisto. Poi 49 € all’anno in automatico, a meno che tu non annulli entro il 14° giorno. Se annulli, non paghi altro.", "Inizia a 4,99 €"],
-    ["/fr/start", "fr", "4,99 € pour les 14 premiers jours à compter de l’achat. Puis 49 € par an automatiquement, sauf résiliation avant la fin du 14e jour. Dans ce cas, aucun autre montant n’est prélevé.", "Commencer pour 4,99 €"],
+    ["/it/start", "it", "4,99 € per i primi 14 giorni dall’acquisto. Poi 49 € all’anno in automatico, a meno che tu non disdica entro il 14° giorno. Se disdici, non paghi altro.", "Inizia con 4,99 €"],
+    ["/fr/start", "fr", "4,99 € pour les 14 premiers jours à compter de l’achat. Puis 49 € par an automatiquement, sauf résiliation avant la fin du 14e jour. Dans ce cas, aucun autre montant n’est prélevé.", "Commencer à 4,99 €"],
   ]) {
     const response = await render(path);
     assert.equal(response.status, 200, path);
@@ -1158,13 +1158,14 @@ test("the paid-entry page leads with the payment, says what follows it, and neve
 
 test("the new-market paid pages localize every visible sales block and expose every language switch", async () => {
   for (const [path, checks] of [
-    ["/es/start", [/Dicta en lugar de escribir/, /Verificación calibrada en español/, /Respuestas claras antes de comprar/]],
-    ["/it/start", [/Detta invece di digitare/, /Verifica calibrata in italiano/, /Risposte chiare prima dell’acquisto/]],
-    ["/fr/start", [/Dictez au lieu de taper/, /Vérification calibrée en français/, /Des réponses claires avant l’achat/]],
+    ["/es/start", [/Dicta en lugar de escribir/, /Te avisa cuando algo merece una segunda mirada/, /palabras claramente mal reconocidas/]],
+    ["/it/start", [/Detta invece di digitare/, /Ti avvisa quando qualcosa merita un controllo/, /parole chiaramente riconosciute male/]],
+    ["/fr/start", [/Dictez au lieu de taper/, /Une dictée qui vous montre ce qu’il faut vérifier/, /mots manifestement mal reconnus/]],
   ]) {
     const html = await (await render(path)).text();
     for (const check of checks) assert.match(html, check, path);
     assert.doesNotMatch(html, /Dictate instead of typing|What you get|Straight answers before you buy/, path);
+    assert.doesNotMatch(html, /accettare alla cieca|parole chiaramente danneggiate|règles mesurées|signal là où|señal donde conviene/, path);
     for (const locale of ["de", "en", "es", "it", "fr"]) {
       if (!path.startsWith(`/${locale}/`)) assert.match(html, new RegExp(`hreflang="${locale}"`, "i"), `${path} → ${locale}`);
     }
@@ -1232,7 +1233,7 @@ test("the cancellation form works without JavaScript and answers in the same wor
 
   for (const [path, action, label] of [
     ["/es/cancelar-suscripcion", "/es/cancelar-suscripcion/enviar", /Cancelar ahora/],
-    ["/it/annulla-abbonamento", "/it/annulla-abbonamento/invia", /Annulla ora/],
+    ["/it/annulla-abbonamento", "/it/annulla-abbonamento/invia", /Disdici ora/],
     ["/fr/resilier-abonnement", "/fr/resilier-abonnement/envoyer", /Résilier maintenant/],
   ]) {
     const html = await (await render(path)).text();
