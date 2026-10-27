@@ -17,8 +17,11 @@ import { legalPaths, type LegalLocale, type LegalPage } from "../_lib/legal";
 // the site where that is expensive.
 
 const chrome = {
-  de: { home: "Zur Startseite ↗", updated: "Stand", other: "English version", otherLang: "en" },
-  en: { home: "To the home page ↗", updated: "Last updated", other: "Deutsche Fassung", otherLang: "de" },
+  de: { skip: "Zum Inhalt", home: "Zur Startseite ↗", updated: "Stand", other: "English version", otherLang: "en" },
+  en: { skip: "Skip to content", home: "To the home page ↗", updated: "Last updated", other: "Deutsche Fassung", otherLang: "de" },
+  es: { skip: "Ir al contenido", home: "Volver a la oferta ↗", updated: "Última actualización", other: "Versión inglesa", otherLang: "en" },
+  it: { skip: "Vai al contenuto", home: "Torna all’offerta ↗", updated: "Ultimo aggiornamento", other: "Versione inglese", otherLang: "en" },
+  fr: { skip: "Aller au contenu", home: "Retour à l’offre ↗", updated: "Dernière mise à jour", other: "Version anglaise", otherLang: "en" },
 } as const;
 
 export function LegalShell({
@@ -39,13 +42,14 @@ export function LegalShell({
   children: ReactNode;
 }) {
   const c = chrome[locale];
-  const other: LegalLocale = locale === "de" ? "en" : "de";
-  const home = locale === "de" ? "/" : "/en";
+  const other: LegalLocale = locale === "en" ? "de" : "en";
+  const home = locale === "de" ? "/" : locale === "en" ? "/en" : `/${locale}/start`;
 
   return (
     <div className="legal-page" lang={locale}>
+      <a className="skip-link" href="#main">{c.skip}</a>
       <header className="legal-header shell"><Link href={home}>Witness</Link><Link href={home}>{c.home}</Link></header>
-      <main>
+      <main id="main">
         <article className="legal-article shell">
           <p className="section-kicker">{eyebrow}</p>
           <h1>{title}</h1>

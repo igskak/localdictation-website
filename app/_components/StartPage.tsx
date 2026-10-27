@@ -23,11 +23,11 @@ import { StartCheckout } from "./StartCheckout";
 export function StartPage({ locale }: { locale: StartLocale }) {
   const c = startCopy[locale];
   const ui = {
-    de: { theme: "Farbschema", page: "Seite", language: "Sprache" },
-    en: { theme: "Theme", page: "Page", language: "Language" },
-    es: { theme: "Tema", page: "Página", language: "Idioma" },
-    it: { theme: "Tema", page: "Pagina", language: "Lingua" },
-    fr: { theme: "Thème", page: "Page", language: "Langue" },
+    de: { skip: "Zum Inhalt", theme: "Farbschema", page: "Seite", language: "Sprache" },
+    en: { skip: "Skip to content", theme: "Theme", page: "Page", language: "Language" },
+    es: { skip: "Ir al contenido", theme: "Tema", page: "Página", language: "Idioma" },
+    it: { skip: "Vai al contenuto", theme: "Tema", page: "Pagina", language: "Lingua" },
+    fr: { skip: "Aller au contenu", theme: "Thème", page: "Page", language: "Langue" },
   }[locale];
   const demo = landingCopy[locale === "de" ? "de" : "en"].demo;
   const legal = legalPaths[legalLocale(locale)];
@@ -35,6 +35,7 @@ export function StartPage({ locale }: { locale: StartLocale }) {
 
   return (
     <div className="site-root start-page" lang={locale}>
+      <a className="skip-link" href="#main">{ui.skip}</a>
       <input className="theme-checkbox" type="checkbox" id={`theme-start-${locale}`} aria-label={ui.theme} />
 
       <header className="site-header-wrap">
@@ -51,6 +52,10 @@ export function StartPage({ locale }: { locale: StartLocale }) {
             <a href="#faq">FAQ</a>
           </nav>
           <div className="header-actions">
+            <label className="theme-switch" htmlFor={`theme-start-${locale}`} title={ui.theme}>
+              <span aria-hidden="true">◐</span>
+              <span className="sr-only">{ui.theme}</span>
+            </label>
             <nav className="language-switch-group" aria-label={ui.language}>
               {startLocales.filter((candidate) => candidate !== locale).map((candidate) => (
                 <a className="language-switch" href={startPaths[candidate]} hrefLang={candidate} key={candidate}>{candidate.toUpperCase()}</a>
