@@ -1362,6 +1362,9 @@ h1 span { color: #95958e; }
 .route-footer-inner { min-height: 78px; display: flex; align-items: center; justify-content: space-between; gap: 28px; color: #686a63; font-size: 10px; }
 .route-footer nav { display: flex; flex-wrap: wrap; gap: 20px; }
 .route-footer a:hover { color: #191a17; }
+.site-root .route-footer { border-color: var(--line); }
+.site-root .route-footer-inner { color: var(--faint); }
+.site-root .route-footer a:hover { color: var(--ink); }
 .download-frame { position: absolute; width: 1px; height: 1px; border: 0; opacity: 0; pointer-events: none; }
 
 /* Legal pages */

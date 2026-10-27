@@ -1,5 +1,7 @@
 export function GET() {
-  return new Response(`Witness is a local-first dictation utility for Apple silicon Macs running macOS 14.4 or newer. It is for multilingual knowledge workers who write email, tickets, documentation, prompts, notes, and chat messages in German and English; Users tick the languages they speak from the 100 the engine knows, singly or in any combination; German, English, Russian, and Ukrainian are measured end to end, and the rest are recognized with per-language marks left off rather than guessed.
+  return new Response(`# Witness
+
+Witness is a local-first dictation utility for Apple silicon Macs running macOS 14.4 or newer. It is for multilingual knowledge workers who write email, tickets, documentation, prompts, notes, and chat messages. Users choose the languages they speak from the 100 the engine knows, singly or in any combination. German, English, Russian, and Ukrainian are measured end to end. Spanish, Italian, and French have calibrated review signals; other languages get recognition without language-specific signals being guessed.
 
 Speech recognition and text processing run on the Mac. Witness inserts the text at the cursor at once and marks passages that deserve a second look with a sign in the menu bar; one click opens a review panel with the flagged passages, the raw transcript and, where available, a short replay of the source audio, which stays in memory only. The product is built around an explicit user-chosen language set rather than automatic detection, a personal vocabulary, and an email licence key without a product account.
 

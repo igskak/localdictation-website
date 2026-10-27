@@ -384,12 +384,13 @@ test("serves the legal pages, and no longer calls any of them a draft", async ()
   assert.equal(llmsResponse.status, 200);
   assert.match(llmsResponse.headers.get("content-type") ?? "", /^text\/plain/i);
   const llms = await llmsResponse.text();
+  assert.match(llms, /^# Witness\n/);
   assert.match(llms, /local-first dictation utility/);
   assert.match(llms, /speech recognition and text processing run on the Mac/i);
   // The site sells a signed build. Nothing on it may call the product a
   // preview or its prices planned, in any of the four locales.
   assert.doesNotMatch(llms, /preview|planned/i);
-  assert.equal(llms.trim().split(/\n\n+/).length, 3);
+  assert.equal(llms.trim().split(/\n\n+/).length, 4);
 });
 
 test("renders the ES IT and FR legal review set without switching checkout before counsel approval", async () => {
