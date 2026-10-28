@@ -1251,14 +1251,16 @@ test("the paid-entry page leads with the payment, says what follows it, and neve
 
 test("the new-market paid pages localize every visible sales block and expose every language switch", async () => {
   for (const [path, checks] of [
-    ["/es/start", [/Dicta en lugar de escribir/, /Te avisa cuando algo merece una segunda mirada/, /palabras claramente mal reconocidas/]],
-    ["/it/start", [/Detta invece di digitare/, /Ti avvisa quando qualcosa merita un controllo/, /parole chiaramente riconosciute male/]],
-    ["/fr/start", [/Dictez au lieu de taper/, /Une dictée qui vous montre ce qu’il faut vérifier/, /mots manifestement mal reconnus/]],
+    ["/es/start", [/Dicta en lugar de escribir/, /Te avisa cuando algo merece una segunda mirada/, /reglas calibradas para el español/]],
+    ["/it/start", [/Detta invece di digitare/, /Ti avvisa quando qualcosa merita un controllo/, /regole calibrate per l’italiano/]],
+    ["/fr/start", [/Dictez au lieu de taper/, /Une dictée qui vous montre ce qu’il faut vérifier/, /règles calibrées pour le français/]],
   ]) {
     const html = await (await render(path)).text();
     for (const check of checks) assert.match(html, check, path);
     assert.doesNotMatch(html, /Dictate instead of typing|What you get|Straight answers before you buy/, path);
     assert.doesNotMatch(html, /accettare alla cieca|parole chiaramente danneggiate|règles mesurées|signal là où|señal donde conviene/, path);
+    // What Witness marks stays internal (Igor, 13.10 and 28.10): no list of categories on the page.
+    assert.doesNotMatch(html, /importes, fechas|importi, date|montants, les dates|mal reconocidas|riconosciute male|mal reconnus/, path);
     for (const locale of ["de", "en", "es", "it", "fr"]) {
       if (!path.startsWith(`/${locale}/`)) assert.match(html, new RegExp(`hreflang="${locale}"`, "i"), `${path} → ${locale}`);
     }
