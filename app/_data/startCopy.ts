@@ -276,7 +276,7 @@ export const startCopy: Record<StartLocale, StartCopy> = {
       items: [
         { title: "Todo se queda en tu Mac", body: "El audio, la transcripción y el texto no salen de tu Mac. No necesitas una cuenta y ningún servidor ve tus dictados." },
         { title: "Una alerta cuando algo merece atención", body: "Witness marca los fragmentos que conviene comprobar y reproduce el audio original de ese momento." },
-        { title: "Verificación calibrada en español", body: "Witness señala importes, fechas, nombres, términos del diccionario y palabras claramente mal reconocidas mediante reglas calibradas para el español." },
+        { title: "Verificación calibrada en español", body: "Witness decide qué merece una segunda mirada con reglas calibradas para el español. Tú eliges los idiomas que hablas." },
       ],
     },
     price: {
@@ -340,7 +340,7 @@ export const startCopy: Record<StartLocale, StartCopy> = {
       items: [
         { title: "Tutto resta sul tuo Mac", body: "Audio, trascrizione e testo non lasciano il Mac. Non serve un account e nessun server vede le tue dettature." },
         { title: "Un avviso quando serve", body: "Witness evidenzia i frammenti da controllare e riproduce l’audio originale di quel punto." },
-        { title: "Verifica calibrata in italiano", body: "Witness segnala importi, date, nomi, termini del dizionario e parole chiaramente riconosciute male con regole calibrate per l’italiano." },
+        { title: "Verifica calibrata in italiano", body: "Witness decide cosa merita un controllo con regole calibrate per l’italiano. Sei tu a scegliere le lingue che parli." },
       ],
     },
     price: {
@@ -395,7 +395,7 @@ export const startCopy: Record<StartLocale, StartCopy> = {
       items: [
         { title: "Tout reste sur votre Mac", body: "L’audio, la transcription et le texte ne quittent pas votre Mac. Aucun compte n’est nécessaire et aucun serveur ne voit vos dictées." },
         { title: "Une alerte quand il faut vérifier", body: "Witness surligne les fragments à vérifier et lit l’audio original correspondant." },
-        { title: "Vérification calibrée en français", body: "Witness signale les montants, les dates, les noms, les termes du dictionnaire et les mots manifestement mal reconnus à l’aide de règles calibrées pour le français." },
+        { title: "Vérification calibrée en français", body: "Witness décide de ce qui mérite d’être vérifié avec des règles calibrées pour le français. Vous choisissez les langues que vous parlez." },
       ],
     },
     price: {
