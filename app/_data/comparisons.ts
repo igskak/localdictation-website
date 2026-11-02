@@ -18,10 +18,10 @@ export type ComparisonSlug = (typeof comparisonSlugs)[number];
  * `/en/guides/<slug>`, whichever its `path` names.
  */
 export const englishComparisonSlugs = [
+  "best-dictation-apps-mac",
   "wispr-flow-alternatives",
   "mac-dictation",
   "dictation-missed-words",
-  "best-dictation-apps-mac",
   "wispr-flow-pricing",
   "is-wispr-flow-safe",
   "wispr-flow-vs-superwhisper",
@@ -41,6 +41,8 @@ export type ComparisonSource = {
 export type CitedCopy = {
   text: string;
   sources?: string[];
+  /** Makes the first occurrence of `link.text` in `text` a link to another page of the site. */
+  link?: { text: string; href: string };
 };
 
 export type ComparisonSection = {
@@ -1492,7 +1494,8 @@ const wisprFlowAlternatives: ComparisonPageData = {
     },
   ],
   verdict: {
-    text: "What we recommend: every app on this page runs recognition on the Mac, so whichever one you pick, the cloud question is answered. The question worth another minute is what happens when recognition gets a word wrong, because that is the failure you do not see. If you dictate into documents where a figure, a date or a name has to be right, Witness is the alternative built for exactly that: the text lands at once, passages that deserve a second look are marked in the menu bar, you can replay the audio behind a marked one, and the panel shows the raw transcript. Apple Silicon with macOS 14.4 or newer, €99 once for two Macs, and the 13-day trial is the full version with no account. Wispr Flow stays the better fit if you need the same interface on Windows, iPhone and Android.",
+    text: "What we recommend: every app on this page runs recognition on the Mac, so whichever one you pick, the cloud question is answered. If you are not set on replacing Wispr Flow in particular, our best dictation app for Mac comparison starts from what macOS already has. The question worth another minute is what happens when recognition gets a word wrong, because that is the failure you do not see. If you dictate into documents where a figure, a date or a name has to be right, Witness is the alternative built for exactly that: the text lands at once, passages that deserve a second look are marked in the menu bar, you can replay the audio behind a marked one, and the panel shows the raw transcript. Apple Silicon with macOS 14.4 or newer, €99 once for two Macs, and the 13-day trial is the full version with no account. Wispr Flow stays the better fit if you need the same interface on Windows, iPhone and Android.",
+    link: { text: "best dictation app for Mac", href: "/en/compare/best-dictation-apps-mac" },
     sources: ["spokenly-pricing", "macparakeet-product", "fluidvoice-product", "local-product"],
   },
   faqs: [
@@ -1634,7 +1637,8 @@ const macDictationGuide: ComparisonPageData = {
     },
   ],
   verdict: {
-    text: "What we recommend: switch on the built-in dictation first, learn the punctuation commands, and keep it for notes and messages. If you dictate into documents where a figure, a date or a name has to be right, Witness is the better tool for that work, because it points you to the passages that deserve a second look instead of leaving you to find them yourself. If you need dictation on Windows, an iPhone or Android, neither of these is your answer.",
+    text: "What we recommend: switch on the built-in dictation first, learn the punctuation commands, and keep it for notes and messages. To compare the free and paid apps before you buy anything, start with our best dictation app for Mac comparison. If you dictate into documents where a figure, a date or a name has to be right, Witness is the better tool for that work, because it points you to the passages that deserve a second look instead of leaving you to find them yourself. If you need dictation on Windows, an iPhone or Android, neither of these is your answer.",
+    link: { text: "best dictation app for Mac", href: "/en/compare/best-dictation-apps-mac" },
     sources: ["apple-dictate-en", "local-product"],
   },
   faqs: [
@@ -1770,7 +1774,8 @@ const missedWords: ComparisonPageData = {
     },
   ],
   verdict: {
-    text: "What we recommend: treat the clean sentence as the one to check, not the garbled one. Turn on the built-in dictation, learn to look for the blue underlines, and read figures and dates off the screen before anything consequential leaves your hands. If you dictate all day into documents other people act on, that discipline will not hold, and then the thing worth paying for is an app that marks the risky spots for you and can still show you the raw transcript and the original audio. That is what Witness does, and it is the only reason to choose it over the free local alternatives.",
+    text: "What we recommend: treat the clean sentence as the one to check, not the garbled one. Turn on the built-in dictation, learn to look for the blue underlines, and read figures and dates off the screen before anything consequential leaves your hands. If you dictate all day into documents other people act on, that discipline will not hold, and then the thing worth paying for is an app that marks the risky spots for you and can still show you the raw transcript and the original audio. That is what Witness does, and it is the only reason to choose it over the free local alternatives. If you are still choosing between apps, start with our best dictation app for Mac comparison.",
+    link: { text: "best dictation app for Mac", href: "/en/compare/best-dictation-apps-mac" },
     sources: ["apple-dictate-en", "local-product"],
   },
   faqs: [
@@ -1808,13 +1813,13 @@ const bestDictationApps: ComparisonPageData = {
   path: "/en/compare/best-dictation-apps-mac",
   updatedIso: "2026-10-20",
   updatedLabel: "20 October 2026",
-  eyebrow: "Best dictation apps for Mac",
-  title: "Best dictation apps for Mac, and how to choose one",
-  metaTitle: "Best Dictation Apps for Mac (2026) | Witness",
+  eyebrow: "Best dictation app for Mac",
+  title: "The best dictation app for Mac: nine options, and how to choose",
+  metaTitle: "Best Dictation App for Mac (2026): 9 Compared | Witness",
   description:
-    "Nine ways to dictate on a Mac, compared on where speech is processed, what you pay and what you see when recognition is unsure. Checked 20 October 2026.",
+    "Which is the best dictation app for Mac? Nine compared on where speech goes, what you pay and what you see when recognition is unsure. Witness: €99 once.",
   directAnswer: {
-    text: "The short answer: for dictation on a Mac you have nine real options, and most of the local ones cost nothing. macOS has dictation built in. Superwhisper, MacWhisper, Spokenly, MacParakeet and FluidVoice run recognition on the Mac and have a free way in. VoiceInk is a one-time purchase from $25. Wispr Flow is the cloud option, with an account and $144 a year for Pro. Witness is €99 once, and it is the one to look at when the text goes into documents other people act on, because it points you to the passages that deserve a second look. If you only need to get words onto the screen privately, you do not need to pay for anything on this page.",
+    text: "The short answer: the best dictation app for Mac depends on what your text is for. You have nine real options, and most of the local ones cost nothing. macOS has dictation built in. Superwhisper, MacWhisper, Spokenly, MacParakeet and FluidVoice run recognition on the Mac and have a free way in. VoiceInk is a one-time purchase from $25. Wispr Flow is the cloud option, with an account and $144 a year for Pro. Witness is €99 once, and it is the one to look at when the text goes into documents other people act on, because it points you to the passages that deserve a second look. If you only need to get words onto the screen privately, you do not need to pay for anything on this page.",
     sources: ["apple-dictation-en", "super-pro", "macparakeet-product", "fluidvoice-product", "spokenly-pricing", "voiceink-product", "wispr-plans-doc", "local-product"],
   },
   table: {
@@ -1914,6 +1919,10 @@ const bestDictationApps: ComparisonPageData = {
   },
   faqs: [
     {
+      question: "What is the best dictation app for Mac?",
+      answer: "For text that goes into documents other people act on, Witness: it recognises speech only on the Mac, points you to the passages that deserve a second look, and costs €99 once for two Macs with a 13-day trial. For private notes and messages, the dictation built into macOS or a free local app is enough. Wispr Flow fits only if you also need Windows, iPhone or Android and accept that your speech is processed in the US cloud.",
+    },
+    {
       question: "What is the best free dictation app for Mac?",
       answer: "That depends on what you need, but there are good free local choices: Superwhisper's free tier with unlimited local Whisper models, Spokenly with local models for $0, MacParakeet and FluidVoice as open-source apps, MacWhisper's free version, and the dictation built into macOS.",
     },
@@ -2012,7 +2021,8 @@ const wisprFlowPricing: ComparisonPageData = {
           sources: ["wispr-plans-doc", "local-product"],
         },
         {
-          text: "Superwhisper, VoiceInk and MacWhisper also have one-time options and several local apps are free. Witness is not the cheapest dictation tool and does not try to be. What the price buys is a different approach to errors: the text lands at your cursor at once, a marker in the menu bar tells you when a passage deserves a second look, and one click shows the flagged passages, the audio behind them and the raw transcript. An automatic marker like that is not publicly documented for Wispr Flow on the pages we checked.",
+          text: "Superwhisper, VoiceInk and MacWhisper also have one-time options and several local apps are free. All of them, with prices, are in our best dictation app for Mac comparison. Witness is not the cheapest dictation tool and does not try to be. What the price buys is a different approach to errors: the text lands at your cursor at once, a marker in the menu bar tells you when a passage deserves a second look, and one click shows the flagged passages, the audio behind them and the raw transcript. An automatic marker like that is not publicly documented for Wispr Flow on the pages we checked.",
+          link: { text: "best dictation app for Mac", href: "/en/compare/best-dictation-apps-mac" },
           sources: ["super-pro", "voiceink-product", "macwhisper-product", "wispr-plans-doc", "local-product"],
         },
       ],
