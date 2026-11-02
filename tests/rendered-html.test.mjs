@@ -911,6 +911,29 @@ test("sells the Sprecho alternative in the snippet, not only on the page", async
   assert.doesNotMatch(ownText, /\u2014/);
 });
 
+test("points the roundup and the links to it at \"best dictation app for Mac\"", async () => {
+  // Monitor 02.11: the roundup takes 69 of 97 weekly impressions for six forms
+  // of "best dictation app for mac", at position ~66. Title, H1 and the anchor
+  // text of in-text links from four English pages now carry that phrase.
+  const path = "/en/compare/best-dictation-apps-mac";
+  const html = await (await render(path)).text();
+  const title = html.match(/<title>([^<]+)<\/title>/)?.[1] ?? "";
+  const description = html.match(/<meta name="description" content="([^"]+)"/)?.[1] ?? "";
+  assert.match(title, /^Best Dictation App for Mac \(2026\)/);
+  assert.ok(title.length <= 60, title);
+  assert.ok(description.length <= 160, description);
+  assert.match(html, /<h1[^>]*>The best dictation app for Mac: nine options, and how to choose<\/h1>/);
+  assert.match(html, /What is the best dictation app for Mac\?/);
+  for (const from of ["/en/guides/mac-dictation", "/en/compare/wispr-flow-alternatives", "/en/guides/dictation-missed-words", "/en/compare/wispr-flow-pricing"]) {
+    const page = await (await render(from)).text();
+    assert.match(page, new RegExp(`<p>[^<]*<a href="${path}">best dictation app for Mac</a>`), from);
+    assert.doesNotMatch(page.replace(/<script[\s\S]*?<\/script>/g, ""), /\u2014/, from);
+  }
+  const en = await (await render("/en")).text();
+  const firstEnglish = en.match(/hrefLang="en">([^<]+)<\/a>/i)?.[1] ?? en.match(/hreflang="en">([^<]+)<\/a>/)?.[1];
+  assert.equal(firstEnglish, "Best dictation app for Mac");
+});
+
 test("gives the pages already on page one a snippet that says why to click", async () => {
   // Search Console, 7 days to 22.10: these pages sit between positions 5 and 10
   // with few clicks, while the Sprecho page took its first clicks after the same

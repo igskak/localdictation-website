@@ -27,7 +27,7 @@ const comparisonLabels: Record<ComparisonSlug | EnglishComparisonSlug, string> =
   "wispr-flow-alternatives": "Wispr Flow alternatives",
   "mac-dictation": "Mac dictation guide",
   "dictation-missed-words": "Dictation that drops words",
-  "best-dictation-apps-mac": "Best dictation apps for Mac",
+  "best-dictation-apps-mac": "Best dictation app for Mac",
   "wispr-flow-pricing": "Wispr Flow pricing",
   "is-wispr-flow-safe": "Is Wispr Flow safe",
   "wispr-flow-vs-superwhisper": "Wispr Flow vs Superwhisper",
@@ -108,9 +108,18 @@ function CitationLinks({ copy, sources, chrome }: { copy: CitedCopy; sources: Co
 }
 
 function CitedParagraph({ copy, sources, chrome }: { copy: CitedCopy; sources: ComparisonSource[]; chrome: ComparisonChrome }) {
+  const at = copy.link ? copy.text.indexOf(copy.link.text) : -1;
   return (
     <p>
-      {copy.text}
+      {copy.link && at >= 0 ? (
+        <>
+          {copy.text.slice(0, at)}
+          <Link href={copy.link.href}>{copy.link.text}</Link>
+          {copy.text.slice(at + copy.link.text.length)}
+        </>
+      ) : (
+        copy.text
+      )}
       <CitationLinks copy={copy} sources={sources} chrome={chrome} />
     </p>
   );
