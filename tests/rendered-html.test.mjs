@@ -323,7 +323,10 @@ test("serves the legal pages, and no longer calls any of them a draft", async ()
   const analyticsPages = new Set(["/datenschutz", "/en/privacy", "/widerruf", "/en/cancellation"]);
   for (const [routes, counterparts] of [[legalRoutes, legalRoutesEn], [legalRoutesEn, legalRoutes]]) {
     for (const [index, route] of routes.entries()) {
-      const [date, month, monthDe] = analyticsPages.has(route)
+      const modelReleasePages = new Set(["/agb", "/en/terms", "/datenschutz", "/en/privacy", "/lizenzen", "/en/licences"]);
+      const [date, month, monthDe] = modelReleasePages.has(route)
+        ? ["17", "November", "November"]
+        : analyticsPages.has(route)
         ? ["21", "October", "Oktober"]
         : paidEntryPages.has(route)
         ? ["20", "October", "Oktober"]

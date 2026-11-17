@@ -14,7 +14,7 @@ export default function LicencesPage() {
     page="licences"
     eyebrow="Legal"
     title="Third-party licences"
-    updated="24 September 2026"
+    updated="17 November 2026"
     notice={<><b>Witness stands on other people&apos;s work.</b> This page names it. For each component, its own licence terms take precedence over our <Link href={legalPaths.en.terms}>Terms and Licence</Link>.</>}
   >
     <h2>In the app</h2>
@@ -24,6 +24,7 @@ export default function LicencesPage() {
         <tbody>
           <tr><td>WhisperKit 1.1.0<br /><a href="https://github.com/argmaxinc/WhisperKit" rel="noreferrer">github.com/argmaxinc/WhisperKit</a></td><td>argmax, inc. (2024)</td><td>MIT</td></tr>
           <tr><td>Swift Argument Parser 1.8.2<br /><a href="https://github.com/apple/swift-argument-parser" rel="noreferrer">github.com/apple/swift-argument-parser</a></td><td>Apple Inc. and the Swift project authors</td><td>Apache-2.0</td></tr>
+          <tr><td>FluidAudio 0.17.7<br /><a href="https://github.com/FluidInference/FluidAudio" rel="noreferrer">github.com/FluidInference/FluidAudio</a></td><td>Fluid Inference and contributors</td><td>Apache-2.0</td></tr>
           <tr><td>Sparkle 2.10.0<br /><a href="https://github.com/sparkle-project/Sparkle" rel="noreferrer">github.com/sparkle-project/Sparkle</a></td><td>Andy Matuschak and contributors; additional notices included with the app</td><td>MIT and bundled notices</td></tr>
         </tbody>
       </table>
@@ -31,13 +32,15 @@ export default function LicencesPage() {
     <p>The complete Sparkle licence and notices for code bundled with it are also included in <code>Witness.app/Contents/Resources/Sparkle-LICENSE.txt</code>.</p>
 
     <h2>The speech recognition models</h2>
-    <p>The models are not part of the download. The app fetches them during first setup from the public repository <code>argmaxinc/whisperkit-coreml</code> at Hugging Face; that is the only network access needed for it.</p>
+    <p>Whisper and Parakeet speech models are downloaded from Hugging Face during setup or after selection in Settings. The Nemotron speaker model for the Notetaker demo is bundled with the app. Full notices are included in <code>SpeechModels-NOTICES.txt</code>, <code>FluidAudio-LICENSE.txt</code> and <code>Nemotron3-MODEL-LICENSE.txt</code> in the app’s Resources folder.</p>
     <div className="legal-table">
       <table>
         <thead><tr><th>Model</th><th>Rights holder</th><th>Licence</th></tr></thead>
         <tbody>
           <tr><td>whisperkit-coreml — the Core ML builds<br /><a href="https://huggingface.co/argmaxinc/whisperkit-coreml" rel="noreferrer">huggingface.co/argmaxinc/whisperkit-coreml</a></td><td>argmax, inc.</td><td>MIT</td></tr>
           <tr><td>Whisper — the underlying models<br /><a href="https://github.com/openai/whisper" rel="noreferrer">github.com/openai/whisper</a></td><td>OpenAI (2022)</td><td>MIT</td></tr>
+          <tr><td>Parakeet TDT v3 and Parakeet Ultra — Core ML conversions by Fluid Inference, Ultra post-training by Moondream<br /><a href="https://huggingface.co/FluidInference/parakeet-ultra-coreml" rel="noreferrer">Parakeet Ultra</a> · <a href="https://huggingface.co/FluidInference/parakeet-tdt-0.6b-v3-coreml" rel="noreferrer">Parakeet v3</a></td><td>NVIDIA, Moondream and Fluid Inference</td><td><a href="https://creativecommons.org/licenses/by/4.0/" rel="noreferrer">CC BY 4.0</a>; unmodified published weights</td></tr>
+          <tr><td>Nemotron 3 Diarization — Core ML conversion by Fluid Inference<br /><a href="https://huggingface.co/FluidInference/nemotron-3-diarization-coreml" rel="noreferrer">Model source</a></td><td>NVIDIA and Fluid Inference</td><td><a href="https://openmdw.ai/license/1-1/" rel="noreferrer">OpenMDW 1.1</a>; bundled licence and notices</td></tr>
         </tbody>
       </table>
     </div>

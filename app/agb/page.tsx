@@ -9,7 +9,7 @@ export default function AGBPage() {
     page="terms"
     eyebrow="Rechtliches"
     title="Vertrags- und Lizenzbedingungen"
-    updated="20. Oktober 2026"
+    updated="17. November 2026"
     notice={<><b>Diese Bedingungen beschreiben das Produkt, das tatsächlich verkauft wird.</b> Sie sind vollständig formuliert und nicht als Entwurf gedacht, ersetzen aber keine anwaltliche Prüfung. Maßgeblich ist die Fassung, die beim Abschluss deines Kaufs galt.</>}
   >
     <h2>1. Anbieter und Geltungsbereich</h2>
@@ -21,6 +21,8 @@ export default function AGBPage() {
     <h2>2. Was Witness ist — und was es nicht ist</h2>
     <p>Witness ist eine Diktier-Anwendung für Macs mit Apple Silicon ab macOS 14.4. Spracherkennung und Textaufbereitung laufen auf deinem Mac. Es gibt kein Produktkonto und kein Passwort.</p>
     <p>Vor dem ersten Diktat lädt die App einmalig ein Spracherkennungsmodell aus einer öffentlichen Quelle (Hugging Face, Repository <code>argmaxinc/whisperkit-coreml</code>). Dafür sind eine Internetverbindung und freier Speicherplatz nötig. Danach arbeitet die Erkennung ohne Verbindung.</p>
+    <p>In den Einstellungen oder bei der Einrichtung kannst du ein anderes lokales Modell wählen. Modelle unterscheiden sich in Downloadgröße, Geschwindigkeit, unterstützten Sprachen und Erkennung. Die App zeigt ungefähre Größen vor dem Laden; die macOS-Vorbereitung braucht zusätzlichen Speicher. Eine geladene Auswahl wird nach Neustart angewendet. Inaktive Modelle können entfernt werden. Modellbereitstellung und lokale Speicherung beschreibt die Datenschutzerklärung.</p>
+    <p>Notetaker ist als Demo verfügbar und erstellt lokale Besprechungstranskripte. Die Sprechertrennung wird noch verbessert; Sprecherzuordnungen können ungenau sein. Prüfe Transkript und Zuordnungen, bevor du dich darauf verlässt. Für erforderliche Hinweise oder Einwilligungen vor Aufnahmen anderer Personen bist du verantwortlich. Audio bleibt im Arbeitsspeicher; Besprechungstranskripte bleiben bis zur Löschung auf deinem Mac.</p>
     <p>Ankreuzen kannst du 100 Sprachen. Für Deutsch, Englisch, Russisch und Ukrainisch sind Erkennung, Textaufbereitung und jede Markierung end-to-end gemessen. Die übrigen Sprachen werden erkannt; sprachabhängig kalibrierte Markierungen bleiben dort aus.</p>
     <p><strong>Die Markierung unsicherer Stellen ist ein Hinweis, keine Prüfung.</strong> Sie kann Stellen markieren, die richtig sind, und Stellen übersehen, die falsch sind. Witness ersetzt weder das Lesen des erzeugten Textes noch eine fachliche, rechtliche oder medizinische Kontrolle. Die Verantwortung für jeden Text, den du einsetzt, absendest oder weitergibst, bleibt bei dir.</p>
     <p>Wir schulden keine bestimmte Erkennungsgenauigkeit. Sie hängt von Mikrofon, Umgebungsgeräusch, Sprache, Aussprache und Fachvokabular ab und ist keine zugesicherte Eigenschaft.</p>

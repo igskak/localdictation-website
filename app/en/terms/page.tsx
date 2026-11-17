@@ -13,7 +13,7 @@ export default function TermsPage() {
     page="terms"
     eyebrow="Legal"
     title="Terms and Licence"
-    updated="20 October 2026"
+    updated="17 November 2026"
     notice={<><b>This English text applies to purchases made in English.</b> The German text at <Link href={legalPaths.de.terms}>/agb</Link> applies to purchases made in German. They say the same thing; if you find a place where they do not, tell us — you are entitled to rely on the one you read. Neither replaces advice from a lawyer, and the version that applies to you is the one that was current when you bought.</>}
   >
     <h2>1. Who we are, and what these terms cover</h2>
@@ -25,6 +25,8 @@ export default function TermsPage() {
     <h2>2. What Witness is — and what it is not</h2>
     <p>Witness is a dictation application for Apple silicon Macs running macOS 14.4 or newer. Speech recognition and text processing run on your Mac. There is no product account and no password.</p>
     <p>Before your first dictation the app fetches a speech recognition model once, from a public source (Hugging Face, the repository <code>argmaxinc/whisperkit-coreml</code>). That needs an internet connection and free disk space. After it, recognition works with no connection at all.</p>
+    <p>You can choose a different local model in Settings or during setup. Models differ in download size, speed, supported languages and recognition. The app shows approximate sizes before downloading; macOS preparation needs additional disk space. A downloaded selection is applied after a restart. You can remove inactive models. Model delivery and local retention are described in the privacy policy.</p>
+    <p>Notetaker is available as a demo. It creates local meeting transcripts; speaker separation is still being improved and speaker labels can be inaccurate. Check the transcript and speaker assignments before relying on them. You are responsible for any required notice or consent before recording other people. Audio stays in memory; meeting transcripts remain on your Mac until you delete them.</p>
     <p>You can tick 100 languages. For German, English, Russian and Ukrainian, recognition, text processing and every marking are measured end to end. The other languages are recognised; markings that are calibrated per language stay off there rather than guessing.</p>
     <p><strong>Marking an uncertain passage is a hint, not a check.</strong> It can mark passages that are right and miss passages that are wrong. Witness replaces neither reading the text it produced nor any professional, legal or medical review. Responsibility for every text you insert, send or pass on stays with you.</p>
     <p>We do not owe any particular recognition accuracy. It depends on your microphone, the noise around you, the language, the pronunciation and the vocabulary, and it is not a warranted property.</p>
