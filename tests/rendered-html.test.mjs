@@ -380,7 +380,7 @@ test("serves the legal pages, and no longer calls any of them a draft", async ()
   const routes = ["/", "/en", "/ru", "/uk", "/vergleich", ...comparisonSlugs.map((slug) => `/vergleich/${slug}`), ...englishComparisonPaths];
   for (const route of routes) {
     const html = await (await render(route)).text();
-    assert.doesNotMatch(html, /Vorschau|private preview|превью|прев'ю|\bMVP\b|\bLaunch\b|запуску|planned/i, route);
+    assert.doesNotMatch(html, /Vorschau|private preview|превью|прев'ю|\bMVP\b|\bLaunch\b|(?<![\p{L}])запуску(?![\p{L}])|planned/iu, route);
   }
 
   const llmsResponse = await render("/llms.txt");
@@ -393,7 +393,9 @@ test("serves the legal pages, and no longer calls any of them a draft", async ()
   // The site sells a signed build. Nothing on it may call the product a
   // preview or its prices planned, in any of the four locales.
   assert.doesNotMatch(llms, /preview|planned/i);
-  assert.equal(llms.trim().split(/\n\n+/).length, 4);
+  assert.equal(llms.trim().split(/\n\n+/).length, 6);
+  assert.match(llms, /Notetaker is a demo/);
+  assert.match(llms, /Parakeet supports 25 European languages/);
 });
 
 test("keeps ES IT and FR purchase documents in the published English legal set", async () => {
@@ -491,10 +493,10 @@ test("the landing page tells the same truth about product events as the policy",
   // reads, so each locale asserts both halves: that the events are named, and
   // that the old denial cannot come back.
   const claims = {
-    "/": { says: /neun Ereignisse über Einrichtung und Test/, switch: /Einstellungen → Privatsphäre/, denies: /nicht gesendet|Mehr sendet die App nicht/ },
-    "/en": { says: /nine events about setup and the trial/i, switch: /Settings → Privacy/, denies: /not sent|sends nothing else/ },
-    "/ru": { says: /девять событий о настройке и триале/, switch: /Настройках → Приватность/, denies: /не отправляются|не отправляет ничего/ },
-    "/uk": { says: /дев'ять подій про налаштування і тріал/, switch: /Налаштуваннях → Приватність/, denies: /не надсилає нічого|не надсилаються/ },
+    "/": { says: /neun (?:abschaltbare )?Ereignisse über Einrichtung und Test/, switch: /Einstellungen → Privatsphäre/, denies: /nicht gesendet|Mehr sendet die App nicht/ },
+    "/en": { says: /nine (?:optional )?(?:events about setup and the trial|setup and trial events)/i, switch: /Settings → Privacy/, denies: /not sent|sends nothing else/ },
+    "/ru": { says: /девять (?:отключаемых )?событий о настройке и триале/i, switch: /Настройках → Приватность/, denies: /не отправляются|не отправляет ничего/ },
+    "/uk": { says: /дев['’]ять (?:вимикних )?подій про налаштування (?:і|й) тріал/i, switch: /Налаштуваннях → Приватність/, denies: /не надсилає нічого|не надсилаються/ },
   };
 
   for (const [route, claim] of Object.entries(claims)) {
@@ -1089,7 +1091,7 @@ test("keeps visible FAQ, offer data, and structured data in parity", async () =>
     const faq = scripts.find((entry) => entry["@type"] === "FAQPage");
     assert.deepEqual(software.offers.map((offer) => offer.price), ["99", "49"]);
     assert.match(software.operatingSystem, /macOS 14\.4/);
-    assert.equal(faq.mainEntity.length, 9);
+    assert.equal(faq.mainEntity.length, 11);
     for (const item of faq.mainEntity) {
       assert.ok(html.includes(item.name), `${route}: missing visible FAQ question`);
       assert.ok(html.includes(item.acceptedAnswer.text), `${route}: missing visible FAQ answer`);
@@ -1418,4 +1420,22 @@ test("the terms describe the introductory offer, the thirty-day key and the dail
   const privacy = await (await render("/en/privacy")).text();
   assert.match(privacy, /about once a month/);
   assert.match(privacy, /Once a day while “Check for updates automatically”/);
+});
+
+test("all landing locales disclose model limits, restart flow and the Notetaker demo", async () => {
+  const { releaseCopy, speechModels } = await import("../app/_data/releaseCopy.ts");
+  for (const [locale, route] of [["de", "/"], ["en", "/en"], ["ru", "/ru"], ["uk", "/uk"]]) {
+    const html = await (await render(route)).text();
+    const section = html.match(/<div class="release-features"[\s\S]*?(?=<div class="features-grid">)/)?.[0] ?? "";
+    assert.match(html, /href="#neu"/);
+    assert.match(section, /0\.6\.27/);
+    for (const model of speechModels) assert.ok(section.includes(model.name), `${route}: missing model`);
+    assert.ok(section.includes(releaseCopy[locale].demoNote), `${route}: demo limitation must be beside the feature`);
+    assert.ok(section.includes(releaseCopy[locale].modelsNote), `${route}: additional disk space must be disclosed`);
+    const scripts = [...html.matchAll(/<script type="application\/ld\+json">([^<]+)<\/script>/g)].map((match) => JSON.parse(match[1]));
+    const faq = scripts.find((entry) => entry["@type"] === "FAQPage");
+    for (const question of releaseCopy[locale].faq) {
+      assert.ok(faq.mainEntity.some((item) => item.name === question.q && item.acceptedAnswer.text === question.a), `${route}: FAQ metadata must match visible release answers`);
+    }
+  }
 });

@@ -2082,3 +2082,41 @@ body { padding-bottom: var(--consent-height, 0px); }
   .start-steps, .start-gives { grid-template-columns: 1fr; }
   .start-price-amount { font-size: 44px; }
 }
+
+/* Release facts: the app's model choices, with the demo limitation next to it. */
+.release-announcement { display: inline-flex; align-items: center; gap: 10px; max-width: 100%; margin-top: 22px; padding-block: 5px; color: var(--ink); font-size: 13px; line-height: 1.5; text-decoration: underline; text-underline-offset: 5px; text-decoration-color: var(--line-strong); }
+.release-announcement:hover { text-decoration-color: var(--accent); }
+.release-announcement span { color: var(--accent); flex: none; }
+.release-features { margin-top: 48px; scroll-margin-top: 100px; }
+.release-intro { max-width: 680px; }
+.release-intro h3 { font-size: clamp(26px, 3vw, 38px); letter-spacing: -.04em; line-height: 1.15; text-wrap: balance; margin: 12px 0 16px; }
+.release-intro > p:last-child { color: var(--muted); font-size: 15px; line-height: 1.7; }
+.release-grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: 42px; margin-top: 30px; align-items: start; }
+.release-models { min-width: 0; padding: 24px; background: var(--surface); border: 1px solid var(--line); border-radius: 22px; }
+.release-models-head { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.release-models .brand-mark { flex: none; background: linear-gradient(140deg, #278ff3, #0964cc); }
+.release-models .brand-mark i { background: #fff; }
+.release-grid h4 { margin: 0; font-size: 17px; font-weight: 600; line-height: 1.4; letter-spacing: -.02em; text-wrap: balance; }
+.release-model-list { margin: 0; }
+.release-model-list > div { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 14px; padding: 16px 0; border-bottom: 1px solid var(--line); }
+.release-model-list dt { min-width: 0; font-size: 14px; font-weight: 550; line-height: 1.5; }
+.release-model-list dt span { display: block; margin-top: 4px; font-size: 12px; font-weight: 400; color: var(--muted); line-height: 1.6; }
+.release-model-list dd { margin: 2px 0 0; color: var(--muted); font-size: 12px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.release-model-note { margin: 16px 0 0; color: var(--muted); font-size: 12px; line-height: 1.65; }
+.release-download-note { margin: 16px 0 0; color: var(--ink); font-size: 13px; line-height: 1.7; }
+.release-notetaker { padding-block: 6px; }
+.release-demo-label { display: flex; align-items: center; gap: 10px; color: var(--muted); font-size: 12px; margin-bottom: 16px; }
+.release-demo-label span { padding: 3px 9px; border-radius: 99px; background: var(--accent-soft); color: var(--accent); font-size: 11px; font-weight: 600; }
+.release-notetaker > h4 { font-size: clamp(22px, 2.3vw, 30px); line-height: 1.2; }
+.release-notetaker > p { margin: 15px 0 0; color: var(--muted); font-size: 14px; line-height: 1.7; }
+.release-notetaker .release-demo-note { border-left: 2px solid var(--accent); padding-left: 16px; color: var(--ink); }
+.release-notetaker .release-meeting-privacy { font-size: 12px; }
+.release-interface { margin-top: 28px; padding-top: 23px; border-top: 1px solid var(--line); }
+.release-interface p { margin: 10px 0 0; color: var(--muted); font-size: 13px; line-height: 1.7; }
+/* The animated menu is an illustration of the compact review state. */
+.hd-menu { border-radius: 18px; background: #202a39; border-color: #455267; color: #f1f4fa; }
+.hd-menu-head { border-color: #455267; }
+.hd-menu-head small { color: #afbacb; font-size: 11px; }
+.hd-menu-tile { border-radius: 9px; }
+@media (max-width: 800px) { .release-grid { grid-template-columns: 1fr; gap: 30px; } .release-models { padding: 20px; } }
+@media (max-width: 400px) { .release-models { padding: 16px; } .release-model-list > div { gap: 8px; } .release-model-list dt { font-size: 13px; } }

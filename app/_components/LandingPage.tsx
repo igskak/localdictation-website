@@ -7,6 +7,8 @@ import { ConsentReopenLink } from "./ConsentGate";
 import { PartnerOffer, PartnerPrice } from "./PartnerOffer";
 import { TryableDemo } from "./TryableDemo";
 import { HeroDemo } from "./HeroDemo";
+import { ReleaseFeatures } from "./ReleaseFeatures";
+import { releaseCopy } from "../_data/releaseCopy";
 import { localeHome, localeLabels, locales, type Locale } from "../_lib/locale";
 import { cancelPaths, startCopy } from "../_data/startCopy";
 import { legalLocale, legalPaths } from "../_lib/legal";
@@ -107,6 +109,8 @@ function ProductDemo({ locale, expanded = false }: { locale: Locale; expanded?: 
 
 export function LandingPage({ locale }: { locale: Locale }) {
   const c = landingCopy[locale];
+  const release = releaseCopy[locale];
+  const faqItems = [...c.faq.items, ...release.faq];
   // German readers get the German documents; everybody else gets the English
   // set, which is the only one they can be expected to have read.
   const legalLang = legalLocale(locale);
@@ -141,7 +145,7 @@ export function LandingPage({ locale }: { locale: Locale }) {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     inLanguage: locale,
-    mainEntity: c.faq.items.map((item) => ({
+    mainEntity: faqItems.map((item) => ({
       "@type": "Question",
       name: item.q,
       acceptedAnswer: { "@type": "Answer", text: item.a },
@@ -202,6 +206,7 @@ export function LandingPage({ locale }: { locale: Locale }) {
             <p className="fine-print">
               {c.hero.fine.map((item, index) => <span key={item}>{index > 0 && <i />} {item}</span>)}
             </p>
+            <a className="release-announcement" href="#neu">{release.announcement} <span aria-hidden="true">↗</span></a>
             <PartnerOffer locale={locale} />
           </div>
           <TryableDemo hint={c.demo.tryHint} cta={c.hero.download} href={downloadHref}>
@@ -351,6 +356,7 @@ export function LandingPage({ locale }: { locale: Locale }) {
             <div><p className="section-kicker">05 / {c.features.kicker}</p><h2>{c.features.title}</h2></div>
             <p>{c.features.lede}</p>
           </div>
+          <ReleaseFeatures locale={locale} />
           <div className="features-grid">
             {c.features.items.map((item) => <article key={item.title}><span className="feature-symbol" aria-hidden="true">{item.symbol}</span><h3>{item.title}</h3><p>{item.body}</p></article>)}
           </div>
@@ -426,7 +432,7 @@ export function LandingPage({ locale }: { locale: Locale }) {
           <div className="shell faq-layout">
             <div className="section-intro faq-intro"><p className="section-kicker">08 / FAQ</p><h2>{c.faq.title}</h2><p>{c.faq.lede}</p></div>
             <div className="faq-list">
-              {c.faq.items.map((item, index) => <details key={item.q} open={index === 0}><summary><span>{item.q}</span><i aria-hidden="true">+</i></summary><p>{item.a}</p></details>)}
+              {faqItems.map((item, index) => <details key={item.q} open={index === 0}><summary><span>{item.q}</span><i aria-hidden="true">+</i></summary><p>{item.a}</p></details>)}
             </div>
           </div>
         </section>
